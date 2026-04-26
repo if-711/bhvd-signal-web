@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /account/
+Disallow: /admin/
+Sitemap: https://bhvdsignal.com/sitemap.xml

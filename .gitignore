@@ -1,6 +1,9 @@
 .DS_Store
-*.zip
 node_modules/
+.next/
 .env
 .env.local
 .vercel
+*.zip
+*.tsbuildinfo
+next-env.d.ts

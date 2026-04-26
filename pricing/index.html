@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sigñal Pricing — Consumer, Brand, Data API</title>
+<meta name="description" content="Sigñal pricing. Free public scores for everyone. Pro tiers for deeper analysis, monitoring, and workflow tools. Payment never influences scores.">
+<meta name="theme-color" content="#0a0c12">
+<meta property="og:title" content="Sigñal Pricing — Free scores for everyone">
+<meta property="og:description" content="Free public scores for everyone. Pro tiers for deeper analysis and brand monitoring. Payment never influences scores.">
+<meta property="og:image" content="https://bhvdsignal.com/og-image.png">
+<meta property="og:url" content="https://bhvdsignal.com/pricing">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bhvdsignal.com/og-image.png">
+<link rel="canonical" href="https://bhvdsignal.com/pricing">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c12;--bg2:#111420;--bg3:#181c2e;--bg4:#1f2438;
+  --b1:rgba(255,255,255,0.07);--b2:rgba(255,255,255,0.13);
+  --t1:#f2f2f2;--t2:#8b93b0;--t3:#4a5070;
+  --red:#9e3028;--grn:#1e9459;--gbg:#071610;--gbdr:#12382a;
+  --yel:#c07718;
+  --acc:#4a78f0;
+  --mono:'DM Mono',monospace;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t1);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:58px;background:rgba(10,12,18,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--b1)}
+.nav-logo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--t1);display:flex;align-items:center;gap:9px;text-decoration:none}
+.nav-byline{font-size:9px;color:var(--t3);letter-spacing:.13em;font-weight:400;text-transform:uppercase;border-left:1px solid var(--b2);padding-left:8px;margin-left:1px}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:13px;color:var(--t2);transition:color .15s}
+.nav-links a:hover{color:var(--t1)}
+.nav-cta{display:flex;gap:10px}
+.btn{font-family:var(--sans);font-size:13px;font-weight:500;padding:8px 18px;border-radius:8px;cursor:pointer;border:1px solid var(--b2);background:transparent;color:var(--t2);transition:all .15s;display:inline-flex;align-items:center;gap:7px;text-decoration:none}
+.btn:hover{color:var(--t1);border-color:var(--t3)}
+.btn-p{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn-p:hover{background:#3d6ae0;border-color:#3d6ae0;color:#fff}
+
+.alpha-bar{position:fixed;top:58px;left:0;right:0;z-index:99;background:rgba(26,143,255,0.05);border-bottom:1px solid rgba(26,143,255,0.10);padding:6px 48px;font-size:11px;color:#5a7aaa;line-height:1.45;letter-spacing:.01em}
+
+/* LAYOUT */
+.page{max-width:1100px;margin:0 auto;padding:120px 32px 80px}
+.sec-tag{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--t3);text-transform:uppercase;margin-bottom:14px}
+.sec-title{font-family:var(--serif);font-size:clamp(32px,4vw,56px);font-weight:400;line-height:1.08;letter-spacing:-.022em;margin-bottom:16px}
+.sec-title em{font-style:italic;color:var(--t2)}
+.sec-sub{font-size:17px;color:var(--t2);max-width:540px;font-weight:300;line-height:1.7;margin-bottom:0}
+.divider{height:1px;background:var(--b1);margin:64px 0}
+
+/* FAIRNESS BANNER */
+.fairness-banner{background:rgba(39,174,96,0.06);border:1px solid rgba(39,174,96,0.18);border-radius:14px;padding:22px 28px;display:flex;align-items:flex-start;gap:16px;margin-bottom:64px}
+.fb-icon{width:36px;height:36px;border-radius:9px;background:rgba(39,174,96,0.1);border:1px solid rgba(39,174,96,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;margin-top:2px}
+.fb-title{font-size:14px;font-weight:500;color:var(--t1);margin-bottom:5px}
+.fb-text{font-size:13px;color:var(--t2);line-height:1.65}
+.fb-rule{font-family:var(--mono);font-size:11px;color:var(--grn);margin-top:8px;letter-spacing:.03em}
+
+/* TIER TABS */
+.tier-tabs{display:flex;gap:2px;margin-bottom:40px;background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:4px;width:fit-content}
+.tier-tab{padding:9px 22px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;color:var(--t3);border:none;background:transparent;font-family:var(--sans);transition:all .2s}
+.tier-tab.on{background:var(--bg4);color:var(--t1)}
+
+/* TIER SECTIONS */
+.tier-section{display:none}
+.tier-section.on{display:block}
+
+/* PLAN CARDS */
+.plans-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:780px}
+.plans-grid-3{grid-template-columns:repeat(3,1fr);max-width:1100px}
+.plan{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:30px 26px;position:relative}
+.plan.feat{border-color:var(--acc);background:var(--bg3)}
+.plan-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--acc);color:#fff;font-size:10px;font-family:var(--mono);letter-spacing:.08em;padding:3px 13px;border-radius:0 0 8px 8px}
+.plan-label{font-family:var(--mono);font-size:10px;letter-spacing:.13em;color:var(--t3);text-transform:uppercase;margin-bottom:10px}
+.plan-price{font-family:var(--serif);font-size:44px;font-weight:400;line-height:1;margin-bottom:3px}
+.plan-price sup{font-size:20px;vertical-align:top;margin-top:8px;font-family:var(--sans)}
+.plan-period{font-size:12px;color:var(--t3);margin-bottom:24px}
+.plan-desc{font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--b1)}
+.plan-features{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:26px}
+.plan-features li{font-size:12px;color:var(--t2);display:flex;align-items:flex-start;gap:9px;line-height:1.5}
+.plan-features li::before{content:'';width:14px;height:14px;border-radius:50%;flex-shrink:0;margin-top:2px;background:var(--gbg);border:1px solid var(--grn)}
+.plan-features li.dim::before{background:var(--bg4);border-color:var(--b2)}
+.plan-features li.dim{color:var(--t3)}
+.plan-btn{width:100%;text-align:center;padding:11px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;border:1px solid var(--b2);background:transparent;color:var(--t2);font-family:var(--sans)}
+.plan-btn:hover{color:var(--t1);border-color:var(--t3)}
+.plan-btn-p{background:var(--acc);border-color:var(--acc);color:#fff}
+.plan-btn-p:hover{background:#3d6ae0}
+.plan-btn:disabled{opacity:.55;cursor:default}
+.plan-note{margin-top:14px;padding:10px 12px;background:rgba(39,174,96,.04);border:1px solid rgba(39,174,96,.12);border-radius:7px;font-size:11px;color:var(--t3);line-height:1.55}
+.plan-success{display:none;margin-top:12px;padding:10px 12px;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);border-radius:8px;font-size:12px;color:var(--grn);text-align:center}
+
+/* NEVER MONETIZED */
+.never-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:32px}
+.never-item{display:flex;gap:12px;align-items:flex-start;background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:14px 16px}
+.never-x{width:20px;height:20px;border-radius:5px;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--red);font-family:var(--mono);margin-top:1px}
+.never-item h4{font-size:13px;font-weight:500;margin-bottom:3px}
+.never-item p{font-size:12px;color:var(--t3);line-height:1.55}
+
+/* DB FIELDS / ARCHITECTURE REFERENCE */
+.arch-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.arch-card{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:22px 24px}
+.arch-card h4{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--acc);text-transform:uppercase;margin-bottom:14px}
+.arch-card pre{font-family:var(--mono);font-size:11px;color:var(--t2);line-height:1.8;overflow-x:auto;white-space:pre}
+
+/* CAPTURE MODAL */
+.capture-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);align-items:center;justify-content:center}
+.capture-overlay.open{display:flex}
+.capture-modal{background:var(--bg2);border:1px solid var(--b2);border-radius:18px;padding:40px 44px;width:100%;max-width:420px;position:relative}
+.capture-modal h3{font-family:var(--serif);font-size:26px;font-weight:400;margin-bottom:8px;letter-spacing:-.01em}
+.capture-modal p{font-size:13px;color:var(--t2);margin-bottom:28px;line-height:1.6}
+.cap-close{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--t3);cursor:pointer;font-size:22px;line-height:1;padding:4px;display:flex;align-items:center}
+.cap-close:hover{color:var(--t1)}
+.cap-input{width:100%;padding:12px 16px;background:var(--bg4);border:1px solid var(--b2);border-radius:9px;color:var(--t1);font-size:14px;font-family:var(--sans);outline:none;transition:border-color .2s;margin-bottom:10px}
+.cap-input:focus{border-color:rgba(79,124,255,.55)}
+.cap-input::placeholder{color:var(--t3)}
+.cap-submit{width:100%;padding:13px;background:var(--acc);border:none;border-radius:9px;color:#fff;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:background .15s;margin-bottom:10px}
+.cap-submit:hover{background:#3d6ae0}
+.cap-submit:disabled{opacity:.55;cursor:default}
+.cap-ok{display:none;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);border-radius:10px;padding:16px;font-size:14px;color:var(--grn);text-align:center;margin-bottom:10px}
+.cap-disclaimer{font-size:10px;color:var(--t3);text-align:center;line-height:1.55;font-family:var(--mono)}
+
+/* FOOTER */
+footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:36px}
+.footer-disc{font-size:11px;color:var(--t3);max-width:340px;line-height:1.65;margin-top:10px}
+.footer-links{display:flex;gap:52px}
+.footer-col h5{font-family:var(--mono);font-size:10px;letter-spacing:.11em;color:var(--t3);text-transform:uppercase;margin-bottom:14px}
+.footer-col a{display:block;font-size:13px;color:var(--t2);margin-bottom:9px;transition:color .15s}
+.footer-col a:hover{color:var(--t1)}
+.footer-copy{text-align:center;padding:18px 32px;font-size:10px;color:var(--t3);font-family:var(--mono);letter-spacing:.05em;border-top:1px solid var(--b1)}
+
+@media(max-width:768px){
+  nav{padding:0 20px}.nav-links{display:none}
+  .alpha-bar{padding:6px 20px}
+  .plans-grid,.plans-grid-3,.never-grid,.arch-grid{grid-template-columns:1fr}
+  .capture-modal{padding:28px 24px;margin:20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="24" height="11" viewBox="0 0 24 11" fill="none" aria-hidden="true"><path d="M1 8C3.2 3.5 5.8 3.5 7.8 8C9.8 12.5 12.4 12.5 14.4 8C16.4 3.5 19 3.5 23 5.5" stroke="#4a78f0" stroke-width="1.7" stroke-linecap="round"/></svg>
+    Sigñal<span class="nav-byline">by BHVD</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/leaderboard">Leaderboard</a></li>
+    <li><a href="/compare">Compare</a></li>
+    <li><a href="/extension">Extension</a></li>
+    <li><a href="/methodology">Methodology</a></li>
+    <li><a href="/pricing" style="color:var(--t1)">Pricing</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="/brand-portal" class="btn">For brands</a>
+    <a href="/extension" class="btn btn-p">
+      <svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
+      Add Sigñal to Browser
+    </a>
+  </div>
+</nav>
+
+<div class="alpha-bar">Sigñal is in early beta. Scores reflect reviewed public marketing claims and visible evidence references — not product efficacy, safety, or regulatory status.</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="sec-tag">Pricing</div>
+  <div class="sec-title">Transparent pricing for<br>a transparency product.</div>
+  <p class="sec-sub" style="margin-bottom:40px">Public scores are free. Always. Paid tiers unlock deeper analysis, monitoring, and workflow tools — not better scores or favorable treatment.</p>
+
+  <!-- FAIRNESS BANNER -->
+  <div class="fairness-banner">
+    <div class="fb-icon">◎</div>
+    <div>
+      <div class="fb-title">The independence guarantee</div>
+      <div class="fb-text">Sigñal scores are determined by editorial review of public marketing claims and visible evidence — not by who pays us. No brand can purchase a higher score, faster review, or suppression of criticism. This is a structural rule, not a promise.</div>
+      <div class="fb-rule">Paid access never influences public Sigñal scores, rankings, or review outcomes.</div>
+    </div>
+  </div>
+
+  <!-- TIER TABS -->
+  <div class="tier-tabs">
+    <button class="tier-tab on" onclick="showTier('consumer')">Consumer</button>
+    <button class="tier-tab" onclick="showTier('brand')">Brand</button>
+    <button class="tier-tab" onclick="showTier('data')">Data API</button>
+  </div>
+
+  <!-- ── CONSUMER ───────────────────────────────────────────── -->
+  <div class="tier-section on" id="tier-consumer">
+    <div class="plans-grid">
+
+      <div class="plan">
+        <div class="plan-label">Consumer — Free</div>
+        <div class="plan-price">Free</div>
+        <div class="plan-period">Always free. No card required.</div>
+        <div class="plan-desc">Everything you need to evaluate a brand before you buy. No account required to start.</div>
+        <ul class="plan-features">
+          <li>View any brand's public claim record</li>
+          <li>Full public claim record — verdict, evidence summary, claim receipts</li>
+          <li>Leaderboard access</li>
+          <li>Side-by-side brand comparison (up to 3)</li>
+          <li>Chrome extension (25 scans/month)</li>
+          <li>Submit evidence for review</li>
+          <li>Request score correction</li>
+          <li class="dim">Saved watchlists</li>
+          <li class="dim">Score change alerts</li>
+          <li class="dim">Claim change notifications</li>
+          <li class="dim">Full scan history</li>
+          <li class="dim">Category watchlists</li>
+        </ul>
+        <a href="/leaderboard" class="plan-btn">Browse the leaderboard →</a>
+        <div class="plan-note">Public scores are free permanently — this is not a trial.</div>
+      </div>
+
+      <div class="plan feat">
+        <div class="plan-badge">COMING SOON</div>
+        <div class="plan-label">Consumer Pro</div>
+        <div class="plan-price"><sup>$</sup>6</div>
+        <div class="plan-period">per month · or $49/year</div>
+        <div class="plan-desc">See how brands change over time — not just how they appear today.</div>
+        <p style="font-size:12px;color:var(--t3);margin-bottom:16px;line-height:1.6;font-family:var(--mono);letter-spacing:.01em">Consumer Pro turns Sigñal into a monitoring layer — not just a lookup tool.</p>
+        <ul class="plan-features">
+          <li>Score change alerts — get notified when a brand's score moves</li>
+          <li>Claim change notifications — know when marketing language shifts</li>
+          <li>Unlimited extension scans</li>
+          <li>Full scan history export</li>
+          <li>Save brand watchlists (unlimited)</li>
+          <li>Category watchlists (up to 10)</li>
+          <li>Full evidence traceability with source links</li>
+          <li>Score trajectory charts — 30/90/180 day history</li>
+          <li>Early access to new features</li>
+        </ul>
+        <button class="plan-btn plan-btn-p" onclick="openCapture('consumer_pro_waitlist','Consumer Pro','Get early access to Consumer Pro.')">Get early access</button>
+        <div id="consumer-pro-ok" class="plan-success">You're on the list. We'll email when this launches.</div>
+        <p style="font-size:11px;color:var(--t3);margin-top:14px;line-height:1.6;font-family:var(--mono)">Consumer Pro does not change scores — it gives you deeper visibility.</p>
+        <p style="font-size:11px;color:var(--t3);margin-top:8px;line-height:1.6">Most users never see when a brand quietly changes its claims. You will.</p>
+      </div>
+
+    </div>
+
+    <div style="margin-top:48px">
+      <div class="sec-tag">What stays free — forever</div>
+      <div class="never-grid">
+        <div class="never-item">
+          <div style="width:20px;height:20px;border-radius:5px;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--grn);font-family:var(--mono);margin-top:1px">✓</div>
+          <div><h4>All public claim records</h4><p>Every brand's public claim record is visible to anyone, no account required. The record is public because transparency only works if it's accessible.</p></div>
+        </div>
+        <div class="never-item">
+          <div style="width:20px;height:20px;border-radius:5px;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--grn);font-family:var(--mono);margin-top:1px">✓</div>
+          <div><h4>Full public records</h4><p>Verdict, alignment rating, all six dimension ratings, claim receipts, evidence assessment, and limitations — all free.</p></div>
+        </div>
+        <div class="never-item">
+          <div style="width:20px;height:20px;border-radius:5px;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--grn);font-family:var(--mono);margin-top:1px">✓</div>
+          <div><h4>Leaderboard + comparison</h4><p>All category rankings and the comparison tool are free. The full picture is available to every user.</p></div>
+        </div>
+        <div class="never-item">
+          <div style="width:20px;height:20px;border-radius:5px;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--grn);font-family:var(--mono);margin-top:1px">✓</div>
+          <div><h4>Evidence submission</h4><p>Any consumer can submit evidence for editorial review at no cost. Corrections are reviewed on the same basis as all other evidence.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BRAND ──────────────────────────────────────────────── -->
+  <div class="tier-section" id="tier-brand">
+    <div class="plans-grid">
+
+      <div class="plan">
+        <div class="plan-label">Brand — Free</div>
+        <div class="plan-price">Free</div>
+        <div class="plan-period">No card required.</div>
+        <div class="plan-desc">Claim your brand profile and engage with your score the same way any consumer can.</div>
+        <ul class="plan-features">
+          <li>View your public claim record</li>
+          <li>Claim your brand profile</li>
+          <li>Submit evidence for editorial review</li>
+          <li>Request score correction</li>
+          <li>View your claim receipts</li>
+          <li>See your evidence gap map</li>
+          <li class="dim">Private claim audit</li>
+          <li class="dim">Pre-launch copy review</li>
+          <li class="dim">Evidence gap analysis</li>
+          <li class="dim">Monitoring dashboard</li>
+          <li class="dim">Competitor benchmarks</li>
+          <li class="dim">Evidence organization</li>
+          <li class="dim">Score movement alerts</li>
+        </ul>
+        <a href="/brand-portal" class="plan-btn">Claim your profile →</a>
+      </div>
+
+      <div class="plan feat">
+        <div class="plan-badge">COMING SOON</div>
+        <div class="plan-label">Brand Tools</div>
+        <div class="plan-price"><sup>$</sup>199</div>
+        <div class="plan-period">per month</div>
+        <div class="plan-desc">Independent workflow tools for brands to understand their public Sigñal score. These tools do not influence scoring outcomes.</div>
+        <p style="font-size:11px;color:var(--t3);margin-bottom:16px;line-height:1.6;font-family:var(--mono);letter-spacing:.01em">Sigñal scores cannot be changed, influenced, or prioritized through paid access.</p>
+        <ul class="plan-features">
+          <li>Everything in Brand Free</li>
+          <li>Private claim audit — review your claims against our scoring rubric before publishing</li>
+          <li>Pre-launch copy review — advisory, not editorial approval</li>
+          <li>Evidence gap analysis — see which dimensions have evidence gaps and what evidence types are accepted</li>
+          <li>Monitoring dashboard — track score and claim changes over time</li>
+          <li>Competitor benchmarks — see how you compare within your category</li>
+          <li>Evidence library — organize and upload supporting materials</li>
+          <li>Score movement alerts — daily digest of changes</li>
+          <li>API access to your own brand data</li>
+        </ul>
+        <button class="plan-btn plan-btn-p" onclick="openCapture('brand_tools_waitlist','Brand Tools','Apply for access to Brand Tools.')">Apply for access</button>
+        <div id="brand-pro-ok" class="plan-success">Request received. We'll reach out to onboard you.</div>
+        <p style="font-size:12px;color:var(--t3);margin-top:18px;line-height:1.7;padding-top:16px;border-top:1px solid var(--b1)">Brand Tools are workflow tools only. They do not guarantee score changes, favorable review outcomes, or queue priority. Scores are determined by editorial review of public evidence.</p>
+      </div>
+
+    </div>
+
+    <div style="margin-top:48px">
+      <div class="sec-tag">What brand payment can never buy</div>
+      <div class="never-grid">
+        <div class="never-item">
+          <div class="never-x">✕</div>
+          <div><h4>A higher score</h4><p>Scores reflect public marketing claims and visible evidence. No amount paid changes the score.</p></div>
+        </div>
+        <div class="never-item">
+          <div class="never-x">✕</div>
+          <div><h4>Score suppression</h4><p>A brand cannot pay to hide, remove, or obscure their score from the public index.</p></div>
+        </div>
+        <div class="never-item">
+          <div class="never-x">✕</div>
+          <div><h4>Favorable queue priority</h4><p>Evidence is reviewed on merit. Brand Pro does not jump review queues over free-tier submissions.</p></div>
+        </div>
+        <div class="never-item">
+          <div class="never-x">✕</div>
+          <div><h4>Ranking improvement</h4><p>Leaderboard position reflects scores only. Payment has no effect on rank.</p></div>
+        </div>
+        <div class="never-item">
+          <div class="never-x">✕</div>
+          <div><h4>Editorial influence</h4><p>Reviewers have no visibility into which brands are paid customers when scoring.</p></div>
+        </div>
+        <div class="never-item">
+          <div class="never-x">✕</div>
+          <div><h4>Criticism suppression</h4><p>Negative scores, gap findings, and claim concerns are published regardless of commercial relationship.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DATA API ───────────────────────────────────────────── -->
+  <div class="tier-section" id="tier-data">
+    <div style="margin-bottom:36px">
+      <p style="font-size:17px;color:var(--t1);font-weight:400;line-height:1.5;margin-bottom:8px">Sigñal Data API is currently in early access.<br>We're onboarding a limited number of partners.</p>
+      <p style="font-size:14px;color:var(--t3);line-height:1.7;max-width:600px;font-weight:300">Designed for investors, retailers, due diligence teams, researchers, and journalists monitoring brand claims at scale.</p>
+    </div>
+
+    <div class="plans-grid plans-grid-3">
+
+      <div class="plan">
+        <div class="plan-label">Early Access</div>
+        <div class="plan-price" style="font-size:28px;margin-top:4px">Starting at</div>
+        <div class="plan-period" style="font-size:14px;color:var(--t2);margin-bottom:24px">$499 / month</div>
+        <div class="plan-desc">Structured brand trust data for analysts and product teams querying at moderate volume.</div>
+        <ul class="plan-features">
+          <li>Trust score endpoint (<code style="font-family:var(--mono);font-size:10px">/api/domain/:domain</code>)</li>
+          <li>Score history — full time series</li>
+          <li>Claim pattern index — what brands are claiming</li>
+          <li>Evidence gap trends by category</li>
+          <li>Bulk domain queries (up to 50/request)</li>
+          <li>Webhook alerts on score changes</li>
+          <li>JSON + CSV export</li>
+          <li class="dim">Category benchmark feeds</li>
+          <li class="dim">Raw claim text access</li>
+          <li class="dim">Custom filtering</li>
+        </ul>
+        <button class="plan-btn plan-btn-p" onclick="openDataCapture('early_access','Early Access')">Request data access</button>
+        <div id="data-starter-ok" class="plan-success">Request received. We'll reach out with access details.</div>
+      </div>
+
+      <div class="plan feat">
+        <div class="plan-badge">EARLY ACCESS</div>
+        <div class="plan-label">Pro Access</div>
+        <div class="plan-price" style="font-size:28px;margin-top:4px">Contact us</div>
+        <div class="plan-period" style="margin-bottom:24px">for volume pricing</div>
+        <div class="plan-desc">For retailers, due diligence teams, and multi-brand portfolio monitoring at scale.</div>
+        <ul class="plan-features">
+          <li>Everything in Early Access</li>
+          <li>Category benchmark feeds — rank and score distributions</li>
+          <li>Raw claim text access</li>
+          <li>Custom domain filtering</li>
+          <li>Priority support</li>
+          <li>Dedicated Slack channel</li>
+          <li>Monthly data briefing</li>
+        </ul>
+        <button class="plan-btn plan-btn-p" onclick="openDataCapture('pro_access','Pro Access')">Request data access</button>
+        <div id="data-growth-ok" class="plan-success">Request received. We'll reach out with access details.</div>
+      </div>
+
+      <div class="plan">
+        <div class="plan-label">Enterprise</div>
+        <div class="plan-price" style="font-size:28px;margin-top:4px">Custom</div>
+        <div class="plan-period" style="margin-bottom:24px">volume pricing · SLA available</div>
+        <div class="plan-desc">For institutional partners with custom data needs, white-label use, or regulatory workflows.</div>
+        <ul class="plan-features">
+          <li>Unlimited API calls</li>
+          <li>Custom data schema</li>
+          <li>White-label licensing</li>
+          <li>SLA and uptime guarantee</li>
+          <li>Structured delivery with data provenance documentation</li>
+          <li>Historical archive access</li>
+          <li>Dedicated data team contact</li>
+          <li>Custom reporting cadence</li>
+        </ul>
+        <button class="plan-btn plan-btn-p" onclick="openDataCapture('enterprise','Enterprise')">Request data access</button>
+        <div id="data-ent-ok" class="plan-success">Request received. We'll reach out with access details.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- COMPLIANCE DISCLAIMER -->
+  <div style="background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:28px 32px;margin-bottom:64px">
+    <div class="sec-tag" style="margin-bottom:10px">Compliance statement</div>
+    <p style="font-size:16px;font-weight:500;color:var(--t1);margin-bottom:12px;line-height:1.5">"Paid access never influences public Sigñal scores, rankings, or review outcomes."</p>
+    <p style="font-size:13px;color:var(--t2);line-height:1.75;max-width:680px">Sigñal scores are the output of editorial review of publicly available brand marketing claims and visible evidence. Reviewers do not have access to commercial account information when scoring. Brand Pro subscribers receive workflow tools and analytical access to their own data — not editorial access, queue priority, or score modification capabilities. This separation is enforced structurally, not by policy alone.</p>
+  </div>
+
+  <!-- FUTURE ARCHITECTURE NOTE (internal reference) -->
+  <div style="margin-bottom:64px">
+    <div class="sec-tag">Architecture — future database fields</div>
+    <p style="font-size:13px;color:var(--t3);margin-bottom:24px;line-height:1.6">Reference for implementation. Not user-facing.</p>
+    <div class="arch-grid">
+      <div class="arch-card">
+        <h4>users (additions)</h4>
+        <pre>tier                TEXT DEFAULT 'free'
+                    -- 'free' | 'pro_consumer'
+stripe_customer_id  TEXT UNIQUE
+subscription_status TEXT
+                    -- 'active'|'canceled'|'past_due'
+subscription_ends_at TIMESTAMPTZ</pre>
+      </div>
+      <div class="arch-card">
+        <h4>brand_accounts (new table)</h4>
+        <pre>id               UUID PRIMARY KEY
+domain           TEXT UNIQUE NOT NULL
+email            TEXT NOT NULL
+tier             TEXT DEFAULT 'free'
+                 -- 'free' | 'brand_pro'
+stripe_customer_id TEXT
+claimed_at       TIMESTAMPTZ
+verified_at      TIMESTAMPTZ</pre>
+      </div>
+      <div class="arch-card">
+        <h4>watchlists (new — pro_consumer)</h4>
+        <pre>id                  UUID PRIMARY KEY
+user_id             UUID REFERENCES users
+domain              TEXT NOT NULL
+alert_score_change  BOOLEAN DEFAULT true
+alert_claim_change  BOOLEAN DEFAULT true
+created_at          TIMESTAMPTZ</pre>
+      </div>
+      <div class="arch-card">
+        <h4>api_keys (new — data tier)</h4>
+        <pre>id                UUID PRIMARY KEY
+key               TEXT UNIQUE NOT NULL
+customer_name     TEXT
+tier              TEXT
+                  -- 'starter'|'growth'|'enterprise'
+rate_limit_per_hr INTEGER DEFAULT 100
+active            BOOLEAN DEFAULT true
+created_at        TIMESTAMPTZ</pre>
+      </div>
+      <div class="arch-card">
+        <h4>brand_audits (new — brand_pro)</h4>
+        <pre>id               UUID PRIMARY KEY
+brand_account_id UUID REFERENCES brand_accounts
+submitted_claims JSONB
+status           TEXT DEFAULT 'pending'
+reviewer_notes   TEXT
+submitted_at     TIMESTAMPTZ
+reviewed_at      TIMESTAMPTZ
+-- Never auto-updates public score.
+-- Advisory output only.</pre>
+      </div>
+      <div class="arch-card">
+        <h4>Stripe products (future)</h4>
+        <pre>Signal Pro Consumer
+  price_consumer_pro_monthly  $6/mo
+  price_consumer_pro_annual   $49/yr
+
+Signal Brand Pro
+  price_brand_pro_monthly     $199/mo
+  price_brand_pro_annual      $1,800/yr
+
+Signal Data API
+  price_data_starter          $499/mo
+  price_data_growth           $999/mo
+  price_data_enterprise       custom</pre>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<!-- CAPTURE MODAL -->
+<div class="capture-overlay" id="captureOverlay" onclick="closeCapture(event)">
+  <div class="capture-modal">
+    <button class="cap-close" onclick="closeCaptureModal()">×</button>
+    <h3 id="capTitle">Join waitlist</h3>
+    <p id="capDesc">We'll reach out when this tier launches.</p>
+    <div class="cap-ok" id="capOk">You're on the list. We'll reach out soon.</div>
+    <input class="cap-input" type="email" id="capEmail" placeholder="your@email.com" autocomplete="email">
+    <button class="cap-submit" id="capSubmit" onclick="submitCapture()">Send request</button>
+    <div class="cap-disclaimer">No spam. Access notifications and major product updates only.<br>Paid access never influences Sigñal scores or rankings.</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <a href="/" class="nav-logo">
+      <svg width="24" height="11" viewBox="0 0 24 11" fill="none" aria-hidden="true"><path d="M1 8C3.2 3.5 5.8 3.5 7.8 8C9.8 12.5 12.4 12.5 14.4 8C16.4 3.5 19 3.5 23 5.5" stroke="#4a78f0" stroke-width="1.7" stroke-linecap="round"/></svg>
+      Sigñal<span class="nav-byline">by BHVD</span>
+    </a>
+    <p class="footer-disc">Paid access never influences public Sigñal alignment ratings, rankings, or review outcomes. Ratings are editorial-only. Sigñal reflects public marketing claims and visible evidence references — it does not evaluate product efficacy, safety, or regulatory status.</p>
+  </div>
+  <div class="footer-links">
+    <div class="footer-col">
+      <h5>Product</h5>
+      <a href="/extension">Browser Extension</a>
+      <a href="/leaderboard">Leaderboard</a>
+      <a href="/compare">Compare brands</a>
+      <a href="/methodology">Methodology</a>
+    </div>
+    <div class="footer-col">
+      <h5>Industry</h5>
+      <a href="/brand-portal">For brands</a>
+      <a href="mailto:signal@bhvd.com">For retailers</a>
+      <a href="mailto:signal@bhvd.com">For investors</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="/pricing" style="color:var(--t1)">Pricing</a>
+      <a href="/methodology">Methodology</a>
+      <a href="mailto:signal@bhvd.com">Contact</a>
+    </div>
+  </div>
+</footer>
+<div class="footer-copy">&#169; 2025 Sigñal &nbsp;&#183;&nbsp; No brand payments &nbsp;&#183;&nbsp; Open methodology &nbsp;&#183;&nbsp; Consumer-first</div>
+
+<script>
+var API = "https://bhvd-signal-api.fly.dev";
+var _capType = "";
+var _dataApiPlan = "";
+
+function showTier(t) {
+  document.querySelectorAll(".tier-section").forEach(function(s){ s.classList.remove("on"); });
+  document.querySelectorAll(".tier-tab").forEach(function(b){ b.classList.remove("on"); });
+  document.getElementById("tier-" + t).classList.add("on");
+  event.currentTarget.classList.add("on");
+}
+
+function openCapture(type, title, desc) {
+  _capType = type;
+  document.getElementById("capTitle").textContent = title;
+  document.getElementById("capDesc").textContent = desc;
+  document.getElementById("capOk").style.display = "none";
+  document.getElementById("capEmail").style.display = "";
+  document.getElementById("capSubmit").style.display = "";
+  document.getElementById("capEmail").value = "";
+  document.getElementById("captureOverlay").classList.add("open");
+  setTimeout(function(){ document.getElementById("capEmail").focus(); }, 80);
+
+  fetch(API + "/api/event", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ event: type.includes("brand") ? "brand_claim_profile_click" : "extension_install_click" })
+  }).catch(function(){});
+}
+
+function openDataCapture(plan, label) {
+  _capType = "data_api_request";
+  _dataApiPlan = plan;
+  document.getElementById("capTitle").textContent = "Data API — " + label;
+  document.getElementById("capDesc").textContent = "Request access to the Sigñal Data API. We'll follow up within 2 business days.";
+  document.getElementById("capOk").style.display = "none";
+  document.getElementById("capEmail").style.display = "";
+  document.getElementById("capSubmit").style.display = "";
+  document.getElementById("capEmail").value = "";
+  document.getElementById("captureOverlay").classList.add("open");
+  setTimeout(function(){ document.getElementById("capEmail").focus(); }, 80);
+
+  fetch(API + "/api/event", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ event: "data_api_request_click", meta: { plan: plan } })
+  }).catch(function(){});
+}
+
+function closeCapture(e) {
+  if (e.target === document.getElementById("captureOverlay")) closeCaptureModal();
+}
+function closeCaptureModal() {
+  document.getElementById("captureOverlay").classList.remove("open");
+}
+
+function submitCapture() {
+  var email = document.getElementById("capEmail").value.trim();
+  if (!email || !email.includes("@")) { document.getElementById("capEmail").focus(); return; }
+  var btn = document.getElementById("capSubmit");
+  btn.disabled = true; btn.textContent = "Sending…";
+
+  var isDataReq = _capType === "data_api_request";
+  var payload = isDataReq
+    ? { email: email, type: "data_api_request", meta: { plan: _dataApiPlan } }
+    : { email: email, type: _capType };
+
+  fetch(API + "/api/capture", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  })
+  .then(function() {
+    fetch(API + "/api/event", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event: isDataReq ? "data_api_request_click" : "consumer_email_signup", meta: { type: _capType } })
+    }).catch(function(){});
+    document.getElementById("capEmail").style.display = "none";
+    document.getElementById("capSubmit").style.display = "none";
+    document.getElementById("capOk").textContent = isDataReq ? "Request received. We'll reach out with access details." : "You're on the list. We'll reach out soon.";
+    document.getElementById("capOk").style.display = "";
+  })
+  .catch(function() { btn.disabled = false; btn.textContent = "Send request"; });
+}
+
+document.getElementById("capEmail").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") submitCapture();
+});
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") closeCaptureModal();
+});
+</script>
+
+</body>
+</html>

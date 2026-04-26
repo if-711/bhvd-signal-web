@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Market Signals — Sigñal Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c12;--bg2:#111420;--bg3:#181d2e;
+  --b1:rgba(255,255,255,.07);--b2:rgba(255,255,255,.13);
+  --t1:#f0f2ff;--t2:#9ba3c0;--t3:#565d78;
+  --acc:#4a78f0;--green:#1e9459;--yellow:#c07718;--red:#9e3028;
+  --mono:'DM Mono',monospace;--sans:'DM Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--t1);font-family:var(--sans);font-size:14px;min-height:100vh}
+a{color:var(--acc);text-decoration:none}
+
+/* Gate */
+#gate{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+#gate-box{background:var(--bg2);border:1px solid var(--b2);border-radius:14px;padding:40px;width:100%;max-width:360px;text-align:center}
+#gate-title{font-size:18px;margin-bottom:8px}
+#gate-sub{font-size:12px;color:var(--t3);margin-bottom:20px}
+#gate-input{width:100%;padding:12px;background:var(--bg3);border:1px solid var(--b1);border-radius:8px;color:var(--t1);font-size:13px;font-family:var(--mono);letter-spacing:.08em;outline:none;margin-bottom:10px;text-align:center}
+#gate-btn{width:100%;padding:12px;background:var(--acc);border:none;border-radius:8px;color:#fff;font-size:14px;cursor:pointer}
+#gate-err{font-size:11px;color:#e74c3c;min-height:16px}
+
+/* Layout */
+nav{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;border-bottom:1px solid var(--b1);position:sticky;top:0;background:var(--bg);z-index:10}
+.nav-logo{font-family:var(--mono);font-size:13px;color:var(--t1)}
+.nav-badge{background:var(--bg3);border:1px solid var(--b1);border-radius:6px;padding:4px 10px;font-size:10px;font-family:var(--mono);color:var(--t3);letter-spacing:.08em}
+.nav-back{font-size:12px;color:var(--t3)}
+
+.wrap{max-width:1100px;margin:0 auto;padding:32px 24px}
+.page-title{font-size:22px;font-weight:400;margin-bottom:6px}
+.page-sub{font-size:13px;color:var(--t3);margin-bottom:36px}
+.refresh-btn{background:transparent;border:1px solid var(--b2);border-radius:7px;color:var(--t2);font-size:12px;padding:6px 14px;cursor:pointer;font-family:var(--sans);margin-left:12px}
+.refresh-btn:hover{color:var(--t1);border-color:var(--b2)}
+
+/* Stat grid */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px}
+@media(max-width:800px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-card{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:18px 16px}
+.stat-val{font-family:var(--mono);font-size:24px;font-weight:600;color:var(--t1);margin-bottom:4px}
+.stat-lbl{font-size:11px;color:var(--t3)}
+
+/* Section */
+.section{margin-bottom:40px}
+.section-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--b1)}
+.section-title{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--t3)}
+.section-count{font-size:11px;color:var(--t3);background:var(--bg3);padding:2px 8px;border-radius:100px}
+
+/* Table */
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--t3);text-transform:uppercase;text-align:left;padding:8px 10px;border-bottom:1px solid var(--b1)}
+.tbl td{padding:10px 10px;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;color:var(--t2)}
+.tbl tr:hover td{background:var(--bg3)}
+.tbl td:first-child{color:var(--t1)}
+.tbl a{color:var(--acc)}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:middle}
+
+/* Event pills */
+.evt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.evt-pill{background:var(--bg2);border:1px solid var(--b1);border-radius:8px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+.evt-name{font-size:12px;color:var(--t2)}
+.evt-count{font-family:var(--mono);font-size:16px;color:var(--t1)}
+
+/* Status badges */
+.badge{display:inline-block;font-size:10px;font-family:var(--mono);padding:2px 8px;border-radius:100px;letter-spacing:.06em}
+.badge-review{background:#1a2a4a;color:#8ab0ff;border:1px solid #4a78f020}
+.badge-appeal{background:#2a1a0a;color:#f0a050;border:1px solid #f0a05020}
+.badge-demand{background:#1a1a2a;color:var(--t3);border:1px solid var(--b1)}
+
+.empty{color:var(--t3);font-size:13px;padding:20px 0}
+.ts{font-size:10px;color:var(--t3);margin-top:8px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+
+<!-- Gate -->
+<div id="gate">
+  <div id="gate-box">
+    <div id="gate-title">Admin access</div>
+    <div id="gate-sub">Enter your admin key to view Market Signals</div>
+    <input id="gate-input" type="password" placeholder="Admin key" autocomplete="off">
+    <button id="gate-btn" onclick="tryAuth()">Continue →</button>
+    <div id="gate-err"></div>
+  </div>
+</div>
+
+<!-- Dashboard (hidden until authed) -->
+<div id="dashboard" style="display:none">
+  <nav>
+    <div class="nav-logo">
+      ◉ Sigñal
+      <span class="nav-badge">ADMIN</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <a href="/" class="nav-back">← Site</a>
+      <button class="refresh-btn" onclick="loadData()">↺ Refresh</button>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="page-title">Market Signals</div>
+    <div class="page-sub">Internal activity dashboard — not visible to the public</div>
+
+    <!-- Top stats -->
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-val" id="s-verified">—</div><div class="stat-lbl">Verified brands</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-claims">—</div><div class="stat-lbl">Claims analyzed</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-receipts">—</div><div class="stat-lbl">Receipts archived</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-reports">—</div><div class="stat-lbl">Report views</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-lookups">—</div><div class="stat-lbl">Extension lookups</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-review">—</div><div class="stat-lbl">Brands under review</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-appeals">—</div><div class="stat-lbl">Appeals submitted</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-evidence">—</div><div class="stat-lbl">Evidence submissions</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-notify">—</div><div class="stat-lbl">Notify-me signups</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-track">—</div><div class="stat-lbl">Track-brand signups</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-requested">—</div><div class="stat-lbl">Brands requested this week</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-consumer">—</div><div class="stat-lbl">Consumer captures total</div></div>
+    </div>
+
+    <!-- Conversion events -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-title">Conversion events</span>
+      </div>
+      <div class="evt-grid" id="evtGrid"><div class="empty">Loading…</div></div>
+    </div>
+
+    <!-- Top extension lookups by domain -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-title">Top extension lookups by brand</span>
+        <span class="section-count" id="lookupCount">—</span>
+      </div>
+      <table class="tbl">
+        <thead><tr><th>Brand</th><th>Domain</th><th>Lookups</th></tr></thead>
+        <tbody id="lookupRows"></tbody>
+      </table>
+    </div>
+
+    <!-- Most requested unscored -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-title">Most requested — not yet scored</span>
+        <span class="section-count" id="reqCount">—</span>
+      </div>
+      <table class="tbl">
+        <thead><tr><th>Brand / Domain</th><th>Category</th><th>Requests</th></tr></thead>
+        <tbody id="reqRows"></tbody>
+      </table>
+    </div>
+
+    <!-- Score movers -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-title">Score movement this week</span>
+      </div>
+      <table class="tbl">
+        <thead><tr><th>Brand</th><th>Signal</th><th>Score change</th><th>Current score</th></tr></thead>
+        <tbody id="moverRows"></tbody>
+      </table>
+    </div>
+
+    <!-- Review queue -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-title">Review queue</span>
+        <span class="section-count" id="queueCount">—</span>
+      </div>
+      <table class="tbl">
+        <thead><tr><th>Domain</th><th>Brand</th><th>Status</th></tr></thead>
+        <tbody id="queueRows"></tbody>
+      </table>
+    </div>
+
+    <div class="ts" id="generatedAt"></div>
+  </div>
+</div>
+
+<script>
+var API   = 'https://bhvd-signal-api.fly.dev';
+var aKey  = '';
+var SIG   = { green:'#1e9459', yellow:'#c07718', red:'#9e3028' };
+var STATUS_BADGE = {
+  appeal_pending: 'badge-appeal',
+  needs_review:   'badge-review',
+  under_review:   'badge-review',
+  pending_demand: 'badge-demand',
+};
+
+function tryAuth() {
+  var k = document.getElementById('gate-input').value.trim();
+  if (!k) { document.getElementById('gate-err').textContent = 'Enter a key.'; return; }
+  aKey = k;
+  loadData();
+}
+
+document.getElementById('gate-input').addEventListener('keydown', function(e){
+  if (e.key === 'Enter') tryAuth();
+});
+
+function fmt(n) {
+  if (n == null) return '—';
+  if (n >= 1000000) return (n/1000000).toFixed(1) + 'M';
+  if (n >= 1000) return (n/1000).toFixed(1) + 'K';
+  return String(n);
+}
+
+function san(s, max) {
+  if (!s) return '';
+  return String(s).replace(/<[^>]*>/g,'').trim().slice(0, max||100);
+}
+
+function loadData() {
+  fetch(API + '/api/market-signals', {
+    headers: { 'x-admin-key': aKey }
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(res){
+    if (!res.success) {
+      document.getElementById('gate-err').textContent = 'Invalid key or API error.';
+      return;
+    }
+
+    // Show dashboard
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('dashboard').style.display = '';
+
+    var d = res.data;
+
+    // Stats
+    document.getElementById('s-verified').textContent  = fmt(d.verified_brands);
+    document.getElementById('s-claims').textContent    = fmt(d.claims_analyzed_total);
+    document.getElementById('s-receipts').textContent  = fmt(d.receipts_archived_total);
+    document.getElementById('s-reports').textContent   = fmt(d.report_views);
+    document.getElementById('s-lookups').textContent   = fmt(d.extension_lookups);
+    document.getElementById('s-review').textContent    = fmt(d.brands_under_review);
+    document.getElementById('s-appeals').textContent   = fmt(d.appeals_total);
+    document.getElementById('s-evidence').textContent  = fmt(d.evidence_submissions);
+    document.getElementById('s-notify').textContent    = fmt(d.notify_signups);
+    document.getElementById('s-track').textContent     = fmt(d.track_signups);
+    document.getElementById('s-requested').textContent = fmt(d.brands_requested_this_week);
+    document.getElementById('s-consumer').textContent  = fmt(d.consumer_requests);
+
+    // Conversion events
+    var evts = d.conversion_events || {};
+    var evtGrid = document.getElementById('evtGrid');
+    evtGrid.innerHTML = '';
+    var evtKeys = Object.keys(evts).sort(function(a,b){ return evts[b]-evts[a]; });
+    if (!evtKeys.length) {
+      evtGrid.innerHTML = '<div class="empty">No events recorded yet.</div>';
+    } else {
+      evtKeys.forEach(function(k){
+        var pill = document.createElement('div');
+        pill.className = 'evt-pill';
+        pill.innerHTML = '<span class="evt-name">' + k.replace(/_/g,' ') + '</span><span class="evt-count">' + fmt(evts[k]) + '</span>';
+        evtGrid.appendChild(pill);
+      });
+    }
+
+    // Top extension domains
+    var domains = d.top_extension_domains || [];
+    var lb = document.getElementById('lookupRows');
+    lb.innerHTML = '';
+    document.getElementById('lookupCount').textContent = domains.length;
+    if (!domains.length) {
+      lb.innerHTML = '<tr><td colspan="3" class="empty">No data yet.</td></tr>';
+    } else {
+      domains.forEach(function(m){
+        lb.innerHTML += '<tr><td>' + san(m.brand_name||m.domain,40) + '</td><td><a href="/brand/?d='+m.domain+'" target="_blank">'+m.domain+'</a></td><td>'+fmt(m.lookups)+'</td></tr>';
+      });
+    }
+
+    // Most requested
+    var req = d.most_requested_brands || [];
+    var rb  = document.getElementById('reqRows');
+    rb.innerHTML = '';
+    document.getElementById('reqCount').textContent = req.length;
+    if (!req.length) {
+      rb.innerHTML = '<tr><td colspan="3" class="empty">None yet.</td></tr>';
+    } else {
+      req.forEach(function(m){
+        rb.innerHTML += '<tr><td>' + san(m.brand_name||m.domain,40) + '</td><td>' + (m.category||'—').replace(/_/g,' ') + '</td><td>' + fmt(m.demand_count) + '</td></tr>';
+      });
+    }
+
+    // Movers
+    var movers = d.biggest_movers || [];
+    var mb = document.getElementById('moverRows');
+    mb.innerHTML = '';
+    if (!movers.length) {
+      mb.innerHTML = '<tr><td colspan="4" class="empty">No score changes recorded.</td></tr>';
+    } else {
+      movers.forEach(function(m){
+        var sign  = m.score_delta > 0 ? '+' : '';
+        var color = m.score_delta > 0 ? SIG.green : SIG.red;
+        mb.innerHTML += '<tr>' +
+          '<td><a href="/brand/?d='+m.domain+'" target="_blank">'+san(m.brand_name||m.domain,40)+'</a></td>' +
+          '<td><span class="dot" style="background:'+(SIG[m.signal_color]||SIG.yellow)+'"></span>'+m.signal_color+'</td>' +
+          '<td style="color:'+color+'">'+sign+m.score_delta+' pts</td>' +
+          '<td>'+m.current_score+'/100</td></tr>';
+      });
+    }
+
+    // Review queue
+    var queue = d.review_queue || [];
+    var qb = document.getElementById('queueRows');
+    qb.innerHTML = '';
+    document.getElementById('queueCount').textContent = queue.length;
+    if (!queue.length) {
+      qb.innerHTML = '<tr><td colspan="3" class="empty">Queue is clear.</td></tr>';
+    } else {
+      queue.forEach(function(m){
+        var bclass = STATUS_BADGE[m.review_status] || 'badge-review';
+        qb.innerHTML += '<tr>' +
+          '<td><a href="/brand/?d='+m.domain+'" target="_blank">'+san(m.domain,40)+'</a></td>' +
+          '<td>'+san(m.brand_name,40)+'</td>' +
+          '<td><span class="badge '+bclass+'">'+m.review_status.replace(/_/g,' ')+'</span></td></tr>';
+      });
+    }
+
+    if (d.generated_at) {
+      document.getElementById('generatedAt').textContent = 'Generated ' + new Date(d.generated_at).toLocaleString();
+    }
+  })
+  .catch(function(e){
+    document.getElementById('gate-err').textContent = 'Connection error. Check API.';
+  });
+}
+</script>
+</body>
+</html>

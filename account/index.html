@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>BHVD Signal — Your account</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c12;--bg2:#111420;--bg3:#181c2e;--bg4:#1f2438;
+  --b1:rgba(255,255,255,0.07);--b2:rgba(255,255,255,0.13);
+  --t1:#f2f2f2;--t2:#8b93b0;--t3:#4a5070;
+  --red:#e74c3c;--rbg:#2d1212;--rhero:#1a0808;
+  --yel:#f39c12;--ybg:#2d2008;
+  --grn:#27ae60;--gbg:#0a2418;
+  --acc:#4f7cff;
+  --mono:'DM Mono',monospace;--serif:'Instrument Serif',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--t1);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:58px;background:rgba(10,12,18,0.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--b1)}
+.nav-logo{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.14em;color:var(--t1);display:flex;align-items:center;gap:8px}
+.nav-user{font-size:13px;color:var(--t2);display:flex;align-items:center;gap:16px}
+.sign-out-btn{font-size:12px;color:var(--t3);cursor:pointer;border:none;background:none;font-family:var(--sans);transition:color .15s}
+.sign-out-btn:hover{color:var(--t1)}
+
+.layout{display:grid;grid-template-columns:220px 1fr;gap:0;min-height:100vh;padding-top:58px}
+.sidebar{background:var(--bg2);border-right:1px solid var(--b1);padding:32px 20px;position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto}
+.sidebar-nav{display:flex;flex-direction:column;gap:2px}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;font-size:13px;color:var(--t2);cursor:pointer;transition:all .15s;border:none;background:none;font-family:var(--sans);width:100%;text-align:left}
+.sidebar-item:hover{background:var(--bg3);color:var(--t1)}
+.sidebar-item.on{background:var(--bg4);color:var(--t1)}
+.sidebar-icon{font-size:14px;width:18px;text-align:center}
+.sidebar-divider{height:1px;background:var(--b1);margin:16px 0}
+.sidebar-tier{margin-bottom:20px;padding:12px 14px;background:var(--bg3);border-radius:10px;border:1px solid var(--b1)}
+.tier-label{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--t3);text-transform:uppercase;margin-bottom:4px}
+.tier-name{font-size:13px;font-weight:500;color:var(--t1)}
+.tier-cta{font-size:11px;color:var(--acc);margin-top:6px;cursor:pointer}
+
+.main{padding:40px 48px;max-width:900px}
+
+.section-title{font-size:20px;font-weight:500;margin-bottom:6px;color:var(--t1)}
+.section-sub{font-size:13px;color:var(--t2);margin-bottom:28px;line-height:1.55}
+
+.stats-row{display:flex;gap:12px;margin-bottom:32px}
+.stat-card{background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:16px 20px;flex:1}
+.stat-card-num{font-family:var(--mono);font-size:24px;font-weight:500;margin-bottom:4px}
+.stat-card-lbl{font-size:12px;color:var(--t3)}
+
+.hist-list{display:flex;flex-direction:column;gap:4px}
+.hist-item{background:var(--bg2);border:1px solid var(--b1);border-radius:9px;padding:12px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:background .12s}
+.hist-item:hover{background:var(--bg3)}
+.hist-ball{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;border:1.5px solid;flex-shrink:0}
+.hist-info{flex:1;min-width:0}
+.hist-product{font-size:13px;font-weight:500;color:var(--t1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hist-brand{font-size:11px;color:var(--t3)}
+.hist-meta{text-align:right;flex-shrink:0}
+.hist-score{font-family:var(--mono);font-size:14px;font-weight:500}
+.hist-date{font-size:10px;color:var(--t3);margin-top:2px}
+.hist-empty{text-align:center;padding:48px;color:var(--t3);font-size:13px;background:var(--bg2);border:1px solid var(--b1);border-radius:10px}
+
+.watch-item{background:var(--bg2);border:1px solid var(--b1);border-radius:9px;padding:12px 16px;display:flex;align-items:center;gap:12px;margin-bottom:4px}
+.watch-info{flex:1;min-width:0}
+.watch-product{font-size:13px;font-weight:500;color:var(--t1)}
+.watch-url{font-size:11px;color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.watch-remove{font-size:11px;color:var(--t3);cursor:pointer;padding:5px 10px;border:1px solid var(--b1);border-radius:6px;background:none;color:var(--t3);font-family:var(--sans);transition:all .15s;flex-shrink:0}
+.watch-remove:hover{border-color:var(--red);color:var(--red)}
+
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--b1)}
+.toggle-row:last-child{border-bottom:none}
+.toggle-info h4{font-size:14px;font-weight:500;margin-bottom:3px}
+.toggle-info p{font-size:12px;color:var(--t2);line-height:1.5}
+.toggle{position:relative;width:38px;height:22px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:var(--bg4);border:1px solid var(--b2);border-radius:99px;cursor:pointer;transition:.2s}
+.toggle-slider::before{content:'';position:absolute;height:16px;width:16px;left:2px;bottom:2px;background:var(--t3);border-radius:50%;transition:.2s}
+.toggle input:checked+.toggle-slider{background:var(--acc);border-color:var(--acc)}
+.toggle input:checked+.toggle-slider::before{transform:translateX(16px);background:#fff}
+
+.sub-card{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:24px}
+.sub-tier{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--t3);text-transform:uppercase;margin-bottom:8px}
+.sub-name{font-family:var(--serif);font-size:28px;font-weight:400;margin-bottom:6px}
+.sub-status{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:4px 10px;border-radius:99px;margin-bottom:20px}
+.sub-active{background:var(--gbg);color:var(--grn);border:1px solid rgba(39,174,96,0.3)}
+.sub-free{background:var(--bg3);color:var(--t3);border:1px solid var(--b1)}
+.sub-actions{display:flex;gap:10px;flex-wrap:wrap}
+.sub-btn{padding:10px 18px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:all .15s}
+.sub-btn-primary{background:var(--acc);border:none;color:#fff}
+.sub-btn-primary:hover{background:#3d6ae0}
+.sub-btn-secondary{background:transparent;border:1px solid var(--b2);color:var(--t2)}
+.sub-btn-secondary:hover{color:var(--t1);border-color:var(--t3)}
+.sub-btn-danger{background:transparent;border:1px solid var(--b1);color:var(--t3)}
+.sub-btn-danger:hover{border-color:var(--red);color:var(--red)}
+.upgrade-banner{background:var(--bg3);border:1px solid rgba(79,124,255,0.25);border-radius:10px;padding:18px 20px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.upgrade-text{font-size:13px;color:var(--t2);line-height:1.5}
+.upgrade-text strong{color:var(--t1)}
+.upgrade-cta{padding:9px 18px;background:var(--acc);border:none;border-radius:7px;color:#fff;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;font-family:var(--sans)}
+
+.tab-view{display:none}
+.tab-view.active{display:block}
+
+.spinner{width:24px;height:24px;border:2px solid var(--b2);border-top-color:var(--t2);border-radius:50%;animation:spin .8s linear infinite;margin:40px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.login-wall{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 58px);text-align:center;padding:48px}
+.login-wall h2{font-family:var(--serif);font-size:36px;font-weight:400;margin-bottom:14px}
+.login-wall p{font-size:15px;color:var(--t2);margin-bottom:32px;max-width:400px;line-height:1.65}
+.login-form{background:var(--bg2);border:1px solid var(--b2);border-radius:14px;padding:32px;width:100%;max-width:380px}
+.login-form input{width:100%;padding:11px 14px;background:var(--bg4);border:1px solid var(--b2);border-radius:8px;color:var(--t1);font-size:14px;font-family:var(--sans);outline:none;margin-bottom:12px;transition:border-color .15s}
+.login-form input:focus{border-color:var(--acc)}
+.login-btn{width:100%;padding:12px;background:var(--acc);border:none;border-radius:8px;color:#fff;font-size:14px;font-weight:500;font-family:var(--sans);cursor:pointer}
+.login-err{font-size:12px;color:var(--red);margin-top:8px;min-height:18px}
+
+@media(max-width:768px){nav{padding:0 20px}.layout{grid-template-columns:1fr}.sidebar{display:none}.main{padding:24px}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN WALL (shown until authenticated) -->
+<div id="loginWall" class="login-wall">
+  <div>
+    <div style="font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.14em;margin-bottom:32px;display:flex;align-items:center;justify-content:center;gap:8px">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#4f7cff" stroke-width="1.5" fill="none"/></svg>
+      BHVD SIGNAL
+    </div>
+    <h2>Your account</h2>
+    <p>Sign in to access your scan history, watchlist, and subscription.</p>
+    <div class="login-form">
+      <input type="email" id="loginEmail" placeholder="your@email.com" autocomplete="email">
+      <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
+      <button class="login-btn" onclick="signIn()">Sign in →</button>
+      <div class="login-err" id="loginErr"></div>
+    </div>
+    <p style="margin-top:16px;font-size:13px;color:var(--t3)">Don't have an account? <a href="/#pricing" style="color:var(--acc)">Add to Chrome for free</a></p>
+  </div>
+</div>
+
+<!-- AUTHENTICATED APP (hidden until signed in) -->
+<div id="app" style="display:none">
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#4f7cff" stroke-width="1.5" fill="none"/></svg>
+    BHVD SIGNAL
+  </a>
+  <div class="nav-user">
+    <span id="navEmail" style="font-size:13px;color:var(--t2)"></span>
+    <button class="sign-out-btn" onclick="signOut()">Sign out</button>
+  </div>
+</nav>
+
+<div class="layout">
+  <div class="sidebar">
+    <div class="sidebar-tier">
+      <div class="tier-label">Current plan</div>
+      <div class="tier-name" id="sidebarTier">Free</div>
+      <div class="tier-cta" id="sidebarCta" onclick="showTab('subscription')">Upgrade to Pro →</div>
+    </div>
+    <div class="sidebar-nav">
+      <button class="sidebar-item on" onclick="showTab('history')" id="tab-history"><span class="sidebar-icon">◷</span>Scan history</button>
+      <button class="sidebar-item" onclick="showTab('watchlist')" id="tab-watchlist"><span class="sidebar-icon">★</span>Watchlist</button>
+      <button class="sidebar-item" onclick="showTab('alerts')" id="tab-alerts"><span class="sidebar-icon">◎</span>Alerts</button>
+      <div class="sidebar-divider"></div>
+      <button class="sidebar-item" onclick="showTab('subscription')" id="tab-subscription"><span class="sidebar-icon">◈</span>Subscription</button>
+      <button class="sidebar-item" onclick="window.location.href='/leaderboard'" id="tab-lb"><span class="sidebar-icon">▦</span>Leaderboard</button>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- SCAN HISTORY -->
+    <div class="tab-view active" id="view-history">
+      <div class="section-title">Scan history</div>
+      <div class="section-sub">Every product page you've scanned with BHVD Signal.</div>
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-card-num" id="totalScans">—</div><div class="stat-card-lbl">Total scans</div></div>
+        <div class="stat-card"><div class="stat-card-num" style="color:var(--red)" id="redCount">—</div><div class="stat-card-lbl">Red signals</div></div>
+        <div class="stat-card"><div class="stat-card-num" style="color:var(--yel)" id="yelCount">—</div><div class="stat-card-lbl">Yellow signals</div></div>
+        <div class="stat-card"><div class="stat-card-num" style="color:var(--grn)" id="grnCount">—</div><div class="stat-card-lbl">Green signals</div></div>
+      </div>
+      <div id="histList"><div class="spinner"></div></div>
+      <div id="histMore" style="margin-top:12px;text-align:center;display:none">
+        <button onclick="loadMoreHistory()" style="padding:9px 22px;background:var(--bg2);border:1px solid var(--b2);border-radius:7px;color:var(--t2);font-size:13px;cursor:pointer;font-family:var(--sans)">Load more</button>
+      </div>
+    </div>
+
+    <!-- WATCHLIST -->
+    <div class="tab-view" id="view-watchlist">
+      <div class="section-title">Watchlist</div>
+      <div class="section-sub" id="watchSub">Track specific products and get alerted when their signal changes. Pro feature.</div>
+      <div id="watchList"><div class="spinner"></div></div>
+    </div>
+
+    <!-- ALERTS -->
+    <div class="tab-view" id="view-alerts">
+      <div class="section-title">Email alerts</div>
+      <div class="section-sub">Get notified when a product on your watchlist changes signal. Pro feature.</div>
+      <div id="alertSettings">
+        <div class="toggle-row">
+          <div class="toggle-info"><h4>Signal change alerts</h4><p>Email me when a watched product moves to a different Red / Yellow / Green signal.</p></div>
+          <label class="toggle"><input type="checkbox" id="alertToggle" onchange="saveAlertPref()"><span class="toggle-slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info"><h4>Weekly digest</h4><p>A weekly summary of signal changes across your watchlist and top movers in your categories.</p></div>
+          <label class="toggle"><input type="checkbox" id="digestToggle" onchange="saveAlertPref()"><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBSCRIPTION -->
+    <div class="tab-view" id="view-subscription">
+      <div class="section-title">Subscription</div>
+      <div class="section-sub">Manage your BHVD Signal plan.</div>
+      <div id="subContent"><div class="spinner"></div></div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script>
+const API        = 'https://bhvd-signal-api.fly.dev';
+const SUPABASE   = 'https://YOUR_PROJECT.supabase.co'; // replace with your Supabase URL
+const ANON_KEY   = 'YOUR_ANON_KEY'; // replace with your Supabase anon key
+
+const SIG_COLOR = {red:'#e74c3c',yellow:'#f39c12',green:'#27ae60'};
+const SIG_BG    = {red:'#2d1212',yellow:'#2d2008',green:'#0a2418'};
+const SIG_ICON  = {red:'✕',yellow:'!',green:'✓'};
+
+var authToken = null;
+var currentUser = null;
+var userTier = 'free';
+var histOffset = 0;
+
+// ─── Auth ─────────────────────────────────────────────────────
+
+function signIn() {
+  var email = document.getElementById('loginEmail').value.trim();
+  var pass  = document.getElementById('loginPassword').value;
+  if(!email || !pass) { document.getElementById('loginErr').textContent = 'Please enter your email and password.'; return; }
+
+  fetch(SUPABASE + '/auth/v1/token?grant_type=password', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'apikey': ANON_KEY },
+    body: JSON.stringify({ email, password: pass }),
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d) {
+    if(d.access_token) {
+      authToken = d.access_token;
+      currentUser = d.user;
+      localStorage.setItem('bhvd_token', authToken);
+      bootApp();
+    } else {
+      document.getElementById('loginErr').textContent = d.error_description || 'Sign in failed. Check your email and password.';
+    }
+  })
+  .catch(function(){ document.getElementById('loginErr').textContent = 'Network error. Please try again.'; });
+}
+
+document.getElementById('loginEmail').addEventListener('keydown', function(e){ if(e.key==='Enter') signIn(); });
+document.getElementById('loginPassword').addEventListener('keydown', function(e){ if(e.key==='Enter') signIn(); });
+
+function signOut() {
+  localStorage.removeItem('bhvd_token');
+  authToken = null; currentUser = null;
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('loginWall').style.display = 'flex';
+}
+
+// Check for saved token
+var savedToken = localStorage.getItem('bhvd_token');
+if(savedToken) { authToken = savedToken; bootApp(); }
+
+function bootApp() {
+  document.getElementById('loginWall').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  loadUserData();
+}
+
+function authHeaders() {
+  return { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + authToken };
+}
+
+// ─── Load user data ───────────────────────────────────────────
+
+function loadUserData() {
+  fetch(API + '/api/stripe/subscription', { headers: authHeaders() })
+  .then(function(r){ return r.json(); })
+  .then(function(d) {
+    if(!d.success) { signOut(); return; }
+    userTier = d.data.tier || 'free';
+    var isPro = userTier !== 'free';
+    document.getElementById('navEmail').textContent = '';
+    document.getElementById('sidebarTier').textContent = isPro ? 'Signal Pro' : 'Free';
+    document.getElementById('sidebarCta').style.display = isPro ? 'none' : 'block';
+    loadHistory(true);
+    loadWatchlist();
+    loadSubscription(d.data);
+  })
+  .catch(function(){ signOut(); });
+}
+
+// ─── Scan history ─────────────────────────────────────────────
+
+function loadHistory(reset) {
+  if(reset) histOffset = 0;
+  fetch(SUPABASE + '/rest/v1/user_scan_history?order=scanned_at.desc&limit=30&offset=' + histOffset, {
+    headers: { 'apikey': ANON_KEY, 'Authorization': 'Bearer ' + authToken }
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data) {
+    var list = document.getElementById('histList');
+    if(reset) {
+      list.innerHTML = '';
+      var red=0,yel=0,grn=0;
+      (data||[]).forEach(function(s){ if(s.signal_color==='red')red++; else if(s.signal_color==='yellow')yel++; else if(s.signal_color==='green')grn++; });
+      document.getElementById('totalScans').textContent = (data||[]).length;
+      document.getElementById('redCount').textContent = red;
+      document.getElementById('yelCount').textContent = yel;
+      document.getElementById('grnCount').textContent = grn;
+    }
+    if(!data||!data.length) {
+      if(reset) list.innerHTML = '<div class="hist-empty">No scans yet. Install the extension and visit a wellness product page.</div>';
+      document.getElementById('histMore').style.display = 'none';
+      return;
+    }
+    data.forEach(function(s) {
+      var sig = s.signal_color||'yellow';
+      var el = document.createElement('div');
+      el.className = 'hist-item';
+      el.onclick = function(){ window.open(s.canonical_url,'_blank'); };
+      el.innerHTML =
+        '<div class="hist-ball" style="background:'+SIG_BG[sig]+';border-color:'+SIG_COLOR[sig]+';color:'+SIG_COLOR[sig]+'">'+SIG_ICON[sig]+'</div>'+
+        '<div class="hist-info"><div class="hist-product">'+(s.product_name||s.canonical_url||'Unknown')+'</div><div class="hist-brand">'+(s.brand_name||'')+'</div></div>'+
+        '<div class="hist-meta"><div class="hist-score" style="color:'+SIG_COLOR[sig]+'">'+Math.round(s.claim_support_risk||0)+'</div><div class="hist-date">'+fmtDate(s.scanned_at)+'</div></div>';
+      list.appendChild(el);
+    });
+    histOffset += data.length;
+    document.getElementById('histMore').style.display = data.length === 30 ? 'block' : 'none';
+  });
+}
+
+function loadMoreHistory() { loadHistory(false); }
+
+// ─── Watchlist ────────────────────────────────────────────────
+
+function loadWatchlist() {
+  fetch(SUPABASE + '/rest/v1/user_watchlist?select=*,pages(product_name,brand_name,signal_color,claim_support_risk,canonical_url)&order=added_at.desc', {
+    headers: { 'apikey': ANON_KEY, 'Authorization': 'Bearer ' + authToken }
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data) {
+    var list = document.getElementById('watchList');
+    if(!data||!data.length) {
+      list.innerHTML = '<div class="hist-empty">Your watchlist is empty. Add products from the BHVD Signal extension while browsing.</div>';
+      return;
+    }
+    list.innerHTML = '';
+    data.forEach(function(w) {
+      var p = w.pages || {};
+      var sig = p.signal_color || 'yellow';
+      var el = document.createElement('div');
+      el.className = 'watch-item';
+      el.innerHTML =
+        '<div class="hist-ball" style="background:'+SIG_BG[sig]+';border-color:'+SIG_COLOR[sig]+';color:'+SIG_COLOR[sig]+'">'+SIG_ICON[sig]+'</div>'+
+        '<div class="watch-info"><div class="watch-product">'+(p.product_name||'Unknown product')+'</div><div class="watch-url">'+(p.canonical_url||w.canonical_url||'')+'</div></div>'+
+        '<div class="hist-score" style="color:'+SIG_COLOR[sig]+';font-family:monospace;font-size:13px;margin-right:12px">'+Math.round(p.claim_support_risk||0)+'</div>'+
+        '<button class="watch-remove" onclick="removeWatch(\''+w.page_id+'\',this)">Remove</button>';
+      list.appendChild(el);
+    });
+  });
+}
+
+function removeWatch(pageId, btn) {
+  btn.textContent = '…';
+  fetch(SUPABASE + '/rest/v1/user_watchlist?page_id=eq.' + pageId, {
+    method: 'DELETE',
+    headers: { 'apikey': ANON_KEY, 'Authorization': 'Bearer ' + authToken }
+  }).then(function(){ loadWatchlist(); });
+}
+
+// ─── Alerts ───────────────────────────────────────────────────
+
+function saveAlertPref() {
+  var emailAlerts = document.getElementById('alertToggle').checked;
+  fetch(SUPABASE + '/rest/v1/users?id=eq.' + (currentUser?.id || ''), {
+    method: 'PATCH',
+    headers: { 'apikey': ANON_KEY, 'Authorization': 'Bearer ' + authToken, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email_alerts: emailAlerts }),
+  });
+}
+
+// ─── Subscription ─────────────────────────────────────────────
+
+function loadSubscription(data) {
+  var isPro = data.tier !== 'free';
+  var el = document.getElementById('subContent');
+  el.innerHTML = '';
+
+  if(!isPro) {
+    el.innerHTML =
+      '<div class="upgrade-banner"><div class="upgrade-text"><strong>Upgrade to Signal Pro</strong> — $6/month. Unlimited scans, full history, watchlist, email alerts, CSV export. 14-day free trial.</div><button class="upgrade-cta" onclick="startCheckout()">Start free trial →</button></div>' +
+      '<div class="sub-card"><div class="sub-tier">Current plan</div><div class="sub-name">Free</div><div class="sub-status sub-free">Active</div><p style="font-size:13px;color:var(--t2);line-height:1.65;max-width:480px">25 scans per month. 7-day scan history. Core Red / Yellow / Green signal on every scan.</p></div>';
+  } else {
+    var end = data.current_period_end ? new Date(data.current_period_end).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : '—';
+    el.innerHTML =
+      '<div class="sub-card"><div class="sub-tier">Current plan</div><div class="sub-name">Signal Pro</div><div class="sub-status sub-active">● Active</div>' +
+      '<p style="font-size:13px;color:var(--t2);margin-bottom:20px">Renews ' + end + ' · $6/month</p>' +
+      '<div class="sub-actions"><button class="sub-btn sub-btn-secondary" onclick="openPortal()">Manage billing</button><button class="sub-btn sub-btn-danger" onclick="openPortal()">Cancel subscription</button></div>' +
+      '<p style="font-size:11px;color:var(--t3);margin-top:14px">Cancel anytime from the billing portal. Access continues until the end of your billing period.</p></div>';
+  }
+}
+
+function startCheckout() {
+  fetch(API + '/api/stripe/checkout', {
+    method: 'POST', headers: authHeaders(),
+    body: JSON.stringify({ tier: 'pro_monthly' }),
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d){ if(d.url) window.location.href = d.url; });
+}
+
+function openPortal() {
+  fetch(API + '/api/stripe/portal', { method: 'POST', headers: authHeaders() })
+  .then(function(r){ return r.json(); })
+  .then(function(d){ if(d.url) window.location.href = d.url; });
+}
+
+// ─── Tab navigation ───────────────────────────────────────────
+
+function showTab(tab) {
+  document.querySelectorAll('.tab-view').forEach(function(v){ v.classList.remove('active'); });
+  document.querySelectorAll('.sidebar-item').forEach(function(b){ b.classList.remove('on'); });
+  document.getElementById('view-' + tab).classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('on');
+  if(tab === 'history') loadHistory(true);
+  if(tab === 'watchlist') loadWatchlist();
+}
+
+// ─── Utils ────────────────────────────────────────────────────
+
+function fmtDate(iso) {
+  if(!iso) return '—';
+  var d = new Date(iso);
+  var diff = Math.round((Date.now() - d) / 60000);
+  if(diff < 60) return diff + 'm ago';
+  if(diff < 1440) return Math.round(diff/60) + 'h ago';
+  return d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+}
+
+// Password gate
+(function(){
+  var PWD='BHVD711';
+  if(sessionStorage.getItem('bhvd_ok')==='1') return;
+  var gate=document.createElement('div');
+  gate.style.cssText='position:fixed;inset:0;z-index:9999;background:#0a0c12;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:system-ui,sans-serif';
+  gate.innerHTML='<div style="font-family:monospace;font-size:12px;font-weight:500;letter-spacing:.14em;color:#f2f2f2;margin-bottom:36px">🛡 BHVD SIGNAL</div><div style="background:#111420;border:1px solid rgba(255,255,255,0.13);border-radius:14px;padding:40px;width:100%;max-width:380px;text-align:center"><h2 style="font-size:24px;font-weight:400;color:#f2f2f2;margin-bottom:8px">Early access</h2><p style="font-size:13px;color:#8b93b0;margin-bottom:24px">Enter your access code to continue</p><input id="pi" type="password" placeholder="Access code" style="width:100%;padding:12px;background:#1f2438;border:1px solid rgba(255,255,255,0.13);border-radius:8px;color:#f2f2f2;font-size:14px;text-align:center;outline:none;margin-bottom:12px;font-family:monospace;letter-spacing:.1em;box-sizing:border-box"><button onclick="pa()" style="width:100%;padding:12px;background:#4f7cff;border:none;border-radius:8px;color:#fff;font-size:14px;font-weight:500;cursor:pointer">Continue →</button><div id="pe" style="font-size:12px;color:#e74c3c;margin-top:10px;min-height:18px"></div></div>';
+  document.body.appendChild(gate);
+  document.body.style.overflow='hidden';
+  document.getElementById('pi').focus();
+  window.pa=function(){var v=document.getElementById('pi').value.trim();if(v===PWD){sessionStorage.setItem('bhvd_ok','1');gate.style.opacity='0';gate.style.transition='opacity .35s';setTimeout(function(){gate.remove();document.body.style.overflow='';},360);}else{document.getElementById('pe').textContent='Incorrect access code.';document.getElementById('pi').value='';}};
+  document.getElementById('pi').addEventListener('keydown',function(e){if(e.key==='Enter')pa();document.getElementById('pe').textContent='';});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Public Claim Record · Sigñal</title>
+
+<meta property="og:type"        content="website">
+<meta property="og:site_name"   content="Sigñal by BHVD">
+<meta id="og-title" property="og:title"       content="Public Claim Record · Sigñal">
+<meta id="og-desc"  property="og:description" content="Independent brand claim alignment scoring by Sigñal.">
+<meta id="og-url"   property="og:url"         content="">
+<meta name="twitter:card"        content="summary">
+<meta id="tw-title" name="twitter:title"       content="Public Claim Record · Sigñal">
+<meta id="tw-desc"  name="twitter:description" content="Independent brand claim alignment scoring by Sigñal.">
+<meta property="og:image" content="https://bhvdsignal.com/og-image.png">
+<meta name="twitter:image" content="https://bhvdsignal.com/og-image.png">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c12;--bg2:#111420;--bg3:#181c2e;--bg4:#1f2438;
+  --b1:rgba(255,255,255,0.07);--b2:rgba(255,255,255,0.13);
+  --t1:#f2f2f2;--t2:#8b93b0;--t3:#4a5070;
+  --red:#9e3028;--yel:#c07718;--grn:#1e9459;--acc:#4a78f0;
+  --mono:'DM Mono',monospace;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t1);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:56px;background:rgba(10,12,18,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--b1)}
+.nav-logo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--t1);display:flex;align-items:center;gap:9px;text-decoration:none}
+.nav-byline{font-size:9px;color:var(--t3);letter-spacing:.13em;font-weight:400;text-transform:uppercase;border-left:1px solid var(--b2);padding-left:8px;margin-left:1px}
+.nav-actions{display:flex;gap:10px}
+.btn{font-family:var(--sans);font-size:12px;font-weight:500;padding:7px 16px;border-radius:8px;cursor:pointer;border:1px solid var(--b2);background:transparent;color:var(--t2);transition:all .15s;display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.btn:hover{background:var(--bg3);color:var(--t1)}
+.btn-primary{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn-primary:hover{background:#3d6ae0}
+.btn-sm{padding:6px 13px;font-size:11px}
+
+/* ALPHA BAR */
+.alpha-bar{background:rgba(26,143,255,0.05);border-bottom:1px solid rgba(26,143,255,0.10);padding:7px 48px;font-size:11px;color:#5a7aaa;line-height:1.45;letter-spacing:.01em}
+
+/* PAGE */
+.page{max-width:820px;margin:0 auto;padding:88px 32px 96px}
+
+/* LOADING */
+.loading-screen{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+.spinner{width:28px;height:28px;border:2px solid rgba(255,255,255,.07);border-top-color:var(--acc);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-label{font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.1em}
+
+/* STATUS BADGE */
+.status-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;padding:4px 12px;border-radius:100px;text-transform:uppercase;border:1px solid}
+.status-badge-dot{width:6px;height:6px;border-radius:50%}
+.sb-verified{color:#1e9459;border-color:rgba(30,148,89,.3);background:rgba(30,148,89,.08)}
+.sb-verified .status-badge-dot{background:#1e9459}
+.sb-unassessed{color:var(--t3);border-color:var(--b1);background:rgba(255,255,255,.03)}
+.sb-unassessed .status-badge-dot{background:var(--t3)}
+.sb-expired{color:var(--yel);border-color:rgba(243,156,18,.3);background:rgba(243,156,18,.06)}
+.sb-expired .status-badge-dot{background:var(--yel)}
+
+/* HEADER */
+.report-header{margin-bottom:32px}
+.rh-breadcrumb{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.rh-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:20px}
+.rh-brand{font-family:var(--serif);font-size:clamp(32px,5vw,52px);font-weight:400;line-height:1.05;letter-spacing:-.02em;margin-bottom:6px}
+.rh-domain{font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.04em;margin-bottom:10px}
+.rh-category{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase}
+.rh-score-block{flex-shrink:0;text-align:center}
+.rh-score{font-family:var(--serif);font-size:80px;font-weight:400;line-height:1;letter-spacing:-.03em}
+.rh-score-label{font-size:11px;color:var(--t2);font-family:var(--mono);letter-spacing:.06em;margin-top:2px}
+.rh-verdict-badge{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;padding:5px 14px;border-radius:100px;border:1px solid;margin-top:10px;text-transform:uppercase}
+.rh-sparkline-wrap{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px}
+.rh-sparkline-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--t3)}
+.rh-meta{display:flex;gap:20px;flex-wrap:wrap;padding:16px 0;border-top:1px solid var(--b1);border-bottom:1px solid var(--b1)}
+.rh-meta-item{display:flex;flex-direction:column;gap:3px}
+.rh-meta-label{font-size:10px;color:var(--t3);font-family:var(--mono);letter-spacing:.07em;text-transform:uppercase}
+.rh-meta-val{font-size:13px;color:var(--t1);font-weight:500}
+
+/* SECTION */
+.rsec{margin-bottom:44px}
+.rsec-title{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--b1)}
+
+/* CATEGORY STANDING */
+.cat-bar{display:none;margin-top:16px;padding:18px 20px;background:var(--bg2);border:1px solid var(--b1);border-radius:12px}
+.cat-bar-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cat-bar-label{font-size:10px;color:var(--t2);font-family:var(--mono);letter-spacing:.09em;text-transform:uppercase;font-weight:600}
+.cat-bar-standing{font-size:11px;font-family:var(--mono);font-weight:600}
+.cat-bar-standing-above{color:#1e9459}
+.cat-bar-standing-inline{color:var(--t2)}
+.cat-bar-standing-below{color:#c07718}
+.cat-bench-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+@media(max-width:480px){.cat-bench-grid{grid-template-columns:repeat(2,1fr)}}
+.cat-bench-cell{background:var(--bg3);border:1px solid var(--b1);border-radius:8px;padding:10px 12px}
+.cat-bench-val{font-family:var(--mono);font-size:18px;font-weight:600;color:var(--t1);line-height:1}
+.cat-bench-val-delta{font-family:var(--mono);font-size:16px;font-weight:600;line-height:1}
+.cat-bench-val-delta-up{color:#1e9459}
+.cat-bench-val-delta-down{color:#c07718}
+.cat-bench-lbl{font-size:10px;color:var(--t3);margin-top:4px}
+.cat-bar-rail{flex:1;height:4px;background:var(--bg4);border-radius:2px;overflow:hidden;position:relative;margin-bottom:10px}
+.cat-bar-fill{position:absolute;top:0;left:0;bottom:0;border-radius:2px;transition:width .6s ease}
+.cat-bar-note{font-size:11px;color:var(--t3);font-style:italic;border-top:1px solid var(--b1);padding-top:10px;margin-top:4px}
+
+/* DEMAND SIGNAL */
+.demand-bar{display:none;margin-bottom:32px;background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:14px 20px;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.demand-text{font-size:13px;font-weight:500;color:var(--t1)}
+.demand-sub{font-size:11px;color:var(--t3);margin-top:3px}
+.demand-trend{font-family:var(--mono);font-size:11px;padding:5px 12px;border-radius:20px;flex-shrink:0;white-space:nowrap}
+.demand-actions{flex-shrink:0}
+.demand-request-btn{padding:5px 14px;border:1px solid var(--b2);border-radius:8px;background:transparent;color:var(--t2);font-size:11px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:all .15s;white-space:nowrap}
+.demand-request-btn:hover{color:var(--t1);border-color:var(--t3)}
+.demand-request-btn:disabled{cursor:default;opacity:.6}
+
+/* EXEC SUMMARY */
+.exec-summary{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:28px 32px}
+.exec-verdict{font-family:var(--serif);font-size:21px;font-weight:400;line-height:1.5;letter-spacing:-.01em;margin-bottom:14px}
+.exec-consumer{font-size:14px;color:var(--t2);line-height:1.7;padding-top:14px;border-top:1px solid var(--b1)}
+
+/* CLAIM RECEIPTS */
+.receipts-list{display:flex;flex-direction:column;gap:12px}
+.receipt-row{background:var(--bg2);border:1px solid var(--b1);border-radius:10px;overflow:hidden}
+.receipt-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:14px 18px}
+.receipt-claim{font-size:14px;line-height:1.6;flex:1}
+.receipt-badge{flex-shrink:0;margin-top:2px}
+.receipt-evidence{padding:10px 18px 14px;background:var(--bg3);border-top:1px solid var(--b1);font-size:12px;color:var(--t2);line-height:1.65}
+.receipt-evidence-label{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+.receipt-meta{display:flex;gap:16px;padding:8px 18px;border-top:1px solid var(--b1);background:rgba(255,255,255,.01)}
+.receipt-meta-item{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.04em}
+.gap-badge{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.07em;padding:3px 9px;border-radius:100px;text-transform:uppercase;border:1px solid}
+.badge-aligned{background:rgba(30,148,89,.12);color:#1e9459;border-color:rgba(30,148,89,.25)}
+.badge-partial{background:rgba(192,119,24,.1);color:#c07718;border-color:rgba(192,119,24,.2)}
+.badge-gap{background:rgba(158,48,40,.1);color:#9e3028;border-color:rgba(158,48,40,.2)}
+.badge-reviewed{background:rgba(74,120,240,.1);color:#4a78f0;border-color:rgba(74,120,240,.2)}
+.badge-missing{background:rgba(255,255,255,.05);color:var(--t3);border-color:var(--b1)}
+
+/* EVIDENCE */
+.ev-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.ev-card{background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:16px 20px}
+.ev-card-label{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.09em;text-transform:uppercase;margin-bottom:8px}
+.ev-card-val{font-family:var(--serif);font-size:28px;line-height:1;margin-bottom:4px}
+.ev-card-desc{font-size:12px;color:var(--t2);line-height:1.6}
+.findings-list{display:flex;flex-direction:column;gap:10px}
+.finding-item{background:var(--bg2);border-left:3px solid var(--b2);border-radius:0 8px 8px 0;padding:12px 16px;font-size:13px;color:var(--t2);line-height:1.65}
+
+/* SCORING DIMS */
+.score-dims{display:flex;flex-direction:column;gap:12px}
+.dim-row{display:flex;align-items:center;gap:16px}
+.dim-name{font-size:13px;color:var(--t2);width:190px;flex-shrink:0}
+.dim-bar-wrap{flex:1;height:6px;background:var(--bg4);border-radius:3px;overflow:hidden;position:relative}
+.dim-bar-fill{position:absolute;top:0;left:0;bottom:0;border-radius:3px;transition:width .5s ease}
+.dim-score{font-family:var(--mono);font-size:12px;font-weight:500;width:50px;text-align:right;flex-shrink:0}
+.dim-max{font-size:10px;color:var(--t3);flex-shrink:0}
+.dim-total-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);margin-top:8px}
+.dim-total-label{font-size:13px;font-weight:500}
+.dim-total-score{font-family:var(--serif);font-size:32px;font-weight:400}
+
+/* FLAGS */
+.flags-list{display:flex;flex-direction:column;gap:8px}
+.flag-item{display:flex;align-items:flex-start;gap:12px;background:var(--bg2);border:1px solid var(--b1);border-radius:8px;padding:12px 16px}
+.flag-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.flag-text{font-size:13px;color:var(--t2);line-height:1.6}
+
+/* CONSUMER INTERPRETATION */
+.consumer-block{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:28px 32px}
+.consumer-q{font-size:17px;font-weight:500;margin-bottom:16px}
+.consumer-items{display:flex;flex-direction:column;gap:12px}
+.consumer-item{display:flex;gap:12px;font-size:14px;line-height:1.65;color:var(--t2)}
+.consumer-item::before{content:'→';color:var(--acc);flex-shrink:0;margin-top:1px}
+
+/* LIMITATIONS */
+.limitations-box{background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:20px 24px;font-size:13px;color:var(--t2);line-height:1.75}
+
+/* FINAL VERDICT */
+.final-verdict{border-radius:16px;padding:36px;border:1px solid;position:relative;overflow:hidden}
+.fv-bg{position:absolute;inset:0;opacity:.04;background:radial-gradient(ellipse at 30% 50%,currentColor,transparent 60%)}
+.fv-label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;opacity:.7}
+.fv-verdict{font-family:var(--serif);font-size:clamp(26px,4vw,42px);font-weight:400;line-height:1.1;letter-spacing:-.02em;margin-bottom:14px}
+.fv-note{font-size:14px;opacity:.75;line-height:1.7;max-width:580px;margin-bottom:16px}
+.fv-strengths{font-size:13px;opacity:.6;font-style:italic}
+.fv-strengths::before{content:'✓ ';font-style:normal}
+
+/* CTAs */
+.cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px;padding-top:28px;border-top:1px solid var(--b1)}
+.capture-inline{margin-top:16px;background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:16px 18px;display:none}
+.capture-inline.open{display:block}
+.capture-inline-label{font-size:12px;color:var(--t2);margin-bottom:10px}
+.capture-inline-form{display:flex;gap:8px}
+.capture-inline-input{flex:1;padding:9px 13px;background:var(--bg4);border:1px solid var(--b2);border-radius:8px;color:var(--t1);font-size:13px;font-family:var(--sans);outline:none;transition:border-color .2s}
+.capture-inline-input:focus{border-color:rgba(79,124,255,.55)}
+.capture-inline-input::placeholder{color:var(--t3)}
+.capture-inline-btn{padding:9px 16px;background:var(--acc);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans);white-space:nowrap;transition:background .15s}
+.capture-inline-btn:hover{background:#3d6ae0}
+.capture-inline-btn:disabled{opacity:.55;cursor:default}
+.capture-inline-ok{font-size:12px;color:var(--grn);margin-top:8px;display:none}
+.capture-inline-note{font-size:11px;color:var(--t3);margin-top:7px;font-family:var(--mono)}
+
+/* NOT YET ASSESSED STATE */
+.unassessed-card{background:var(--bg2);border:1px solid var(--b1);border-radius:16px;padding:48px 40px;text-align:center;max-width:520px;margin:40px auto}
+.unassessed-icon{font-size:32px;margin-bottom:20px;color:var(--t3)}
+.unassessed-title{font-family:var(--serif);font-size:28px;font-weight:400;margin-bottom:10px}
+.unassessed-sub{font-size:14px;color:var(--t2);line-height:1.65;margin-bottom:28px}
+.unassessed-demand{font-family:var(--mono);font-size:11px;color:var(--acc);margin-bottom:24px}
+.unassessed-cta{display:inline-block;padding:12px 28px;background:var(--acc);border-radius:9px;color:#fff;font-size:14px;font-weight:600;margin-bottom:10px;text-decoration:none;transition:background .15s}
+.unassessed-cta:hover{background:#3d6ae0;color:#fff}
+.unassessed-portal{font-size:12px;color:var(--t3);margin-top:12px}
+.unassessed-portal a{color:var(--acc);text-decoration:none}
+.unassessed-portal a:hover{text-decoration:underline}
+
+/* PRESSURE SIGNALS */
+.pressure-layer{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
+.pressure-signal{font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.015em;line-height:1.6;padding:8px 12px;border-left:2px solid var(--b2);background:var(--bg2);border-radius:0 6px 6px 0}
+.pressure-signal-warn{border-left-color:#c07718;color:#c07718}
+.pressure-signal-active{border-left-color:#1e9459;color:var(--t2)}
+
+/* ERROR STATE */
+.error-card{text-align:center;padding:80px 40px;max-width:480px;margin:0 auto}
+.error-icon{font-size:28px;color:var(--t3);margin-bottom:20px}
+.error-title{font-family:var(--serif);font-size:24px;font-weight:400;margin-bottom:8px}
+.error-sub{font-size:14px;color:var(--t2);line-height:1.65;margin-bottom:28px}
+
+/* SHARE CARD */
+.share-wrap{position:relative}
+.share-btn{font-size:11px;font-weight:500;padding:6px 13px;border-radius:8px;cursor:pointer;border:1px solid var(--b2);background:transparent;color:var(--t2);transition:all .15s;display:inline-flex;align-items:center;gap:6px;font-family:var(--sans)}
+.share-btn:hover{background:var(--bg3);color:var(--t1)}
+.share-popover{position:absolute;top:calc(100% + 8px);right:0;width:264px;background:var(--bg2);border:1px solid var(--b2);border-radius:14px;padding:16px;box-shadow:0 8px 32px rgba(0,0,0,.55);z-index:200;display:none}
+.share-popover.open{display:block}
+.share-close{position:absolute;top:9px;right:10px;background:none;border:none;color:var(--t3);cursor:pointer;font-size:17px;line-height:1;padding:4px;display:flex;align-items:center}
+.share-preview{background:var(--bg3);border:1px solid var(--b1);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.share-prev-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.share-prev-info{flex:1;min-width:0}
+.share-prev-brand{font-size:13px;font-weight:500;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.share-prev-verdict{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px;font-family:var(--mono)}
+.share-prev-score{font-family:var(--mono);font-size:26px;font-weight:500;flex-shrink:0;line-height:1}
+.share-opts{display:flex;flex-direction:column;gap:6px}
+.share-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg3);border:1px solid var(--b1);border-radius:8px;cursor:pointer;transition:border-color .1s,background .1s;font-size:12px;font-weight:500;color:var(--t1);width:100%;text-align:left;font-family:var(--sans)}
+.share-opt:hover{background:var(--bg4);border-color:var(--b2)}
+.share-opt-icon{font-size:13px;width:18px;text-align:center;flex-shrink:0;color:var(--t3)}
+.share-opt-label{flex:1}
+.share-opt-status{font-size:10px;color:var(--grn);font-family:var(--mono);min-width:40px;text-align:right}
+
+/* CLAIM DIFF */
+.diff-section{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;overflow:hidden}
+.diff-meta{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.07em;padding:14px 20px 0}
+.diff-pills{display:flex;gap:6px;flex-wrap:wrap;padding:10px 20px 14px;border-bottom:1px solid var(--b1)}
+.diff-pill{font-family:var(--mono);font-size:10px;font-weight:500;padding:4px 10px;border-radius:100px;border:1px solid}
+.diff-pill-add{color:#1e9459;border-color:rgba(30,148,89,.25);background:rgba(30,148,89,.08)}
+.diff-pill-remove{color:var(--t3);border-color:var(--b1);background:rgba(255,255,255,.03)}
+.diff-pill-mod{color:#c07718;border-color:rgba(192,119,24,.25);background:rgba(192,119,24,.06)}
+.diff-details{border-bottom:1px solid var(--b1)}
+.diff-details:last-child{border-bottom:none}
+.diff-details>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:13px 20px;font-size:12px;font-weight:500;color:var(--t2);transition:background .1s;user-select:none}
+.diff-details>summary::-webkit-details-marker{display:none}
+.diff-details>summary:hover{background:var(--bg3)}
+.diff-details[open]>summary{border-bottom:1px solid var(--b1)}
+.diff-mark{font-family:var(--mono);font-size:14px;font-weight:700;width:18px;text-align:center;flex-shrink:0}
+.diff-mark-add{color:#1e9459}
+.diff-mark-remove{color:var(--t3)}
+.diff-mark-mod{color:#c07718}
+.diff-rows{padding:12px 20px;display:flex;flex-direction:column;gap:10px}
+.diff-row-add,.diff-row-remove{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.65;color:var(--t2)}
+.diff-row-remove{opacity:.65}
+.diff-row-mod{background:var(--bg3);border:1px solid var(--b1);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.65;color:var(--t2)}
+.diff-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.07em;text-transform:uppercase;margin-bottom:4px}
+.diff-lbl-before{color:var(--t3)}
+.diff-lbl-after{color:var(--acc);margin-top:10px}
+.diff-chg-lbl{font-family:var(--mono);font-size:10px;color:#c07718;letter-spacing:.06em;margin-top:8px;padding-top:8px;border-top:1px solid var(--b1)}
+
+/* EMBED SECTION */
+.embed-section{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:22px 26px}
+.embed-head-title{font-size:14px;font-weight:500;color:var(--t1);margin-bottom:3px}
+.embed-head-sub{font-size:12px;color:var(--t3);line-height:1.55;margin-bottom:14px}
+.embed-tabs{display:flex;gap:6px;margin-bottom:12px}
+.embed-tab{padding:4px 12px;border:1px solid var(--b1);border-radius:99px;font-size:11px;font-weight:500;color:var(--t3);cursor:pointer;background:transparent;font-family:var(--sans);transition:all .12s}
+.embed-tab.on{border-color:var(--acc);color:var(--acc);background:rgba(79,124,255,.07)}
+.embed-preview-wrap{background:var(--bg);border:1px solid var(--b1);border-radius:10px;padding:18px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;min-height:70px}
+.embed-code-wrap{position:relative;margin-bottom:8px}
+.embed-code{background:var(--bg3);border:1px solid var(--b1);border-radius:8px;padding:10px 14px;font-family:var(--mono);font-size:11px;color:var(--t2);word-break:break-all;line-height:1.6;padding-right:72px}
+.embed-copy-btn{position:absolute;right:8px;top:8px;padding:4px 10px;background:var(--bg4);border:1px solid var(--b2);border-radius:6px;font-size:10px;font-family:var(--mono);color:var(--t2);cursor:pointer;transition:all .12s;white-space:nowrap}
+.embed-copy-btn:hover{color:var(--t1);border-color:var(--t3)}
+.embed-copy-btn.copied{color:var(--grn);border-color:rgba(39,174,96,.3)}
+.embed-update-note{font-size:11px;color:var(--t3);font-family:var(--mono);letter-spacing:.02em}
+.embed-expired-msg{background:rgba(192,119,24,.07);border:1px solid rgba(192,119,24,.2);border-radius:8px;padding:12px 16px;font-size:12px;color:#c07718;font-family:var(--mono);line-height:1.6}
+
+/* CONVERSION TRIGGERS */
+.ct-strip{margin:20px 0;padding:14px 18px;border-radius:10px;background:rgba(74,120,240,0.04);border:1px solid rgba(74,120,240,0.12);display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.ct-strip.ct-brand{background:rgba(39,174,96,0.04);border-color:rgba(39,174,96,0.12)}
+.ct-body{flex:1;min-width:0}
+.ct-copy{font-size:13px;color:var(--t1);line-height:1.5;margin-bottom:3px}
+.ct-note{font-size:10px;color:var(--t3);font-family:var(--mono);letter-spacing:.01em}
+.ct-btn{flex-shrink:0;align-self:center;padding:7px 14px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;background:transparent;border:1px solid rgba(74,120,240,0.35);color:var(--acc);font-family:var(--sans);transition:all .15s;text-decoration:none;white-space:nowrap;display:inline-block}
+.ct-btn:hover{background:rgba(74,120,240,0.08);border-color:rgba(74,120,240,0.6)}
+.ct-strip.ct-brand .ct-btn{border-color:rgba(39,174,96,0.35);color:var(--grn)}
+.ct-strip.ct-brand .ct-btn:hover{background:rgba(39,174,96,0.08);border-color:rgba(39,174,96,0.6)}
+
+/* PRINT */
+@media print{
+  nav,.btn,.alpha-bar,.cta-row{display:none!important}
+  body{background:#fff;color:#000}
+  .page{padding:20px;max-width:100%}
+  :root{--bg:#fff;--bg2:#f8f8fb;--bg3:#f0f0f8;--bg4:#e8e8f0;--b1:rgba(0,0,0,.09);--b2:rgba(0,0,0,.14);--t1:#111;--t2:#444;--t3:#888}
+}
+</style>
+</head>
+<body>
+
+<div class="alpha-bar">
+  Sigñal is in early beta. Scores reflect reviewed public marketing claims and visible evidence references — not product efficacy, safety, or regulatory status.
+</div>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <svg width="24" height="11" viewBox="0 0 24 11" fill="none" aria-hidden="true"><path d="M1 8C3.2 3.5 5.8 3.5 7.8 8C9.8 12.5 12.4 12.5 14.4 8C16.4 3.5 19 3.5 23 5.5" stroke="#4a78f0" stroke-width="1.7" stroke-linecap="round"/></svg>
+    Sigñal<span class="nav-byline">by BHVD</span>
+  </a>
+  <div class="nav-actions">
+    <div class="share-wrap" id="shareWrap" style="display:none">
+      <button class="share-btn" id="shareBtn" onclick="toggleSharePopover()">↑ Share Score</button>
+      <div class="share-popover" id="sharePopover"></div>
+    </div>
+    <button class="btn btn-sm" onclick="window.print()">Save PDF</button>
+    <a class="btn btn-primary btn-sm" href="/">← All brands</a>
+  </div>
+</nav>
+
+<!-- Loading -->
+<div class="loading-screen" id="loading-screen">
+  <div class="spinner"></div>
+  <div class="loading-label">Loading report…</div>
+</div>
+
+<main class="page" id="page-main" style="display:none">
+
+  <!-- ══ STATE A: VERIFIED ══════════════════════════���═══════════ -->
+  <div id="state-verified" style="display:none">
+
+    <!-- Header -->
+    <div class="report-header">
+      <div class="rh-breadcrumb">
+        <span>Sigñal · Public Claim Record</span>
+        <span id="hdr-status-badge"></span>
+      </div>
+      <div class="rh-top">
+        <div>
+          <div class="rh-brand" id="rh-brand">—</div>
+          <div class="rh-domain" id="rh-domain">—</div>
+          <div class="rh-category" id="rh-category">—</div>
+        </div>
+        <div class="rh-score-block">
+          <div class="rh-score" id="rh-score">—</div>
+          <div class="rh-score-label">out of 100</div>
+          <div class="rh-verdict-badge" id="rh-verdict">—</div>
+          <div class="rh-sparkline-wrap" id="rh-sparkline-wrap" style="display:none">
+            <svg id="rh-sparkline" width="88" height="24" style="overflow:visible"></svg>
+            <span class="rh-sparkline-lbl" id="rh-sparkline-lbl"></span>
+          </div>
+        </div>
+      </div>
+      <div class="rh-meta">
+        <div class="rh-meta-item">
+          <div class="rh-meta-label">Signal</div>
+          <div class="rh-meta-val" id="meta-signal">—</div>
+        </div>
+        <div class="rh-meta-item">
+          <div class="rh-meta-label">Pricing Model</div>
+          <div class="rh-meta-val" id="meta-pricing">—</div>
+        </div>
+        <div class="rh-meta-item">
+          <div class="rh-meta-label">Capital</div>
+          <div class="rh-meta-val" id="meta-capital">—</div>
+        </div>
+        <div class="rh-meta-item">
+          <div class="rh-meta-label">Business Flag</div>
+          <div class="rh-meta-val" id="meta-biz">—</div>
+        </div>
+        <div class="rh-meta-item">
+          <div class="rh-meta-label">Data Confidence</div>
+          <div class="rh-meta-val" id="meta-confidence">—</div>
+        </div>
+        <div class="rh-meta-item">
+          <div class="rh-meta-label">Last Verified</div>
+          <div class="rh-meta-val" id="meta-verified">—</div>
+        </div>
+        <div class="rh-meta-item">
+          <div class="rh-meta-label">Valid Until</div>
+          <div class="rh-meta-val" id="meta-valid-until">—</div>
+        </div>
+        <div class="rh-meta-item">
+          <div class="rh-meta-label">Category Standing</div>
+          <div class="rh-meta-val" id="meta-standing" style="display:none">—</div>
+        </div>
+      </div>
+      <div class="cat-bar" id="cat-bar">
+        <div class="cat-bar-header">
+          <div class="cat-bar-label">Category Benchmark</div>
+          <div class="cat-bar-standing" id="cat-bar-standing"></div>
+        </div>
+        <div class="cat-bench-grid">
+          <div class="cat-bench-cell">
+            <div class="cat-bench-val" id="cb-brand-score">—</div>
+            <div class="cat-bench-lbl">Brand Score</div>
+          </div>
+          <div class="cat-bench-cell">
+            <div class="cat-bench-val" id="cb-cat-avg">—</div>
+            <div class="cat-bench-lbl">Category Avg</div>
+          </div>
+          <div class="cat-bench-cell">
+            <div class="cat-bench-val" id="cb-cat-median">—</div>
+            <div class="cat-bench-lbl">Category Median</div>
+          </div>
+          <div class="cat-bench-cell">
+            <div class="cat-bench-val" id="cb-rank">—</div>
+            <div class="cat-bench-lbl">Rank in Category</div>
+          </div>
+          <div class="cat-bench-cell">
+            <div class="cat-bench-val" id="cb-percentile">—</div>
+            <div class="cat-bench-lbl">Percentile</div>
+          </div>
+          <div class="cat-bench-cell">
+            <div class="cat-bench-val-delta" id="cb-delta">—</div>
+            <div class="cat-bench-lbl">vs Category Avg</div>
+          </div>
+        </div>
+        <div class="cat-bar-rail"><div class="cat-bar-fill" id="cat-bar-fill"></div></div>
+        <div class="cat-bar-note">Scores reflect only public_safe verified brands. Unreviewed, provisional, and expired brands are excluded.</div>
+      </div>
+    </div>
+
+    <!-- Demand signal -->
+    <div class="demand-bar" id="demand-bar">
+      <div style="flex:1;min-width:0">
+        <div class="demand-text" id="demand-text"></div>
+        <div class="demand-sub" id="demand-sub"></div>
+      </div>
+      <div class="demand-actions" id="demand-actions"></div>
+    </div>
+
+    <!-- System note -->
+    <div id="record-system-note" style="font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.03em;margin-bottom:12px;line-height:1.6">
+      This record updates as claims and evidence change. &nbsp;·&nbsp; <span id="record-state-phrase"></span>
+    </div>
+
+    <!-- Pressure signals -->
+    <div class="pressure-layer" id="pressure-layer" style="display:none"></div>
+
+    <!-- Executive Summary -->
+    <div class="rsec">
+      <div class="rsec-title">Executive Summary</div>
+      <div class="exec-summary">
+        <div class="exec-verdict" id="exec-verdict"></div>
+        <div class="exec-consumer" id="exec-consumer" style="display:none"><strong>Before you buy:</strong> <span id="exec-consumer-text"></span></div>
+      </div>
+    </div>
+
+    <!-- Claim Receipts -->
+    <div class="rsec" id="receipts-sec">
+      <div class="rsec-title">Claim Receipts</div>
+      <div class="receipts-list" id="receipts-list"></div>
+      <div style="margin-top:10px;font-size:11px;color:var(--t3);font-family:var(--mono)">Claims extracted from brand marketing pages. Status reflects whether visible evidence on the same page supports the claim.</div>
+    </div>
+
+    <!-- What Changed -->
+    <div class="rsec" id="diff-sec" style="display:none">
+      <div class="rsec-title">What Changed</div>
+      <div class="diff-section" id="diff-content"></div>
+    </div>
+
+    <!-- Consumer Pro: Claim Change Trigger -->
+    <div class="ct-strip" id="ct-claimdiff" style="display:none">
+      <div class="ct-body">
+        <div class="ct-copy">Get alerts when this brand changes claims.</div>
+        <div class="ct-note">Paid access never influences public Sigñal scores, rankings, or review outcomes.</div>
+      </div>
+      <a class="ct-btn" href="/pricing" onclick="ctTrack('consumer_pro_waitlist_click','claim_change')">Track future changes →</a>
+    </div>
+
+    <!-- Evidence Assessment -->
+    <div class="rsec">
+      <div class="rsec-title">Evidence Assessment</div>
+      <div class="ev-grid">
+        <div class="ev-card">
+          <div class="ev-card-label">Evidence Presence</div>
+          <div class="ev-card-val" id="ev-presence">—</div>
+          <div class="ev-card-desc" id="ev-presence-desc">Study links, certifications, and references visible on the brand's page.</div>
+        </div>
+        <div class="ev-card">
+          <div class="ev-card-label">Evidence Strength</div>
+          <div class="ev-card-val" id="ev-strength">—</div>
+          <div class="ev-card-desc" id="ev-strength-desc">Quality and independence of cited evidence relative to claims made.</div>
+        </div>
+      </div>
+      <div class="findings-list" id="findings-list"></div>
+    </div>
+
+    <!-- Evidence Summary -->
+    <div class="rsec">
+      <div class="rsec-title">Evidence Summary</div>
+      <div class="score-dims" id="score-dims"></div>
+    </div>
+
+    <!-- Brand Tools: Evidence Gap Trigger -->
+    <div class="ct-strip ct-brand" id="ct-gaps" style="display:none">
+      <div class="ct-body">
+        <div class="ct-copy">Organize supporting materials before editorial review.</div>
+        <div class="ct-note">Brand Tools do not influence public scores. · Paid access never influences public Sigñal scores, rankings, or review outcomes.</div>
+      </div>
+      <a class="ct-btn" href="/pricing" onclick="ctTrack('brand_tools_access_click','evidence_gap')">Brand Tools →</a>
+    </div>
+
+    <!-- Risk Flags -->
+    <div class="rsec" id="flags-sec">
+      <div class="rsec-title">Risk Flags</div>
+      <div class="flags-list" id="flags-list"></div>
+    </div>
+
+    <!-- Consumer Interpretation -->
+    <div class="rsec" id="consumer-sec" style="display:none">
+      <div class="rsec-title">Consumer Interpretation</div>
+      <div class="consumer-block">
+        <div class="consumer-q">What does this mean for you?</div>
+        <div class="consumer-items" id="consumer-items"></div>
+      </div>
+    </div>
+
+    <!-- Limitations -->
+    <div class="rsec" id="limitations-sec" style="display:none">
+      <div class="rsec-title">Assessment Limitations</div>
+      <div class="limitations-box" id="limitations-box"></div>
+    </div>
+
+    <!-- Final Verdict -->
+    <div class="rsec">
+      <div class="rsec-title">Final Verdict</div>
+      <div class="final-verdict" id="final-verdict">
+        <div class="fv-bg"></div>
+        <div class="fv-label">Sigñal Verdict</div>
+        <div class="fv-verdict" id="fv-verdict"></div>
+        <div class="fv-note" id="fv-note"></div>
+        <div class="fv-strengths" id="fv-strengths" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- Embed Sigñal Rating -->
+    <div class="rsec" id="embed-sec" style="display:none">
+      <div class="rsec-title">Embed Sigñal Rating</div>
+      <div class="embed-section">
+        <div class="embed-head-title">Add a Sigñal badge to your site</div>
+        <div class="embed-head-sub">Show your audience you've been independently assessed. Updates automatically when the alignment rating changes.</div>
+        <div id="embed-content"></div>
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="cta-row">
+      <button class="btn btn-primary" id="cta-track" onclick="toggleTrackForm()">Track this brand</button>
+      <a class="btn" id="cta-evidence" href="/brand-portal" onclick="track('submit_evidence_click',{domain:domain})">Submit supporting evidence</a>
+      <a class="btn btn-primary" id="cta-reassess" href="#" onclick="track('request_review_click',{domain:domain})">Request re-evaluation</a>
+      <a class="btn" href="/methodology">Methodology</a>
+    </div>
+    <div class="capture-inline" id="track-form">
+      <div class="capture-inline-label">Get notified when this brand's alignment rating changes or new claims are assessed.</div>
+      <div class="capture-inline-form">
+        <input class="capture-inline-input" type="email" id="track-email" placeholder="your@email.com" autocomplete="email">
+        <button class="capture-inline-btn" id="track-btn" onclick="submitTrack()">Notify me</button>
+      </div>
+      <div class="capture-inline-ok" id="track-ok">You're tracking this brand. We'll notify you when the alignment rating changes.</div>
+      <div class="capture-inline-note">Rating changes and new assessments only. No marketing.</div>
+    </div>
+
+    <!-- Brand Tools: Profile Trigger -->
+    <div class="ct-strip ct-brand" id="ct-brand-tools" style="display:none">
+      <div class="ct-body">
+        <div class="ct-copy">Claim your profile to submit evidence or request review.</div>
+        <div class="ct-note">Brand Tools do not influence public scores. · Paid access never influences public Sigñal scores, rankings, or review outcomes.</div>
+      </div>
+      <a class="ct-btn" href="/brand-portal" onclick="ctTrack('brand_tools_access_click','brand_report')">Claim profile →</a>
+    </div>
+
+  </div><!-- /state-verified -->
+
+
+  <!-- ══ STATE B: NOT YET ASSESSED ═════════════════════════════ -->
+  <div id="state-not-assessed" style="display:none">
+    <div class="unassessed-card">
+      <div class="unassessed-icon">◎</div>
+      <div class="unassessed-title" id="na-brand">Not in public record</div>
+      <div class="unassessed-sub">This brand has not yet entered the public claim record. Alignment ratings are only published after editorial review — not automatically.</div>
+      <div class="unassessed-demand" id="na-demand" style="display:none"></div>
+      <a class="unassessed-cta" id="na-request-btn" href="#" onclick="track('request_review_click',{domain:domain})">Request an assessment →</a>
+      <div style="margin-top:16px">
+        <button class="btn" style="font-size:12px;padding:7px 15px;margin:0 auto;display:inline-flex" onclick="toggleNotifyForm()">Notify me when reviewed</button>
+      </div>
+      <div class="capture-inline" id="notify-form" style="margin-top:14px;text-align:left">
+        <div class="capture-inline-label">We'll email you when this brand is scored — no spam, just the notification.</div>
+        <div class="capture-inline-form">
+          <input class="capture-inline-input" type="email" id="notify-email" placeholder="your@email.com" autocomplete="email">
+          <button class="capture-inline-btn" id="notify-btn" onclick="submitNotify()">Notify me</button>
+        </div>
+        <div class="capture-inline-ok" id="notify-ok">Got it — we'll reach out when this brand is reviewed.</div>
+        <div class="capture-inline-note">One email when scored. That's it.</div>
+      </div>
+      <div class="unassessed-portal">
+        Are you this brand? <a href="/brand-portal" onclick="track('brand_claim_profile_click',{domain:domain})">Submit supporting evidence via Brand Portal</a>
+      </div>
+    </div>
+  </div><!-- /state-not-assessed -->
+
+
+  <!-- ══ STATE C: ERROR ═════════════════════════════════════════ -->
+  <div id="state-error" style="display:none">
+    <div class="error-card">
+      <div class="error-icon">○</div>
+      <div class="error-title">Record unavailable</div>
+      <div class="error-sub" id="error-sub">We couldn't load this record right now. The API may be temporarily unavailable.</div>
+      <a class="btn btn-primary" href="/">← Back to Sigñal</a>
+    </div>
+  </div><!-- /state-error -->
+
+</main>
+
+<script>
+var API = "https://bhvd-signal-api.fly.dev";
+
+// ── Event tracking ─────────────────────────────────────────────
+function ctTrack(eventName, context) {
+  fetch(API + "/api/event", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ event: eventName, meta: { context: context } })
+  }).catch(function(){});
+}
+
+function ctShow(id, triggerEvent, context) {
+  var el = document.getElementById(id);
+  if (el && el.style.display === "none") {
+    el.style.display = "";
+    fetch(API + "/api/event", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event: triggerEvent, meta: { context: context } })
+    }).catch(function(){});
+  }
+}
+
+function track(event_name, meta) {
+  fetch(API + "/api/event", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ event: event_name, meta: meta || null })
+  }).catch(function(){});
+}
+
+// ── Brand track form ───────────────────────────────────────────
+function toggleTrackForm() {
+  var form = document.getElementById("track-form");
+  var isOpen = form.classList.contains("open");
+  if (!isOpen) {
+    track("track_brand_click", { domain: domain });
+    form.classList.add("open");
+    setTimeout(function(){ document.getElementById("track-email").focus(); }, 50);
+  } else {
+    form.classList.remove("open");
+  }
+}
+
+function submitTrack() {
+  var email = document.getElementById("track-email").value.trim();
+  if (!email || !email.includes("@")) { document.getElementById("track-email").focus(); return; }
+  var btn = document.getElementById("track-btn");
+  btn.disabled = true; btn.textContent = "Saving…";
+  fetch(API + "/api/capture", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: email, type: "consumer_track", domain: domain })
+  })
+  .then(function() {
+    track("consumer_email_signup", { type: "consumer_track", domain: domain });
+    document.getElementById("track-form").querySelector(".capture-inline-form").style.display = "none";
+    document.getElementById("track-ok").style.display = "";
+  })
+  .catch(function() { btn.disabled = false; btn.textContent = "Notify me"; });
+}
+
+// ── Not-assessed notify form ───────────────────────────────────
+function toggleNotifyForm() {
+  var form = document.getElementById("notify-form");
+  var isOpen = form.classList.contains("open");
+  if (!isOpen) {
+    track("notify_when_reviewed_click", { domain: domain });
+    form.classList.add("open");
+    setTimeout(function(){ document.getElementById("notify-email").focus(); }, 50);
+  } else {
+    form.classList.remove("open");
+  }
+}
+
+function submitNotify() {
+  var email = document.getElementById("notify-email").value.trim();
+  if (!email || !email.includes("@")) { document.getElementById("notify-email").focus(); return; }
+  var btn = document.getElementById("notify-btn");
+  btn.disabled = true; btn.textContent = "Saving…";
+  fetch(API + "/api/capture", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: email, type: "consumer_notify", domain: domain })
+  })
+  .then(function() {
+    track("consumer_email_signup", { type: "consumer_notify", domain: domain });
+    document.getElementById("notify-form").querySelector(".capture-inline-form").style.display = "none";
+    document.getElementById("notify-ok").style.display = "";
+  })
+  .catch(function() { btn.disabled = false; btn.textContent = "Notify me"; });
+}
+
+// ── Scoring framework dimension maxes (total = 100) ────────────
+var DIMS = [
+  { label:"Specificity",         key:"specificity",         max:20 },
+  { label:"Mechanism",           key:"mechanism",           max:15 },
+  { label:"Evidence Presence",   key:"evidence_presence",   max:10 },
+  { label:"Evidence Strength",   key:"evidence_strength",   max:25 },
+  { label:"Effect Reality",      key:"effect_reality",      max:15 },
+  { label:"Consumer Distortion", key:"consumer_distortion", max:15 },
+];
+
+var VERDICT_COLOR = {
+  "ALIGNED":"#1e9459","VALIDATED":"#1e9459",
+  "GENERALLY ALIGNED":"#c07718","PARTIALLY ALIGNED":"#b06a10",
+  "OVEREXTENDED":"#9e3028","INFLATED":"#9e3028","EVIDENCE GAP":"#7a2018",
+};
+var SIG_COLOR = { green:"#1e9459", yellow:"#c07718", red:"#9e3028" };
+var SIG_LABEL = { green:"Evidence Proportionate", yellow:"Moderate Evidence Gap", red:"Significant Evidence Gap" };
+var BAND_COLOR = { top10:"#1e9459",top25:"#27a864",middle50:"#c07718",bottom25:"#a06010",bottom10:"#9e3028" };
+var CONF_COLOR = { high:"#27ae60", medium:"#f39c12", low:"#e74c3c" };
+var BADGE_MAP  = { aligned:"badge-aligned",partial:"badge-partial",gap:"badge-gap",missing:"badge-missing",reviewed:"badge-reviewed" };
+var BADGE_LABEL = { aligned:"Aligned",partial:"Partial",gap:"Gap",missing:"Missing",reviewed:"Reviewed" };
+
+// ── Safety: strip HTML tags and control chars from API strings ──
+function sanitize(str) {
+  if (str == null) return "";
+  return String(str)
+    .replace(/<[^>]*>/g, "")
+    .replace(/[^\x20-\x7E\xA0-퟿豈-﷏ﷰ-￯\n]/g, " ")
+    .replace(/javascript:/gi, "")
+    .replace(/on\w+\s*=/gi, "")
+    .trim()
+    .slice(0, 2000);
+}
+
+function esc(s) {
+  return sanitize(s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+function setText(id, val) {
+  var el = document.getElementById(id);
+  if (el) el.textContent = sanitize(String(val || ""));
+}
+
+function showEl(id)  { var el=document.getElementById(id); if(el) el.style.display=""; }
+function hideEl(id)  { var el=document.getElementById(id); if(el) el.style.display="none"; }
+function flexEl(id)  { var el=document.getElementById(id); if(el) el.style.display="flex"; }
+
+function fmtDate(iso) {
+  if (!iso) return null;
+  try { return new Date(iso).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}); }
+  catch(e) { return null; }
+}
+
+function fmtDateShort(iso) {
+  if (!iso) return null;
+  try { return new Date(iso).toLocaleDateString("en-US",{month:"short",year:"numeric"}); }
+  catch(e) { return null; }
+}
+
+// ── Render helpers ─────────────────────────────��───────────────
+function showState(name) {
+  ["state-verified","state-not-assessed","state-error"].forEach(function(id){
+    hideEl(id);
+  });
+  showEl("state-" + name);
+  showEl("page-main");
+  hideEl("loading-screen");
+}
+
+function statusBadge(type) {
+  var cfg = {
+    verified:  { cls:"sb-verified",   label:"Verified" },
+    unassessed:{ cls:"sb-unassessed", label:"Not Yet Assessed" },
+    expired:   { cls:"sb-expired",    label:"Assessment Expired" },
+  };
+  var c = cfg[type] || cfg.unassessed;
+  return '<span class="status-badge ' + c.cls + '"><span class="status-badge-dot"></span>' + c.label + '</span>';
+}
+
+// ── Claim diff ─────────────────────────────────────────────────
+function loadClaimDiff(domain) {
+  fetch(API + "/api/claim-diff/" + encodeURIComponent(domain))
+    .then(function(r) { return r.json(); })
+    .then(function(resp) {
+      if (!resp.success || !resp.data || !resp.data.has_diff) return;
+      renderClaimDiff(resp.data);
+    })
+    .catch(function(){});
+}
+
+function renderClaimDiff(d) {
+  var sec     = document.getElementById("diff-sec");
+  var content = document.getElementById("diff-content");
+  if (!sec || !content) return;
+
+  var nNew = d.new_claims.length, nRem = d.removed_claims.length;
+  var mods = d.modified_claims || [];
+  var nMore = mods.filter(function(m){ return m.intensity_change === "increase"; }).length;
+  var nLess = mods.filter(function(m){ return m.intensity_change === "decrease"; }).length;
+  var nWord = mods.filter(function(m){ return m.intensity_change === "neutral";  }).length;
+  if (!nNew && !nRem && !mods.length) return;
+
+  // Claim volatility pressure signal
+  var totalChanges = nNew + nRem + mods.length;
+  var pressureLayer = document.getElementById("pressure-layer");
+  if (pressureLayer && totalChanges > 0) {
+    var volEl = document.createElement("div");
+    volEl.className = "pressure-signal";
+    volEl.textContent = "Claim language changed " + totalChanges + (totalChanges === 1 ? " time" : " times") + " in the last 30 days.";
+    pressureLayer.appendChild(volEl);
+    pressureLayer.style.display = "flex";
+  }
+
+  var bDate = fmtDate(d.before_date) || d.before_date;
+  var aDate = fmtDate(d.after_date)  || d.after_date;
+
+  var html = '<div class="diff-meta">Comparing ' + esc(bDate) + ' → ' + esc(aDate) + '</div>';
+  html += '<div class="diff-pills">';
+  if (nNew)  html += '<span class="diff-pill diff-pill-add">+' + nNew + ' ' + (nNew === 1 ? 'claim' : 'claims') + ' added</span>';
+  if (nRem)  html += '<span class="diff-pill diff-pill-remove">−' + nRem + ' ' + (nRem === 1 ? 'claim' : 'claims') + ' no longer present</span>';
+  if (nMore) html += '<span class="diff-pill diff-pill-mod">' + nMore + ' became more definitive</span>';
+  if (nLess) html += '<span class="diff-pill diff-pill-mod">' + nLess + ' became less definitive</span>';
+  if (nWord) html += '<span class="diff-pill diff-pill-mod">' + nWord + ' wording changed</span>';
+  html += '</div>';
+
+  if (nNew) {
+    html += '<details class="diff-details"><summary>' +
+      '<span class="diff-mark diff-mark-add">+</span>' +
+      nNew + (nNew === 1 ? ' claim' : ' claims') + ' added' +
+      '</summary><div class="diff-rows">' +
+      d.new_claims.map(function(c) {
+        return '<div class="diff-row-add"><span class="diff-mark diff-mark-add">+</span><span>' + esc(c) + '</span></div>';
+      }).join("") + '</div></details>';
+  }
+
+  if (nRem) {
+    html += '<details class="diff-details"><summary>' +
+      '<span class="diff-mark diff-mark-remove">−</span>' +
+      nRem + (nRem === 1 ? ' claim' : ' claims') + ' no longer present' +
+      '</summary><div class="diff-rows">' +
+      d.removed_claims.map(function(c) {
+        return '<div class="diff-row-remove"><span class="diff-mark diff-mark-remove">−</span><span>' + esc(c) + '</span></div>';
+      }).join("") + '</div></details>';
+  }
+
+  if (mods.length) {
+    html += '<details class="diff-details"><summary>' +
+      '<span class="diff-mark diff-mark-mod">~</span>' +
+      mods.length + (mods.length === 1 ? ' claim' : ' claims') + ' — language changed' +
+      '</summary><div class="diff-rows">' +
+      mods.map(function(m) {
+        var chgLbl = m.intensity_change === "increase" ? "language became more definitive"
+          : m.intensity_change === "decrease" ? "language became less definitive"
+          : "wording changed";
+        return '<div class="diff-row-mod">' +
+          '<div class="diff-lbl diff-lbl-before">before</div>' +
+          '<div>' + esc(m.before) + '</div>' +
+          '<div class="diff-lbl diff-lbl-after">after</div>' +
+          '<div>' + esc(m.after) + '</div>' +
+          '<div class="diff-chg-lbl">' + esc(chgLbl) + '</div>' +
+          '</div>';
+      }).join("") + '</div></details>';
+  }
+
+  content.innerHTML = html;
+  sec.style.display = "";
+  ctShow("ct-claimdiff", "consumer_pro_trigger_view", "claim_diff");
+}
+
+// ── Sparkline ──────────────────────────────────────────────────
+function renderSparkline(history, color) {
+  var wrap = document.getElementById("rh-sparkline-wrap");
+  var svg  = document.getElementById("rh-sparkline");
+  var lbl  = document.getElementById("rh-sparkline-lbl");
+  if (!wrap || !svg || !lbl || !history || history.length < 2) return;
+
+  var scores = history.map(function(h) { return h.score; });
+  var minS = Math.min.apply(null, scores);
+  var maxS = Math.max.apply(null, scores);
+  // Ensure at least 12pt Y range so flat lines don't collapse
+  var yMin = Math.min(minS, maxS - 12);
+  var yMax = Math.max(maxS, yMin + 12);
+
+  var W = 88, H = 24, pad = 3;
+  var pts = scores.map(function(s, i) {
+    var x = pad + (scores.length < 2 ? W / 2 : i * (W - pad * 2) / (scores.length - 1));
+    var y = H - pad - ((s - yMin) / (yMax - yMin)) * (H - pad * 2);
+    return [x, y];
+  });
+
+  var polyPts = pts.map(function(p) { return p[0] + "," + p[1]; }).join(" ");
+  var dots = pts.map(function(p, i) {
+    if (i !== 0 && i !== pts.length - 1) return "";
+    var r = i === pts.length - 1 ? 2.5 : 1.5;
+    var c = i === pts.length - 1 ? color : "rgba(255,255,255,0.25)";
+    return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + r + '" fill="' + c + '"/>';
+  }).join("");
+
+  svg.innerHTML =
+    '<polyline points="' + polyPts + '" fill="none" stroke="' + color + '" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" opacity="0.8"/>' +
+    dots;
+
+  var delta = scores[scores.length - 1] - scores[0];
+  var trend, trendColor;
+  if (delta >= 3)       { trend = "improving"; trendColor = "#27ae60"; }
+  else if (delta <= -3) { trend = "declining";  trendColor = "#e74c3c"; }
+  else                  { trend = "stable";     trendColor = "var(--t3)"; }
+
+  lbl.textContent = trend;
+  lbl.style.color = trendColor;
+  wrap.style.display = "";
+}
+
+// ── Render: verified brand ─────────────────────────────────────
+function renderVerified(brand, product, ld, dims, demand) {
+  var sig   = product.signal_color || "yellow";
+  var color = VERDICT_COLOR[ld.bhvd_verdict] || SIG_COLOR[sig] || "#f39c12";
+  var score = ld.total_score != null ? ld.total_score : Math.round(100 - (product.claim_support_risk || 50));
+  var verdict = ld.bhvd_verdict || "—";
+
+  document.title = esc(brand.brand_name || brand.domain) + " · Public Claim Record · Sigñal";
+
+  // Status badge
+  var expired = ld.valid_until && new Date(ld.valid_until) < new Date();
+  var badgeEl = document.getElementById("hdr-status-badge");
+  if (badgeEl) badgeEl.innerHTML = statusBadge(expired ? "expired" : "verified");
+
+  // Header
+  setText("rh-brand",    brand.brand_name || brand.domain);
+  var domEl = document.getElementById("rh-domain");
+  if (domEl) domEl.textContent = brand.domain;
+  setText("rh-category", (product.category || "").replace(/_/g," "));
+
+  var scoreEl = document.getElementById("rh-score");
+  if (scoreEl) { scoreEl.textContent = score; scoreEl.style.color = color; }
+
+  var verdEl = document.getElementById("rh-verdict");
+  if (verdEl) {
+    verdEl.textContent = verdict;
+    verdEl.style.color = color;
+    verdEl.style.borderColor = color + "40";
+    verdEl.style.background  = color + "0d";
+  }
+
+  renderSparkline(Array.isArray(ld.score_history) ? ld.score_history : [], color);
+
+  // Meta row
+  setText("meta-signal",  sig.charAt(0).toUpperCase()+sig.slice(1) + " — " + (SIG_LABEL[sig]||""));
+  document.getElementById("meta-signal") && (document.getElementById("meta-signal").style.color = color);
+  setText("meta-pricing", (ld.pricing_drag||"—") + (ld.pricing_note ? " — "+ld.pricing_note : ""));
+  setText("meta-capital", ld.capital_signal || "—");
+  setText("meta-biz",     ld.business_flag  || "—");
+
+  var conf = ld.data_confidence || ld.data_integrity || null;
+  if (conf) {
+    var confEl = document.getElementById("meta-confidence");
+    if (confEl) {
+      confEl.textContent = conf.charAt(0).toUpperCase() + conf.slice(1);
+      confEl.style.color = CONF_COLOR[conf.toLowerCase()] || "var(--t1)";
+    }
+  }
+
+  var verifiedDate = fmtDate(ld.reviewed_at || product.last_scanned_at);
+  if (verifiedDate) setText("meta-verified", verifiedDate);
+
+  if (ld.valid_until) {
+    var vu = fmtDate(ld.valid_until);
+    if (vu) {
+      var vuEl = document.getElementById("meta-valid-until");
+      if (vuEl) { vuEl.textContent = vu; if (expired) vuEl.style.color = "#e74c3c"; }
+    }
+  }
+
+  // Category standing (meta row)
+  var rankForMeta = brand.category_benchmark ? brand.category_benchmark.category_rank : product.rank_number;
+  if (rankForMeta) {
+    var standEl = document.getElementById("meta-standing");
+    if (standEl) { standEl.textContent = "#" + rankForMeta + " in category"; standEl.style.display = ""; }
+  }
+
+  // Category Benchmark card
+  var cb = brand.category_benchmark;
+  if (cb) {
+    var catBarEl = document.getElementById("cat-bar");
+    if (catBarEl) {
+      // Standing label + color
+      var standingEl = document.getElementById("cat-bar-standing");
+      if (standingEl) {
+        standingEl.textContent = cb.category_standing || "";
+        standingEl.className = "cat-bar-standing " + (
+          (cb.category_standing || "").indexOf("Above") >= 0 ? "cat-bar-standing-above" :
+          (cb.category_standing || "").indexOf("Below") >= 0 ? "cat-bar-standing-below" :
+          "cat-bar-standing-inline"
+        );
+      }
+      // Cells
+      setText("cb-brand-score",  cb.brand_score);
+      setText("cb-cat-avg",      cb.category_avg);
+      setText("cb-cat-median",   cb.category_median != null ? cb.category_median : "—");
+      setText("cb-rank",         "#" + cb.category_rank + " / " + cb.category_total);
+      setText("cb-percentile",   cb.category_percentile + "th");
+      // Delta
+      var deltaEl = document.getElementById("cb-delta");
+      if (deltaEl && cb.category_delta_vs_avg != null) {
+        var d = cb.category_delta_vs_avg;
+        var sign = d > 0 ? "+" : "";
+        deltaEl.textContent = sign + d;
+        deltaEl.className = "cat-bench-val-delta " + (d > 0 ? "cat-bench-val-delta-up" : d < 0 ? "cat-bench-val-delta-down" : "");
+      }
+      // Progress bar (percentile as fill)
+      var fillEl = document.getElementById("cat-bar-fill");
+      if (fillEl) {
+        fillEl.style.width = cb.category_percentile + "%";
+        fillEl.style.background = (cb.category_standing || "").indexOf("Above") >= 0 ? "#1e9459" :
+          (cb.category_standing || "").indexOf("Below") >= 0 ? "#c07718" : "#4a78f0";
+      }
+      catBarEl.style.display = "";
+    }
+  }
+
+  // Demand bar
+  renderDemand(demand, brand.domain || "");
+
+  // Executive summary
+  var summary = sanitize(ld.why_this_verdict || "");
+  setText("exec-verdict", summary || verdict);
+  var consumerNote = sanitize(ld.consumer_note || "");
+  if (consumerNote) {
+    setText("exec-consumer-text", consumerNote);
+    showEl("exec-consumer");
+  }
+
+  // Claim receipts (from gap_map + claims_found)
+  var receiptsEl = document.getElementById("receipts-list");
+  var capturedDate = fmtDateShort(product.last_scanned_at) || "Unknown";
+  var sourceLabel  = brand.domain || "brand page";
+
+  if (receiptsEl) {
+    var receipts = [];
+
+    if (ld.gap_map && ld.gap_map.length) {
+      receipts = ld.gap_map.map(function(g) {
+        return {
+          claim:    sanitize(g.claim),
+          evidence: sanitize(g.evidence),
+          status:   g.status || "gap",
+          hasEvidence: !!g.evidence,
+        };
+      });
+    } else if (ld.claims_found && ld.claims_found.length) {
+      receipts = ld.claims_found.slice(0,8).map(function(c) {
+        return { claim: sanitize(c), evidence: null, status: "reviewed", hasEvidence: false };
+      });
+    }
+
+    if (receipts.length) {
+      receiptsEl.innerHTML = receipts.map(function(r) {
+        var bClass = BADGE_MAP[r.status]  || "badge-gap";
+        var bLabel = BADGE_LABEL[r.status]|| r.status;
+        var evidenceHtml = r.hasEvidence
+          ? '<div class="receipt-evidence"><div class="receipt-evidence-label">Evidence found</div>' + esc(r.evidence) + '</div>'
+          : "";
+        return '<div class="receipt-row">' +
+          '<div class="receipt-header">' +
+            '<div class="receipt-claim">' + esc(r.claim) + '</div>' +
+            '<div class="receipt-badge"><span class="gap-badge ' + bClass + '">' + bLabel + '</span></div>' +
+          '</div>' +
+          evidenceHtml +
+          '<div class="receipt-meta">' +
+            '<span class="receipt-meta-item">Source: ' + esc(sourceLabel) + '</span>' +
+            '<span class="receipt-meta-item">Captured: ' + esc(capturedDate) + '</span>' +
+          '</div>' +
+        '</div>';
+      }).join("");
+      showEl("receipts-sec");
+    } else {
+      hideEl("receipts-sec");
+    }
+  }
+
+  // Evidence cards
+  if (dims.evidence_presence != null) {
+    var ep = document.getElementById("ev-presence");
+    if (ep) {
+      ep.textContent = dims.evidence_presence + " / 10";
+      ep.style.color = dims.evidence_presence >= 7 ? "#27ae60" : dims.evidence_presence >= 4 ? "#f39c12" : "#e74c3c";
+    }
+  }
+  if (dims.evidence_strength != null) {
+    var es = document.getElementById("ev-strength");
+    if (es) {
+      es.textContent = dims.evidence_strength + " / 25";
+      es.style.color = dims.evidence_strength >= 15 ? "#27ae60" : dims.evidence_strength >= 8 ? "#f39c12" : "#e74c3c";
+    }
+  }
+  var findingsEl = document.getElementById("findings-list");
+  if (findingsEl && ld.pubmed_findings && ld.pubmed_findings.length) {
+    findingsEl.innerHTML = ld.pubmed_findings.map(function(f){
+      return '<div class="finding-item">' + esc(f) + '</div>';
+    }).join("");
+  }
+
+  // Scoring breakdown
+  var dimsEl = document.getElementById("score-dims");
+  if (dimsEl) {
+    var hasDims = DIMS.some(function(d){ return dims[d.key] != null; });
+    if (hasDims) {
+      var hasGaps = false;
+      dimsEl.innerHTML = DIMS.map(function(d){
+        var val = dims[d.key];
+        var pct = (val != null && d.max) ? Math.round(val/d.max*100) : 0;
+        var c   = pct >= 65 ? "#27ae60" : pct >= 40 ? "#f39c12" : "#e74c3c";
+        if (val != null && pct < 40) hasGaps = true;
+        return '<div class="dim-row">' +
+          '<div class="dim-name">'+esc(d.label)+'</div>'+
+          '<div class="dim-bar-wrap"><div class="dim-bar-fill" style="width:'+pct+'%;background:'+c+'"></div></div>'+
+          '<div class="dim-score" style="color:'+c+'">'+(val!=null?val:"—")+'</div>'+
+          '<div class="dim-max">/ '+d.max+'</div>'+
+        '</div>';
+      }).join("") +
+      '<div class="dim-total-row">' +
+        '<div class="dim-total-label">Total Score</div>' +
+        '<div class="dim-total-score" style="color:'+color+'">'+score+' / 100</div>' +
+      '</div>';
+      if (hasGaps) ctShow("ct-gaps", "brand_tools_trigger_view", "evidence_gap");
+    } else {
+      dimsEl.innerHTML =
+        '<div style="padding:20px 0;color:var(--t3);font-size:13px;font-family:var(--mono);letter-spacing:.03em">' +
+          'Detailed dimension scoring is being prepared for this beta report.' +
+        '</div>' +
+        '<div class="dim-total-row">' +
+          '<div class="dim-total-label">Total Score</div>' +
+          '<div class="dim-total-score" style="color:'+color+'">'+score+' / 100</div>' +
+        '</div>';
+    }
+  }
+
+  // Risk flags
+  var flagsEl  = document.getElementById("flags-list");
+  var flagsSec = document.getElementById("flags-sec");
+  var flags = Array.isArray(ld.why_flagged_top_reasons) ? ld.why_flagged_top_reasons : [];
+  // Also use product.why_flagged_top_reasons if present
+  if (!flags.length && Array.isArray(product.why_flagged_top_reasons)) flags = product.why_flagged_top_reasons;
+  if (flagsEl && flags.length) {
+    var flagColor = color === "#27ae60" ? "#f39c12" : "#e74c3c";
+    flagsEl.innerHTML = flags.map(function(f){
+      return '<div class="flag-item"><div class="flag-dot" style="background:'+flagColor+'"></div><div class="flag-text">'+esc(f)+'</div></div>';
+    }).join("");
+    if (flagsSec) flagsSec.style.display = "";
+  } else if (flagsSec) {
+    flagsSec.style.display = "none";
+  }
+
+  // Consumer interpretation
+  var consumerSec   = document.getElementById("consumer-sec");
+  var consumerItems = document.getElementById("consumer-items");
+  var note = sanitize(ld.consumer_note || "");
+  if (note && consumerItems) {
+    var sentences = note.replace(/\s+/g," ").split(/\.\s+/).filter(Boolean).slice(0,4);
+    consumerItems.innerHTML = sentences.map(function(s){
+      return '<div class="consumer-item">'+esc(s.replace(/\.$/,""))+'.</div>';
+    }).join("");
+    if (consumerSec) consumerSec.style.display = "";
+  }
+
+  // Limitations
+  var limText = sanitize(ld.limitations || "");
+  if (limText) {
+    setText("limitations-box", limText);
+    showEl("limitations-sec");
+  }
+
+  // Final verdict
+  var fv = document.getElementById("final-verdict");
+  if (fv) { fv.style.color=color; fv.style.borderColor=color+"40"; fv.style.background=color+"06"; }
+  var suffix = score >= 68 ? " — strong evidence alignment" : score >= 55 ? " — with some evidence gaps" : " — claims outrun visible evidence";
+  setText("fv-verdict", verdict + suffix);
+  setText("fv-note",    ld.why_this_verdict || "");
+  if (ld.strengths) { setText("fv-strengths", ld.strengths); showEl("fv-strengths"); }
+  else hideEl("fv-strengths");
+
+  // CTAs
+  var domain = brand.domain || "";
+  var reassessEl = document.getElementById("cta-reassess");
+  if (reassessEl) reassessEl.href = "/request/?d=" + encodeURIComponent(domain) + "&type=reassess";
+  var evidenceEl = document.getElementById("cta-evidence");
+  if (evidenceEl) evidenceEl.href = "/brand-portal?d=" + encodeURIComponent(domain);
+
+  // Share card + embed (requires domain, score, sig, verdict, expired — all computed above)
+  initShareCard(sanitize(brand.brand_name || brand.domain), score, domain, sig, verdict);
+  initEmbedSection(domain, expired);
+  loadClaimDiff(domain);
+
+  showState("verified");
+  ctShow("ct-brand-tools", "brand_tools_trigger_view", "brand_report");
+
+  // System state phrase
+  var phraseEl = document.getElementById("record-state-phrase");
+  if (phraseEl) {
+    var phrase = expired ? "Re-evaluation in progress"
+      : demand && (demand.demand_count || 0) > 0 ? "Public demand for assessment has increased"
+      : "Based on visible claims and referenced evidence";
+    phraseEl.textContent = phrase;
+  }
+
+  // Pressure signals layer
+  var pressureLayer = document.getElementById("pressure-layer");
+  if (pressureLayer) {
+    var signals = [];
+
+    // Verification freshness
+    var verifiedTs = ld.reviewed_at || product.last_scanned_at;
+    if (verifiedTs) {
+      var daysSince = Math.floor((Date.now() - new Date(verifiedTs).getTime()) / (1000 * 60 * 60 * 24));
+      if (daysSince > 30) {
+        signals.push({ cls: "pressure-signal-warn", text: "Verification outdated — reassessment pending. Last verified " + daysSince + " days ago." });
+      } else if (daysSince >= 0) {
+        signals.push({ cls: "", text: "Last verified " + daysSince + (daysSince === 1 ? " day" : " days") + " ago." });
+      }
+    }
+
+    // Watch intensity
+    var demandCount = demand ? (demand.demand_count || 0) : 0;
+    if (demandCount >= 3) {
+      signals.push({ cls: "pressure-signal-active", text: "This brand is being actively monitored." });
+    }
+
+    // Brand response state — observational, never accusatory
+    if (!ld.brand_response && !ld.brand_submitted_evidence && ld.total_score != null) {
+      signals.push({ cls: "", text: "No evidence has been submitted by this brand." });
+    }
+
+    if (signals.length) {
+      pressureLayer.innerHTML = signals.map(function(s) {
+        return '<div class="pressure-signal ' + s.cls + '">' + esc(s.text) + '</div>';
+      }).join("");
+      pressureLayer.style.display = "flex";
+    }
+  }
+}
+
+// ── Render: not yet assessed ───────────────────────────────────
+function renderNotAssessed(domain, demand) {
+  document.title = domain + " · Not in Public Record · Sigñal";
+  var cap = domain.split(".")[0];
+  cap = cap.charAt(0).toUpperCase() + cap.slice(1);
+  setText("na-brand", cap + " has not been reviewed yet");
+
+  var lookups  = demand ? ((demand.extension_lookups || 0) + (demand.not_assessed_shown || 0)) : 0;
+  var requests = demand ? (demand.demand_count || 0) : 0;
+  var total    = lookups + requests;
+
+  var demandEl = document.getElementById("na-demand");
+  if (demandEl && total > 0) {
+    var line = total + " " + (total === 1 ? "person has" : "people have") + " looked up this brand.";
+    if (requests > 0) line += " " + requests + " " + (requests === 1 ? "person has" : "people have") + " already requested a review.";
+    demandEl.textContent = line;
+    demandEl.style.display = "";
+  }
+
+  // Wire request button to API POST — no redirect to a page that may not exist
+  var reqBtn = document.getElementById("na-request-btn");
+  if (reqBtn) {
+    reqBtn.href = "#";
+    reqBtn.onclick = function(e) {
+      e.preventDefault();
+      requestReview(reqBtn, domain, "review");
+    };
+  }
+
+  showState("not-assessed");
+}
+
+// ── Render: API error ──────────────────────────────────────────
+function renderError(domain, msg) {
+  document.title = "Report unavailable · Sigñal";
+  setText("error-sub", msg || "We couldn't load this record right now. The API may be temporarily unavailable.");
+  showState("error");
+}
+
+// ── Demand bar ─────────────────────────────────────────────────
+function renderDemand(d, domain) {
+  if (!d) return;
+  var bar    = document.getElementById("demand-bar");
+  var textEl = document.getElementById("demand-text");
+  var subEl  = document.getElementById("demand-sub");
+  var actEl  = document.getElementById("demand-actions");
+
+  var lookups   = (d.extension_lookups || 0) + (d.not_assessed_shown || 0);
+  var requests  = d.demand_count    || 0;
+  var clicks    = d.extension_clicks || 0;
+  var thisWeek  = d.demand_this_week || 0;
+  var trend     = d.demand_trend     || null;  // "rising" | "falling" | "flat" | null
+  var total     = lookups + requests;
+
+  if (total < 1 && thisWeek < 1) return;
+
+  // Primary: neutral factual count — no urgency language
+  if (textEl) {
+    var n = lookups > 0 ? lookups : requests;
+    textEl.textContent = n + " " + (n === 1 ? "person has" : "people have") + " looked up this brand via Sigñal";
+  }
+
+  // Sub: week count + total + direction (neutral words only)
+  var parts = [];
+  if (thisWeek > 0) parts.push(thisWeek + " " + (thisWeek === 1 ? "request" : "requests") + " this week");
+  if (requests > 0) parts.push(requests + " total");
+  if (clicks   > 0) parts.push(clicks + " report " + (clicks === 1 ? "view" : "views"));
+  var trendWord = trend === "rising" ? " · increasing" : trend === "falling" ? " · decreasing" : trend === "flat" && requests > 3 ? " · steady" : "";
+  if (subEl) subEl.textContent = parts.join(" · ") + trendWord;
+
+  // Re-review button — low-key, right-aligned
+  if (actEl && domain) {
+    var safe = domain.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+    actEl.innerHTML =
+      '<button class="demand-request-btn" onclick="requestReview(this,\'' + safe + '\',\'reassess\')">Request re-review</button>';
+  }
+
+  if (bar) bar.style.display = "flex";
+}
+
+// ── Request review / re-review ─────────────────────────────────
+function requestReview(btn, domain, type) {
+  if (!btn || btn.disabled) return;
+  btn.disabled = true;
+  btn.textContent = "Sending…";
+  fetch(API + "/api/demand", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ domain: domain }),
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(){
+    btn.textContent = type === "reassess" ? "Re-review requested" : "Review requested";
+    btn.style.color = "var(--grn)";
+    btn.style.borderColor = "rgba(39,174,96,.3)";
+    // Log specific event type separately — fire-and-forget
+    var evType = type === "reassess" ? "request_reassessment" : "request_assessment";
+    fetch(API + "/api/demand/event", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ domain: domain, event_type: evType }),
+    }).catch(function(){});
+  })
+  .catch(function(){
+    btn.disabled = false;
+    btn.textContent = type === "reassess" ? "Request re-evaluation" : "Request an assessment";
+  });
+}
+
+// ── Share card ─────────────────────────────────────────────────
+var _shareD  = {};
+var _popOpen = false;
+
+function toggleSharePopover() {
+  _popOpen = !_popOpen;
+  var pop = document.getElementById('sharePopover');
+  if (pop) pop.classList.toggle('open', _popOpen);
+}
+
+document.addEventListener('click', function(e) {
+  if (!_popOpen) return;
+  var wrap = document.getElementById('shareWrap');
+  if (wrap && !wrap.contains(e.target)) {
+    _popOpen = false;
+    var pop = document.getElementById('sharePopover');
+    if (pop) pop.classList.remove('open');
+  }
+});
+
+function initShareCard(brandName, score, domain, sig, verdict) {
+  _shareD = { brandName: brandName, score: score, domain: domain, sig: sig, verdict: verdict };
+  var color = SIG_COLOR[sig] || '#f39c12';
+
+  // Update OG meta tags for link previews
+  var title  = brandName + ' — ' + score + '/100 · Sigñal';
+  var descr  = brandName + ' scored ' + score + '/100 on Sigñal. Verdict: ' + verdict + '. Independent claim alignment analysis.';
+  var pageUrl = 'https://bhvd.com/brand/' + domain;
+  ['og-title','tw-title'].forEach(function(id){ var el=document.getElementById(id); if(el) el.content=title; });
+  ['og-desc', 'tw-desc' ].forEach(function(id){ var el=document.getElementById(id); if(el) el.content=descr; });
+  var ogUrl = document.getElementById('og-url'); if(ogUrl) ogUrl.content = pageUrl;
+
+  var pop = document.getElementById('sharePopover');
+  if (!pop) return;
+  pop.innerHTML =
+    '<button class="share-close" onclick="toggleSharePopover()">×</button>' +
+    '<div class="share-preview">' +
+      '<div class="share-prev-dot" style="background:' + color + '"></div>' +
+      '<div class="share-prev-info">' +
+        '<div class="share-prev-brand">' + esc(brandName) + '</div>' +
+        '<div class="share-prev-verdict">' + esc(verdict) + '</div>' +
+      '</div>' +
+      '<div class="share-prev-score" style="color:' + color + '">' + score + '</div>' +
+    '</div>' +
+    '<div class="share-opts">' +
+      '<button class="share-opt" onclick="shareOnX()">' +
+        '<span class="share-opt-icon">𝕏</span>' +
+        '<span class="share-opt-label">Share on X</span>' +
+      '</button>' +
+      '<button class="share-opt" onclick="copyShareLink()">' +
+        '<span class="share-opt-icon">⧉</span>' +
+        '<span class="share-opt-label">Copy link</span>' +
+        '<span class="share-opt-status" id="copyLinkStatus"></span>' +
+      '</button>' +
+    '</div>';
+
+  var wrap = document.getElementById('shareWrap');
+  if (wrap) wrap.style.display = '';
+}
+
+function shareOnX() {
+  var url  = 'https://bhvd.com/brand/' + encodeURIComponent(_shareD.domain);
+  var text = _shareD.brandName + ' scored ' + _shareD.score + '/100 on Sigñal — see full claim analysis:';
+  window.open(
+    'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url),
+    '_blank', 'width=560,height=420'
+  );
+}
+
+function copyShareLink() {
+  var url = 'https://bhvd.com/brand/' + encodeURIComponent(_shareD.domain);
+  var statusEl = document.getElementById('copyLinkStatus');
+  var done = function() {
+    if (statusEl) { statusEl.textContent = 'Copied!'; setTimeout(function(){ statusEl.textContent = ''; }, 2000); }
+  };
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(done).catch(function(){ _fallbackCopy(url); done(); });
+  } else { _fallbackCopy(url); done(); }
+}
+
+function _fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text; ta.style.cssText = 'position:fixed;opacity:0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+// ── Embed section ──────────────────────────────────────────────
+var _embedDomain  = '';
+var _EMBED_API    = 'https://bhvd-signal-api.fly.dev';
+
+function initEmbedSection(domain, isExpired) {
+  _embedDomain = domain;
+  var sec     = document.getElementById('embed-sec');
+  var content = document.getElementById('embed-content');
+  if (!sec || !content) return;
+
+  if (isExpired) {
+    content.innerHTML =
+      '<div class="embed-expired-msg">Score expired — embed unavailable until re-evaluated. ' +
+      'Contact signal@bhvd.com to request reassessment.</div>';
+    sec.style.display = '';
+    return;
+  }
+
+  var fullUrl    = _EMBED_API + '/api/embed/' + domain + '?format=html';
+  var minimalUrl = _EMBED_API + '/api/embed/' + domain + '?format=html&variant=minimal';
+
+  content.innerHTML =
+    '<div class="embed-tabs">' +
+      '<button class="embed-tab on" id="etabFull"    onclick="switchEmbed(\'full\')"   >Full</button>' +
+      '<button class="embed-tab"    id="etabMinimal" onclick="switchEmbed(\'minimal\')">Minimal</button>' +
+    '</div>' +
+    '<div class="embed-preview-wrap">' +
+      '<iframe id="embedPreview" src="' + fullUrl + '" width="280" height="72" frameborder="0" scrolling="no" style="display:block"></iframe>' +
+    '</div>' +
+    '<div class="embed-code-wrap">' +
+      '<div class="embed-code" id="embedCode">' +
+        esc('<iframe src="' + fullUrl + '" width="280" height="72" frameborder="0" scrolling="no"></iframe>') +
+      '</div>' +
+      '<button class="embed-copy-btn" id="embedCopyBtn" onclick="copyEmbedCode()">Copy</button>' +
+    '</div>' +
+    '<div class="embed-update-note">This score updates as claims change.</div>';
+
+  sec.style.display = '';
+}
+
+function switchEmbed(variant) {
+  var isMin = variant === 'minimal';
+  var tabF  = document.getElementById('etabFull');
+  var tabM  = document.getElementById('etabMinimal');
+  if (tabF) tabF.classList.toggle('on', !isMin);
+  if (tabM) tabM.classList.toggle('on',  isMin);
+
+  var w   = isMin ? '200' : '280';
+  var h   = isMin ? '48'  : '72';
+  var url = _EMBED_API + '/api/embed/' + _embedDomain + '?format=html' + (isMin ? '&variant=minimal' : '');
+  var code = '<iframe src="' + url + '" width="' + w + '" height="' + h + '" frameborder="0" scrolling="no"></iframe>';
+
+  var preview = document.getElementById('embedPreview');
+  var codeEl  = document.getElementById('embedCode');
+  var copyBtn = document.getElementById('embedCopyBtn');
+  if (preview) { preview.src = url; preview.width = w; preview.height = h; }
+  if (codeEl)  codeEl.textContent = code;
+  if (copyBtn) { copyBtn.textContent = 'Copy'; copyBtn.classList.remove('copied'); }
+}
+
+function copyEmbedCode() {
+  var codeEl = document.getElementById('embedCode');
+  var btn    = document.getElementById('embedCopyBtn');
+  if (!codeEl || !btn) return;
+  var text = codeEl.textContent;
+  var done = function() {
+    btn.textContent = 'Copied!'; btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  };
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(done).catch(function(){ _fallbackCopy(text); done(); });
+  } else { _fallbackCopy(text); done(); }
+}
+
+// ── Boot ───────────────────────────────────────────────────────
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var domain = params.get("d") || params.get("domain") ||
+    window.location.pathname.replace(/.*\/brand\//,"").replace(/\/$/,"").replace(/index\.html$/,"");
+
+  domain = (domain || "").replace(/^https?:\/\//,"").replace(/^www\./,"").split("/")[0].toLowerCase();
+
+  if (!domain) {
+    renderError(null, "No brand specified. Check the URL.");
+    return;
+  }
+
+  // Log brand page view — always, fire-and-forget
+  fetch(API + "/api/demand/event", {
+    method:"POST", headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({ domain: domain, event_type: "brand_page_view" }),
+  }).catch(function(){});
+
+  // Log extension clickthrough when navigated from extension
+  if (params.get("source") === "extension") {
+    fetch(API + "/api/demand/event", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ domain: domain, event_type: "extension_clickthrough" }),
+    }).catch(function(){});
+  }
+
+  // Fire both fetches in parallel
+  var brandPromise  = fetch(API + "/api/domain/" + encodeURIComponent(domain))
+    .then(function(r){
+      if (r.status === 404) return { _notFound: true };
+      if (!r.ok) return Promise.reject(new Error("HTTP " + r.status));
+      return r.json();
+    });
+
+  var demandPromise = fetch(API + "/api/demand/" + encodeURIComponent(domain))
+    .then(function(r){ return r.json(); })
+    .catch(function(){ return {}; });
+
+  Promise.all([brandPromise, demandPromise])
+    .then(function(results) {
+      var brandData  = results[0];
+      var demandData = results[1];
+
+      if (brandData._notFound) {
+        renderNotAssessed(domain, demandData);
+        return;
+      }
+
+      var d = brandData.data || brandData;
+      if (!d || !d.products || !d.products.length) {
+        renderNotAssessed(domain, demandData);
+        return;
+      }
+
+      // Use the best-scored product (lowest risk = first in list)
+      var product = d.products[0];
+      var ld      = product.leaderboard_data || {};
+      var dims    = product.dimension_scores || {};
+
+      // Frontend public_safe double-check (API enforces this, but belt-and-suspenders)
+      if (ld.public_safe !== true) {
+        renderNotAssessed(domain, demandData);
+        return;
+      }
+
+      renderVerified(d, product, ld, dims, demandData);
+    })
+    .catch(function(err) {
+      console.error("Sigñal brand fetch error:", err);
+      renderError(domain, "We couldn't load this report right now. The API may be temporarily unavailable.");
+    });
+})();
+
+// Enter key for inline capture forms
+document.addEventListener("keydown", function(e) {
+  if (e.key !== "Enter") return;
+  if (document.activeElement === document.getElementById("track-email"))  submitTrack();
+  if (document.activeElement === document.getElementById("notify-email")) submitNotify();
+});
+</script>
+</body>
+</html>

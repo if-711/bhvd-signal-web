@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submit a Brand — Sigñal</title>
+<meta name="description" content="Submit a wellness brand for independent claim quality assessment. Free to request. Payment never influences scores.">
+<meta property="og:title" content="Submit a Brand — Sigñal">
+<meta property="og:description" content="Request an independent claim quality assessment for any wellness brand.">
+<meta property="og:image" content="https://bhvdsignal.com/og-image.png">
+<meta property="og:url" content="https://bhvdsignal.com/request">
+<link rel="canonical" href="https://bhvdsignal.com/request">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c12;--bg2:#111420;--bg3:#181c2e;--bg4:#1f2438;
+  --b1:rgba(255,255,255,0.07);--b2:rgba(255,255,255,0.13);
+  --t1:#f2f2f2;--t2:#8b93b0;--t3:#4a5070;
+  --acc:#4a78f0;--acc2:#4a78f0;
+  --mono:'DM Mono',monospace;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--t1);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:56px;background:rgba(10,12,18,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--b1)}
+.nav-logo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--t1);display:flex;align-items:center;gap:9px;text-decoration:none}
+.nav-byline{font-size:9px;color:var(--t3);letter-spacing:.13em;font-weight:400;text-transform:uppercase;border-left:1px solid var(--b2);padding-left:8px;margin-left:1px}
+.nav-back{font-size:12px;color:var(--t2);display:flex;align-items:center;gap:6px;transition:color .15s}
+.nav-back:hover{color:var(--t1)}
+
+.alpha-bar{position:fixed;top:56px;left:0;right:0;z-index:99;background:rgba(26,143,255,0.05);border-bottom:1px solid rgba(26,143,255,0.10);padding:6px 48px;font-size:11px;color:#5a7aaa;line-height:1.45;letter-spacing:.01em}
+
+.page{max-width:640px;margin:0 auto;padding:112px 32px 96px}
+
+.tag{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+
+.icon-wrap{width:56px;height:56px;border-radius:50%;background:rgba(79,124,255,0.08);border:1px solid rgba(79,124,255,0.15);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:28px}
+
+h1{font-family:var(--serif);font-size:clamp(32px,5vw,48px);font-weight:400;line-height:1.1;letter-spacing:-.02em;margin-bottom:12px}
+h1 em{font-style:italic;color:var(--acc2)}
+
+.sub{font-size:15px;color:var(--t2);line-height:1.65;margin-bottom:40px}
+
+.brand-chip{display:inline-flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--b2);border-radius:40px;padding:7px 18px 7px 12px;font-size:13px;font-weight:500;color:var(--t1);margin-bottom:40px}
+.brand-chip-dot{width:7px;height:7px;border-radius:50%;background:rgba(79,124,255,0.5);border:1px solid rgba(79,124,255,0.7)}
+.brand-chip-domain{font-family:var(--mono);font-size:11px;color:var(--t3);margin-left:4px}
+
+.demand-row{display:flex;align-items:center;gap:10px;background:rgba(79,124,255,0.05);border:1px solid rgba(79,124,255,0.10);border-radius:10px;padding:14px 18px;margin-bottom:40px}
+.demand-count{font-family:var(--mono);font-size:22px;font-weight:500;color:var(--acc2)}
+.demand-label{font-size:13px;color:var(--t2)}
+
+.form-card{background:var(--bg2);border:1px solid var(--b2);border-radius:14px;padding:32px}
+.form-label{font-size:12px;font-weight:500;color:var(--t2);letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px;display:block}
+.form-input{width:100%;background:var(--bg3);border:1px solid var(--b1);border-radius:9px;padding:11px 14px;font-family:var(--sans);font-size:14px;color:var(--t1);outline:none;transition:border .15s;margin-bottom:20px}
+.form-input:focus{border-color:rgba(79,124,255,0.35)}
+.form-input::placeholder{color:var(--t3)}
+textarea.form-input{resize:vertical;min-height:80px}
+.form-note{font-size:11px;color:var(--t3);line-height:1.5;margin-bottom:24px}
+.submit-btn{width:100%;padding:14px;background:var(--acc2);border:none;border-radius:10px;color:#fff;font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:.02em;cursor:pointer;transition:background .15s}
+.submit-btn:hover{background:#1480f0}
+.submit-btn:disabled{background:rgba(26,143,255,0.3);cursor:default}
+
+.success-state{display:none;text-align:center;padding:40px 32px}
+.success-icon{font-size:32px;margin-bottom:16px}
+.success-title{font-family:var(--serif);font-size:24px;font-weight:400;margin-bottom:8px}
+.success-sub{font-size:14px;color:var(--t2);margin-bottom:32px;line-height:1.6}
+.back-link{font-size:13px;color:var(--acc2);text-decoration:none}
+.back-link:hover{text-decoration:underline}
+
+.list-section{margin-top:56px}
+.list-title{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+.list-items{display:flex;flex-direction:column;gap:8px}
+.list-item{display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:12px 16px}
+.list-item-name{font-size:13px;font-weight:500}
+.list-item-meta{font-family:var(--mono);font-size:10px;color:var(--t3)}
+.list-item-count{font-family:var(--mono);font-size:12px;color:var(--acc2);font-weight:500}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="24" height="11" viewBox="0 0 24 11" fill="none" aria-hidden="true"><path d="M1 8C3.2 3.5 5.8 3.5 7.8 8C9.8 12.5 12.4 12.5 14.4 8C16.4 3.5 19 3.5 23 5.5" stroke="#4a78f0" stroke-width="1.7" stroke-linecap="round"/></svg>
+    Sigñal<span class="nav-byline">by BHVD</span>
+  </a>
+  <a class="nav-back" href="/">← Back</a>
+</nav>
+
+<div class="alpha-bar">
+  Sigñal is in early beta. Scores reflect reviewed public marketing claims and visible evidence references — not product efficacy, safety, or regulatory status.
+</div>
+
+<div class="page">
+  <div class="tag">Assessment Request</div>
+
+  <div class="icon-wrap">◎</div>
+
+  <h1>Not yet reviewed.<br>Help us <em>prioritize</em> it.</h1>
+
+  <p class="sub" id="page-sub">
+    Sigñal hasn't scored this brand yet. Every request tells us where consumer scrutiny is highest — brands with the most requests move to the top of the review queue.
+  </p>
+
+  <div class="brand-chip" id="brand-chip" style="display:none">
+    <div class="brand-chip-dot"></div>
+    <span id="chip-name">—</span>
+    <span class="brand-chip-domain" id="chip-domain"></span>
+  </div>
+
+  <div class="demand-row" id="demand-row" style="display:none">
+    <div class="demand-count" id="demand-count">—</div>
+    <div class="demand-label" id="demand-label">users have requested this brand</div>
+  </div>
+
+  <div class="form-card" id="form-card">
+    <div class="success-state" id="success-state">
+      <div class="success-icon">✓</div>
+      <div class="success-title">Request submitted</div>
+      <div class="success-sub" id="success-sub">We've logged your request. You'll see this brand in the queue — if enough people ask, it moves up.</div>
+      <a class="back-link" href="/">← Back to Sigñal</a>
+    </div>
+
+    <div id="form-inner">
+      <label class="form-label" for="req-email">Notify me when scored (optional)</label>
+      <input class="form-input" type="email" id="req-email" placeholder="you@example.com" autocomplete="email">
+
+      <label class="form-label" for="req-note">Why does this brand need a review? (optional)</label>
+      <textarea class="form-input" id="req-note" placeholder="e.g. I'm about to buy this and want to know if the claims are backed up…"></textarea>
+
+      <div class="form-note">Your email is used only to notify you when this brand is scored. We don't sell or share it. No account required.</div>
+
+      <button class="submit-btn" id="submit-btn" onclick="submitRequest()">Request Assessment</button>
+    </div>
+  </div>
+
+  <div class="list-section" id="others-list" style="display:none">
+    <div class="list-title">Other brands people are asking about</div>
+    <div class="list-items" id="others-items"></div>
+  </div>
+</div>
+
+<script>
+var API = "https://bhvd-signal-api.fly.dev";
+var params = new URLSearchParams(window.location.search);
+var domain = params.get("d") || "";
+var fromExtension = params.get("source") === "extension";
+
+function normalizeDomain(d) {
+  return d.toLowerCase().replace(/^https?:\/\//, "").replace(/^www\./, "").split("/")[0];
+}
+
+if (domain) {
+  domain = normalizeDomain(domain);
+
+  var chipDomain = document.getElementById("chip-domain");
+  var chipName   = document.getElementById("chip-name");
+  var brandChip  = document.getElementById("brand-chip");
+
+  chipDomain.textContent = domain;
+  chipName.textContent   = domain.split(".")[0].charAt(0).toUpperCase() + domain.split(".")[0].slice(1);
+  brandChip.style.display = "inline-flex";
+
+  document.title = "Request: " + domain + " · Sigñal by BHVD";
+
+  // Load demand count
+  fetch(API + "/api/demand/" + encodeURIComponent(domain))
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var count = (data.demand_count || 0) + (data.not_assessed_shown || 0);
+      if (count > 0) {
+        document.getElementById("demand-count").textContent = count;
+        document.getElementById("demand-label").textContent =
+          count === 1 ? "user has looked up this brand" : "users have looked up this brand";
+        document.getElementById("demand-row").style.display = "flex";
+      }
+      if (data.brand_name) {
+        chipName.textContent = data.brand_name;
+      }
+    })
+    .catch(function() {});
+
+  if (fromExtension) {
+    logEvent("request_assessment_click");
+  }
+}
+
+function logEvent(eventType) {
+  if (!domain) return;
+  fetch(API + "/api/demand/event", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ domain: domain, event_type: eventType }),
+  }).catch(function() {});
+}
+
+// Load "others are asking about" list
+fetch(API + "/api/demand")
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    var items = (data.most_requested || []).filter(function(b) {
+      return b.domain !== domain;
+    }).slice(0, 5);
+    if (items.length < 2) return;
+    var container = document.getElementById("others-items");
+    items.forEach(function(b) {
+      var el = document.createElement("a");
+      el.href = "/request/?d=" + encodeURIComponent(b.domain);
+      el.className = "list-item";
+      el.innerHTML =
+        '<div>' +
+          '<div class="list-item-name">' + escHtml(b.name || b.domain) + '</div>' +
+          '<div class="list-item-meta">' + escHtml(b.domain) + '</div>' +
+        '</div>' +
+        '<div class="list-item-count">' + (b.demand_count || 0) + ' requests</div>';
+      container.appendChild(el);
+    });
+    document.getElementById("others-list").style.display = "";
+  })
+  .catch(function() {});
+
+function escHtml(str) {
+  return String(str || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+function submitRequest() {
+  var btn    = document.getElementById("submit-btn");
+  var email  = document.getElementById("req-email").value.trim();
+  var note   = document.getElementById("req-note").value.trim();
+  var target = domain || window.location.hostname.replace(/^www\./, "");
+
+  btn.disabled = true;
+  btn.textContent = "Submitting…";
+
+  logEvent("request_assessment_click");
+
+  fetch(API + "/api/demand", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ domain: target, email: email || undefined }),
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    var sub = document.getElementById("success-sub");
+    if (data.demand_count && data.demand_count > 1) {
+      sub.textContent = data.demand_count + " people have now requested " + target + ". The more requests, the faster it moves up the review queue.";
+    }
+    document.getElementById("form-inner").style.display = "none";
+    document.getElementById("success-state").style.display = "block";
+  })
+  .catch(function() {
+    btn.disabled = false;
+    btn.textContent = "Request Assessment";
+    alert("Something went wrong. Please try again.");
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Portal · Sigñal by BHVD</title>
+<meta name="description" content="View your Sigñal score, understand your dimension breakdown, and submit supporting evidence for editorial review.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c12;--bg2:#111420;--bg3:#181c2e;--bg4:#1f2438;
+  --b1:rgba(255,255,255,0.07);--b2:rgba(255,255,255,0.13);
+  --t1:#f2f2f2;--t2:#8b93b0;--t3:#4a5070;
+  --red:#9e3028;--yel:#c07718;--grn:#1e9459;
+  --acc:#4a78f0;--acc2:#4a78f0;
+  --mono:'DM Mono',monospace;--serif:'Instrument Serif',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--t1);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:56px;background:rgba(10,12,18,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--b1)}
+.nav-logo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--t1);display:flex;align-items:center;gap:9px;text-decoration:none}
+.nav-byline{font-size:9px;color:var(--t3);letter-spacing:.13em;font-weight:400;text-transform:uppercase;border-left:1px solid var(--b2);padding-left:8px;margin-left:1px}
+.nav-back{font-size:12px;color:var(--t2);display:flex;align-items:center;gap:6px;transition:color .15s}
+.nav-back:hover{color:var(--t1)}
+
+.alpha-bar{position:fixed;top:56px;left:0;right:0;z-index:99;background:rgba(26,143,255,0.05);border-bottom:1px solid rgba(26,143,255,0.10);padding:6px 48px;font-size:11px;color:#5a7aaa;line-height:1.45;letter-spacing:.01em}
+
+.page{max-width:760px;margin:0 auto;padding:112px 32px 96px}
+
+/* lookup */
+.lookup-section{margin-bottom:48px}
+.tag{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+h1{font-family:var(--serif);font-size:clamp(28px,4vw,42px);font-weight:400;line-height:1.1;letter-spacing:-.02em;margin-bottom:12px}
+.sub{font-size:15px;color:var(--t2);line-height:1.65;margin-bottom:32px}
+.lookup-row{display:flex;gap:10px}
+.lookup-input{flex:1;background:var(--bg2);border:1px solid var(--b2);border-radius:10px;padding:12px 16px;font-family:var(--sans);font-size:14px;color:var(--t1);outline:none;transition:border .15s}
+.lookup-input:focus{border-color:rgba(79,124,255,.4)}
+.lookup-input::placeholder{color:var(--t3)}
+.lookup-btn{padding:12px 24px;background:var(--acc2);border:none;border-radius:10px;color:#fff;font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer;transition:background .15s;white-space:nowrap}
+.lookup-btn:hover{background:#1480f0}
+
+/* score card */
+.score-card{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:28px 32px;margin-bottom:32px;display:none}
+.sc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:24px}
+.sc-score{font-family:var(--serif);font-size:56px;font-weight:400;line-height:1}
+.sc-denom{font-size:20px;color:var(--t3);vertical-align:super}
+.sc-right{}
+.sc-brand{font-family:var(--serif);font-size:24px;font-weight:400;margin-bottom:4px}
+.sc-verdict{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.08em;padding:4px 12px;border-radius:20px;border:1px solid;margin-bottom:8px}
+.sc-signal{font-size:12px;color:var(--t3)}
+
+.dims{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.dim-row{display:flex;align-items:center;gap:12px}
+.dim-name{font-size:12px;color:var(--t2);width:160px;flex-shrink:0}
+.dim-track{flex:1;height:4px;background:var(--bg4);border-radius:2px;overflow:hidden}
+.dim-fill{height:100%;border-radius:2px}
+.dim-val{font-family:var(--mono);font-size:11px;color:var(--t3);width:40px;text-align:right;flex-shrink:0}
+
+.sc-note{font-size:13px;color:var(--t2);line-height:1.65;padding:14px 18px;background:var(--bg3);border-radius:9px;margin-bottom:24px}
+
+.view-full-btn{display:inline-block;padding:10px 20px;border:1px solid var(--b2);border-radius:9px;font-size:13px;color:var(--t2);text-decoration:none;transition:all .15s}
+.view-full-btn:hover{border-color:var(--b2);color:var(--t1);background:var(--bg3)}
+
+/* error / not found */
+.not-found{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:40px 32px;text-align:center;display:none}
+.nf-icon{font-size:32px;margin-bottom:16px}
+.nf-title{font-family:var(--serif);font-size:22px;margin-bottom:8px}
+.nf-sub{font-size:14px;color:var(--t2);margin-bottom:24px;line-height:1.6}
+.nf-btn{display:inline-block;padding:11px 24px;background:var(--acc2);border-radius:9px;color:#fff;font-size:13px;font-weight:600;text-decoration:none}
+
+/* appeal form */
+.appeal-section{display:none}
+.section-title{font-size:14px;font-weight:600;color:var(--t1);margin-bottom:6px}
+.section-sub{font-size:13px;color:var(--t2);margin-bottom:20px;line-height:1.6}
+.card{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:28px 32px;margin-bottom:24px}
+.form-label{font-size:11px;font-weight:500;color:var(--t3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px;display:block}
+.form-input{width:100%;background:var(--bg3);border:1px solid var(--b1);border-radius:9px;padding:11px 14px;font-family:var(--sans);font-size:14px;color:var(--t1);outline:none;transition:border .15s;margin-bottom:16px}
+.form-input:focus{border-color:rgba(79,124,255,.35)}
+.form-input::placeholder{color:var(--t3)}
+textarea.form-input{resize:vertical;min-height:90px}
+.form-note{font-size:11px;color:var(--t3);line-height:1.55;margin-bottom:20px;padding:10px 14px;background:rgba(79,124,255,.05);border:1px solid rgba(79,124,255,.10);border-radius:7px}
+.submit-btn{width:100%;padding:14px;background:var(--acc2);border:none;border-radius:10px;color:#fff;font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer;transition:background .15s}
+.submit-btn:hover{background:#1480f0}
+.submit-btn:disabled{background:rgba(26,143,255,.3);cursor:default}
+
+.url-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.url-item{display:flex;gap:8px}
+.url-item input{flex:1}
+.url-item button{padding:11px 14px;background:transparent;border:1px solid var(--b1);border-radius:9px;color:var(--t3);font-size:18px;cursor:pointer;line-height:1;transition:border-color .15s}
+.url-item button:hover{border-color:var(--b2);color:var(--t1)}
+.add-url-btn{font-size:12px;color:var(--acc2);background:none;border:none;cursor:pointer;padding:0;font-family:var(--sans)}
+.add-url-btn:hover{text-decoration:underline}
+
+.success-card{display:none;background:rgba(39,174,96,.05);border:1px solid rgba(39,174,96,.18);border-radius:14px;padding:32px;text-align:center}
+.success-icon{font-size:28px;margin-bottom:12px}
+.success-title{font-family:var(--serif);font-size:22px;margin-bottom:8px}
+.success-sub{font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:16px}
+.success-id{font-family:var(--mono);font-size:11px;color:var(--t3);background:var(--bg3);padding:8px 14px;border-radius:6px;display:inline-block}
+
+.integrity-note{margin-top:32px;padding:16px 20px;background:rgba(255,255,255,.02);border:1px solid var(--b1);border-radius:10px;font-size:12px;color:var(--t3);line-height:1.65}
+.integrity-note strong{color:var(--t2)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="24" height="11" viewBox="0 0 24 11" fill="none" aria-hidden="true"><path d="M1 8C3.2 3.5 5.8 3.5 7.8 8C9.8 12.5 12.4 12.5 14.4 8C16.4 3.5 19 3.5 23 5.5" stroke="#4a78f0" stroke-width="1.7" stroke-linecap="round"/></svg>
+    Sigñal<span class="nav-byline">by BHVD</span>
+  </a>
+  <a class="nav-back" href="/">← Home</a>
+</nav>
+
+<div class="alpha-bar">
+  Sigñal is in early beta. Scores reflect reviewed public marketing claims and visible evidence references — not product efficacy, safety, or regulatory status.
+</div>
+
+<div class="page">
+
+  <!-- LOOKUP -->
+  <div class="lookup-section">
+    <div class="tag">Brand Portal</div>
+    <h1>Look up your<br>Sigñal score.</h1>
+    <p class="sub">Enter your brand's domain to see how Sigñal has scored your public marketing claims, and to submit evidence for editorial review.</p>
+
+    <div class="lookup-row">
+      <input class="lookup-input" type="text" id="domain-input" placeholder="yoursite.com" autocomplete="off" />
+      <button class="lookup-btn" onclick="lookupDomain()">Look up</button>
+    </div>
+  </div>
+
+  <!-- SCORE CARD -->
+  <div class="score-card" id="score-card">
+    <div class="sc-top">
+      <div>
+        <div class="sc-score" id="sc-score-val">—<span class="sc-denom">/100</span></div>
+      </div>
+      <div class="sc-right">
+        <div class="sc-brand" id="sc-brand">—</div>
+        <div class="sc-verdict" id="sc-verdict">—</div>
+        <div class="sc-signal" id="sc-signal">—</div>
+      </div>
+    </div>
+
+    <div class="dims" id="sc-dims"></div>
+
+    <div class="sc-note" id="sc-note"></div>
+
+    <a class="view-full-btn" id="sc-full-link" href="#">View full evidence report →</a>
+  </div>
+
+  <!-- NOT FOUND -->
+  <div class="not-found" id="not-found">
+    <div class="nf-icon">◎</div>
+    <div class="nf-title">Not yet reviewed</div>
+    <div class="nf-sub" id="nf-sub">Sigñal hasn't scored this brand yet. You can still submit evidence to get it into the review queue.</div>
+    <a class="nf-btn" id="nf-request-btn" href="#">Request assessment</a>
+  </div>
+
+  <!-- APPEAL / EVIDENCE FORM -->
+  <div class="appeal-section" id="appeal-section">
+
+    <div class="card">
+      <div class="section-title">Submit evidence for review</div>
+      <div class="section-sub">
+        Scores update only when stronger evidence becomes visible on your live consumer-facing page — not from evidence submitted here privately. Use this form to flag existing public evidence we may have missed, or to notify us of recent page updates.
+      </div>
+
+      <div class="success-card" id="success-card">
+        <div class="success-icon">✓</div>
+        <div class="success-title">Evidence submitted</div>
+        <div class="success-sub">Our editorial team will review your submission within 5–10 business days. If the evidence is publicly visible on your product page, it will be factored into your next score update.</div>
+        <div class="success-id" id="success-id"></div>
+      </div>
+
+      <div id="appeal-form-inner">
+        <label class="form-label" for="contact-email">Contact email</label>
+        <input class="form-input" type="email" id="contact-email" placeholder="you@yourbrand.com" />
+
+        <label class="form-label">Evidence URLs (publicly visible pages)</label>
+        <div class="url-list" id="url-list">
+          <div class="url-item">
+            <input class="form-input" type="url" placeholder="https://yourbrand.com/science" style="margin:0" />
+            <button onclick="removeUrl(this)" title="Remove">×</button>
+          </div>
+        </div>
+        <button class="add-url-btn" onclick="addUrl()">+ Add another URL</button>
+
+        <div style="height:16px"></div>
+
+        <label class="form-label" for="appeal-notes">Notes (optional)</label>
+        <textarea class="form-input" id="appeal-notes" placeholder="e.g. We added third-party test results to our product page in March. The studies linked in our /science section were published in 2024…"></textarea>
+
+        <div class="form-note">
+          <strong style="color:var(--t2)">Evidence review does not change your score directly.</strong>
+          Our editorial team reviews whether the evidence is publicly visible on your consumer-facing product pages. If it is, your score updates on the next review cycle. Submitting evidence privately does not influence the score.
+        </div>
+
+        <button class="submit-btn" id="appeal-submit-btn" onclick="submitAppeal()">Submit Evidence</button>
+      </div>
+    </div>
+
+    <div class="integrity-note">
+      <strong>How scoring works:</strong> Sigñal scores the evidence visible to a consumer at the moment of purchase — on your product page, where they make buying decisions. A well-funded study submitted privately cannot improve your score. Making that evidence clearly visible on your consumer-facing pages can.
+      <a href="/methodology" style="color:var(--acc2);margin-left:4px">Read the full methodology →</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+var API = "https://bhvd-signal-api.fly.dev";
+var currentDomain = "";
+
+var DIMS = [
+  { key:"specificity",         name:"Specificity",          max:20 },
+  { key:"mechanism",           name:"Mechanism",            max:15 },
+  { key:"evidence_presence",   name:"Evidence Presence",    max:10 },
+  { key:"evidence_strength",   name:"Evidence Strength",    max:25 },
+  { key:"effect_reality",      name:"Effect Reality",       max:15 },
+  { key:"consumer_distortion", name:"Consumer Distortion",  max:15 },
+];
+
+var SIG_COLORS = { green:"#1e9459", yellow:"#c07718", red:"#9e3028" };
+
+function esc(s){ return s ? String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;") : ""; }
+
+// Pre-populate domain from URL param
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var d = params.get("d") || params.get("domain");
+  if (d) {
+    document.getElementById("domain-input").value = d.replace(/^https?:\/\//,"").replace(/^www\./,"").split("/")[0];
+    lookupDomain();
+  }
+})();
+
+function lookupDomain() {
+  var raw = document.getElementById("domain-input").value.trim();
+  if (!raw) return;
+
+  currentDomain = raw.replace(/^https?:\/\//,"").replace(/^www\./,"").split("/")[0].toLowerCase();
+  document.getElementById("domain-input").value = currentDomain;
+
+  hideAll();
+
+  fetch(API + "/api/lookup?url=https://" + encodeURIComponent(currentDomain))
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if (data && (data.status === "found" || data.data)) {
+        showScoreCard(data);
+      } else {
+        showNotFound(currentDomain);
+      }
+    })
+    .catch(function(){ showNotFound(currentDomain); });
+}
+
+function hideAll() {
+  document.getElementById("score-card").style.display   = "none";
+  document.getElementById("not-found").style.display    = "none";
+  document.getElementById("appeal-section").style.display = "none";
+}
+
+function showScoreCard(data) {
+  var r   = data.data || data;
+  var ld  = r.leaderboard_data || {};
+  var sig = r.signal_color || "yellow";
+  var color = SIG_COLORS[sig] || "#f39c12";
+  var score = ld.total_score || (100 - (r.claim_support_risk || 50));
+  var verdict = ld.bhvd_verdict || "—";
+
+  var scoreEl = document.getElementById("sc-score-val");
+  scoreEl.innerHTML = score + '<span class="sc-denom">/100</span>';
+  scoreEl.style.color = color;
+
+  document.getElementById("sc-brand").textContent  = r.brand_name || currentDomain;
+  var verdEl = document.getElementById("sc-verdict");
+  verdEl.textContent = verdict;
+  verdEl.style.color = color;
+  verdEl.style.borderColor = color + "40";
+  verdEl.style.background  = color + "0d";
+
+  document.getElementById("sc-signal").textContent = sig.charAt(0).toUpperCase()+sig.slice(1) + " signal";
+
+  // Dimensions
+  var dims = r.dimension_scores || {};
+  var dimsHtml = DIMS.map(function(d){
+    var val = dims[d.key] != null ? dims[d.key] : null;
+    var pct = val != null ? Math.round((val / d.max) * 100) : 0;
+    var fill = pct >= 70 ? "#1e9459" : pct >= 45 ? "#c07718" : "#9e3028";
+    return '<div class="dim-row">' +
+      '<div class="dim-name">' + esc(d.name) + '</div>' +
+      '<div class="dim-track"><div class="dim-fill" style="width:' + pct + '%;background:' + fill + '"></div></div>' +
+      '<div class="dim-val">' + (val != null ? val+'/'+d.max : '—') + '</div>' +
+    '</div>';
+  }).join("");
+  document.getElementById("sc-dims").innerHTML = dimsHtml;
+
+  if (ld.why_this_verdict || r.consumer_summary) {
+    document.getElementById("sc-note").textContent = ld.why_this_verdict || r.consumer_summary;
+    document.getElementById("sc-note").style.display = "";
+  } else {
+    document.getElementById("sc-note").style.display = "none";
+  }
+
+  document.getElementById("sc-full-link").href = "/brand/?d=" + encodeURIComponent(currentDomain);
+  document.getElementById("score-card").style.display = "block";
+  document.getElementById("appeal-section").style.display = "block";
+}
+
+function showNotFound(domain) {
+  var requestUrl = "/request/?d=" + encodeURIComponent(domain);
+  document.getElementById("nf-request-btn").href = requestUrl;
+  document.getElementById("not-found").style.display = "block";
+  document.getElementById("appeal-section").style.display = "block";
+}
+
+// Evidence URL list helpers
+function addUrl() {
+  var list = document.getElementById("url-list");
+  var item = document.createElement("div");
+  item.className = "url-item";
+  item.innerHTML = '<input class="form-input" type="url" placeholder="https://yourbrand.com/page" style="margin:0"/>' +
+    '<button onclick="removeUrl(this)" title="Remove">×</button>';
+  list.appendChild(item);
+}
+
+function removeUrl(btn) {
+  var list = document.getElementById("url-list");
+  if (list.children.length > 1) btn.parentElement.remove();
+}
+
+function submitAppeal() {
+  var email   = document.getElementById("contact-email").value.trim();
+  var notes   = document.getElementById("appeal-notes").value.trim();
+  var urlInputs = document.querySelectorAll("#url-list input");
+  var urls = [];
+  urlInputs.forEach(function(el){ var v = el.value.trim(); if(v) urls.push(v); });
+
+  if (!email) { document.getElementById("contact-email").focus(); return; }
+  if (!currentDomain) return;
+
+  var btn = document.getElementById("appeal-submit-btn");
+  btn.disabled = true;
+  btn.textContent = "Submitting…";
+
+  fetch(API + "/api/appeal", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      domain:        currentDomain,
+      contact_email: email,
+      evidence_urls: urls,
+      notes:         notes,
+    }),
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    var idEl = document.getElementById("success-id");
+    if (data.appeal_id) idEl.textContent = "Reference ID: " + data.appeal_id;
+    document.getElementById("appeal-form-inner").style.display = "none";
+    document.getElementById("success-card").style.display = "block";
+  })
+  .catch(function(){
+    btn.disabled = false;
+    btn.textContent = "Submit Evidence";
+    alert("Something went wrong. Please try again or email signal@bhvd.com.");
+  });
+}
+
+document.getElementById("domain-input").addEventListener("keydown", function(e){
+  if (e.key === "Enter") lookupDomain();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sigñal Browser Extension — Know before you buy</title>
+<meta name="description" content="Sigñal tells you whether a wellness brand shows its receipts — while you're shopping. Red, Yellow, or Green. Free Chrome extension in early beta.">
+<meta name="theme-color" content="#0a0c12">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sigñal Extension — Claim scores while you shop">
+<meta property="og:description" content="See a brand's Sigñal score before you buy. Works on supplements, skincare, wearables, neurotech, and more.">
+<meta property="og:image" content="https://bhvdsignal.com/og-image.png">
+<meta property="og:url" content="https://bhvdsignal.com/extension">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sigñal Browser Extension — Know before you buy">
+<meta name="twitter:description" content="See a brand's claim quality score instantly while shopping. Free Chrome extension.">
+<meta name="twitter:image" content="https://bhvdsignal.com/og-image.png">
+<link rel="canonical" href="https://bhvdsignal.com/extension">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c12;--bg2:#111420;--bg3:#181c2e;--bg4:#1f2438;
+  --b1:rgba(255,255,255,0.07);--b2:rgba(255,255,255,0.13);
+  --t1:#f2f2f2;--t2:#8b93b0;--t3:#4a5070;
+  --grn:#1e9459;--gbg:#071610;--gbdr:#12382a;
+  --yel:#c07718;
+  --red:#9e3028;
+  --acc:#4a78f0;
+  --mono:'DM Mono',monospace;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t1);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:58px;background:rgba(10,12,18,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--b1)}
+.nav-logo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--t1);display:flex;align-items:center;gap:9px;text-decoration:none}
+.nav-byline{font-size:9px;color:var(--t3);letter-spacing:.13em;font-weight:400;text-transform:uppercase;border-left:1px solid var(--b2);padding-left:8px;margin-left:1px}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:13px;color:var(--t2);transition:color .15s}
+.nav-links a:hover{color:var(--t1)}
+.nav-cta{display:flex;gap:10px}
+.btn{font-family:var(--sans);font-size:13px;font-weight:500;padding:8px 18px;border-radius:8px;cursor:pointer;border:1px solid var(--b2);background:transparent;color:var(--t2);transition:all .15s;display:inline-flex;align-items:center;gap:7px;text-decoration:none}
+.btn:hover{color:var(--t1);border-color:var(--t3)}
+.btn-p{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn-p:hover{background:#3d6ae0;border-color:#3d6ae0;color:#fff}
+
+.alpha-bar{position:fixed;top:58px;left:0;right:0;z-index:99;background:rgba(26,143,255,0.05);border-bottom:1px solid rgba(26,143,255,0.10);padding:6px 48px;font-size:11px;color:#5a7aaa;line-height:1.45;letter-spacing:.01em}
+
+/* HERO */
+.hero{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:140px 24px 80px;position:relative;overflow:hidden}
+.hero-glow{position:absolute;top:15%;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(79,124,255,0.09) 0%,transparent 65%);pointer-events:none}
+.hero-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--acc);text-transform:uppercase;margin-bottom:28px;display:flex;align-items:center;justify-content:center;gap:10px}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:36px;height:1px;background:var(--acc);opacity:.45}
+.hero h1{font-family:var(--serif);font-size:clamp(40px,6vw,80px);font-weight:400;line-height:1.06;letter-spacing:-.025em;max-width:820px;margin-bottom:24px}
+.hero h1 em{font-style:italic;color:var(--t2)}
+.hero-sub{font-size:18px;color:var(--t2);max-width:520px;line-height:1.7;margin-bottom:48px;font-weight:300}
+.hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:48px}
+.btn-hero{font-size:15px;padding:14px 28px;border-radius:10px}
+.btn-demo{border-color:rgba(79,124,255,0.35);color:var(--acc);background:rgba(79,124,255,0.07)}
+.btn-demo:hover{background:rgba(79,124,255,0.14);border-color:rgba(79,124,255,0.6);color:#7fa8ff}
+.alpha-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(79,124,255,0.08);border:1px solid rgba(79,124,255,0.18);border-radius:20px;padding:4px 12px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--acc)}
+.alpha-dot{width:6px;height:6px;border-radius:50%;background:var(--acc);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* BROWSER MOCKUP */
+.mock-wrap{width:100%;max-width:820px;margin:0 auto 80px;padding:0 24px}
+.mock-browser{background:var(--bg2);border:1px solid var(--b2);border-radius:14px;overflow:hidden;position:relative}
+.mock-chrome{background:var(--bg3);padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--b1)}
+.mock-dots{display:flex;gap:5px}
+.mock-dot{width:10px;height:10px;border-radius:50%}
+.mock-url{flex:1;background:var(--bg4);border-radius:6px;padding:5px 12px;font-family:var(--mono);font-size:11px;color:var(--t3);display:flex;align-items:center;gap:6px;transition:color .4s}
+.mock-ext-btn{width:30px;height:30px;background:var(--bg4);border:1.5px solid var(--b2);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--mono);font-size:11px;font-weight:600;color:var(--t3);cursor:default;transition:all .3s;position:relative}
+.mock-ext-btn.scanning{border-color:var(--yel);color:var(--yel);animation:ext-pulse .7s ease-in-out infinite}
+.mock-ext-btn.done{border-color:var(--grn);color:var(--grn);animation:none}
+.mock-ext-btn.red-done{border-color:var(--red);color:var(--red);animation:none}
+.mock-ext-btn.yel-done{border-color:var(--yel);color:var(--yel);animation:none}
+@keyframes ext-pulse{0%,100%{box-shadow:0 0 0 0 rgba(192,119,24,.5)}50%{box-shadow:0 0 0 6px rgba(192,119,24,0)}}
+.mock-body{display:grid;grid-template-columns:1fr 290px;min-height:320px;position:relative}
+.mock-page{padding:28px;border-right:1px solid var(--b1);transition:opacity .4s}
+.mp-tag{font-size:10px;color:var(--t3);margin-bottom:5px;letter-spacing:.07em;text-transform:uppercase}
+.mp-name{font-family:var(--serif);font-size:20px;margin-bottom:5px;line-height:1.2}
+.mp-price{font-size:12px;color:var(--t3);margin-bottom:16px}
+.mp-claims{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.mp-claim{background:var(--bg3);border-radius:7px;padding:9px 12px;font-size:12px;color:var(--t2);border-left:3px solid;display:flex;align-items:center;justify-content:space-between;gap:8px;transition:border-color .4s}
+.mp-verdict{font-size:9px;font-family:var(--mono);font-weight:500;flex-shrink:0}
+.mp-buy{width:100%;padding:10px;background:var(--acc);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:500;cursor:default;font-family:var(--sans)}
+
+/* Signal panel */
+.mock-signal{padding:18px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;min-height:320px}
+.ms-scanning{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;opacity:0;transition:opacity .35s;background:var(--bg2)}
+.ms-scanning.visible{opacity:1}
+.ms-scan-ring{width:44px;height:44px;border:2px solid var(--b2);border-top-color:var(--acc);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ms-scan-label{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.1em}
+.ms-result{opacity:0;transition:opacity .5s;display:flex;flex-direction:column;gap:10px}
+.ms-result.visible{opacity:1}
+.ms-header{display:flex;align-items:center;gap:10px;padding:12px;border-radius:10px;transition:background .4s,border-color .4s}
+.ms-logo{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:600;flex-shrink:0;transition:background .4s,color .4s,border-color .4s;border:1.5px solid}
+.ms-brand{font-size:13px;font-weight:500;color:var(--t1)}
+.ms-verdict-tag{font-size:10px;font-family:var(--mono);transition:color .4s}
+.ms-score{font-family:var(--mono);font-size:28px;font-weight:600;margin-left:auto;transition:color .4s;line-height:1}
+.ms-dims{display:flex;flex-direction:column;gap:7px}
+.ms-dim{display:flex;align-items:center;gap:8px;font-size:10px}
+.ms-dim-n{flex:1;color:var(--t2)}
+.ms-dim-bar{width:60px;height:3px;background:var(--bg4);border-radius:2px;position:relative;overflow:hidden}
+.ms-dim-fill{position:absolute;top:0;left:0;bottom:0;border-radius:2px;width:0;transition:width .6s cubic-bezier(.4,0,.2,1),background .4s}
+.ms-dim-v{font-family:var(--mono);font-size:9px;width:28px;text-align:right;transition:color .4s}
+.ms-verdict-box{font-size:11px;font-style:italic;padding:9px 11px;border-radius:7px;border:1px solid;line-height:1.5;opacity:0;transform:translateY(4px);transition:opacity .4s,transform .4s,color .4s,background .4s,border-color .4s}
+.ms-verdict-box.visible{opacity:1;transform:translateY(0)}
+
+/* scan progress bar at top of signal panel */
+.ms-progress{position:absolute;top:0;left:0;right:0;height:2px;background:transparent;overflow:hidden}
+.ms-progress-bar{height:100%;width:0;background:var(--acc);transition:width .05s linear}
+
+/* brand label */
+.mock-brand-label{position:absolute;bottom:10px;left:14px;font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.08em;opacity:0;transition:opacity .4s}
+.mock-brand-label.visible{opacity:1}
+
+/* WHAT IT DOES */
+.section{max-width:1100px;margin:0 auto;padding:80px 32px}
+.sec-tag{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--t3);text-transform:uppercase;margin-bottom:14px}
+.sec-title{font-family:var(--serif);font-size:clamp(30px,3.5vw,50px);font-weight:400;line-height:1.1;letter-spacing:-.02em;margin-bottom:14px}
+.sec-sub{font-size:16px;color:var(--t2);max-width:500px;line-height:1.7;font-weight:300;margin-bottom:48px}
+.divider{height:1px;background:var(--b1)}
+
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feat-card{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:28px 24px}
+.feat-icon{width:40px;height:40px;border-radius:10px;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:18px}
+.feat-card h3{font-size:15px;font-weight:500;margin-bottom:9px;color:var(--t1)}
+.feat-card p{font-size:13px;color:var(--t2);line-height:1.65}
+
+/* HOW IT WORKS */
+.steps-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--b1);border-radius:14px;overflow:hidden}
+.step-card{padding:32px 28px;background:var(--bg2);border-right:1px solid var(--b1)}
+.step-card:last-child{border-right:none}
+.step-num{font-family:var(--mono);font-size:10px;color:var(--acc);letter-spacing:.12em;margin-bottom:16px}
+.step-card h3{font-size:15px;font-weight:500;margin-bottom:9px}
+.step-card p{font-size:13px;color:var(--t2);line-height:1.65}
+
+/* PRIVACY */
+.priv-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.priv-list{display:flex;flex-direction:column;gap:18px}
+.priv-item{display:flex;gap:14px;align-items:flex-start}
+.priv-check{width:22px;height:22px;border-radius:6px;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:var(--grn);margin-top:2px}
+.priv-item h4{font-size:14px;font-weight:500;margin-bottom:4px}
+.priv-item p{font-size:13px;color:var(--t2);line-height:1.6}
+.priv-badge{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:28px}
+.priv-badge-title{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--t3);text-transform:uppercase;margin-bottom:16px}
+.priv-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;font-size:12px;margin-bottom:6px}
+.priv-ok{background:rgba(39,174,96,.06);border:1px solid rgba(39,174,96,.12);color:var(--t2)}
+.priv-no{background:rgba(255,255,255,.03);border:1px solid var(--b1);color:var(--t3)}
+.priv-row-icon{font-size:11px;font-family:var(--mono);margin-left:auto}
+.priv-ok .priv-row-icon{color:var(--grn)}
+.priv-no .priv-row-icon{color:var(--t3)}
+
+/* INSTALL / WAITLIST */
+.install-wrap{background:var(--bg2);border:1px solid var(--b1);border-radius:20px;padding:56px 48px;text-align:center;max-width:580px;margin:0 auto}
+.install-wrap h2{font-family:var(--serif);font-size:clamp(28px,3vw,42px);font-weight:400;letter-spacing:-.02em;margin-bottom:12px;line-height:1.1}
+.install-wrap .sub{font-size:15px;color:var(--t2);line-height:1.65;margin-bottom:32px;font-weight:300}
+
+.cap-form{display:flex;gap:8px;max-width:380px;margin:0 auto 16px}
+.cap-input{flex:1;padding:12px 16px;background:var(--bg4);border:1px solid var(--b2);border-radius:9px;color:var(--t1);font-size:14px;font-family:var(--sans);outline:none;transition:border-color .2s}
+.cap-input:focus{border-color:rgba(79,124,255,.55)}
+.cap-input::placeholder{color:var(--t3)}
+.cap-btn{padding:12px 22px;background:var(--acc);border:none;border-radius:9px;color:#fff;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:background .15s;white-space:nowrap}
+.cap-btn:hover{background:#3d6ae0}
+.cap-btn:disabled{opacity:.55;cursor:default}
+.cap-note{font-size:11px;color:var(--t3);font-family:var(--mono);letter-spacing:.03em;margin-bottom:24px}
+.cap-success{display:none;background:rgba(39,174,96,.07);border:1px solid rgba(39,174,96,.18);border-radius:12px;padding:18px 24px;font-size:14px;color:var(--grn);text-align:center;margin:0 auto 16px;max-width:380px}
+.cap-or{font-size:12px;color:var(--t3);margin-bottom:16px;position:relative}
+.cap-or::before,.cap-or::after{content:'';position:absolute;top:50%;width:60px;height:1px;background:var(--b1)}
+.cap-or::before{right:calc(50% + 24px)}
+.cap-or::after{left:calc(50% + 24px)}
+.install-demo{font-size:12px;color:var(--t3);margin-top:8px}
+.install-demo a{color:var(--acc);border-bottom:1px solid rgba(79,124,255,.3)}
+.install-demo a:hover{color:#7fa8ff}
+
+/* CTA BAND */
+.cta-band{background:var(--bg2);border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);padding:80px 32px;text-align:center}
+.cta-band h2{font-family:var(--serif);font-size:clamp(30px,4vw,52px);font-weight:400;letter-spacing:-.022em;margin-bottom:16px;line-height:1.1}
+.cta-band h2 em{font-style:italic;color:var(--t2)}
+.cta-band p{font-size:16px;color:var(--t2);max-width:460px;margin:0 auto 36px;font-weight:300;line-height:1.7}
+.cta-band-small{font-size:11px;color:var(--t3);font-family:var(--mono);letter-spacing:.04em;margin-top:18px}
+
+/* FOOTER */
+footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:36px}
+.footer-disc{font-size:11px;color:var(--t3);max-width:340px;line-height:1.65;margin-top:10px}
+.footer-links{display:flex;gap:52px}
+.footer-col h5{font-family:var(--mono);font-size:10px;letter-spacing:.11em;color:var(--t3);text-transform:uppercase;margin-bottom:14px}
+.footer-col a{display:block;font-size:13px;color:var(--t2);margin-bottom:9px;transition:color .15s}
+.footer-col a:hover{color:var(--t1)}
+.footer-copy{text-align:center;padding:18px 32px;font-size:10px;color:var(--t3);font-family:var(--mono);letter-spacing:.05em;border-top:1px solid var(--b1)}
+
+@media(max-width:768px){
+  nav{padding:0 20px}.nav-links{display:none}
+  .alpha-bar{padding:6px 20px}
+  .feat-grid,.steps-row,.priv-grid{grid-template-columns:1fr}
+  .steps-row .step-card{border-right:none;border-bottom:1px solid var(--b1)}
+  .steps-row .step-card:last-child{border-bottom:none}
+  .mock-body{grid-template-columns:1fr}.mock-signal{display:none}
+  .install-wrap{padding:36px 24px}
+  .cap-form{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="24" height="11" viewBox="0 0 24 11" fill="none" aria-hidden="true"><path d="M1 8C3.2 3.5 5.8 3.5 7.8 8C9.8 12.5 12.4 12.5 14.4 8C16.4 3.5 19 3.5 23 5.5" stroke="#4a78f0" stroke-width="1.7" stroke-linecap="round"/></svg>
+    Sigñal<span class="nav-byline">by BHVD</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#how">How it works</a></li>
+    <li><a href="/leaderboard">Leaderboard</a></li>
+    <li><a href="/compare">Compare</a></li>
+    <li><a href="/methodology">Methodology</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="/brand-portal" class="btn">For brands</a>
+    <a href="#waitlist" class="btn btn-p" onclick="track('extension_install_click')">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
+      Get early access
+    </a>
+  </div>
+</nav>
+
+<div class="alpha-bar">Sigñal is in early beta. Scores reflect reviewed public marketing claims and visible evidence references — not product efficacy, safety, or regulatory status.</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-eyebrow">Browser Extension · Early Beta</div>
+  <h1>Know what you're buying<br><em>while you're buying it.</em></h1>
+  <p class="hero-sub">Sigñal surfaces a brand's claim score directly on the product page — before the money leaves your pocket. Red, Yellow, or Green. No account needed.</p>
+  <div class="hero-actions">
+    <a href="#waitlist" class="btn btn-p btn-hero" onclick="track('extension_install_click')">
+      <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
+      Join the waitlist
+    </a>
+    <a href="/bhvd-extension.zip" download="bhvd-signal-extension.zip" class="btn btn-hero btn-demo" onclick="track('extension_install_click')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Developer build
+    </a>
+  </div>
+  <div class="alpha-badge">
+    <span class="alpha-dot"></span>
+    Early beta · Chrome · Not yet on Web Store
+  </div>
+</div>
+
+<!-- BROWSER MOCKUP (animated) -->
+<div class="mock-wrap">
+  <div class="mock-browser" id="mockBrowser">
+    <div class="mock-chrome">
+      <div class="mock-dots">
+        <div class="mock-dot" style="background:#ff5f57"></div>
+        <div class="mock-dot" style="background:#febc2e"></div>
+        <div class="mock-dot" style="background:#28c840"></div>
+      </div>
+      <div class="mock-url" id="mockUrl">
+        <span style="font-size:9px">🔒</span>
+        <span id="mockUrlText">ritual.com/products/essential-for-women</span>
+      </div>
+      <div class="mock-ext-btn" id="mockExtBtn">S~</div>
+    </div>
+    <div class="mock-body">
+      <div class="mock-page" id="mockPage">
+        <div class="mp-tag" id="mpTag">Supplement · Women's Health</div>
+        <div class="mp-name" id="mpName">Essential for Women 18+</div>
+        <div class="mp-price" id="mpPrice">$35/month · Subscription</div>
+        <div class="mp-claims" id="mpClaims">
+          <div class="mp-claim" id="mpC1" style="border-color:var(--b1)">
+            <span id="mpC1t">Traceable ingredients, visible supply chain</span>
+            <span class="mp-verdict" id="mpC1v"></span>
+          </div>
+          <div class="mp-claim" id="mpC2" style="border-color:var(--b1)">
+            <span id="mpC2t">Clinically studied nutrients, body-ready forms</span>
+            <span class="mp-verdict" id="mpC2v"></span>
+          </div>
+          <div class="mp-claim" id="mpC3" style="border-color:var(--b1)">
+            <span id="mpC3t">Delayed-release capsule for absorption</span>
+            <span class="mp-verdict" id="mpC3v"></span>
+          </div>
+        </div>
+        <button class="mp-buy" id="mpBuy">Add to cart — $35</button>
+      </div>
+      <div class="mock-signal" id="mockSignal">
+        <div class="ms-progress"><div class="ms-progress-bar" id="msProgressBar"></div></div>
+        <div class="ms-scanning" id="msScanning">
+          <div class="ms-scan-ring"></div>
+          <div class="ms-scan-label">SIGNAL SCANNING</div>
+        </div>
+        <div class="ms-result" id="msResult">
+          <div class="ms-header" id="msHeader">
+            <div class="ms-logo" id="msLogo">S~</div>
+            <div>
+              <div class="ms-brand" id="msBrand">Ritual</div>
+              <div class="ms-verdict-tag" id="msVerdictTag">GENERALLY ALIGNED</div>
+            </div>
+            <div class="ms-score" id="msScore">0</div>
+          </div>
+          <div class="ms-dims" id="msDims">
+            <div class="ms-dim">
+              <span class="ms-dim-n">Claim Clarity</span>
+              <div class="ms-dim-bar"><div class="ms-dim-fill" id="msD1"></div></div>
+              <span class="ms-dim-v" id="msD1v">—</span>
+            </div>
+            <div class="ms-dim">
+              <span class="ms-dim-n">Evidence</span>
+              <div class="ms-dim-bar"><div class="ms-dim-fill" id="msD2"></div></div>
+              <span class="ms-dim-v" id="msD2v">—</span>
+            </div>
+            <div class="ms-dim">
+              <span class="ms-dim-n">Mechanism</span>
+              <div class="ms-dim-bar"><div class="ms-dim-fill" id="msD3"></div></div>
+              <span class="ms-dim-v" id="msD3v">—</span>
+            </div>
+            <div class="ms-dim">
+              <span class="ms-dim-n">Scope</span>
+              <div class="ms-dim-bar"><div class="ms-dim-fill" id="msD4"></div></div>
+              <span class="ms-dim-v" id="msD4v">—</span>
+            </div>
+          </div>
+          <div class="ms-verdict-box" id="msVerdictBox"></div>
+        </div>
+        <div class="mock-brand-label" id="mockBrandLabel">sigñal by bhvd</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const BRANDS = [
+    {
+      url: 'ritual.com/products/essential-for-women',
+      tag: 'Supplement · Women\'s Health',
+      name: 'Essential for Women 18+',
+      price: '$35/month · Subscription',
+      buy: 'Add to cart — $35',
+      brandName: 'Ritual',
+      score: 64,
+      signal: 'green',
+      color: '#1e9459',
+      bgColor: 'rgba(30,148,89,0.07)',
+      bdrColor: 'rgba(30,148,89,0.2)',
+      verdict: 'GENERALLY ALIGNED',
+      verdictText: 'Claims are mostly specific and traceable, with some gaps in mechanism support.',
+      claims: [
+        { t: 'Traceable ingredients, visible supply chain', v: 'ALIGNED', c: '#1e9459' },
+        { t: 'Clinically studied nutrients, body-ready forms', v: 'PARTIAL', c: '#c07718' },
+        { t: 'Delayed-release capsule for absorption', v: 'ALIGNED', c: '#1e9459' },
+      ],
+      dims: [
+        { pct: 80, val: '16/20' },
+        { pct: 68, val: '17/25' },
+        { pct: 60, val: '9/15' },
+        { pct: 67, val: '10/15' },
+      ],
+    },
+    {
+      url: 'goop.com/wellness/supplements/why-am-i-so-effing-tired',
+      tag: 'Supplement · Energy',
+      name: 'Why Am I So Effing Tired',
+      price: '$90 · One-time',
+      buy: 'Add to cart — $90',
+      brandName: 'Goop',
+      score: 29,
+      signal: 'red',
+      color: '#9e3028',
+      bgColor: 'rgba(158,48,40,0.07)',
+      bdrColor: 'rgba(158,48,40,0.2)',
+      verdict: 'OVEREXTENDED',
+      verdictText: 'Multiple high-confidence claims with minimal visible evidence. Mechanism largely absent.',
+      claims: [
+        { t: 'Replenish depleted energy stores', v: 'GAP', c: '#9e3028' },
+        { t: 'Hormone-balancing adaptogen blend', v: 'INFLATED', c: '#9e3028' },
+        { t: 'Clinically supported ingredients', v: 'GAP', c: '#9e3028' },
+      ],
+      dims: [
+        { pct: 28, val: '6/20' },
+        { pct: 24, val: '6/25' },
+        { pct: 20, val: '3/15' },
+        { pct: 27, val: '4/15' },
+      ],
+    },
+    {
+      url: 'drinkag1.com/products/athletic-greens',
+      tag: 'Supplement · Daily Nutrition',
+      name: 'AG1 Athletic Greens',
+      price: '$99/month · Subscription',
+      buy: 'Add to cart — $99',
+      brandName: 'AG1',
+      score: 71,
+      signal: 'green',
+      color: '#1e9459',
+      bgColor: 'rgba(30,148,89,0.07)',
+      bdrColor: 'rgba(30,148,89,0.2)',
+      verdict: 'GENERALLY ALIGNED',
+      verdictText: 'Broad formulation claims are largely proportional to cited evidence. Some scope gaps remain.',
+      claims: [
+        { t: '75 vitamins, minerals & whole-food sourced nutrients', v: 'ALIGNED', c: '#1e9459' },
+        { t: 'Supports gut health & digestion', v: 'PARTIAL', c: '#c07718' },
+        { t: 'Certified NSF for Sport', v: 'ALIGNED', c: '#1e9459' },
+      ],
+      dims: [
+        { pct: 75, val: '15/20' },
+        { pct: 72, val: '18/25' },
+        { pct: 67, val: '10/15' },
+        { pct: 73, val: '11/15' },
+      ],
+    },
+  ];
+
+  let idx = 0;
+  let running = false;
+
+  const elUrl    = document.getElementById('mockUrlText');
+  const elBtn    = document.getElementById('mockExtBtn');
+  const elTag    = document.getElementById('mpTag');
+  const elName   = document.getElementById('mpName');
+  const elPrice  = document.getElementById('mpPrice');
+  const elBuy    = document.getElementById('mpBuy');
+  const elC      = [1,2,3].map(i => ({
+    el: document.getElementById('mpC'+i),
+    t:  document.getElementById('mpC'+i+'t'),
+    v:  document.getElementById('mpC'+i+'v'),
+  }));
+  const elScanning  = document.getElementById('msScanning');
+  const elResult    = document.getElementById('msResult');
+  const elLogo      = document.getElementById('msLogo');
+  const elBrand     = document.getElementById('msBrand');
+  const elVTag      = document.getElementById('msVerdictTag');
+  const elScoreNum  = document.getElementById('msScore');
+  const elHeader    = document.getElementById('msHeader');
+  const elDims      = [1,2,3,4].map(i => ({
+    fill: document.getElementById('msD'+i),
+    val:  document.getElementById('msD'+i+'v'),
+  }));
+  const elVerdictBox = document.getElementById('msVerdictBox');
+  const elProgress   = document.getElementById('msProgressBar');
+  const elBrandLabel = document.getElementById('mockBrandLabel');
+  const elPage       = document.getElementById('mockPage');
+
+  function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+
+  function countUp(el, target, duration){
+    return new Promise(resolve => {
+      const start = Date.now();
+      const from = parseInt(el.textContent) || 0;
+      function tick(){
+        const p = Math.min((Date.now()-start)/duration, 1);
+        const ease = 1 - Math.pow(1-p, 3);
+        el.textContent = Math.round(from + (target-from)*ease);
+        if(p < 1) requestAnimationFrame(tick);
+        else { el.textContent = target; resolve(); }
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+
+  function progressTo(pct, duration){
+    return new Promise(resolve => {
+      const start = Date.now();
+      const from = parseFloat(elProgress.style.width) || 0;
+      function tick(){
+        const p = Math.min((Date.now()-start)/duration, 1);
+        elProgress.style.width = (from + (pct-from)*p) + '%';
+        if(p < 1) requestAnimationFrame(tick);
+        else resolve();
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+
+  async function runBrand(b){
+    // Reset state
+    elScanning.classList.remove('visible');
+    elResult.classList.remove('visible');
+    elVerdictBox.classList.remove('visible');
+    elBrandLabel.classList.remove('visible');
+    elProgress.style.width = '0%';
+    elProgress.style.background = 'var(--acc)';
+    elBtn.className = 'mock-ext-btn';
+    elBtn.style.borderColor = '';
+    elBtn.style.color = '';
+    elScoreNum.textContent = '0';
+    elDims.forEach(d => { d.fill.style.width = '0%'; d.val.textContent = '—'; });
+
+    // Load page content
+    elPage.style.opacity = '0.4';
+    elUrl.textContent = b.url;
+    elTag.textContent = b.tag;
+    elName.textContent = b.name;
+    elPrice.textContent = b.price;
+    elBuy.textContent = 'Add to cart — ' + b.price.split('·')[0].trim().replace('/month','');
+    elC.forEach((c, i) => {
+      const claim = b.claims[i];
+      c.t.textContent = claim.t;
+      c.v.textContent = '';
+      c.el.style.borderColor = 'var(--b1)';
+      c.v.style.color = '';
+    });
+    await sleep(300);
+    elPage.style.opacity = '1';
+
+    await sleep(600);
+
+    // Extension activates — scanning
+    elBtn.classList.add('scanning');
+    elBtn.style.borderColor = '';
+    elBtn.style.color = '';
+    elScanning.classList.add('visible');
+    progressTo(85, 1800);
+    await sleep(1000);
+
+    // Reveal claims one by one while scanning
+    for(let i=0;i<3;i++){
+      const claim = b.claims[i];
+      elC[i].el.style.borderColor = claim.c;
+      elC[i].v.textContent = claim.v;
+      elC[i].v.style.color = claim.c;
+      await sleep(320);
+    }
+
+    await sleep(400);
+
+    // Scan complete
+    await progressTo(100, 200);
+    elProgress.style.background = b.color;
+
+    // Switch to result
+    elScanning.classList.remove('visible');
+    await sleep(200);
+
+    // Style header
+    elHeader.style.background = b.bgColor;
+    elHeader.style.borderColor = b.bdrColor;
+    elLogo.style.background = b.bgColor;
+    elLogo.style.borderColor = b.color;
+    elLogo.style.color = b.color;
+    elBrand.textContent = b.brandName;
+    elVTag.textContent = b.verdict;
+    elVTag.style.color = b.color;
+    elScoreNum.style.color = b.color;
+    elVerdictBox.textContent = b.verdictText;
+    elVerdictBox.style.color = b.color;
+    elVerdictBox.style.background = b.bgColor;
+    elVerdictBox.style.borderColor = b.bdrColor;
+
+    // Extension button done state
+    const doneClass = b.signal === 'red' ? 'red-done' : b.signal === 'yellow' ? 'yel-done' : 'done';
+    elBtn.classList.remove('scanning');
+    elBtn.classList.add(doneClass);
+
+    elResult.classList.add('visible');
+
+    // Count up score
+    countUp(elScoreNum, b.score, 900);
+
+    // Fill dims sequentially
+    for(let i=0;i<4;i++){
+      const d = b.dims[i];
+      await sleep(180);
+      elDims[i].fill.style.width = d.pct + '%';
+      elDims[i].fill.style.background = b.color;
+      elDims[i].val.style.color = b.color;
+      elDims[i].val.textContent = d.val;
+    }
+
+    await sleep(400);
+    elVerdictBox.classList.add('visible');
+    elBrandLabel.classList.add('visible');
+
+    // Hold on result
+    await sleep(3200);
+
+    // Fade out
+    elResult.classList.remove('visible');
+    elVerdictBox.classList.remove('visible');
+    elBrandLabel.classList.remove('visible');
+    elPage.style.opacity = '0.3';
+    await sleep(500);
+  }
+
+  async function loop(){
+    if(running) return;
+    running = true;
+    while(true){
+      await runBrand(BRANDS[idx]);
+      idx = (idx + 1) % BRANDS.length;
+      await sleep(300);
+    }
+  }
+
+  // Start when mockup scrolls into view
+  const obs = new IntersectionObserver(entries => {
+    if(entries[0].isIntersecting){ obs.disconnect(); loop(); }
+  }, { threshold: 0.3 });
+  obs.observe(document.getElementById('mockBrowser'));
+})();
+</script>
+
+<div class="divider"></div>
+
+<!-- WHAT IT DOES -->
+<div class="section" id="what">
+  <div class="sec-tag">Capabilities</div>
+  <div class="sec-title">Everything you need to evaluate<br>a brand in seconds.</div>
+  <div class="sec-sub">No research required on your end. Sigñal does the work — you see the result.</div>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-icon">◎</div>
+      <h3>Scan any product page</h3>
+      <p>Works on supplements, skincare, wearables, neurotech, recovery, and performance brands. Visit the page — the extension fires automatically.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">▣</div>
+      <h3>See the full signal</h3>
+      <p>Red, Yellow, or Green — plus six dimension scores: specificity, mechanism, evidence presence, evidence strength, effect reality, and consumer distortion.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">↻</div>
+      <h3>Track brands over time</h3>
+      <p>Scores update when brands change their pages. The extension shows score trajectory so you can see whether a brand is improving, stable, or declining.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">⊞</div>
+      <h3>Compare side-by-side</h3>
+      <p>Open the comparison mode for any two or three brands you're deciding between. One click from any brand score panel.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">◈</div>
+      <h3>Claim-level receipts</h3>
+      <p>Every scored claim is shown individually. Aligned, Partial, Gap, or Missing — so you know exactly which marketing language has visible support.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">◐</div>
+      <h3>Zero friction</h3>
+      <p>No account required to start. No login, no onboarding, no subscription prompt. Install and it works. Free.</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- HOW IT WORKS -->
+<div class="section" id="how">
+  <div class="sec-tag">How it works</div>
+  <div class="sec-title">Three steps. Two seconds.</div>
+  <div class="sec-sub" style="margin-bottom:40px">No manual lookup required. The extension does the match automatically as you browse.</div>
+  <div class="steps-row">
+    <div class="step-card">
+      <div class="step-num">01 — BROWSE</div>
+      <h3>Visit any wellness product page</h3>
+      <p>Navigate to a supplement, skincare, or wearable product page as you normally would. The extension runs in the background — no button to click.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02 — MATCH</div>
+      <h3>Extension checks the Sigñal index</h3>
+      <p>The extension reads visible page text — brand name, product claims, evidence references. It sends this to the Sigñal API, which matches against our scored index. No browsing history is stored.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03 — SIGNAL</div>
+      <h3>Get the score while you decide</h3>
+      <p>A sidebar appears with the brand's full report — signal color, score, dimension breakdown, and per-claim receipts. Knowledge before the money moves.</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PRIVACY -->
+<div class="section" id="privacy">
+  <div class="sec-tag">Privacy</div>
+  <div class="sec-title">We read claims, not people.</div>
+  <div class="sec-sub" style="margin-bottom:40px">The extension reads product page text. That's it. No personal data, no identity, no tracking.</div>
+  <div class="priv-grid">
+    <div class="priv-list">
+      <div class="priv-item">
+        <div class="priv-check">✓</div>
+        <div>
+          <h4>Only reads health &amp; wellness pages</h4>
+          <p>The extension only activates on pages our classifier identifies as wellness product pages. It doesn't run on your bank, your email, or any other site.</p>
+        </div>
+      </div>
+      <div class="priv-item">
+        <div class="priv-check">✓</div>
+        <div>
+          <h4>Claims text only — never your identity</h4>
+          <p>The extracted page text is sent to the Sigñal API. Your name, email, location, and any personal data stay on your device.</p>
+        </div>
+      </div>
+      <div class="priv-item">
+        <div class="priv-check">✓</div>
+        <div>
+          <h4>No browsing history stored</h4>
+          <p>We don't log which pages you visit. The API receives the text and domain of the current page — nothing else.</p>
+        </div>
+      </div>
+      <div class="priv-item">
+        <div class="priv-check">✓</div>
+        <div>
+          <h4>No third-party data sharing</h4>
+          <p>Scan data is never sold to brands, advertisers, or data brokers. We're consumer-first by design — brands don't fund this index.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="priv-badge">
+        <div class="priv-badge-title">Data the extension handles</div>
+        <div class="priv-row priv-ok">
+          <span>Product page text content</span>
+          <span class="priv-row-icon">USED</span>
+        </div>
+        <div class="priv-row priv-ok">
+          <span>Brand domain (current tab)</span>
+          <span class="priv-row-icon">USED</span>
+        </div>
+        <div class="priv-row priv-no">
+          <span>Your identity or email</span>
+          <span class="priv-row-icon">NOT COLLECTED</span>
+        </div>
+        <div class="priv-row priv-no">
+          <span>Browsing history</span>
+          <span class="priv-row-icon">NOT STORED</span>
+        </div>
+        <div class="priv-row priv-no">
+          <span>Location or device info</span>
+          <span class="priv-row-icon">NOT COLLECTED</span>
+        </div>
+        <div class="priv-row priv-no">
+          <span>Data sold to third parties</span>
+          <span class="priv-row-icon">NEVER</span>
+        </div>
+        <div style="font-size:10px;color:var(--t3);margin-top:14px;line-height:1.6">Methodology is open. Scoring is editorial, not algorithmic guessing. No brand has paid to appear in this index.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- WAITLIST / INSTALL -->
+<div class="section" id="waitlist">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="install-wrap">
+      <div class="alpha-badge" style="margin:0 auto 24px">
+        <span class="alpha-dot"></span>
+        Early Beta
+      </div>
+      <h2>Get early access</h2>
+      <p class="sub">The Chrome extension is in early beta. Leave your email and we'll send you access when we open the next cohort — and notify you when we ship to the Chrome Web Store.</p>
+      <div class="cap-success" id="ext-success">
+        You're on the list. We'll reach out with access details soon.
+      </div>
+      <div class="cap-form" id="ext-form">
+        <input type="email" class="cap-input" id="ext-email" placeholder="your@email.com" autocomplete="email">
+        <button class="cap-btn" id="ext-btn" onclick="submitExtWaitlist()">Join waitlist</button>
+      </div>
+      <div class="cap-note">No spam. Just access notification and major updates.</div>
+      <div class="cap-or">or</div>
+      <a href="/bhvd-extension.zip" download="bhvd-signal-extension.zip" class="btn btn-demo" style="margin:0 auto;display:inline-flex" onclick="track('extension_install_click')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download developer build
+      </a>
+      <div class="install-demo" style="margin-top:14px">
+        Unpack in Chrome → <code style="font-family:var(--mono);font-size:10px;color:var(--t3)">chrome://extensions</code> → Developer mode → Load unpacked
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <h2>The leaderboard is live.<br><em>Browse what's already scored.</em></h2>
+  <p>50+ brands reviewed across supplements, skincare, wearables, and neurotech. Explore the full index while the extension rolls out.</p>
+  <div style="display:flex;align-items:center;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="/leaderboard" class="btn btn-p btn-hero">
+      View leaderboard →
+    </a>
+    <a href="/compare" class="btn btn-hero">
+      Compare brands →
+    </a>
+  </div>
+  <div class="cta-band-small" style="margin-top:20px">Scores are editorial · No brand payments · Open methodology</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <a href="/" class="nav-logo">
+      <svg width="24" height="11" viewBox="0 0 24 11" fill="none" aria-hidden="true"><path d="M1 8C3.2 3.5 5.8 3.5 7.8 8C9.8 12.5 12.4 12.5 14.4 8C16.4 3.5 19 3.5 23 5.5" stroke="#4a78f0" stroke-width="1.7" stroke-linecap="round"/></svg>
+      Sigñal<span class="nav-byline">by BHVD</span>
+    </a>
+    <p class="footer-disc">Sigñal analyzes whether brands show visible evidence for their public marketing claims — not whether those claims are true or whether products work.</p>
+  </div>
+  <div class="footer-links">
+    <div class="footer-col">
+      <h5>Product</h5>
+      <a href="/extension">Browser Extension</a>
+      <a href="/leaderboard">Leaderboard</a>
+      <a href="/compare">Compare brands</a>
+      <a href="/methodology">Methodology</a>
+    </div>
+    <div class="footer-col">
+      <h5>Industry</h5>
+      <a href="/brand-portal">For brands</a>
+      <a href="mailto:signal@bhvd.com">For retailers</a>
+      <a href="mailto:signal@bhvd.com">For investors</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="mailto:signal@bhvd.com">Contact</a>
+      <a href="/">Home</a>
+    </div>
+  </div>
+</footer>
+<div class="footer-copy">&#169; 2025 Sigñal &nbsp;&#183;&nbsp; by BHVD &nbsp;&#183;&nbsp; Payment never influences scores &nbsp;&#183;&nbsp; Open methodology</div>
+
+<script>
+var API = "https://bhvd-signal-api.fly.dev";
+
+function track(event_name, meta) {
+  fetch(API + "/api/event", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ event: event_name, meta: meta || null })
+  }).catch(function(){});
+}
+
+function submitExtWaitlist() {
+  var email = document.getElementById("ext-email").value.trim();
+  if (!email || !email.includes("@")) {
+    document.getElementById("ext-email").focus();
+    return;
+  }
+  var btn = document.getElementById("ext-btn");
+  btn.disabled = true;
+  btn.textContent = "Joining…";
+
+  fetch(API + "/api/capture", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: email, type: "extension_waitlist" })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function() {
+    track("consumer_email_signup", { type: "extension_waitlist" });
+    document.getElementById("ext-form").style.display = "none";
+    document.getElementById("ext-success").style.display = "";
+  })
+  .catch(function() {
+    btn.disabled = false;
+    btn.textContent = "Join waitlist";
+  });
+}
+
+document.getElementById("ext-email").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") submitExtWaitlist();
+});
+</script>
+
+</body>
+</html>

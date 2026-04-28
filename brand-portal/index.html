@@ -23,8 +23,14 @@ a{color:inherit;text-decoration:none}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:56px;background:rgba(10,12,18,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--b1)}
 .nav-logo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--t1);display:flex;align-items:center;gap:9px;text-decoration:none}
 .nav-byline{font-size:9px;color:var(--t3);letter-spacing:.13em;font-weight:400;text-transform:uppercase;border-left:1px solid var(--b2);padding-left:8px;margin-left:1px}
-.nav-back{font-size:12px;color:var(--t2);display:flex;align-items:center;gap:6px;transition:color .15s}
-.nav-back:hover{color:var(--t1)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:13px;color:var(--t2);transition:color .15s}
+.nav-links a:hover{color:var(--t1)}
+.nav-cta{display:flex;gap:10px}
+.nav-btn{font-family:var(--sans);font-size:13px;font-weight:500;padding:8px 18px;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,.13);background:transparent;color:var(--t2);display:inline-flex;align-items:center;gap:7px;text-decoration:none;transition:all .15s}
+.nav-btn:hover{color:var(--t1);border-color:rgba(255,255,255,.25)}
+.nav-btn-p{background:#4a78f0;border-color:#4a78f0;color:#fff}
+.nav-btn-p:hover{background:#3d6ae0;border-color:#3d6ae0;color:#fff}
 
 .alpha-bar{position:fixed;top:56px;left:0;right:0;z-index:99;background:rgba(26,143,255,0.05);border-bottom:1px solid rgba(26,143,255,0.10);padding:6px 48px;font-size:11px;color:#5a7aaa;line-height:1.45;letter-spacing:.01em}
 
@@ -102,6 +108,7 @@ textarea.form-input{resize:vertical;min-height:90px}
 
 .integrity-note{margin-top:32px;padding:16px 20px;background:rgba(255,255,255,.02);border:1px solid var(--b1);border-radius:10px;font-size:12px;color:var(--t3);line-height:1.65}
 .integrity-note strong{color:var(--t2)}
+@media(max-width:640px){nav{padding:0 20px}.nav-links{display:none}.nav-cta .nav-btn:first-child{display:none}}
 </style>
 </head>
 <body>
@@ -111,7 +118,20 @@ textarea.form-input{resize:vertical;min-height:90px}
     <svg width="24" height="11" viewBox="0 0 24 11" fill="none" aria-hidden="true"><path d="M1 8C3.2 3.5 5.8 3.5 7.8 8C9.8 12.5 12.4 12.5 14.4 8C16.4 3.5 19 3.5 23 5.5" stroke="#4a78f0" stroke-width="1.7" stroke-linecap="round"/></svg>
     Sigñal<span class="nav-byline">by BHVD</span>
   </a>
-  <a class="nav-back" href="/">← Home</a>
+  <ul class="nav-links">
+    <li><a href="/leaderboard">Leaderboard</a></li>
+    <li><a href="/leaderboard?mode=compare">Compare</a></li>
+    <li><a href="/extension">Extension</a></li>
+    <li><a href="/methodology">Methodology</a></li>
+    <li><a href="/pricing">Pricing</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="/brand-portal" class="nav-btn" style="color:var(--t1);border-color:rgba(255,255,255,.25)">For brands</a>
+    <a href="/extension" class="nav-btn nav-btn-p">
+      <svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
+      Add Sigñal to Browser
+    </a>
+  </div>
 </nav>
 
 <div class="alpha-bar">

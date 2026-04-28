@@ -3,810 +3,530 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Compare Brands · Sigñal</title>
-<meta name="description" content="Compare claim quality scores side by side for any two wellness brands. Independent assessment by Sigñal.">
-<meta property="og:title" content="Compare Brands · Sigñal">
-<meta property="og:description" content="Side-by-side claim quality comparison for wellness brands.">
-<meta property="og:image" content="https://bhvdsignal.com/og-image.png">
-<meta property="og:url" content="https://bhvdsignal.com/compare">
+<title>Compare Brands — Sigñal</title>
+<meta name="description" content="Side-by-side claim quality comparison of wellness brands. Evidence depth, distortion risk, and scoring across 6 dimensions.">
 <link rel="canonical" href="https://bhvdsignal.com/compare">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#0a0c12;--bg2:#111420;--bg3:#181c2e;--bg4:#1f2438;
-  --b1:rgba(255,255,255,0.07);--b2:rgba(255,255,255,0.13);
-  --t1:#f2f2f2;--t2:#8b93b0;--t3:#4a5070;
-  --red:#9e3028;--yel:#c07718;--grn:#1e9459;--acc:#4a78f0;
+:root {
+  --bg:#0a0c12; --bg2:#111420; --bg3:#181c2e; --bg4:#1f2438;
+  --b1:rgba(255,255,255,0.07); --b2:rgba(255,255,255,0.13);
+  --t1:#f2f2f2; --t2:#8b93b0; --t3:#4a5070;
+  --red:#9e3028; --yel:#c07718; --grn:#1e9459; --acc:#4a78f0;
   --mono:'DM Mono',monospace;
   --serif:'Instrument Serif',Georgia,serif;
   --sans:'DM Sans',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--t1);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--t1);font-family:var(--sans);-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:56px;background:rgba(10,12,18,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--b1)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:56px;background:rgba(10,12,18,0.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--b1)}
 .nav-logo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--t1);display:flex;align-items:center;gap:9px;text-decoration:none}
 .nav-byline{font-size:9px;color:var(--t3);letter-spacing:.13em;font-weight:400;text-transform:uppercase;border-left:1px solid var(--b2);padding-left:8px;margin-left:1px}
-.nav-actions{display:flex;gap:10px}
-.btn{font-family:var(--sans);font-size:12px;font-weight:500;padding:7px 16px;border-radius:8px;cursor:pointer;border:1px solid var(--b2);background:transparent;color:var(--t2);transition:all .15s;display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:13px;color:var(--t2);transition:color .15s}
+.nav-links a:hover,.nav-links a.active{color:var(--t1)}
+.nav-links a.active{border-bottom:1px solid var(--acc);padding-bottom:2px}
+.nav-cta{display:flex;gap:10px}
+.btn{font-family:var(--sans);font-size:12px;font-weight:500;padding:7px 16px;border-radius:8px;cursor:pointer;border:1px solid var(--b2);background:transparent;color:var(--t2);transition:all .15s;display:inline-flex;align-items:center;text-decoration:none}
 .btn:hover{background:var(--bg3);color:var(--t1)}
-.btn-sm{padding:6px 13px;font-size:11px}
+.btn-p{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn-p:hover{background:#3d6ae0}
+@media(max-width:760px){.nav-links,.nav-cta{display:none}}
 
-/* PAGE */
-.page{max-width:980px;margin:0 auto;padding:88px 32px 96px}
+/* GATE */
+.gate-overlay{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;align-items:center;justify-content:center}
+.gate-box{width:360px;text-align:center;padding:48px 40px;border:1px solid var(--b1);border-radius:16px;background:var(--bg2)}
+.gate-box h2{font-family:var(--mono);font-size:16px;font-weight:400;letter-spacing:.06em;color:var(--t1);margin-bottom:6px}
+.gate-box p{font-size:13px;color:var(--t2);margin-bottom:28px;line-height:1.5}
+.gate-input{width:100%;background:var(--bg3);border:1px solid var(--b1);border-radius:8px;padding:11px 14px;font-size:14px;color:var(--t1);font-family:var(--mono);letter-spacing:.08em;outline:none;margin-bottom:12px}
+.gate-input:focus{border-color:var(--acc)}
+.gate-btn{width:100%;padding:11px;background:var(--acc);border:none;border-radius:8px;font-size:14px;font-weight:500;color:#fff;cursor:pointer;transition:background .15s}
+.gate-btn:hover{background:#3d6ae0}
+.gate-err{font-size:12px;color:var(--red);margin-top:8px;min-height:18px}
 
-/* SPINNER */
-.spinner{width:24px;height:24px;border:2px solid rgba(255,255,255,.07);border-top-color:var(--acc);border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
+/* MAIN */
+main{padding-top:80px}
 
-/* PAGE HEADER */
-.cmp-head{margin-bottom:32px}
-.cmp-title{font-family:var(--serif);font-size:clamp(26px,5vw,42px);font-weight:400;letter-spacing:-.02em;margin-bottom:6px}
-.cmp-sub{font-size:14px;color:var(--t2)}
+/* SEARCH BAR */
+.cmp-search-bar{padding:24px 48px;border-bottom:1px solid var(--b1);background:var(--bg2)}
+.cmp-search-title{font-family:var(--serif);font-size:22px;font-weight:400;margin-bottom:4px}
+.cmp-search-sub{font-size:13px;color:var(--t2);margin-bottom:20px}
+.brand-slots{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start}
+.slot{position:relative}
+.slot-input{background:var(--bg3);border:1px solid var(--b1);border-radius:8px;padding:9px 36px 9px 12px;font-size:13px;color:var(--t1);font-family:var(--sans);outline:none;width:200px;transition:border-color .15s}
+.slot-input:focus{border-color:var(--acc)}
+.slot-input::placeholder{color:var(--t3)}
+.slot-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--t3);cursor:pointer;font-size:16px;line-height:1;padding:0}
+.slot-clear:hover{color:var(--t1)}
+.slot-suggestions{position:absolute;top:calc(100%+4px);left:0;right:0;background:var(--bg3);border:1px solid var(--b2);border-radius:8px;z-index:50;max-height:200px;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,.5)}
+.slot-suggestion{padding:9px 12px;font-size:13px;cursor:pointer;border-bottom:1px solid var(--b1);transition:background .1s}
+.slot-suggestion:last-child{border-bottom:none}
+.slot-suggestion:hover,.slot-suggestion.highlighted{background:var(--bg4)}
+.slot-suggestion .sug-name{color:var(--t1);font-weight:500}
+.slot-suggestion .sug-domain{font-size:11px;color:var(--t3);font-family:var(--mono);margin-top:1px}
+.add-slot-btn{background:none;border:1px dashed var(--b2);border-radius:8px;padding:9px 16px;font-size:13px;color:var(--t3);cursor:pointer;white-space:nowrap;transition:all .15s;height:40px}
+.add-slot-btn:hover{border-color:var(--acc);color:var(--acc)}
+.cmp-go-btn{background:var(--acc);border:none;border-radius:8px;padding:9px 20px;font-size:13px;font-weight:500;color:#fff;cursor:pointer;white-space:nowrap;height:40px;transition:background .15s}
+.cmp-go-btn:hover{background:#3d6ae0}
 
-/* INPUT PANEL */
-.cmp-panel{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:20px 24px;margin-bottom:28px}
-.cmp-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;min-height:34px;align-items:center}
-.cmp-tag{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--b2);border-radius:100px;padding:5px 10px 5px 14px;font-size:12px;font-weight:500;color:var(--t1)}
-.cmp-tag-x{background:none;border:none;color:var(--t3);cursor:pointer;font-size:17px;line-height:1;padding:0 2px;transition:color .1s}
-.cmp-tag-x:hover{color:var(--red)}
-.cmp-row{display:flex;gap:10px}
-.cmp-input{flex:1;background:var(--bg3);border:1px solid var(--b2);border-radius:9px;padding:9px 14px;color:var(--t1);font-size:13px;font-family:var(--sans);outline:none;transition:border-color .15s}
-.cmp-input:focus{border-color:var(--acc)}
-.cmp-input::placeholder{color:var(--t3)}
-.cmp-add-btn{background:var(--acc);border:none;color:#fff;border-radius:9px;padding:9px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:background .15s;white-space:nowrap}
-.cmp-add-btn:hover{background:#3d6ae0}
-.cmp-add-btn:disabled{opacity:.45;cursor:default}
-.cmp-hint{font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:10px;letter-spacing:.04em}
-.cmp-err{font-family:var(--mono);font-size:11px;color:var(--red);margin-top:8px;display:none}
-
-/* SHARE STRIP */
-.cmp-share-strip{display:none;margin-bottom:16px}
-.cmp-share-btn{background:none;border:1px solid var(--b2);border-radius:8px;color:var(--t2);font-family:var(--mono);font-size:10px;letter-spacing:.06em;padding:6px 14px;cursor:pointer;transition:all .15s}
-.cmp-share-btn:hover{background:var(--bg3);color:var(--t1)}
-
-/* TABLE WRAPPER — horizontal scroll on mobile */
-.cmp-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:14px;border:1px solid var(--b1)}
-.cmp-table{border-collapse:collapse;width:100%;min-width:460px}
-.cmp-table th,.cmp-table td{border-bottom:1px solid var(--b1);padding:0;vertical-align:top}
-.cmp-table tbody tr:last-child td{border-bottom:none}
-
-/* Sticky label column */
-.c-lbl{position:sticky;left:0;background:var(--bg);z-index:2;width:148px;min-width:148px;padding:16px 18px;border-right:1px solid var(--b1)}
-.c-lbl-hd{background:var(--bg2) !important;z-index:3}
-.lbl-title{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.09em;text-transform:uppercase;line-height:1.4}
-.lbl-note{font-family:var(--mono);font-size:9px;color:var(--t3);margin-top:2px;opacity:.7}
-
-/* Brand header column */
-.c-brand{min-width:190px;padding:20px 22px;vertical-align:top}
-.c-brand-hd{background:var(--bg2) !important;padding:22px 22px 20px}
-.brand-top{display:flex;justify-content:space-between;align-items:flex-start;gap:6px;margin-bottom:2px}
-.brand-nm{font-family:var(--serif);font-size:21px;font-weight:400;line-height:1.1;letter-spacing:-.01em;color:var(--t1);text-decoration:none;display:block}
-.brand-nm:hover{color:var(--acc)}
-.brand-dm{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.04em;margin-bottom:14px}
-.brand-score-num{font-family:var(--serif);font-size:56px;font-weight:400;line-height:1;letter-spacing:-.03em;margin-bottom:8px}
-.brand-verdict-badge{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.1em;padding:4px 10px;border-radius:100px;border:1px solid;text-transform:uppercase}
-.brand-rm{background:none;border:none;color:var(--t3);cursor:pointer;font-size:20px;line-height:1;padding:0 2px;flex-shrink:0;transition:color .1s}
-.brand-rm:hover{color:var(--red)}
-
-/* Not-assessed column */
-.c-brand-na .brand-nm{color:var(--t2);font-size:18px}
-.na-note{font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:8px}
-.na-cta{font-size:11px;color:var(--acc);display:inline-block;margin-top:8px}
-.na-cta:hover{text-decoration:underline}
-
-/* Add-brand placeholder column */
-.c-add-hd{min-width:130px;padding:22px 22px 20px;vertical-align:middle;text-align:center;background:var(--bg2) !important}
-.c-add-btn{background:none;border:1px dashed var(--b2);border-radius:9px;color:var(--t3);cursor:pointer;font-size:12px;font-family:var(--sans);padding:9px 16px;width:100%;transition:border-color .15s,color .15s;white-space:nowrap}
-.c-add-btn:hover{border-color:var(--acc);color:var(--acc)}
-.c-add-body{background:var(--bg) !important;border-right:none}
+/* COMPARISON AREA */
+.cmp-area{padding:32px 48px}
+.cmp-placeholder{text-align:center;padding:80px 24px;color:var(--t3)}
+.cmp-placeholder h3{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--t2);margin-bottom:8px}
+.cmp-placeholder p{font-size:13px;line-height:1.6}
 
 /* DECISION SUMMARY */
-.summ-block{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:22px 26px;margin-bottom:20px}
-.summ-head{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
-.summ-text{font-size:14px;line-height:1.85;color:var(--t1)}
-.summ-text strong{font-weight:600;color:var(--t1)}
-.summ-close{font-size:13px;color:var(--t2);margin-top:6px;line-height:1.75;font-style:italic}
-.summ-ctas{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--b1)}
-.summ-cta{font-size:12px;color:var(--acc);font-weight:500;text-decoration:none;white-space:nowrap}
-.summ-cta:hover{text-decoration:underline}
+.decision-bar{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:20px 24px;margin-bottom:28px;display:none}
+.decision-bar.visible{display:block}
+.decision-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
+.decision-text{font-size:14px;color:var(--t1);line-height:1.6}
 
-/* Brand distinction tags */
-.brand-tag{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:500;padding:3px 8px;border-radius:6px;margin-top:10px;letter-spacing:.05em;border:1px solid;line-height:1.5}
-.bt-pos{background:rgba(79,124,255,.08);border-color:rgba(79,124,255,.2);color:var(--acc)}
-.bt-warn{background:rgba(192,119,24,.07);border-color:rgba(192,119,24,.2);color:#c07718}
-.bt-neu{background:rgba(255,255,255,.04);border-color:var(--b1);color:var(--t2)}
+/* COMPARE COLUMNS */
+.cmp-grid{display:grid;gap:16px}
+.cmp-grid.cols-2{grid-template-columns:repeat(2,1fr)}
+.cmp-grid.cols-3{grid-template-columns:repeat(3,1fr)}
+.cmp-grid.cols-4{grid-template-columns:repeat(4,1fr)}
 
-/* Data cells */
-.c-brand{background:var(--bg)}
-.cv{font-size:14px;font-weight:500;color:var(--t1);margin-bottom:3px}
-.cs{font-size:11px;color:var(--t3);line-height:1.5}
-.cdash{color:var(--t3);font-family:var(--mono);font-size:14px}
-.ctag{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:500;padding:3px 9px;border-radius:100px;border:1px solid}
-.cg{color:#1e9459;border-color:rgba(30,148,89,.3);background:rgba(30,148,89,.07)}
-.cm{color:#c07718;border-color:rgba(192,119,24,.3);background:rgba(192,119,24,.07)}
-.cr{color:#9e3028;border-color:rgba(158,48,40,.25);background:rgba(158,48,40,.06)}
-.cn{color:var(--t2);border-color:var(--b1);background:rgba(255,255,255,.03)}
+.cmp-col{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;overflow:hidden;position:relative}
+.cmp-col.winner{border-color:rgba(74,120,240,0.4);box-shadow:0 0 0 1px rgba(74,120,240,0.2)}
 
-/* Trend cell */
-.trend-arrow{font-size:20px;line-height:1;margin-bottom:2px}
-.trend-word{font-family:var(--mono);font-size:11px;font-weight:500}
+.col-header{padding:20px;border-bottom:1px solid var(--b1)}
+.col-sig-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-bottom:10px}
+.col-brand{font-size:17px;font-weight:600;color:var(--t1);display:block;margin-bottom:2px}
+.col-domain{font-size:11px;color:var(--t3);font-family:var(--mono);letter-spacing:.03em;display:block;margin-bottom:12px}
+.col-score-wrap{display:flex;align-items:baseline;gap:6px;margin-bottom:8px}
+.col-score{font-family:var(--mono);font-size:40px;font-weight:500;line-height:1}
+.col-score-lbl{font-size:11px;color:var(--t3);letter-spacing:.06em}
+.col-category{font-size:11px;color:var(--t2);background:var(--bg3);padding:3px 8px;border-radius:4px;display:inline-block}
+.winner-badge{position:absolute;top:12px;right:12px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:var(--acc);color:#fff;padding:3px 7px;border-radius:4px}
 
-/* Section divider rows */
-.cmp-section-row td,.cmp-section-row th{background:var(--bg2);padding:9px 18px;border-bottom:1px solid var(--b1)}
-.cmp-section-row .c-lbl{background:var(--bg2);padding:9px 18px}
-.section-lbl{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.12em;text-transform:uppercase}
+.col-body{padding:0}
+.col-section{padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.col-section:last-child{border-bottom:none}
+.col-section-label{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
+.col-section-val{font-size:13px;color:var(--t1);line-height:1.5}
+.col-section-val.dim-score{font-family:var(--mono);font-size:22px;font-weight:500}
+.dim-bar-wrap{margin-top:6px}
+.dim-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.dim-name{font-size:11px;color:var(--t2);width:110px;flex-shrink:0}
+.dim-bar-bg{flex:1;height:3px;background:var(--bg4);border-radius:2px;overflow:hidden}
+.dim-bar-fill{height:100%;border-radius:2px;transition:width .4s ease}
+.dim-val{font-family:var(--mono);font-size:11px;color:var(--t2);width:26px;text-align:right;flex-shrink:0}
 
-/* Key difference row */
-.cmp-diff-row td{background:var(--bg3);border-top:1px solid var(--b2)}
-.cmp-diff-row .c-lbl{background:var(--bg3)}
-.diff-body{padding:18px 22px;font-size:13px;color:var(--t2);line-height:1.75;border-left:1px solid var(--b1)}
+.badge-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.cmp-badge{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.04em;padding:3px 7px;border-radius:4px}
+.badge-grn{background:rgba(30,148,89,0.15);color:#3ecf82}
+.badge-yel{background:rgba(192,119,24,0.15);color:#e8a840}
+.badge-red{background:rgba(158,48,40,0.15);color:#e05a50}
+.badge-neu{background:var(--bg3);color:var(--t2)}
 
-/* CONVERSION TRIGGERS */
-.ct-strip{margin:20px 0;padding:14px 18px;border-radius:10px;background:rgba(74,120,240,0.04);border:1px solid rgba(74,120,240,0.12);display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.ct-body{flex:1;min-width:0}
-.ct-copy{font-size:13px;color:var(--t1);line-height:1.5;margin-bottom:3px}
-.ct-note{font-size:10px;color:var(--t3);font-family:var(--mono);letter-spacing:.01em}
-.ct-btn{flex-shrink:0;align-self:center;padding:7px 14px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;background:transparent;border:1px solid rgba(74,120,240,0.35);color:#4a78f0;font-family:var(--sans);transition:all .15s;text-decoration:none;white-space:nowrap;display:inline-block}
-.ct-btn:hover{background:rgba(74,120,240,0.08);border-color:rgba(74,120,240,0.6)}
+.highlight-row{background:rgba(74,120,240,0.06)}
 
-/* Empty state */
-.cmp-empty{text-align:center;padding:56px 32px}
-.em-title{font-family:var(--serif);font-size:28px;font-weight:400;margin-bottom:10px}
-.em-sub{font-size:14px;color:var(--t2);line-height:1.65;margin-bottom:32px}
-.em-presets{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
-.em-preset{font-family:var(--mono);font-size:11px;border:1px solid var(--b2);border-radius:8px;padding:7px 16px;cursor:pointer;color:var(--t2);background:var(--bg2);transition:all .15s}
-.em-preset:hover{border-color:var(--acc);color:var(--acc)}
+.col-section-val.tag-best{font-size:13px;color:#3ecf82}
+.col-section-val.tag-weak{font-size:13px;color:#e05a50}
 
-/* Loading */
-.cmp-loading{display:none;padding:48px;text-align:center}
-.loading-row{display:flex;align-items:center;justify-content:center;gap:12px;color:var(--t3);font-family:var(--mono);font-size:11px}
+/* LOADING COLUMN */
+.col-loading{display:flex;align-items:center;justify-content:center;min-height:240px;color:var(--t3);font-size:13px}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--b2);border-top-color:var(--acc);border-radius:50%;animation:spin .6s linear infinite;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-@media(max-width:640px){
-  nav{padding:0 20px}
-  .page{padding:76px 16px 80px}
-  .c-lbl{width:110px;min-width:110px;padding:12px 14px}
-  .c-brand,.c-brand-hd{min-width:160px;padding:16px 16px}
-  .brand-score-num{font-size:42px}
-}
+/* DIFF HIGHLIGHT */
+.diff-hi{color:var(--t1);font-weight:500}
+.diff-lo{color:var(--t3)}
 </style>
 </head>
 <body>
 
+<!-- GATE -->
+<div class="gate-overlay" id="gate">
+  <div class="gate-box">
+    <h2>SIGÑAL</h2>
+    <p>Early access. Enter your access code to continue.</p>
+    <input class="gate-input" id="gateInput" type="password" placeholder="Access code" autocomplete="off">
+    <button class="gate-btn" onclick="checkGate()">Enter</button>
+    <div class="gate-err" id="gateErr"></div>
+  </div>
+</div>
+
+<!-- NAV -->
 <nav>
   <a class="nav-logo" href="/">
-    <svg width="24" height="11" viewBox="0 0 24 11" fill="none" aria-hidden="true"><path d="M1 8C3.2 3.5 5.8 3.5 7.8 8C9.8 12.5 12.4 12.5 14.4 8C16.4 3.5 19 3.5 23 5.5" stroke="#4a78f0" stroke-width="1.7" stroke-linecap="round"/></svg>
-    Sigñal<span class="nav-byline">by BHVD</span>
+    SIGÑAL
+    <span class="nav-byline">Claim Quality Index</span>
   </a>
-  <div class="nav-actions">
-    <a href="/leaderboard/" class="btn btn-sm">Leaderboard</a>
-    <a href="/methodology/" class="btn btn-sm">How it works</a>
+  <ul class="nav-links">
+    <li><a href="/leaderboard">Leaderboard</a></li>
+    <li><a href="/compare" class="active">Compare</a></li>
+    <li><a href="/extension">Extension</a></li>
+    <li><a href="/methodology">Methodology</a></li>
+    <li><a href="/pricing">Pricing</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a class="btn" href="/brand-portal">For brands</a>
+    <a class="btn btn-p" href="/extension">Add Sigñal to Browser</a>
   </div>
 </nav>
 
-<div class="page">
-
-  <div class="cmp-head">
-    <div class="cmp-title">Compare Brands</div>
-    <div class="cmp-sub">Side-by-side Sigñal scores, evidence quality, and claim pressure. Up to 3 brands.</div>
+<main>
+  <!-- SEARCH BAR -->
+  <div class="cmp-search-bar">
+    <h1 class="cmp-search-title">Compare Brands</h1>
+    <p class="cmp-search-sub">Side-by-side claim quality analysis. Add 2–4 brands to compare evidence depth, distortion risk, and scoring.</p>
+    <div class="brand-slots" id="brandSlots"></div>
   </div>
 
-  <!-- Input panel -->
-  <div class="cmp-panel">
-    <div class="cmp-tags" id="cmpTags"></div>
-    <div class="cmp-row">
-      <input class="cmp-input" id="cmpInput" type="text" placeholder="Brand domain — e.g. ag1.com, whoop.com" maxlength="100" autocomplete="off" autocapitalize="none" spellcheck="false">
-      <button class="cmp-add-btn" id="cmpAddBtn" onclick="addFromInput()">Add</button>
+  <!-- COMPARISON AREA -->
+  <div class="cmp-area" id="cmpArea">
+    <div class="cmp-placeholder" id="cmpPlaceholder">
+      <h3>Add brands to compare</h3>
+      <p>Search for brands above. URL shareable — <code style="font-family:var(--mono);font-size:11px;color:var(--t3)">/compare?a=whoop&amp;b=oura</code></p>
     </div>
-    <div class="cmp-hint">Enter any brand domain. Scores shown only for independently reviewed brands.</div>
-    <div class="cmp-err" id="cmpErr"></div>
-  </div>
-
-  <!-- Decision Summary -->
-  <div id="cmpSummary" style="display:none">
-    <div class="summ-block">
-      <div class="summ-head">Decision Summary</div>
-      <div id="summText" class="summ-text"></div>
-      <div id="summClose" class="summ-close" style="display:none"></div>
-      <div id="summCtas" class="summ-ctas"></div>
+    <div class="decision-bar" id="decisionBar">
+      <div class="decision-label">Decision Summary</div>
+      <div class="decision-text" id="decisionText"></div>
     </div>
+    <div class="cmp-grid" id="cmpGrid"></div>
   </div>
-
-  <!-- Consumer Pro: Compare Trigger -->
-  <div class="ct-strip" id="ct-compare" style="display:none">
-    <div class="ct-body">
-      <div class="ct-copy">Save this comparison and monitor changes.</div>
-      <div class="ct-note">Paid access never influences public Sigñal scores, rankings, or review outcomes.</div>
-    </div>
-    <a class="ct-btn" href="/pricing" onclick="ctTrack('consumer_pro_waitlist_click','compare')">Track future changes →</a>
-  </div>
-
-  <!-- Share -->
-  <div class="cmp-share-strip" id="cmpShareStrip">
-    <button class="cmp-share-btn" id="cmpShareBtn" onclick="shareComparison()">↑ Copy comparison link</button>
-  </div>
-
-  <!-- Loading -->
-  <div class="cmp-loading" id="cmpLoading">
-    <div class="loading-row"><div class="spinner"></div><span>Loading brand data…</span></div>
-  </div>
-
-  <!-- Table -->
-  <div class="cmp-wrap" id="cmpWrap" style="display:none">
-    <table class="cmp-table" id="cmpTable"></table>
-  </div>
-
-  <!-- Empty state -->
-  <div class="cmp-empty" id="cmpEmpty">
-    <div class="em-title">Choose brands to compare</div>
-    <div class="em-sub">Enter brand domains above, or start with one of these:</div>
-    <div class="em-presets">
-      <button class="em-preset" onclick="loadPreset(['drinkag1.com','ritual.com'])">AG1 vs Ritual</button>
-      <button class="em-preset" onclick="loadPreset(['whoop.com','ouraring.com'])">WHOOP vs Oura</button>
-      <button class="em-preset" onclick="loadPreset(['thorne.com','drinkag1.com','livemomentous.com'])">Thorne vs AG1 vs Momentous</button>
-      <button class="em-preset" onclick="loadPreset(['eightsleep.com','whoop.com'])">Eight Sleep vs WHOOP</button>
-      <button class="em-preset" onclick="loadPreset(['headspace.com','calm.com'])">Headspace vs Calm</button>
-    </div>
-  </div>
-
-</div><!-- /page -->
+</main>
 
 <script>
-var API = "https://bhvd-signal-api.fly.dev";
+const PWD = 'signal2025';
+const API = 'https://bhvd-signal-api.fly.dev';
+const SIG_COLOR = {green:'#1e9459', yellow:'#c07718', red:'#9e3028'};
+const SIG_SCORE_COLOR = {green:'#3ecf82', yellow:'#e8a840', red:'#e05a50'};
+const MAX_SLOTS = 4;
 
-function ctTrack(eventName, context) {
-  fetch(API + "/api/event", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ event: eventName, meta: { context: context } })
-  }).catch(function(){});
-}
-
-// ── State ─────────────────────────────────────────────────────
-var brands = [];  // ordered domain strings, max 3
-var cache  = {};  // domain → parsed data object
-
-var SIG_COLOR = { green:"#1e9459", yellow:"#c07718", red:"#9e3028" };
-
-// ── Boot ──────────────────────────────────────────────────────
+/* ─── Gate ─── */
 (function(){
-  document.getElementById("cmpInput").addEventListener("keydown", function(e){
-    if (e.key === "Enter") addFromInput();
-  });
-  var params  = new URLSearchParams(window.location.search);
-  var initial = (params.get("brands") || "")
-    .split(",").map(function(s){ return s.trim().toLowerCase(); })
-    .filter(Boolean).slice(0, 3);
-  if (initial.length) {
-    brands = initial;
-    fetchAllAndRender();
-  }
+  if(sessionStorage.getItem('bhvd_ok')==='1') show();
+  else document.getElementById('gateInput').addEventListener('keydown',function(e){if(e.key==='Enter')checkGate()});
 })();
+function checkGate(){
+  if(document.getElementById('gateInput').value.trim()===PWD){sessionStorage.setItem('bhvd_ok','1');show();}
+  else document.getElementById('gateErr').textContent='Incorrect access code.';
+}
+function show(){document.getElementById('gate').style.display='none';init();}
 
-// ── URL ───────────────────────────────────────────────────────
-function syncUrl() {
-  var qs = brands.length ? "?brands=" + brands.join(",") : "";
-  history.replaceState(null, "", window.location.pathname + qs);
+/* ─── State ─── */
+var slots = []; // [{domain, inputEl, sugEl}]
+var brandData = {}; // domain -> fetched data
+var searchCache = {}; // query -> results
+
+/* ─── URL parsing ─── */
+function getDomainsFromURL(){
+  var p=new URLSearchParams(window.location.search);
+  var domains=[];
+  ['a','b','c','d'].forEach(function(k){var v=p.get(k);if(v)domains.push(v.trim().toLowerCase())});
+  // legacy: ?brands=a,b,c
+  var legacy=p.get('brands');
+  if(legacy&&domains.length===0) domains=legacy.split(',').map(function(d){return d.trim().toLowerCase()}).filter(Boolean);
+  return domains.slice(0,MAX_SLOTS);
 }
 
-// ── Add / remove ──────────────────────────────────────────────
-function normDomain(raw) {
-  return raw.replace(/^https?:\/\//,"").replace(/^www\./,"").split("/")[0].toLowerCase().trim();
+function updateURL(){
+  var keys=['a','b','c','d'];
+  var p=new URLSearchParams();
+  slots.forEach(function(s,i){if(s.domain)p.set(keys[i],s.domain)});
+  var qs=p.toString();
+  history.replaceState(null,'',qs?'/compare?'+qs:'/compare');
 }
 
-function setErr(msg) {
-  var el = document.getElementById("cmpErr");
-  el.textContent = msg;
-  el.style.display = msg ? "" : "none";
-}
+/* ─── Slots ─── */
+function buildSlots(initialDomains){
+  var container=document.getElementById('brandSlots');
+  container.innerHTML='';
+  slots=[];
 
-function addFromInput() {
-  var input = document.getElementById("cmpInput");
-  var val   = normDomain(input.value);
-  if (!val) { setErr("Enter a brand domain first."); return; }
-  if (!val.includes(".")) val += ".com";
-  if (brands.indexOf(val) >= 0) { setErr(val + " is already in the comparison."); return; }
-  if (brands.length >= 3) { setErr("Maximum 3 brands. Remove one first."); return; }
-  setErr("");
-  input.value = "";
-  brands.push(val);
-  syncUrl();
-  fetchAllAndRender();
-}
+  var count=Math.max(2, Math.min(MAX_SLOTS, initialDomains.length+1));
 
-function removeBrand(domain) {
-  brands = brands.filter(function(d){ return d !== domain; });
-  delete cache[domain];
-  syncUrl();
-  renderAll();
-}
-
-function loadPreset(domains) {
-  brands = domains.slice(0, 3);
-  cache  = {};
-  syncUrl();
-  fetchAllAndRender();
-}
-
-// ── Fetch ─────────────────────────────────────────────────────
-function fetchAllAndRender() {
-  var needed = brands.filter(function(d){ return !cache[d]; });
-  if (!needed.length) { renderAll(); return; }
-
-  setLoading(true);
-  Promise.all(needed.map(fetchOne))
-    .then(function(){ setLoading(false); renderAll(); })
-    .catch(function(){ setLoading(false); renderAll(); });
-}
-
-function fetchOne(domain) {
-  return Promise.all([
-    fetch(API + "/api/domain/" + encodeURIComponent(domain))
-      .then(function(r){ return r.status === 404 ? { _404: true } : r.json(); })
-      .catch(function(){ return { _err: true }; }),
-    fetch(API + "/api/demand/" + encodeURIComponent(domain))
-      .then(function(r){ return r.json(); })
-      .catch(function(){ return {}; }),
-  ]).then(function(results) {
-    processBrand(domain, results[0], results[1]);
-  });
-}
-
-function processBrand(domain, brandResp, demandResp) {
-  if (brandResp._404 || brandResp._err) {
-    cache[domain] = { domain: domain, notFound: brandResp._404, error: brandResp._err };
-    return;
-  }
-  var d  = brandResp.data || brandResp;
-  var p  = (d.products || [])[0];
-  if (!p) { cache[domain] = { domain: domain, notFound: true }; return; }
-
-  var ld   = p.leaderboard_data  || {};
-  var dims = p.dimension_scores  || {};
-  var score = ld.total_score != null ? ld.total_score : Math.round(100 - (p.claim_support_risk || 50));
-  var color = SIG_COLOR[p.signal_color] || "#c07718";
-
-  cache[domain] = {
-    domain:      domain,
-    brand_name:  d.brand_name || domainToName(domain),
-    score:       score,
-    color:       color,
-    signal:      p.signal_color || "yellow",
-    verdict:     ld.bhvd_verdict || "—",
-    trend:       getTrend(ld.score_history, score),
-    pressure:    getPressure(p.claim_support_risk || 50),
-    evidence:    getEvidence(ld, dims),
-    pricing:     getPricing(ld.pricing_drag),
-    pricing_note: ld.pricing_note || null,
-    capital:     getCapital(ld.capital_signal),
-    demand_week: demandResp.demand_this_week || 0,
-    demand_total: demandResp.demand_count || 0,
-  };
-}
-
-// ── Derivation ────────────────────────────────────────────────
-function getTrend(history, currentScore) {
-  if (!Array.isArray(history) || history.length < 2) return null;
-  var thirtyAgo = Date.now() - 30 * 24 * 60 * 60 * 1000;
-  var best = null, bestDiff = Infinity;
-  for (var i = 0; i < history.length - 1; i++) {
-    var t = new Date(history[i].date + "T12:00:00").getTime();
-    var diff = Math.abs(t - thirtyAgo);
-    if (diff < bestDiff) { bestDiff = diff; best = history[i]; }
-  }
-  if (!best) return null;
-  var delta = currentScore - best.score;
-  return {
-    delta: delta,
-    label: delta >= 3 ? "improving" : delta <= -3 ? "declining" : "stable",
-    dir:   delta >= 3 ? 1 : delta <= -3 ? -1 : 0,
-  };
-}
-
-function getPressure(risk) {
-  if (risk < 30) return { label:"Low",    cls:"cg" };
-  if (risk < 55) return { label:"Medium", cls:"cm" };
-  return               { label:"High",   cls:"cr" };
-}
-
-function getEvidence(ld, dims) {
-  if (Array.isArray(ld.pubmed_findings) && ld.pubmed_findings.length > 0) return "Research citations";
-  var gm = Array.isArray(ld.gap_map) && ld.gap_map.length > 0;
-  if (gm && ld.gap_map.some(function(g){ return g.status === "aligned"; })) return "Evidence visible";
-  var ep = typeof dims.evidence_presence === "number" ? dims.evidence_presence : -1;
-  if (ep >= 7) return "Research-backed";
-  if (ep >= 4) return "Ingredient-level";
-  return "Product claims";
-}
-
-function getPricing(drag) {
-  return ({STICKY:"Subscription", TAX:"Mandatory subscription", CLEAN:"No subscription", HYBRID:"Subscription + one-time"})[drag] || "—";
-}
-
-function getCapital(signal) {
-  return ({BOOTSTRAPPED:"Bootstrapped", VC:"Venture-backed", INSTITUTIONAL:"Institutional", PUBLIC:"Public company", STRATEGIC:"Strategic investment"})[signal] || "—";
-}
-
-// ── Key difference ────────────────────────────────────────────
-function buildKeyDiff() {
-  var live = brands.filter(function(d){ var b = cache[d]; return b && !b.notFound && !b.error; });
-  if (live.length < 2) return null;
-  var items = live.map(function(d){ return cache[d]; });
-  var parts = [];
-
-  var scored = items.slice().sort(function(a,b){ return b.score - a.score; });
-  var gap = scored[0].score - scored[scored.length-1].score;
-  if (gap >= 5) parts.push(scored[0].brand_name + " scores " + gap + " points higher.");
-
-  if (items.length === 2) {
-    if (items[0].pricing !== items[1].pricing && items[0].pricing !== "—" && items[1].pricing !== "—") {
-      parts.push(items[0].brand_name + " uses " + items[0].pricing.toLowerCase() +
-        " vs " + items[1].brand_name + "'s " + items[1].pricing.toLowerCase() + " model.");
-    }
-    if (parts.length < 2 && items[0].evidence !== items[1].evidence) {
-      parts.push(items[0].brand_name + " shows " + items[0].evidence.toLowerCase() +
-        " while " + items[1].brand_name + " shows " + items[1].evidence.toLowerCase() + ".");
-    }
-    if (parts.length < 2 && items[0].capital !== items[1].capital && items[0].capital !== "—" && items[1].capital !== "—") {
-      parts.push(items[0].brand_name + " is " + items[0].capital.toLowerCase() +
-        "; " + items[1].brand_name + " is " + items[1].capital.toLowerCase() + ".");
-    }
+  for(var i=0;i<count;i++){
+    addSlotEl(container, initialDomains[i]||null);
   }
 
-  if (items.length === 3 && parts.length < 2) {
-    var pressures = items.map(function(i){ return i.pressure.label; });
-    var unique = pressures.filter(function(p, i){ return pressures.indexOf(p) === i; });
-    if (unique.length > 1) {
-      var best = items.filter(function(i){ return i.pressure.label === "Low"; });
-      if (best.length === 1) parts.push(best[0].brand_name + " shows the lowest claim pressure of the three.");
-    }
+  // Add slot button
+  if(slots.length<MAX_SLOTS){
+    var addBtn=document.createElement('button');
+    addBtn.className='add-slot-btn';
+    addBtn.id='addSlotBtn';
+    addBtn.textContent='+ Add brand';
+    addBtn.onclick=function(){addSlot();};
+    container.appendChild(addBtn);
   }
 
-  return parts.slice(0, 2).join(" ") || null;
+  // Go button
+  var goBtn=document.createElement('button');
+  goBtn.className='cmp-go-btn';
+  goBtn.textContent='Compare';
+  goBtn.onclick=runCompare;
+  container.appendChild(goBtn);
 }
 
-// ── Evidence / pressure ranking ───────────────────────────────
-var EV_RANK = {"Research citations":5,"Research-backed":4,"Evidence visible":3,"Ingredient-level":2,"Product claims":1};
-function evRank(ev)   { return EV_RANK[ev] || 0; }
-function presRank(p)  { return {Low:1,Medium:2,High:3}[p.label] || 2; }
-
-// ── Brand distinction tags ────────────────────────────────────
-function computeBrandTags() {
-  var live = brands.filter(function(d){ var b = cache[d]; return b && !b.notFound && !b.error; });
-  var tags = {};
-  brands.forEach(function(d){ tags[d] = null; });
-  if (live.length < 2) return tags;
-  var items = live.map(function(d){ return cache[d]; });
-
-  var evSorted   = items.slice().sort(function(a,b){ return evRank(b.evidence)  - evRank(a.evidence);  });
-  var presSorted = items.slice().sort(function(a,b){ return presRank(a.pressure) - presRank(b.pressure); });
-  var scoreSorted = items.slice().sort(function(a,b){ return b.score - a.score; });
-  var scoreGap = scoreSorted[0].score - scoreSorted[scoreSorted.length-1].score;
-  var evGap    = evRank(evSorted[0].evidence)    - evRank(evSorted[evSorted.length-1].evidence);
-  var presGap  = presRank(presSorted[presSorted.length-1].pressure) - presRank(presSorted[0].pressure);
-
-  // Evidence leader
-  if (evGap > 0) tags[evSorted[0].domain] = { text:"More Evidence-Aligned", cls:"bt-pos" };
-
-  // Claim pressure (best and worst)
-  if (presGap > 0) {
-    if (!tags[presSorted[0].domain])
-      tags[presSorted[0].domain] = { text:"More Conservative Claims", cls:"bt-pos" };
-    if (!tags[presSorted[presSorted.length-1].domain])
-      tags[presSorted[presSorted.length-1].domain] = { text:"Higher Claim Pressure", cls:"bt-warn" };
-  }
-
-  // Score leader (fallback if no other tag)
-  if (scoreGap >= 5) {
-    if (!tags[scoreSorted[0].domain])
-      tags[scoreSorted[0].domain] = { text:"Highest Sigñal Score", cls:"bt-neu" };
-  }
-
-  // Broader coverage: brand with higher score but worse evidence type
-  if (items.length === 2) {
-    var a = items[0], bx = items[1];
-    if (evRank(a.evidence) > evRank(bx.evidence) && bx.score >= a.score && !tags[bx.domain])
-      tags[bx.domain] = { text:"Broader Coverage", cls:"bt-neu" };
-    if (evRank(bx.evidence) > evRank(a.evidence) && a.score >= bx.score && !tags[a.domain])
-      tags[a.domain] = { text:"Broader Coverage", cls:"bt-neu" };
-  }
-
-  return tags;
+function addSlot(){
+  var container=document.getElementById('brandSlots');
+  var addBtn=document.getElementById('addSlotBtn');
+  addSlotEl(container, null, addBtn);
+  if(slots.length>=MAX_SLOTS && addBtn) addBtn.style.display='none';
 }
 
-// ── Decision summary text ─────────────────────────────────────
-function buildSummaryParts() {
-  var live = brands.filter(function(d){ var b = cache[d]; return b && !b.notFound && !b.error; });
-  if (live.length < 2) return null;
-  var items = live.map(function(d){ return cache[d]; });
-  var scoreSorted = items.slice().sort(function(a,b){ return b.score - a.score; });
-  var gap = scoreSorted[0].score - scoreSorted[scoreSorted.length-1].score;
-  var isClose = gap <= 4;
-  var s1 = "", s2 = "", close = "";
+function addSlotEl(container, domain, beforeEl){
+  var idx=slots.length;
+  var wrap=document.createElement('div');
+  wrap.className='slot';
+  wrap.id='slot-'+idx;
 
-  if (isClose && items.length === 2) {
-    s1 = 'These brands are <strong>closely matched</strong> on Sigñal score, separated by ' + gap + ' point' + (gap === 1 ? "" : "s") + '.';
-    s2 = 'The difference comes down to <strong>how each structures its evidence</strong> relative to its specific claims.';
-    close = "Closely matched — structure over strength.";
-  } else if (items.length === 2) {
-    var hi = scoreSorted[0], lo = scoreSorted[scoreSorted.length-1];
-    s1 = hi.brand_name + ' scores <strong>' + gap + ' points higher</strong>, reaching <strong>' + hi.verdict.toLowerCase() + '</strong>.';
+  var inp=document.createElement('input');
+  inp.className='slot-input';
+  inp.placeholder='Brand or domain…';
+  inp.autocomplete='off';
+  inp.setAttribute('data-idx',idx);
 
-    // Evidence sentence
-    if (evRank(items[0].evidence) !== evRank(items[1].evidence)) {
-      var evHi = evRank(items[0].evidence) > evRank(items[1].evidence) ? items[0] : items[1];
-      var evLo = evHi === items[0] ? items[1] : items[0];
-      s2 = evHi.brand_name + ' shows <strong>' + evHi.evidence.toLowerCase() + '</strong>; ' +
-           evLo.brand_name + "'s claims rest on <strong>" + evLo.evidence.toLowerCase() + '</strong>.';
-    } else if (presRank(items[0].pressure) !== presRank(items[1].pressure)) {
-      var lessPress = presRank(items[0].pressure) < presRank(items[1].pressure) ? items[0] : items[1];
-      var morePress = lessPress === items[0] ? items[1] : items[0];
-      s2 = lessPress.brand_name + ' uses <strong>more conservative claim language</strong>; ' +
-           morePress.brand_name + ' carries <strong>higher claim pressure</strong>.';
-    }
+  var clearBtn=document.createElement('button');
+  clearBtn.className='slot-clear';
+  clearBtn.innerHTML='×';
+  clearBtn.title='Remove';
+  clearBtn.onclick=function(){clearSlot(idx)};
 
-    // Closing line
-    if (items[0].pricing === items[1].pricing && items[0].pricing !== "—") {
-      close = "Both use " + items[0].pricing.toLowerCase() + " pricing — the difference is precision of evidence relative to claims.";
-    } else if (items[0].pricing !== items[1].pricing && items[0].pricing !== "—" && items[1].pricing !== "—") {
-      close = "Pricing structures differ: " + items[0].brand_name + " is " + items[0].pricing.toLowerCase() +
-              "; " + items[1].brand_name + " is " + items[1].pricing.toLowerCase() + ".";
-    } else {
-      close = "The distinction is " + (evRank(items[0].evidence) !== evRank(items[1].evidence)
-        ? "precision vs breadth of evidence." : "evidence scope relative to what's claimed.");
-    }
-  } else {
-    // 3 brands
-    var leader = scoreSorted[0], last = scoreSorted[scoreSorted.length-1];
-    s1 = leader.brand_name + ' leads at <strong>' + leader.score + '</strong> (' + leader.verdict.toLowerCase() + ').';
-    s2 = 'The spread across all three is <strong>' + gap + ' points</strong>.';
-    var allPricings = items.map(function(i){ return i.pricing; });
-    var uniq = allPricings.filter(function(p,i){ return allPricings.indexOf(p)===i && p !== "—"; });
-    if (uniq.length === 1) close = "All three use " + uniq[0].toLowerCase() + " pricing.";
+  var sugDiv=document.createElement('div');
+  sugDiv.className='slot-suggestions';
+  sugDiv.style.display='none';
+  sugDiv.id='sug-'+idx;
+
+  wrap.appendChild(inp);
+  wrap.appendChild(clearBtn);
+  wrap.appendChild(sugDiv);
+
+  var slotObj={domain:null, inputEl:inp, sugEl:sugDiv, wrapEl:wrap};
+  slots.push(slotObj);
+
+  if(beforeEl) container.insertBefore(wrap, beforeEl);
+  else container.appendChild(wrap);
+
+  // Events
+  inp.addEventListener('input',function(){onSlotInput(idx,inp.value)});
+  inp.addEventListener('keydown',function(e){onSlotKey(e,idx)});
+  inp.addEventListener('blur',function(){setTimeout(function(){sugDiv.style.display='none'},200)});
+
+  if(domain){
+    inp.value=domain;
+    slotObj.domain=domain;
   }
-
-  return { s1:s1, s2:s2, close:close };
 }
 
-function renderSummary(tags) {
-  var summ  = document.getElementById("cmpSummary");
-  var tEl   = document.getElementById("summText");
-  var cEl   = document.getElementById("summClose");
-  var ctaEl = document.getElementById("summCtas");
-  if (!summ || !tEl || !cEl || !ctaEl) return;
+function clearSlot(idx){
+  if(!slots[idx]) return;
+  slots[idx].domain=null;
+  slots[idx].inputEl.value='';
+  slots[idx].sugEl.style.display='none';
+}
 
-  var live = brands.filter(function(d){ var b = cache[d]; return b && !b.notFound && !b.error; });
-  if (live.length < 2) { summ.style.display = "none"; return; }
+/* ─── Autocomplete ─── */
+var _sugTimers={};
+function onSlotInput(idx,val){
+  var s=slots[idx];
+  s.domain=null;
+  clearTimeout(_sugTimers[idx]);
+  if(val.trim().length<2){s.sugEl.style.display='none';return;}
+  _sugTimers[idx]=setTimeout(function(){fetchSuggestions(idx,val.trim())},300);
+}
 
-  var parts = buildSummaryParts();
-  if (!parts) { summ.style.display = "none"; return; }
-
-  var bodyHtml = "";
-  if (parts.s1) bodyHtml += "<p>" + parts.s1 + "</p>";
-  if (parts.s2) bodyHtml += "<p>" + parts.s2 + "</p>";
-  tEl.innerHTML = bodyHtml;
-
-  if (parts.close) { cEl.textContent = parts.close; cEl.style.display = ""; }
-  else cEl.style.display = "none";
-
-  // Micro-CTAs: "View full breakdown →" per assessed brand
-  ctaEl.innerHTML = live.map(function(d) {
-    var b = cache[d];
-    return '<a href="/brand/?d=' + esc(d) + '" class="summ-cta">' + esc(b.brand_name) + ' full report →</a>';
-  }).join("");
-
-  summ.style.display = "";
-
-  // Consumer Pro trigger — show once when 2+ brands are compared
-  var ctEl = document.getElementById("ct-compare");
-  if (ctEl && ctEl.style.display === "none") {
-    ctEl.style.display = "";
-    fetch(API + "/api/event", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ event: "consumer_pro_trigger_view", meta: { context: "compare" } })
+function fetchSuggestions(idx,q){
+  var key=q.toLowerCase();
+  if(searchCache[key]){renderSuggestions(idx,searchCache[key]);return;}
+  fetch(API+'/api/leaderboard/?limit=8&search='+encodeURIComponent(q))
+    .then(function(r){return r.json()})
+    .then(function(data){
+      var brands=Array.isArray(data)?data:(data.brands||data.data||[]);
+      searchCache[key]=brands;
+      renderSuggestions(idx,brands);
     }).catch(function(){});
-  }
 }
 
-// ── Render ────────────────────────────────────────────────────
-function renderAll() {
-  updateTags();
+function renderSuggestions(idx,brands){
+  var s=slots[idx];
+  if(!brands||brands.length===0){s.sugEl.style.display='none';return;}
+  var html='';
+  brands.forEach(function(b,i){
+    html+='<div class="slot-suggestion" data-idx="'+i+'" onmousedown="selectSuggestion('+idx+',\''+b.domain+'\',\''+b.brand_name+'\')">'
+      +'<div class="sug-name">'+b.brand_name+'</div>'
+      +'<div class="sug-domain">'+b.domain+'</div>'
+      +'</div>';
+  });
+  s.sugEl.innerHTML=html;
+  s.sugEl.style.display='block';
+}
 
-  var wrap   = document.getElementById("cmpWrap");
-  var empty  = document.getElementById("cmpEmpty");
-  var share  = document.getElementById("cmpShareStrip");
-  var table  = document.getElementById("cmpTable");
+function selectSuggestion(idx,domain,name){
+  var s=slots[idx];
+  s.domain=domain;
+  s.inputEl.value=name+' ('+domain+')';
+  s.sugEl.style.display='none';
+}
 
-  if (!brands.length) {
-    wrap.style.display  = "none";
-    empty.style.display = "";
-    share.style.display = "none";
-    var summEl = document.getElementById("cmpSummary");
-    if (summEl) summEl.style.display = "none";
-    return;
-  }
+function onSlotKey(e,idx){
+  if(e.key==='Enter'){runCompare();}
+}
 
-  empty.style.display = "none";
-  wrap.style.display  = "";
-  share.style.display = brands.length >= 2 ? "" : "none";
+/* ─── Compare ─── */
+function runCompare(){
+  var domains=slots.map(function(s){return s.domain}).filter(Boolean);
+  if(domains.length<1){alert('Add at least one brand.');return;}
+  updateURL();
+  renderCompare(domains);
+}
 
-  var tags = computeBrandTags();
-  renderSummary(tags);
+function renderCompare(domains){
+  document.getElementById('cmpPlaceholder').style.display='none';
+  var grid=document.getElementById('cmpGrid');
+  grid.innerHTML='';
+  grid.className='cmp-grid cols-'+Math.min(domains.length,4);
+  document.getElementById('decisionBar').classList.remove('visible');
 
-  var hasAdd = brands.length < 3;
-  var html = "";
-
-  // ─ thead (brand header row) ───────────────────────────────
-  html += "<thead><tr>";
-  html += '<th class="c-lbl c-lbl-hd"></th>';
-
-  brands.forEach(function(d) {
-    var b = cache[d];
-    if (!b) {
-      html += '<th class="c-brand c-brand-hd"><div class="spinner" style="margin:auto"></div></th>';
-      return;
-    }
-    if (b.notFound || b.error) {
-      html += '<th class="c-brand c-brand-hd c-brand-na">';
-      html += '<div class="brand-top"><div class="brand-nm" style="color:var(--t2);font-size:17px">' + esc(domainToName(d)) + '</div>';
-      html += '<button class="brand-rm" onclick="removeBrand(\'' + esc(d) + '\')" title="Remove">×</button></div>';
-      html += '<div class="brand-dm">' + esc(d) + '</div>';
-      html += '<div class="na-note">Not yet assessed</div>';
-      html += '<a href="/brand/?d=' + esc(d) + '" class="na-cta">Request a review →</a>';
-      html += '</th>';
-      return;
-    }
-    html += '<th class="c-brand c-brand-hd">';
-    html += '<div class="brand-top">';
-    html += '<a href="/brand/?d=' + esc(d) + '" class="brand-nm">' + esc(b.brand_name) + '</a>';
-    html += '<button class="brand-rm" onclick="removeBrand(\'' + esc(d) + '\')" title="Remove">×</button>';
-    html += '</div>';
-    html += '<div class="brand-dm">' + esc(d) + '</div>';
-    html += '<div class="brand-score-num" style="color:' + b.color + '">' + b.score + '</div>';
-    html += '<div class="brand-verdict-badge" style="color:' + b.color + ';border-color:' + b.color + '33;background:' + b.color + '0d">' + esc(b.verdict) + '</div>';
-    if (tags[d]) {
-      html += '<div class="brand-tag ' + tags[d].cls + '">' + esc(tags[d].text) + '</div>';
-    }
-    html += '</th>';
+  // placeholder loading cols
+  domains.forEach(function(d){
+    var col=document.createElement('div');
+    col.className='cmp-col';
+    col.id='col-'+d;
+    col.innerHTML='<div class="col-loading"><span class="spinner"></span>Loading '+d+'…</div>';
+    grid.appendChild(col);
   });
 
-  if (hasAdd) {
-    html += '<th class="c-brand c-add-hd"><button class="c-add-btn" onclick="focusInput()">+ Add brand</button></th>';
-  }
-  html += "</tr></thead>";
-
-  // ─ tbody ─────────────────────────────────────────────────
-  html += "<tbody>";
-
-  html += sectionRow("Score & Trend", hasAdd);
-  html += dataRow("30-Day Trend", null, hasAdd, function(b) {
-    if (!b || b.notFound || b.error) return dash();
-    if (!b.trend) return '<span class="cs">Baseline established</span>';
-    var c = b.trend.dir > 0 ? "#1e9459" : b.trend.dir < 0 ? "#9e3028" : "var(--t3)";
-    var arrow = b.trend.dir > 0 ? "↑" : b.trend.dir < 0 ? "↓" : "→";
-    return '<div class="trend-arrow" style="color:' + c + '">' + arrow + '</div>' +
-           '<div class="trend-word" style="color:' + c + '">' + b.trend.label + '</div>';
+  var fetches=domains.map(function(d){
+    if(brandData[d]) return Promise.resolve(brandData[d]);
+    return fetch(API+'/api/domain/'+d).then(function(r){return r.json()}).then(function(data){brandData[d]=data;return data;});
   });
 
-  html += sectionRow("Claims", hasAdd);
-  html += dataRow("Claim Pressure", "Marketing intensity", hasAdd, function(b) {
-    if (!b || b.notFound || b.error) return dash();
-    return '<span class="ctag ' + b.pressure.cls + '">' + b.pressure.label + '</span>';
+  Promise.all(fetches).then(function(results){
+    var cols=results.map(function(data,i){return {domain:domains[i],data:data}});
+    cols.forEach(function(c){renderCol(c.domain,c.data,cols)});
+    buildDecisionSummary(cols);
+  }).catch(function(e){
+    grid.innerHTML='<div style="padding:40px;color:var(--t3)">Error loading brand data. Please try again.</div>';
   });
-  html += dataRow("Evidence", "What's visible", hasAdd, function(b) {
-    if (!b || b.notFound || b.error) return dash();
-    return '<div class="cv">' + esc(b.evidence) + '</div>';
+}
+
+/* ─── Column render ─── */
+function renderCol(domain, raw, allCols){
+  var col=document.getElementById('col-'+domain);
+  if(!col) return;
+
+  var data = raw.leaderboard_data || raw;
+  var sig = ((data.signal_color||raw.signal_color||'red')).toLowerCase();
+  var score = Math.round(data.stats&&data.stats.overall_score!=null ? data.stats.overall_score : (raw.stats&&raw.stats.overall_score!=null?raw.stats.overall_score:0));
+  var name = data.brand_name || raw.brand_name || domain;
+  var cat = data.category || raw.category || '—';
+  var dotColor = SIG_COLOR[sig]||SIG_COLOR.red;
+  var scoreColor = SIG_SCORE_COLOR[sig]||SIG_SCORE_COLOR.red;
+  var risk = data.claim_support_risk!=null?data.claim_support_risk:(raw.claim_support_risk!=null?raw.claim_support_risk:50);
+  var verdict = data.verdict || raw.verdict || '';
+
+  // dimension scores
+  var dims = raw.dimension_scores || (raw.leaderboard_data && raw.leaderboard_data.dimension_scores) || {};
+  var dimNames = {
+    evidence_quality:'Evidence Quality',
+    claim_accuracy:'Claim Accuracy',
+    transparency:'Transparency',
+    proportionality:'Proportionality',
+    context_depth:'Context Depth',
+    scientific_rigor:'Scientific Rigor'
+  };
+
+  // mini badges
+  var evBadge = sig==='green'?{l:'Strong',c:'badge-grn'}:sig==='yellow'?{l:'Partial',c:'badge-yel'}:{l:'Weak',c:'badge-red'};
+  var clBadge = risk<30?{l:'Conservative',c:'badge-grn'}:risk<60?{l:'Moderate',c:'badge-yel'}:{l:'Aggressive',c:'badge-red'};
+  var distScore = score>=70?{l:'Low Risk',c:'badge-grn'}:score>=45?{l:'Medium Risk',c:'badge-yel'}:{l:'High Risk',c:'badge-red'};
+
+  // winner detection (highest score)
+  var maxScore=Math.max.apply(null,allCols.map(function(c){
+    var d2=c.data.leaderboard_data||c.data;
+    return Math.round(d2.stats&&d2.stats.overall_score!=null?d2.stats.overall_score:(c.data.stats&&c.data.stats.overall_score!=null?c.data.stats.overall_score:0));
+  }));
+  var isWinner = score===maxScore && allCols.length>1;
+
+  // best for / weakest point derived from dims
+  var dimEntries = Object.entries(dims).filter(function(e){return typeof e[1]==='number'});
+  var topDim = dimEntries.reduce(function(a,b){return (a[1]||0)>(b[1]||0)?a:b},{});
+  var botDim = dimEntries.reduce(function(a,b){return (a[1]||999)<(b[1]||999)?a:b},{});
+
+  var bestFor = topDim[0] ? (dimNames[topDim[0]]||topDim[0]) : 'N/A';
+  var weakFor = botDim[0] ? (dimNames[botDim[0]]||botDim[0]) : 'N/A';
+
+  // price reference (from data if available)
+  var priceRef = raw.pricing_tier || raw.price_range || raw.price || null;
+
+  // dim bars HTML
+  var dimBarsHtml='';
+  dimEntries.forEach(function(e){
+    var dname=dimNames[e[0]]||e[0];
+    var val=Math.round(e[1]||0);
+    var barColor=val>=70?SIG_COLOR.green:val>=45?SIG_COLOR.yellow:SIG_COLOR.red;
+    dimBarsHtml+='<div class="dim-row">'
+      +'<span class="dim-name">'+dname+'</span>'
+      +'<div class="dim-bar-bg"><div class="dim-bar-fill" style="width:'+val+'%;background:'+barColor+'"></div></div>'
+      +'<span class="dim-val">'+val+'</span>'
+      +'</div>';
   });
 
-  html += sectionRow("Business", hasAdd);
-  html += dataRow("Pricing", null, hasAdd, function(b) {
-    if (!b || b.notFound || b.error) return dash();
-    return '<div class="cv">' + esc(b.pricing) + '</div>' +
-      (b.pricing_note ? '<div class="cs">' + esc(b.pricing_note) + '</div>' : '');
+  col.className='cmp-col'+(isWinner?' winner':'');
+  col.innerHTML=(isWinner?'<div class="winner-badge">Highest Score</div>':'')+
+    '<div class="col-header">'
+      +'<span class="col-sig-dot" style="background:'+dotColor+'"></span><br>'
+      +'<a class="col-brand" href="/brand?d='+domain+'">'+name+'</a>'
+      +'<span class="col-domain">'+domain+'</span>'
+      +'<div class="col-score-wrap"><span class="col-score" style="color:'+scoreColor+'">'+score+'</span><span class="col-score-lbl">/ 100</span></div>'
+      +'<span class="col-category">'+cat+'</span>'
+    +'</div>'
+    +'<div class="col-body">'
+      +'<div class="col-section">'
+        +'<div class="col-section-label">Signal Rating</div>'
+        +'<div class="badge-row">'
+          +'<span class="cmp-badge '+evBadge.c+'">Evidence: '+evBadge.l+'</span>'
+          +'<span class="cmp-badge '+clBadge.c+'">Claims: '+clBadge.l+'</span>'
+          +'<span class="cmp-badge '+distScore.c+'">Distortion: '+distScore.l+'</span>'
+        +'</div>'
+      +'</div>'
+      +(dimBarsHtml?'<div class="col-section"><div class="col-section-label">Dimension Breakdown</div><div class="dim-bar-wrap">'+dimBarsHtml+'</div></div>':'')
+      +(verdict?'<div class="col-section"><div class="col-section-label">Verdict</div><div class="col-section-val" style="font-size:12px;color:var(--t2);font-style:italic;line-height:1.6">'+verdict+'</div></div>':'')
+      +(priceRef?'<div class="col-section"><div class="col-section-label">Price Reference</div><div class="col-section-val">'+priceRef+'</div></div>':'')
+      +'<div class="col-section"><div class="col-section-label">Best For</div><div class="col-section-val tag-best">'+bestFor+'</div></div>'
+      +'<div class="col-section"><div class="col-section-label">Weakest Point</div><div class="col-section-val tag-weak">'+weakFor+'</div></div>'
+      +'<div class="col-section"><div class="col-section-label">Full Report</div><div class="col-section-val"><a href="/brand?d='+domain+'" style="color:var(--acc);font-size:13px">View brand report →</a></div></div>'
+    +'</div>';
+}
+
+/* ─── Decision Summary ─── */
+function buildDecisionSummary(cols){
+  if(cols.length<2) return;
+  var scores=cols.map(function(c){
+    var d=c.data.leaderboard_data||c.data;
+    return {
+      name: d.brand_name||(c.data.brand_name)||c.domain,
+      score: Math.round(d.stats&&d.stats.overall_score!=null?d.stats.overall_score:(c.data.stats&&c.data.stats.overall_score!=null?c.data.stats.overall_score:0)),
+      sig: ((d.signal_color||c.data.signal_color||'red')).toLowerCase()
+    };
   });
-  html += dataRow("Capital", null, hasAdd, function(b) {
-    if (!b || b.notFound || b.error) return dash();
-    return '<div class="cv">' + esc(b.capital) + '</div>';
-  });
-
-  html += sectionRow("Interest", hasAdd);
-  html += dataRow("Requests", "This week", hasAdd, function(b) {
-    if (!b || b.notFound || b.error) return dash();
-    return '<div class="cv">' + (b.demand_week || 0) + '</div>' +
-      (b.demand_total > 0 ? '<div class="cs">' + b.demand_total + ' total</div>' : '');
-  });
-
-  // Key difference — spans all brand cols
-  var diff = buildKeyDiff();
-  if (diff) {
-    html += '<tr class="cmp-diff-row">';
-    html += '<td class="c-lbl"><div class="lbl-title">Key Difference</div></td>';
-    var spanN = brands.length + (hasAdd ? 1 : 0);
-    html += '<td colspan="' + spanN + '"><div class="diff-body">' + esc(diff) + '</div></td>';
-    html += '</tr>';
-  }
-
-  html += "</tbody>";
-  table.innerHTML = html;
+  scores.sort(function(a,b){return b.score-a.score});
+  var top=scores[0], bottom=scores[scores.length-1];
+  var diff=top.score-bottom.score;
+  var sigMap={green:'strong evidence alignment',yellow:'partial evidence alignment',red:'weak evidence alignment'};
+  var summary = top.name+' scores highest at '+top.score+'/100 with '+( sigMap[top.sig]||top.sig)+'.';
+  if(diff>15) summary+=' The gap of '+diff+' points is meaningful — a significant difference in claim quality.';
+  else if(diff>5) summary+=' Scores are close; examine dimension breakdowns for meaningful differences.';
+  else summary+=' Scores are nearly identical; differentiation lies in specific dimensions above.';
+  document.getElementById('decisionText').textContent=summary;
+  document.getElementById('decisionBar').classList.add('visible');
 }
 
-function sectionRow(label, hasAdd) {
-  var cols = brands.length + (hasAdd ? 1 : 0);
-  return '<tr class="cmp-section-row"><td class="c-lbl" colspan="' + (cols + 1) + '">' +
-    '<span class="section-lbl">' + esc(label) + '</span></td></tr>';
-}
-
-function dataRow(label, note, hasAdd, cellFn) {
-  var html = '<tr>';
-  html += '<td class="c-lbl"><div class="lbl-title">' + esc(label) + '</div>' +
-    (note ? '<div class="lbl-note">' + esc(note) + '</div>' : '') + '</td>';
-  brands.forEach(function(d) {
-    html += '<td class="c-brand" style="padding:16px 22px">' + cellFn(cache[d]) + '</td>';
-  });
-  if (hasAdd) html += '<td class="c-brand c-add-body"></td>';
-  html += '</tr>';
-  return html;
-}
-
-function dash() { return '<span class="cdash">—</span>'; }
-
-// ── Tags ──────────────────────────────────────────────────────
-function updateTags() {
-  var el = document.getElementById("cmpTags");
-  if (!brands.length) {
-    el.innerHTML = '<span style="font-size:12px;color:var(--t3)">No brands added yet</span>';
-    return;
-  }
-  el.innerHTML = brands.map(function(d) {
-    var name = (cache[d] && !cache[d].notFound && !cache[d].error && cache[d].brand_name)
-      ? cache[d].brand_name : domainToName(d);
-    return '<span class="cmp-tag">' + esc(name) +
-      '<button class="cmp-tag-x" onclick="removeBrand(\'' + esc(d) + '\')" title="Remove">×</button></span>';
-  }).join("");
-}
-
-// ── Misc ──────────────────────────────────────────────────────
-function setLoading(on) {
-  var el  = document.getElementById("cmpLoading");
-  var btn = document.getElementById("cmpAddBtn");
-  var wrap = document.getElementById("cmpWrap");
-  el.style.display  = on ? "" : "none";
-  btn.disabled      = on;
-  if (on) wrap.style.display = "none";
-}
-
-function focusInput() {
-  var input = document.getElementById("cmpInput");
-  input.focus();
-  input.scrollIntoView({ behavior:"smooth", block:"center" });
-}
-
-function shareComparison() {
-  var url = window.location.href;
-  var btn = document.getElementById("cmpShareBtn");
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(url).then(function() {
-      btn.textContent = "✓ Copied";
-      setTimeout(function(){ btn.textContent = "↑ Copy comparison link"; }, 2000);
-    });
-  }
-}
-
-function domainToName(d) {
-  var s = d.split(".")[0].replace(/-/g," ");
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
-
-function esc(s) {
-  return String(s == null ? "" : s)
-    .replace(/&/g,"&amp;").replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+/* ─── Init ─── */
+function init(){
+  var domains=getDomainsFromURL();
+  buildSlots(domains);
+  if(domains.length>0) renderCompare(domains);
 }
 </script>
 </body>

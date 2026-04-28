@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Scoring Methodology — How Sigñal calculates brand trust scores</title>
-<meta name="description" content="The complete Sigñal scoring methodology — seven dimensions, weights, location multipliers, intensity classifications, and category-specific rules. Fully published and auditable.">
+<title>Scoring Methodology — How Sigñal measures evidence alignment</title>
+<meta name="description" content="The complete Sigñal scoring methodology — six dimensions, weights, location multipliers, intensity classifications, and category-specific rules. Fully published and auditable.">
 <meta property="og:title" content="Scoring Methodology — Sigñal">
-<meta property="og:description" content="Seven weighted dimensions produce every brand's Signal Score. Full formula, weights, and rules published and auditable.">
+<meta property="og:description" content="Six weighted dimensions produce every brand's Claim Support Risk score. Full formula, weights, and rules published and auditable.">
 <meta property="og:image" content="https://bhvdsignal.com/og-image.png">
 <meta property="og:url" content="https://bhvdsignal.com/methodology">
 <meta name="twitter:card" content="summary_large_image">
@@ -32,10 +32,14 @@ a:hover{text-decoration:underline}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:58px;background:rgba(10,12,18,0.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--b1)}
 .nav-logo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--t1);display:flex;align-items:center;gap:9px;text-decoration:none}
 .nav-byline{font-size:9px;color:var(--t3);letter-spacing:.13em;font-weight:400;text-transform:uppercase;border-left:1px solid var(--b2);padding-left:8px;margin-left:1px}
-.nav-back{font-size:13px;color:var(--t2);cursor:pointer;transition:color .15s;text-decoration:none}
-.nav-back:hover{color:var(--t1);text-decoration:none}
-.btn{font-family:var(--sans);font-size:13px;padding:8px 18px;border-radius:8px;cursor:pointer;border:1px solid var(--b2);background:transparent;color:var(--t2)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:13px;color:var(--t2);transition:color .15s}
+.nav-links a:hover{color:var(--t1)}
+.nav-cta{display:flex;gap:10px}
+.btn{font-family:var(--sans);font-size:13px;font-weight:500;padding:8px 18px;border-radius:8px;cursor:pointer;border:1px solid var(--b2);background:transparent;color:var(--t2);display:inline-flex;align-items:center;gap:7px;text-decoration:none;transition:all .15s}
+.btn:hover{color:var(--t1);border-color:var(--t3)}
 .btn-p{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn-p:hover{background:#3d6ae0;border-color:#3d6ae0;color:#fff}
 
 .layout{display:grid;grid-template-columns:220px 1fr;gap:0;max-width:1100px;margin:0 auto;padding:80px 0 0}
 .toc{padding:40px 32px;position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto}
@@ -92,7 +96,7 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
 .footer-logo{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--t3);display:flex;align-items:center;gap:6px}
 .footer-disc{font-size:11px;color:var(--t3);max-width:500px;line-height:1.5}
 
-@media(max-width:768px){nav{padding:0 20px}.layout{grid-template-columns:1fr}.toc{display:none}.content{padding:32px 24px}.mult-grid,.signal-map{grid-template-columns:1fr}footer{padding:24px;flex-direction:column;gap:12px}}
+@media(max-width:768px){nav{padding:0 20px}.nav-links{display:none}.layout{grid-template-columns:1fr}.toc{display:none}.content{padding:32px 24px}.mult-grid,.signal-map{grid-template-columns:1fr}footer{padding:24px;flex-direction:column;gap:12px}}
 </style>
 </head>
 <body>
@@ -102,10 +106,19 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     <svg width="24" height="11" viewBox="0 0 24 11" fill="none" aria-hidden="true"><path d="M1 8C3.2 3.5 5.8 3.5 7.8 8C9.8 12.5 12.4 12.5 14.4 8C16.4 3.5 19 3.5 23 5.5" stroke="#4a78f0" stroke-width="1.7" stroke-linecap="round"/></svg>
     Sigñal<span class="nav-byline">by BHVD</span>
   </a>
-  <a href="/" class="nav-back">← Back to home</a>
-  <div style="display:flex;gap:10px">
-    <a href="/#pricing" class="btn">Sign in</a>
-    <a href="/#pricing" class="btn btn-p">Add to Chrome</a>
+  <ul class="nav-links">
+    <li><a href="/leaderboard">Leaderboard</a></li>
+    <li><a href="/leaderboard?mode=compare">Compare</a></li>
+    <li><a href="/extension">Extension</a></li>
+    <li><a href="/methodology" style="color:var(--t1)">Methodology</a></li>
+    <li><a href="/pricing">Pricing</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="/brand-portal" class="btn">For brands</a>
+    <a href="/extension" class="btn btn-p">
+      <svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
+      Add Sigñal to Browser
+    </a>
   </div>
 </nav>
 
@@ -118,7 +131,7 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     <div class="toc-title">On this page</div>
     <a href="#overview" class="toc-link" onclick="scrollTo('overview')">Overview</a>
     <a href="#formula" class="toc-link" onclick="scrollTo('formula')">The formula</a>
-    <a href="#dimensions" class="toc-link" onclick="scrollTo('dimensions')">Seven dimensions</a>
+    <a href="#dimensions" class="toc-link" onclick="scrollTo('dimensions')">Six dimensions</a>
     <a href="#location" class="toc-link" onclick="scrollTo('location')">Location multipliers</a>
     <a href="#intensity" class="toc-link" onclick="scrollTo('intensity')">Claim intensity</a>
     <a href="#categories" class="toc-link" onclick="scrollTo('categories')">Category add-ons</a>
@@ -131,30 +144,30 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
   </div>
 
   <div class="content">
-    <div class="version-badge">Version 1.2 · April 2025</div>
+    <div class="version-badge">Version 1.3 · April 2026</div>
     <h1>Scoring methodology</h1>
-    <p class="lead">Everything about how Sigñal calculates a score — published in full. Any brand, researcher, or journalist can audit this. Nothing is hidden.</p>
+    <p class="lead">Everything about how Sigñal measures the gap between what brands claim and what they visibly support — published in full. Any brand, researcher, or journalist can audit this. Nothing is hidden.</p>
 
-    <div class="notice"><strong>What this methodology measures:</strong> the alignment between public-facing marketing claims and visibly available supporting information on the same page at the time of scan. It does not determine whether a product works, diagnose conditions, or make medical or legal conclusions.</div>
+    <div class="notice"><strong>What this methodology measures:</strong> the alignment between public-facing marketing claims and visibly available supporting information at the time of scan. It does not assess product efficacy, safety, or regulatory status. It does not assume intent.</div>
 
     <h2 id="overview">Overview</h2>
-    <p>The <strong>Claim Support Risk score</strong> (0–100) measures how well the visible, consumer-facing marketing language on a page aligns with visible supporting information on that same page. Higher score = greater risk that claims exceed visible support.</p>
-    <p>The score is composite, weighted, location-sensitive, and category-adjusted. It is calculated every time a product page is scanned and stored in the Sigñal Index.</p>
+    <p>Signal is a <strong>claims-intelligence and evidence-alignment system</strong>. It measures the gap between what wellness brands publicly claim, what evidence they visibly provide, and how clearly those claims are connected to that evidence.</p>
+    <p>The <strong>Claim Support Risk score</strong> (0–100) reflects that gap. Higher score = greater distance between what is claimed and what is visibly supported. The score is composite, weighted, location-sensitive, and category-adjusted. It is calculated every time a page is scanned and stored in the Sigñal Index.</p>
     <div class="signal-map">
       <div class="signal-block" style="background:#071a0e;border-color:#1a4a2a">
         <div class="signal-block-name" style="color:#1e9459">Green Signal</div>
         <div class="signal-block-range" style="color:#1e9459">0 – 24</div>
-        <div class="signal-block-desc" style="color:#4a7a5a">Claims are well-supported by visible evidence. The brand shows their receipts.</div>
+        <div class="signal-block-desc" style="color:#4a7a5a">Claims appear proportionate to available evidence. Visible support is present and connected.</div>
       </div>
       <div class="signal-block" style="background:#1a1200;border-color:#5a3a0a">
         <div class="signal-block-name" style="color:#c07718">Yellow Signal</div>
         <div class="signal-block-range" style="color:#c07718">25 – 54</div>
-        <div class="signal-block-desc" style="color:#7a5a20">Some claims have backing, others don't. Worth digging deeper before buying.</div>
+        <div class="signal-block-desc" style="color:#7a5a20">Evidence exists, but is not clearly connected to all claims. Gaps are present.</div>
       </div>
       <div class="signal-block" style="background:#1a0808;border-color:#5a1a1a">
         <div class="signal-block-name" style="color:#9e3028">Red Signal</div>
         <div class="signal-block-range" style="color:#9e3028">55 – 100</div>
-        <div class="signal-block-desc" style="color:#7a2a2a">Claims substantially exceed visible support. Ask more questions before spending.</div>
+        <div class="signal-block-desc" style="color:#7a2a2a">Claims extend beyond visible support. The gap between what is claimed and what is shown is material.</div>
       </div>
     </div>
 
@@ -169,20 +182,20 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
       category_addons = Σ category_specific_checks <span class="formula-comment">// capped at +15 total</span>
     </div>
 
-    <h2 id="dimensions">Seven dimensions</h2>
-    <p>Each dimension receives a raw sub-score from 0–100 (higher = higher risk). Scores are blended from deterministic rules (60%) and AI analysis (40%).</p>
+    <h2 id="dimensions">Six dimensions</h2>
+    <p>Each dimension receives a score from 0–100 (higher = greater gap or risk). Scores are blended from deterministic rules (60%) and AI analysis (40%). These six dimensions are the consumer-facing surface of the scoring model.</p>
     <table class="dim-table">
       <thead><tr><th>Dimension</th><th>Weight</th><th>What it measures</th></tr></thead>
       <tbody>
-        <tr><td>Evidence Alignment</td><td>25%</td><td>How well visible evidence matches the strength of claims — study links, product-specific data, citations on the page.</td></tr>
-        <tr><td>Claim Specificity</td><td>15%</td><td>How precise vs. vague the claims are — quantified numbers, exact durations, specific outcomes with visible backing.</td></tr>
-        <tr><td>Source Transparency</td><td>15%</td><td>Visibility of sources — clickable study links, author names, DOIs, certificate links visible on the page.</td></tr>
-        <tr><td>Regulatory Risk</td><td>15%</td><td>Proximity to prohibited disease-treatment language — "treats", "cures", "prevents" with or without visible disclaimer.</td></tr>
-        <tr><td>Mechanism Integrity</td><td>10%</td><td>How plausibly the described biological mechanism is supported by visible references on the same page.</td></tr>
-        <tr><td>Comparative Fairness</td><td>10%</td><td>Fairness of comparisons — "3× faster", "vs. competitors", baselines — with or without visible substantiation.</td></tr>
-        <tr><td>Trust Signal Integrity</td><td>10%</td><td>Integrity of trust markers — badges, "clinically proven", testimonials used as proof — whether they link to real evidence.</td></tr>
+        <tr><td>Evidence Alignment</td><td>25%</td><td>How well visible evidence matches the strength and specificity of claims made. A brand with peer-reviewed studies clearly connected to its claims scores well here regardless of where those studies are hosted on the domain.</td></tr>
+        <tr><td>Claim Clarity</td><td>15%</td><td>How precisely claims are stated — whether outcomes are quantified, durations specified, and subject populations identified. Vague language with no visible support scores higher risk than specific language with visible backing.</td></tr>
+        <tr><td>Evidence Quality</td><td>15%</td><td>The verifiability of cited sources — clickable study links, author names, DOIs, COA links. Evidence that exists but cannot be inspected is scored differently from evidence that is fully transparent.</td></tr>
+        <tr><td>Consumer Distortion Risk</td><td>15%</td><td>Combined signal of regulatory proximity (disease-treatment language), comparison fairness ("3× faster" without a baseline), and trust marker integrity (badges or testimonials used as proof without a link to underlying evidence).</td></tr>
+        <tr><td>Claim Strength</td><td>10%</td><td>How plausibly the described biological or physiological mechanism is grounded in visible references. A mechanism claim with no citations scores higher risk than one with linked human trial data.</td></tr>
+        <tr><td>Evidence Accessibility</td><td>10%</td><td>How easily a consumer can locate the supporting evidence from the page they are reading. Evidence buried several clicks away or hidden behind login gates scores higher than evidence linked directly from the claim.</td></tr>
       </tbody>
     </table>
+    <div class="notice"><strong>Note on internal analysis:</strong> The scoring engine uses seven sub-dimensions internally for analysis fidelity. The six dimensions above are the public-facing surface derived from those sub-scores. The full internal model is available to researchers on request.</div>
 
     <h2 id="location">Location multipliers</h2>
     <p>Claims are weighted by where they appear on the page. A "clinically proven" claim in the hero headline carries 6× more weight than the same claim buried in the footer, because that's where brands put the claims they most want you to believe.</p>
@@ -268,26 +281,32 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     <p>Low-confidence scans are placed at the bottom with "Rank Pending" until confidence improves.</p>
 
     <h2 id="signals">Signal thresholds</h2>
-    <p>The final clamped score maps to three signals:</p>
+    <p>The final clamped score maps to three signals. Signal does not tell consumers what to buy. Signal shows what holds.</p>
     <ul>
-      <li><strong style="color:var(--grn)">Green (0–24)</strong> — strong visible alignment. Claims are proportionate to what's shown.</li>
-      <li><strong style="color:var(--yel)">Yellow (25–54)</strong> — moderate or mixed alignment. Some claims have backing, others don't.</li>
-      <li><strong style="color:var(--red)">Red (55–100)</strong> — claims substantially exceed visible support. Ask more questions before buying.</li>
+      <li><strong style="color:var(--grn)">Green (0–24)</strong> — claims appear proportionate to available evidence. Visible support is present and clearly connected.</li>
+      <li><strong style="color:var(--yel)">Yellow (25–54)</strong> — evidence exists, but is not clearly connected to all claims. Gaps are present and notable.</li>
+      <li><strong style="color:var(--red)">Red (55–100)</strong> — claims extend beyond visible support. The gap between what is claimed and what is shown is material.</li>
     </ul>
 
     <h2 id="ai">The role of AI</h2>
     <p>The scoring engine is deterministic — parsing, weighting, math, caching, and ranking are all rule-based and fully auditable. Claude (Anthropic) provides the <strong>analyst layer only</strong>: nuanced language understanding, per-dimension scores, and human-readable explanations.</p>
-    <p>Claude's scores are blended in at 40% weight per dimension. The deterministic engine contributes 60%. No score is determined solely by AI output — and all Claude responses are validated against our banned verdict language list before being stored or displayed.</p>
-    <p>Claude is never permitted to use: fraud, scam, lie, fake, false, illegal, deceptive, misleading (as a verdict), noncompliant. Approved language: "claims may exceed visible support", "visible support appears limited", "source transparency appears incomplete".</p>
+    <p>Claude's scores are blended in at 40% weight per dimension. The deterministic engine contributes 60%. No score is determined solely by AI output — and all Claude responses are validated against Signal's language requirements before being stored or displayed.</p>
+    <p>Signal's AI layer operates under strict language constraints. It is never permitted to speculate about intent, render verdicts about honesty, or use: fraud, scam, lie, fake, false, illegal, deceptive, misleading (as a verdict), noncompliant, or "doesn't work."</p>
+    <p>Approved language includes: "This claim extends beyond visible support", "Evidence exists, but is not clearly connected to this claim", "Claims appear proportionate to available evidence", "visible support appears limited", "source transparency appears incomplete."</p>
 
-    <h2 id="limits">What we don't score</h2>
-    <div class="notice">Sigñal does <strong>not</strong> determine whether a product works, whether ingredients are effective, whether a company is honest or dishonest, whether a product is safe, or whether any regulatory violation has occurred. A red signal means claims aren't backed by visible evidence on this page — nothing more.</div>
+    <h2 id="limits">What Signal does not measure</h2>
+    <div class="notice">
+      Signal is not a review platform. Signal is not a medical authority. Signal is not a product efficacy judge.<br><br>
+      <strong>Signal measures the gap between what brands claim, what evidence they provide, and how clearly those claims are connected to that evidence.</strong> Nothing more.<br><br>
+      A red signal means claims extend beyond visible support on the page at the time of scan — not that a product is unsafe, ineffective, or that any intent to mislead exists.
+    </div>
     <ul>
-      <li>Product efficacy — whether the product actually delivers its promised outcome</li>
-      <li>Ingredient quality — whether the underlying ingredients are effective</li>
-      <li>Manufacturing standards — GMP compliance, facility audits</li>
+      <li>Product efficacy — whether the product delivers its promised outcome</li>
+      <li>Clinical safety — whether ingredients or devices are safe to use</li>
+      <li>Ingredient quality — whether underlying ingredients are effective at any dose</li>
+      <li>Manufacturing standards — GMP compliance, facility audits, contamination risk</li>
       <li>Regulatory compliance — whether claims violate FTC, FDA, or other regulations</li>
-      <li>Company intent — whether a brand is being deliberately deceptive</li>
+      <li>Company intent — Signal does not assume or assess intent</li>
     </ul>
 
     <h2 id="updates">Update cadence</h2>
@@ -301,7 +320,7 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
 
     <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--b1)">
       <p style="font-size:13px;color:var(--t3)">Questions about the methodology? Email <a href="mailto:signal@bhvd.com">signal@bhvd.com</a>.</p>
-      <p style="font-size:12px;color:var(--t3);margin-top:8px">Version 1.2 · Last updated April 2025 · Sigñal</p>
+      <p style="font-size:12px;color:var(--t3);margin-top:8px">Version 1.3 · Last updated April 2026 · Sigñal</p>
     </div>
   </div>
 </div>
@@ -319,7 +338,7 @@ function scrollTo(id){document.getElementById(id)?.scrollIntoView({behavior:'smo
 
 // Password gate
 (function(){
-  var PWD='BHVD711';
+  var PWD='signal2025';
   if(sessionStorage.getItem('bhvd_ok')==='1') return;
   var gate=document.createElement('div');
   gate.style.cssText='position:fixed;inset:0;z-index:9999;background:#0a0c12;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:system-ui,sans-serif';

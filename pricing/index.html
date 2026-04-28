@@ -135,11 +135,39 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
 .footer-col a:hover{color:var(--t1)}
 .footer-copy{text-align:center;padding:18px 32px;font-size:10px;color:var(--t3);font-family:var(--mono);letter-spacing:.05em;border-top:1px solid var(--b1)}
 
+
+/* VERIFIED ACCESS */
+.verified-block{background:var(--bg2);border:1px solid var(--b2);border-radius:16px;padding:40px 44px;position:relative;overflow:hidden}
+.verified-block::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),#7fa8ff,var(--acc));opacity:.4}
+.verified-tag{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--acc);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.verified-tag::after{content:'';flex:1;height:1px;background:var(--b1)}
+.verified-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:32px}
+.verified-item{display:flex;gap:14px;align-items:flex-start}
+.verified-dot{width:6px;height:6px;border-radius:50%;background:var(--acc);flex-shrink:0;margin-top:7px;opacity:.6}
+.verified-item h4{font-size:13px;font-weight:500;color:var(--t1);margin-bottom:5px}
+.verified-item p{font-size:12px;color:var(--t3);line-height:1.65}
+.verified-contact{display:inline-flex;align-items:center;gap:8px;margin-top:28px;padding:11px 22px;border:1px solid var(--b2);border-radius:8px;font-size:13px;color:var(--t2);font-family:var(--sans);cursor:pointer;background:transparent;transition:all .15s;text-decoration:none}
+.verified-contact:hover{color:var(--t1);border-color:var(--t3)}
+
+/* WHY THIS MODEL */
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:32px}
+.why-item{background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:18px 20px;display:flex;gap:12px;align-items:flex-start}
+.why-num{font-family:var(--mono);font-size:10px;color:var(--t3);flex-shrink:0;margin-top:2px;letter-spacing:.06em}
+.why-item h4{font-size:13px;font-weight:500;color:var(--t1);margin-bottom:5px}
+.why-item p{font-size:12px;color:var(--t3);line-height:1.6}
+
+/* DISCLAIMER BLOCK */
+.disclaimer-block{background:rgba(74,120,240,0.04);border:1px solid rgba(74,120,240,0.12);border-radius:12px;padding:22px 28px;margin-bottom:0}
+
+/* PAYMENT LINE */
+.payment-line{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--grn);text-align:center;padding:20px;border-top:1px solid var(--b1);margin-top:64px}
+
 @media(max-width:768px){
   nav{padding:0 20px}.nav-links{display:none}
   .alpha-bar{padding:6px 20px}
   .plans-grid,.plans-grid-3,.never-grid,.arch-grid{grid-template-columns:1fr}
   .capture-modal{padding:28px 24px;margin:20px}
+  .verified-grid,.why-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -152,7 +180,7 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
   </a>
   <ul class="nav-links">
     <li><a href="/leaderboard">Leaderboard</a></li>
-    <li><a href="/compare">Compare</a></li>
+    <li><a href="/leaderboard?mode=compare">Compare</a></li>
     <li><a href="/extension">Extension</a></li>
     <li><a href="/methodology">Methodology</a></li>
     <li><a href="/pricing" style="color:var(--t1)">Pricing</a></li>
@@ -222,8 +250,8 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
       <div class="plan feat">
         <div class="plan-badge">COMING SOON</div>
         <div class="plan-label">Consumer Pro</div>
-        <div class="plan-price"><sup>$</sup>6</div>
-        <div class="plan-period">per month · or $49/year</div>
+        <div class="plan-price"><sup>$</sup>9</div>
+        <div class="plan-period">per month · or $79/year</div>
         <div class="plan-desc">See how brands change over time — not just how they appear today.</div>
         <p style="font-size:12px;color:var(--t3);margin-bottom:16px;line-height:1.6;font-family:var(--mono);letter-spacing:.01em">Consumer Pro turns Sigñal into a monitoring layer — not just a lookup tool.</p>
         <ul class="plan-features">
@@ -297,9 +325,9 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
 
       <div class="plan feat">
         <div class="plan-badge">COMING SOON</div>
-        <div class="plan-label">Brand Tools</div>
-        <div class="plan-price"><sup>$</sup>199</div>
-        <div class="plan-period">per month</div>
+        <div class="plan-label">Brand Portal</div>
+        <div class="plan-price" style="font-size:32px;margin-top:4px">Starting at</div>
+        <div class="plan-period" style="font-size:14px;color:var(--t2);margin-bottom:24px">$249 / month</div>
         <div class="plan-desc">Independent workflow tools for brands to understand their public Sigñal score. These tools do not influence scoring outcomes.</div>
         <p style="font-size:11px;color:var(--t3);margin-bottom:16px;line-height:1.6;font-family:var(--mono);letter-spacing:.01em">Sigñal scores cannot be changed, influenced, or prioritized through paid access.</p>
         <ul class="plan-features">
@@ -313,7 +341,7 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
           <li>Score movement alerts — daily digest of changes</li>
           <li>API access to your own brand data</li>
         </ul>
-        <button class="plan-btn plan-btn-p" onclick="openCapture('brand_tools_waitlist','Brand Tools','Apply for access to Brand Tools.')">Apply for access</button>
+        <button class="plan-btn plan-btn-p" onclick="openCapture('brand_portal_inquiry','Brand Portal','Tell us about your brand and we\'ll reach out to get you set up.',true)">Inquire about access</button>
         <div id="brand-pro-ok" class="plan-success">Request received. We'll reach out to onboard you.</div>
         <p style="font-size:12px;color:var(--t3);margin-top:18px;line-height:1.7;padding-top:16px;border-top:1px solid var(--b1)">Brand Tools are workflow tools only. They do not guarantee score changes, favorable review outcomes, or queue priority. Scores are determined by editorial review of public evidence.</p>
       </div>
@@ -377,7 +405,7 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
           <li class="dim">Raw claim text access</li>
           <li class="dim">Custom filtering</li>
         </ul>
-        <button class="plan-btn plan-btn-p" onclick="openDataCapture('early_access','Early Access')">Request data access</button>
+        <button class="plan-btn plan-btn-p" onclick="openDataCapture('early_access','Early Access',true)">Request data access</button>
         <div id="data-starter-ok" class="plan-success">Request received. We'll reach out with access details.</div>
       </div>
 
@@ -396,7 +424,7 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
           <li>Dedicated Slack channel</li>
           <li>Monthly data briefing</li>
         </ul>
-        <button class="plan-btn plan-btn-p" onclick="openDataCapture('pro_access','Pro Access')">Request data access</button>
+        <button class="plan-btn plan-btn-p" onclick="openDataCapture('pro_access','Pro Access',true)">Request data access</button>
         <div id="data-growth-ok" class="plan-success">Request received. We'll reach out with access details.</div>
       </div>
 
@@ -415,7 +443,7 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
           <li>Dedicated data team contact</li>
           <li>Custom reporting cadence</li>
         </ul>
-        <button class="plan-btn plan-btn-p" onclick="openDataCapture('enterprise','Enterprise')">Request data access</button>
+        <button class="plan-btn plan-btn-p" onclick="openDataCapture('enterprise','Enterprise',true)">Request data access</button>
         <div id="data-ent-ok" class="plan-success">Request received. We'll reach out with access details.</div>
       </div>
 
@@ -431,77 +459,51 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
     <p style="font-size:13px;color:var(--t2);line-height:1.75;max-width:680px">Sigñal scores are the output of editorial review of publicly available brand marketing claims and visible evidence. Reviewers do not have access to commercial account information when scoring. Brand Pro subscribers receive workflow tools and analytical access to their own data — not editorial access, queue priority, or score modification capabilities. This separation is enforced structurally, not by policy alone.</p>
   </div>
 
-  <!-- FUTURE ARCHITECTURE NOTE (internal reference) -->
+  <!-- VERIFIED ACCESS -->
+  <div class="verified-block" style="margin-bottom:64px">
+    <div class="verified-tag">Verified Access — Transparency Layer</div>
+    <h3 style="font-family:var(--serif);font-size:clamp(22px,2.5vw,32px);font-weight:400;line-height:1.15;letter-spacing:-.015em;margin-bottom:10px">Evidence submission, independently reviewed.</h3>
+    <p style="font-size:14px;color:var(--t2);max-width:600px;line-height:1.75">Brands may submit non-public evidence for Signal's editorial review. Verified Access is a transparency tool — not a marketing channel. A Verified Access badge may appear on a brand page if evidence clears review. The public Evidence Gap Score is never modified by Verified Access.</p>
+    <div class="verified-grid">
+      <div class="verified-item">
+        <div class="verified-dot"></div>
+        <div><h4>Brands submit non-public evidence</h4><p>Studies, certifications, regulatory filings, or internal validation data not publicly indexed.</p></div>
+      </div>
+      <div class="verified-item">
+        <div class="verified-dot"></div>
+        <div><h4>Signal reviews independently</h4><p>Editorial team assesses submitted evidence against the same rubric used for all public scoring.</p></div>
+      </div>
+      <div class="verified-item">
+        <div class="verified-dot"></div>
+        <div><h4>Verified Access badge may be displayed</h4><p>If evidence clears review, a Verified Access indicator appears on the brand page — separate from the score.</p></div>
+      </div>
+      <div class="verified-item">
+        <div class="verified-dot"></div>
+        <div><h4>Public Evidence Gap Score is not modified</h4><p>Verified Access does not raise, lower, or influence the public score. Scores reflect public marketing claims only.</p></div>
+      </div>
+    </div>
+    <a href="mailto:signal@bhvd.com?subject=Verified Access inquiry" class="verified-contact">Contact us about Verified Access →</a>
+  </div>
+
+  <!-- WHY THIS MODEL -->
   <div style="margin-bottom:64px">
-    <div class="sec-tag">Architecture — future database fields</div>
-    <p style="font-size:13px;color:var(--t3);margin-bottom:24px;line-height:1.6">Reference for implementation. Not user-facing.</p>
-    <div class="arch-grid">
-      <div class="arch-card">
-        <h4>users (additions)</h4>
-        <pre>tier                TEXT DEFAULT 'free'
-                    -- 'free' | 'pro_consumer'
-stripe_customer_id  TEXT UNIQUE
-subscription_status TEXT
-                    -- 'active'|'canceled'|'past_due'
-subscription_ends_at TIMESTAMPTZ</pre>
+    <div class="sec-tag">Why this model</div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-num">01</div>
+        <div><h4>Scores are independent</h4><p>Payment unlocks tools — not editorial access. Score methodology is identical regardless of commercial relationship.</p></div>
       </div>
-      <div class="arch-card">
-        <h4>brand_accounts (new table)</h4>
-        <pre>id               UUID PRIMARY KEY
-domain           TEXT UNIQUE NOT NULL
-email            TEXT NOT NULL
-tier             TEXT DEFAULT 'free'
-                 -- 'free' | 'brand_pro'
-stripe_customer_id TEXT
-claimed_at       TIMESTAMPTZ
-verified_at      TIMESTAMPTZ</pre>
+      <div class="why-item">
+        <div class="why-num">02</div>
+        <div><h4>Payment unlocks tools, not outcomes</h4><p>Paid tiers give brands better visibility into their own data. They cannot purchase a different score.</p></div>
       </div>
-      <div class="arch-card">
-        <h4>watchlists (new — pro_consumer)</h4>
-        <pre>id                  UUID PRIMARY KEY
-user_id             UUID REFERENCES users
-domain              TEXT NOT NULL
-alert_score_change  BOOLEAN DEFAULT true
-alert_claim_change  BOOLEAN DEFAULT true
-created_at          TIMESTAMPTZ</pre>
+      <div class="why-item">
+        <div class="why-num">03</div>
+        <div><h4>Evidence can be submitted, not purchased</h4><p>Any brand or consumer can submit evidence at no cost. Verified Access is a review workflow — not score modification.</p></div>
       </div>
-      <div class="arch-card">
-        <h4>api_keys (new — data tier)</h4>
-        <pre>id                UUID PRIMARY KEY
-key               TEXT UNIQUE NOT NULL
-customer_name     TEXT
-tier              TEXT
-                  -- 'starter'|'growth'|'enterprise'
-rate_limit_per_hr INTEGER DEFAULT 100
-active            BOOLEAN DEFAULT true
-created_at        TIMESTAMPTZ</pre>
-      </div>
-      <div class="arch-card">
-        <h4>brand_audits (new — brand_pro)</h4>
-        <pre>id               UUID PRIMARY KEY
-brand_account_id UUID REFERENCES brand_accounts
-submitted_claims JSONB
-status           TEXT DEFAULT 'pending'
-reviewer_notes   TEXT
-submitted_at     TIMESTAMPTZ
-reviewed_at      TIMESTAMPTZ
--- Never auto-updates public score.
--- Advisory output only.</pre>
-      </div>
-      <div class="arch-card">
-        <h4>Stripe products (future)</h4>
-        <pre>Signal Pro Consumer
-  price_consumer_pro_monthly  $6/mo
-  price_consumer_pro_annual   $49/yr
-
-Signal Brand Pro
-  price_brand_pro_monthly     $199/mo
-  price_brand_pro_annual      $1,800/yr
-
-Signal Data API
-  price_data_starter          $499/mo
-  price_data_growth           $999/mo
-  price_data_enterprise       custom</pre>
+      <div class="why-item">
+        <div class="why-num">04</div>
+        <div><h4>Transparency is separate from marketing</h4><p>Signal scores appear on brand pages independent of any advertising or marketing relationship.</p></div>
       </div>
     </div>
   </div>
@@ -515,7 +517,8 @@ Signal Data API
     <h3 id="capTitle">Join waitlist</h3>
     <p id="capDesc">We'll reach out when this tier launches.</p>
     <div class="cap-ok" id="capOk">You're on the list. We'll reach out soon.</div>
-    <input class="cap-input" type="email" id="capEmail" placeholder="your@email.com" autocomplete="email">
+    <input class="cap-input" type="text" id="capBrand" placeholder="Brand / company name" autocomplete="organization" style="display:none;margin-bottom:10px">
+    <input class="cap-input" type="email" id="capEmail" placeholder="Work email" autocomplete="email">
     <button class="cap-submit" id="capSubmit" onclick="submitCapture()">Send request</button>
     <div class="cap-disclaimer">No spam. Access notifications and major product updates only.<br>Paid access never influences Sigñal scores or rankings.</div>
   </div>
@@ -535,7 +538,7 @@ Signal Data API
       <h5>Product</h5>
       <a href="/extension">Browser Extension</a>
       <a href="/leaderboard">Leaderboard</a>
-      <a href="/compare">Compare brands</a>
+      <a href="/leaderboard?mode=compare">Compare brands</a>
       <a href="/methodology">Methodology</a>
     </div>
     <div class="footer-col">
@@ -558,6 +561,7 @@ Signal Data API
 var API = "https://bhvd-signal-api.fly.dev";
 var _capType = "";
 var _dataApiPlan = "";
+var _capShowBrand = false;
 
 function showTier(t) {
   document.querySelectorAll(".tier-section").forEach(function(s){ s.classList.remove("on"); });
@@ -566,17 +570,23 @@ function showTier(t) {
   event.currentTarget.classList.add("on");
 }
 
-function openCapture(type, title, desc) {
+function _resetModal(showBrand) {
+  _capShowBrand = !!showBrand;
+  document.getElementById("capOk").style.display = "none";
+  document.getElementById("capEmail").style.display = "";
+  document.getElementById("capEmail").value = "";
+  document.getElementById("capSubmit").style.display = "";
+  document.getElementById("capBrand").style.display = showBrand ? "" : "none";
+  document.getElementById("capBrand").value = "";
+  document.getElementById("captureOverlay").classList.add("open");
+  setTimeout(function(){ document.getElementById(showBrand ? "capBrand" : "capEmail").focus(); }, 80);
+}
+
+function openCapture(type, title, desc, showBrand) {
   _capType = type;
   document.getElementById("capTitle").textContent = title;
   document.getElementById("capDesc").textContent = desc;
-  document.getElementById("capOk").style.display = "none";
-  document.getElementById("capEmail").style.display = "";
-  document.getElementById("capSubmit").style.display = "";
-  document.getElementById("capEmail").value = "";
-  document.getElementById("captureOverlay").classList.add("open");
-  setTimeout(function(){ document.getElementById("capEmail").focus(); }, 80);
-
+  _resetModal(showBrand);
   fetch(API + "/api/event", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -584,18 +594,12 @@ function openCapture(type, title, desc) {
   }).catch(function(){});
 }
 
-function openDataCapture(plan, label) {
+function openDataCapture(plan, label, showBrand) {
   _capType = "data_api_request";
   _dataApiPlan = plan;
   document.getElementById("capTitle").textContent = "Data API — " + label;
   document.getElementById("capDesc").textContent = "Request access to the Sigñal Data API. We'll follow up within 2 business days.";
-  document.getElementById("capOk").style.display = "none";
-  document.getElementById("capEmail").style.display = "";
-  document.getElementById("capSubmit").style.display = "";
-  document.getElementById("capEmail").value = "";
-  document.getElementById("captureOverlay").classList.add("open");
-  setTimeout(function(){ document.getElementById("capEmail").focus(); }, 80);
-
+  _resetModal(showBrand);
   fetch(API + "/api/event", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -611,15 +615,19 @@ function closeCaptureModal() {
 }
 
 function submitCapture() {
+  var brand = document.getElementById("capBrand").value.trim();
   var email = document.getElementById("capEmail").value.trim();
+  if (_capShowBrand && !brand) { document.getElementById("capBrand").focus(); return; }
   if (!email || !email.includes("@")) { document.getElementById("capEmail").focus(); return; }
   var btn = document.getElementById("capSubmit");
   btn.disabled = true; btn.textContent = "Sending…";
 
   var isDataReq = _capType === "data_api_request";
+  var meta = isDataReq ? { plan: _dataApiPlan } : {};
+  if (brand) meta.brand = brand;
   var payload = isDataReq
-    ? { email: email, type: "data_api_request", meta: { plan: _dataApiPlan } }
-    : { email: email, type: _capType };
+    ? { email: email, type: "data_api_request", meta: meta }
+    : { email: email, type: _capType, meta: Object.keys(meta).length ? meta : undefined };
 
   fetch(API + "/api/capture", {
     method: "POST",

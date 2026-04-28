@@ -180,6 +180,88 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 3
     </div>
 
     <div class="ts" id="generatedAt"></div>
+
+    <!-- Screenshot Scan -->
+    <div class="section" style="margin-top:40px">
+      <div class="section-head">
+        <span class="section-title">Screenshot scan</span>
+        <span class="section-count" style="background:rgba(74,120,240,.15);color:#4a78f0">Manual verification</span>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:24px;max-width:640px">
+        <div style="font-size:12px;color:var(--t3);line-height:1.6;margin-bottom:20px">Upload screenshots of a brand's product or marketing page. Claude analyzes the visible claims and evidence, scores via the full Signal methodology, and saves the result as <strong style="color:var(--t2)">Manually Verified</strong>.</div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label style="font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:6px">Domain *</label>
+            <input id="ss-domain" type="text" placeholder="ag1.com" style="width:100%;padding:10px 12px;background:var(--bg3);border:1px solid var(--b1);border-radius:8px;color:var(--t1);font-size:13px;font-family:var(--mono);outline:none">
+          </div>
+          <div>
+            <label style="font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:6px">Brand name</label>
+            <input id="ss-brand" type="text" placeholder="AG1 by Athletic Greens" style="width:100%;padding:10px 12px;background:var(--bg3);border:1px solid var(--b1);border-radius:8px;color:var(--t1);font-size:13px;outline:none">
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label style="font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:6px">Category</label>
+            <select id="ss-category" style="width:100%;padding:10px 12px;background:var(--bg3);border:1px solid var(--b1);border-radius:8px;color:var(--t1);font-size:13px;outline:none;cursor:pointer">
+              <option value="supplements">Supplements</option>
+              <option value="wearables">Wearables</option>
+              <option value="fitness">Fitness</option>
+              <option value="sleep_aids">Sleep</option>
+              <option value="recovery_devices">Recovery</option>
+              <option value="mental_wellness">Mental Wellness</option>
+              <option value="neurotech">Neurotech</option>
+              <option value="functional_food">Functional Food</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:6px">Canonical URL</label>
+            <input id="ss-url" type="text" placeholder="https://ag1.com/products/athletic-greens" style="width:100%;padding:10px 12px;background:var(--bg3);border:1px solid var(--b1);border-radius:8px;color:var(--t1);font-size:13px;font-family:var(--mono);outline:none">
+          </div>
+        </div>
+
+        <div style="margin-bottom:12px">
+          <label style="font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:6px">Reviewer notes (optional)</label>
+          <textarea id="ss-notes" rows="2" placeholder="e.g. Focus on the claims section on the product page. Ignore the FAQ." style="width:100%;padding:10px 12px;background:var(--bg3);border:1px solid var(--b1);border-radius:8px;color:var(--t1);font-size:13px;resize:vertical;outline:none;font-family:inherit"></textarea>
+        </div>
+
+        <div style="margin-bottom:20px">
+          <label style="font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:6px">Screenshots (up to 8) *</label>
+          <div id="ss-drop" onclick="document.getElementById('ss-files').click()" style="border:2px dashed var(--b2);border-radius:10px;padding:32px;text-align:center;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='var(--acc)'" onmouseout="this.style.borderColor='var(--b2)'">
+            <div style="font-size:22px;margin-bottom:8px">⌃</div>
+            <div style="font-size:13px;color:var(--t2)">Click to select screenshots</div>
+            <div style="font-size:11px;color:var(--t3);margin-top:4px">PNG, JPEG, WebP · max 8 files</div>
+          </div>
+          <input id="ss-files" type="file" accept="image/*" multiple style="display:none" onchange="previewFiles(this.files)">
+          <div id="ss-preview" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px"></div>
+        </div>
+
+        <button id="ss-submit" onclick="runScreenshotScan()" style="width:100%;padding:12px;background:var(--acc);border:none;border-radius:8px;color:#fff;font-size:14px;font-weight:500;cursor:pointer;transition:opacity .15s">
+          Run scan →
+        </button>
+        <div id="ss-status" style="margin-top:14px;font-size:12px;font-family:var(--mono);color:var(--t3);min-height:18px"></div>
+
+        <!-- Result card -->
+        <div id="ss-result" style="display:none;margin-top:20px;background:var(--bg3);border:1px solid var(--b2);border-radius:10px;padding:20px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+            <div id="ss-res-dot" style="width:12px;height:12px;border-radius:50%;flex-shrink:0"></div>
+            <div>
+              <div id="ss-res-brand" style="font-size:15px;font-weight:500"></div>
+              <div id="ss-res-domain" style="font-size:11px;color:var(--t3);font-family:var(--mono)"></div>
+            </div>
+            <div style="margin-left:auto;text-align:right">
+              <div id="ss-res-score" style="font-size:28px;font-weight:400;line-height:1"></div>
+              <div style="font-size:10px;color:var(--t3)">/ 100</div>
+            </div>
+          </div>
+          <div id="ss-res-verdict" style="font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:14px;padding:12px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--b2)"></div>
+          <div id="ss-res-claims" style="margin-bottom:14px"></div>
+          <a id="ss-res-link" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-family:var(--mono);color:var(--acc);border:1px solid rgba(74,120,240,.3);padding:8px 16px;border-radius:8px">View public claim record →</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -331,6 +413,89 @@ function loadData() {
   })
   .catch(function(e){
     document.getElementById('gate-err').textContent = 'Connection error. Check API.';
+  });
+}
+
+// ── Screenshot scan ──────────────────────────────────────────
+var ssFiles = [];
+
+function previewFiles(files) {
+  ssFiles = Array.from(files);
+  var preview = document.getElementById('ss-preview');
+  preview.innerHTML = ssFiles.map(function(f, i) {
+    var url = URL.createObjectURL(f);
+    return '<div style="position:relative">' +
+      '<img src="' + url + '" style="height:72px;width:auto;border-radius:6px;border:1px solid var(--b1);object-fit:cover">' +
+      '<div style="position:absolute;bottom:2px;right:4px;font-size:9px;font-family:var(--mono);color:rgba(255,255,255,.5)">' + (i+1) + '</div>' +
+    '</div>';
+  }).join('');
+  if (ssFiles.length) {
+    document.getElementById('ss-drop').style.borderColor = 'var(--acc)';
+    document.getElementById('ss-drop').querySelector('div:nth-child(2)').textContent = ssFiles.length + ' file' + (ssFiles.length > 1 ? 's' : '') + ' selected';
+  }
+}
+
+function runScreenshotScan() {
+  var domain = document.getElementById('ss-domain').value.trim().toLowerCase().replace(/^www\./,'').replace(/^https?:\/\//,'');
+  var brand  = document.getElementById('ss-brand').value.trim();
+  var cat    = document.getElementById('ss-category').value;
+  var url    = document.getElementById('ss-url').value.trim();
+  var notes  = document.getElementById('ss-notes').value.trim();
+
+  if (!domain) { document.getElementById('ss-status').textContent = 'Domain is required.'; return; }
+  if (!ssFiles.length) { document.getElementById('ss-status').textContent = 'Upload at least one screenshot.'; return; }
+
+  var btn = document.getElementById('ss-submit');
+  btn.disabled = true; btn.textContent = 'Scanning…';
+  document.getElementById('ss-status').textContent = 'Sending ' + ssFiles.length + ' screenshot' + (ssFiles.length > 1 ? 's' : '') + ' to Claude…';
+  document.getElementById('ss-result').style.display = 'none';
+
+  var form = new FormData();
+  form.append('domain', domain);
+  if (brand)  form.append('brand_name', brand);
+  form.append('category', cat);
+  if (url)    form.append('canonical_url', url);
+  if (notes)  form.append('notes', notes);
+  ssFiles.forEach(function(f) { form.append('images', f); });
+
+  fetch(API + '/admin/screenshot-scan', {
+    method: 'POST',
+    headers: { 'x-admin-key': aKey },
+    body: form,
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    btn.disabled = false; btn.textContent = 'Run scan →';
+    if (!d.success) { document.getElementById('ss-status').textContent = 'Error: ' + (d.error || 'Unknown'); return; }
+
+    document.getElementById('ss-status').textContent = '✓ Saved — ' + d.tokens_used + ' tokens used';
+
+    var SIG_C = { green: '#1e9459', yellow: '#c07718', red: '#9e3028' };
+    var c = SIG_C[d.signal_color] || '#c07718';
+    document.getElementById('ss-res-dot').style.background = c;
+    document.getElementById('ss-res-brand').textContent = brand || domain;
+    document.getElementById('ss-res-domain').textContent = domain;
+    document.getElementById('ss-res-score').textContent = d.score;
+    document.getElementById('ss-res-score').style.color = c;
+    document.getElementById('ss-res-verdict').textContent = d.why_this_verdict || '—';
+    document.getElementById('ss-res-verdict').style.borderLeftColor = c;
+
+    var claimsEl = document.getElementById('ss-res-claims');
+    var claims = d.claims_found || [];
+    claimsEl.innerHTML = claims.length
+      ? '<div style="font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">Claims extracted</div>' +
+        claims.map(function(cl) {
+          return '<div style="font-size:12px;color:var(--t2);padding:8px 10px;background:var(--bg2);border-radius:6px;margin-bottom:6px;line-height:1.5">' + cl + '</div>';
+        }).join('')
+      : '';
+
+    var link = document.getElementById('ss-res-link');
+    link.href = d.brand_page;
+    document.getElementById('ss-result').style.display = 'block';
+  })
+  .catch(function(e) {
+    btn.disabled = false; btn.textContent = 'Run scan →';
+    document.getElementById('ss-status').textContent = 'Network error: ' + e.message;
   });
 }
 </script>

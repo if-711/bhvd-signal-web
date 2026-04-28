@@ -19,7 +19,8 @@
     { "source": "/contact", "destination": "/contact/index.html" },
     { "source": "/account", "destination": "/account/index.html" },
     { "source": "/demo", "destination": "/demo/index.html" },
-    { "source": "/admin/signals", "destination": "/admin/signals/index.html" }
+    { "source": "/admin/signals", "destination": "/admin/signals/index.html" },
+    { "source": "/admin/content-engine", "destination": "/admin/content-engine/index.html" }
   ],
   "headers": [
     {

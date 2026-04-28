@@ -4,135 +4,89 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Brand Leaderboard — Sigñal Claim Quality Index</title>
-<meta name="description" content="Rankings of wellness brands by claim quality score. Independent assessment of marketing claims, evidence depth, and proportionality across 900+ brands.">
-<meta property="og:title" content="Brand Leaderboard — Sigñal Claim Quality Index">
-<meta property="og:description" content="Independent claim quality rankings for wellness, supplement, nutrition, recovery, sleep, and performance brands.">
-<meta property="og:image" content="https://bhvdsignal.com/og-image.png">
-<meta property="og:url" content="https://bhvdsignal.com/leaderboard">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="canonical" href="https://bhvdsignal.com/leaderboard">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#0a0c12; --bg2:#111420; --bg3:#181c2e; --bg4:#1f2438;
-  --b1:rgba(255,255,255,0.07); --b2:rgba(255,255,255,0.13);
-  --t1:#f2f2f2; --t2:#8b93b0; --t3:#4a5070;
-  --red:#9e3028; --yel:#c07718; --grn:#1e9459; --acc:#4a78f0;
-  --mono:'DM Mono',monospace;
-  --serif:'Instrument Serif',Georgia,serif;
-  --sans:'DM Sans',system-ui,sans-serif;
-}
+:root{--bg:#0a0c12;--bg2:#111420;--bg3:#181c2e;--bg4:#1f2438;--b1:rgba(255,255,255,0.07);--b2:rgba(255,255,255,0.13);--t1:#f2f2f2;--t2:#8b93b0;--t3:#4a5070;--acc:#4a78f0;--mono:'DM Mono',monospace;--serif:'Instrument Serif',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--t1);font-family:var(--sans);-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 
-/* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:56px;background:rgba(10,12,18,0.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--b1)}
-.nav-logo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--t1);display:flex;align-items:center;gap:9px;text-decoration:none}
-.nav-byline{font-size:9px;color:var(--t3);letter-spacing:.13em;font-weight:400;text-transform:uppercase;border-left:1px solid var(--b2);padding-left:8px;margin-left:1px}
+.nav-logo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--t1);display:flex;align-items:center;gap:9px}
+.nav-byline{font-size:9px;color:var(--t3);letter-spacing:.13em;font-weight:400;text-transform:uppercase;border-left:1px solid var(--b2);padding-left:8px}
 .nav-links{display:flex;gap:32px;list-style:none}
 .nav-links a{font-size:13px;color:var(--t2);transition:color .15s}
 .nav-links a:hover,.nav-links a.active{color:var(--t1)}
 .nav-links a.active{border-bottom:1px solid var(--acc);padding-bottom:2px}
-.nav-cta{display:flex;gap:10px}
 .btn{font-family:var(--sans);font-size:12px;font-weight:500;padding:7px 16px;border-radius:8px;cursor:pointer;border:1px solid var(--b2);background:transparent;color:var(--t2);transition:all .15s;display:inline-flex;align-items:center;text-decoration:none}
 .btn:hover{background:var(--bg3);color:var(--t1)}
 .btn-p{background:var(--acc);border-color:var(--acc);color:#fff}
 .btn-p:hover{background:#3d6ae0}
 @media(max-width:760px){.nav-links,.nav-cta{display:none}}
 
-/* ALPHA BAR */
-.alpha-bar{position:fixed;top:56px;left:0;right:0;z-index:99;background:rgba(26,143,255,0.05);border-bottom:1px solid rgba(26,143,255,0.10);padding:6px 48px;font-size:11px;color:#5a7aaa;line-height:1.45;letter-spacing:.01em}
+.alpha-bar{position:fixed;top:56px;left:0;right:0;z-index:99;background:rgba(26,143,255,0.05);border-bottom:1px solid rgba(26,143,255,0.10);padding:6px 48px;font-size:11px;color:#5a7aaa;letter-spacing:.01em}
 
-/* MAIN */
-main{padding-top:112px}
+main{padding-top:96px}
 
-/* HEADER */
-.lb-header{padding:32px 48px 20px;border-bottom:1px solid var(--b1)}
-.lb-title-row{display:flex;align-items:baseline;gap:16px;margin-bottom:6px}
-.lb-title{font-family:var(--serif);font-size:28px;font-weight:400;color:var(--t1)}
-.lb-subtitle{font-size:13px;color:var(--t2)}
-.lb-meta{font-size:11px;color:var(--t3);margin-top:4px;font-family:var(--mono);letter-spacing:.04em}
+.lb-header{padding:28px 48px 16px;border-bottom:1px solid var(--b1)}
+.lb-title{font-family:var(--serif);font-size:28px;font-weight:400;margin-bottom:4px}
+.lb-meta{font-size:11px;color:var(--t3);font-family:var(--mono);letter-spacing:.04em}
 
-/* STATS STRIP */
-.stats-strip{display:flex;gap:0;border-bottom:1px solid var(--b1)}
-.stat-item{flex:1;padding:16px 24px;border-right:1px solid var(--b1);text-align:center}
+.stats-strip{display:flex;border-bottom:1px solid var(--b1)}
+.stat-item{flex:1;padding:14px 24px;border-right:1px solid var(--b1);text-align:center}
 .stat-item:last-child{border-right:none}
-.stat-val{font-family:var(--mono);font-size:22px;font-weight:500;color:var(--t1);letter-spacing:-.02em}
+.stat-val{font-family:var(--mono);font-size:20px;font-weight:500;color:var(--t1)}
 .stat-lbl{font-size:10px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
 
-/* CONTROLS */
-.controls{display:flex;align-items:center;gap:12px;padding:16px 48px;border-bottom:1px solid var(--b1);background:var(--bg)}
-.cat-tabs{display:flex;gap:2px;flex:1;overflow-x:auto}
-.cat-tab{font-size:12px;color:var(--t2);padding:6px 14px;border-radius:6px;cursor:pointer;border:none;background:none;white-space:nowrap;font-family:var(--sans);transition:all .15s}
+.controls{display:flex;align-items:center;gap:12px;padding:14px 48px;border-bottom:1px solid var(--b1)}
+.cat-tabs{display:flex;gap:2px;flex:1;flex-wrap:wrap}
+.cat-tab{font-size:12px;color:var(--t2);padding:6px 14px;border-radius:6px;cursor:pointer;border:none;background:none;font-family:var(--sans);transition:all .15s}
 .cat-tab:hover{background:var(--bg3);color:var(--t1)}
 .cat-tab.active{background:var(--bg3);color:var(--t1);border:1px solid var(--b2)}
-.search-wrap{position:relative}
-.search-input{background:var(--bg3);border:1px solid var(--b1);border-radius:8px;padding:7px 12px 7px 32px;font-size:13px;color:var(--t1);font-family:var(--sans);outline:none;width:200px;transition:border-color .15s}
-.search-input:focus{border-color:var(--acc)}
-.search-input::placeholder{color:var(--t3)}
-.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:13px;pointer-events:none}
+.search-box{background:var(--bg3);border:1px solid var(--b1);border-radius:8px;padding:7px 12px;font-size:13px;color:var(--t1);font-family:var(--sans);outline:none;width:200px}
+.search-box:focus{border-color:var(--acc)}
+.search-box::placeholder{color:var(--t3)}
 
-/* TABLE */
 .table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;table-layout:fixed}
-thead th{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);padding:12px 16px;text-align:left;border-bottom:1px solid var(--b1);white-space:nowrap;position:sticky;top:112px;background:var(--bg);z-index:5}
-thead th:nth-child(1){width:52px;text-align:center}
-thead th:nth-child(2){width:220px}
-thead th:nth-child(3){width:140px}
-thead th:nth-child(4){width:80px;text-align:center}
-thead th:nth-child(5){width:80px;text-align:center}
-thead th:nth-child(6){width:80px;text-align:center}
-thead th:nth-child(7){width:90px;text-align:right}
+table{width:100%;border-collapse:collapse}
+thead th{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);padding:12px 16px;text-align:left;border-bottom:1px solid var(--b1);white-space:nowrap;background:var(--bg)}
+th.right{text-align:right}
+th.center{text-align:center}
 
-tbody tr.brand-row{cursor:pointer;transition:background .12s}
+tbody tr.brand-row{cursor:pointer;transition:background .12s;border-bottom:1px solid rgba(255,255,255,0.04)}
 tbody tr.brand-row:hover{background:var(--bg2)}
-tbody tr.brand-row td{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.04);vertical-align:middle}
+tbody tr.brand-row td{padding:13px 16px;vertical-align:middle}
+tbody tr.detail-row{display:none;background:var(--bg2);border-bottom:1px solid rgba(255,255,255,0.04)}
+tbody tr.detail-row.open{display:table-row}
+tbody tr.detail-row td{padding:10px 16px 14px 56px;font-size:12px;color:var(--t2);line-height:1.6;font-style:italic}
 
-tbody tr.insight-row{display:none;background:var(--bg2)}
-tbody tr.insight-row.open{display:table-row}
-tbody tr.insight-row td{padding:12px 16px 16px 68px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12px;color:var(--t2);line-height:1.6;font-style:italic}
-
-/* CELLS */
-.rank-cell{font-family:var(--mono);font-size:12px;color:var(--t3);text-align:center}
+.rank{font-family:var(--mono);font-size:12px;color:var(--t3);text-align:center}
 .sig-cell{display:flex;align-items:center;gap:10px}
-.sig-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.brand-name{font-size:14px;font-weight:500;color:var(--t1);display:block;line-height:1.2}
-.brand-domain{font-size:11px;color:var(--t3);font-family:var(--mono);letter-spacing:.03em;margin-top:2px;display:block}
+.dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.bname{font-size:14px;font-weight:500;color:var(--t1);display:block;line-height:1.2}
+.bdomain{font-size:11px;color:var(--t3);font-family:var(--mono);margin-top:2px;display:block}
+.badge{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.04em;padding:3px 7px;border-radius:4px;display:inline-block}
+.grn{background:rgba(30,148,89,0.15);color:#3ecf82}
+.yel{background:rgba(192,119,24,0.15);color:#e8a840}
+.red{background:rgba(158,48,40,0.15);color:#e05a50}
+.score-num{font-family:var(--mono);font-size:20px;font-weight:500;text-align:right}
 .cat-cell{font-size:12px;color:var(--t2)}
-.score-cell{font-family:var(--mono);font-size:20px;font-weight:500;text-align:center}
-.mini-cell{text-align:center}
-.mini-badge{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.04em;padding:3px 7px;border-radius:4px;display:inline-block}
-.mini-grn{background:rgba(30,148,89,0.15);color:#3ecf82}
-.mini-yel{background:rgba(192,119,24,0.15);color:#e8a840}
-.mini-red{background:rgba(158,48,40,0.15);color:#e05a50}
-.cmp-cell{text-align:right}
-.cmp-btn{font-family:var(--mono);font-size:11px;color:var(--t3);background:none;border:1px solid var(--b1);border-radius:6px;padding:5px 10px;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-block}
-.cmp-btn:hover{border-color:var(--acc);color:var(--acc)}
 
-/* LOAD MORE */
-.load-more-wrap{padding:28px;text-align:center}
+.load-more-wrap{padding:28px;text-align:center;display:none}
 .load-btn{background:var(--bg3);border:1px solid var(--b1);border-radius:8px;padding:10px 28px;font-size:13px;color:var(--t2);cursor:pointer;font-family:var(--sans);transition:all .15s}
 .load-btn:hover{background:var(--bg4);color:var(--t1)}
-.load-btn:disabled{opacity:.4;cursor:default}
 
-/* EMPTY / LOADING */
-.state-row td{text-align:center;padding:64px 24px;color:var(--t3);font-size:14px}
-.spinner{display:inline-block;width:18px;height:18px;border:2px solid var(--b2);border-top-color:var(--acc);border-radius:50%;animation:spin .6s linear infinite;margin-right:8px;vertical-align:middle}
+.msg-row td{text-align:center;padding:64px 24px;color:var(--t3);font-size:14px}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--b2);border-top-color:var(--acc);border-radius:50%;animation:spin .6s linear infinite;margin-right:8px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <a class="nav-logo" href="/">
-    SIGÑAL
-    <span class="nav-byline">Claim Quality Index</span>
-  </a>
+  <a class="nav-logo" href="/">SIGÑAL <span class="nav-byline">Claim Quality Index</span></a>
   <ul class="nav-links">
     <li><a href="/leaderboard" class="active">Leaderboard</a></li>
     <li><a href="/compare">Compare</a></li>
@@ -141,244 +95,190 @@ tbody tr.insight-row td{padding:12px 16px 16px 68px;border-bottom:1px solid rgba
     <li><a href="/pricing">Pricing</a></li>
   </ul>
   <div class="nav-cta">
-    <a class="btn" href="/brand-portal">For brands</a>
-    <a class="btn btn-p" href="/extension">Add Sigñal to Browser</a>
+    <a class="btn btn-p" href="/extension">Get Extension</a>
   </div>
 </nav>
 
-<!-- ALPHA BAR -->
-<div class="alpha-bar">
-  Alpha · Scores are algorithmically derived from public claims and available evidence. Independent verification. Updated weekly.
-</div>
+<div class="alpha-bar">Alpha · Algorithmically derived scores from public claims and available evidence. Updated weekly.</div>
 
 <main>
-  <!-- HEADER -->
   <div class="lb-header">
-    <div class="lb-title-row">
-      <h1 class="lb-title">Brand Leaderboard</h1>
-      <span class="lb-subtitle">Claim Quality Rankings</span>
-    </div>
-    <div class="lb-meta" id="lbMeta">Loading…</div>
+    <h1 class="lb-title">Brand Leaderboard</h1>
+    <div class="lb-meta" id="meta">Loading…</div>
   </div>
 
-  <!-- STATS -->
-  <div class="stats-strip" id="statsStrip">
+  <div class="stats-strip">
     <div class="stat-item"><div class="stat-val" id="sBrands">—</div><div class="stat-lbl">Brands Scored</div></div>
     <div class="stat-item"><div class="stat-val" id="sAvg">—</div><div class="stat-lbl">Avg Score</div></div>
-    <div class="stat-item"><div class="stat-val" id="sAligned">—</div><div class="stat-lbl">Evidence Aligned</div></div>
     <div class="stat-item"><div class="stat-val" id="sGrn">—</div><div class="stat-lbl">Strong Signal</div></div>
     <div class="stat-item"><div class="stat-val" id="sYel">—</div><div class="stat-lbl">Partial Signal</div></div>
     <div class="stat-item"><div class="stat-val" id="sRed">—</div><div class="stat-lbl">Weak Signal</div></div>
   </div>
 
-  <!-- CONTROLS -->
   <div class="controls">
     <div class="cat-tabs" id="catTabs"></div>
-    <div class="search-wrap">
-      <span class="search-icon">⌕</span>
-      <input class="search-input" id="searchInput" placeholder="Search brands…" oninput="onSearch(this.value)">
-    </div>
+    <input class="search-box" id="searchBox" placeholder="Search brands…" type="search">
   </div>
 
-  <!-- TABLE -->
   <div class="table-wrap">
-    <table id="lbTable">
+    <table>
       <thead>
         <tr>
-          <th>#</th>
-          <th>Brand</th>
-          <th>Category</th>
-          <th>Signal</th>
-          <th>Claims</th>
-          <th>Distortion</th>
-          <th>Score</th>
+          <th style="width:48px;text-align:center">#</th>
+          <th style="width:220px">Brand</th>
+          <th style="width:130px">Category</th>
+          <th style="width:90px" class="center">Signal</th>
+          <th style="width:110px" class="center">Claims</th>
+          <th style="width:90px" class="right">Score</th>
         </tr>
       </thead>
-      <tbody id="lbBody">
-        <tr class="state-row"><td colspan="7"><span class="spinner"></span>Loading…</td></tr>
+      <tbody id="tbody">
+        <tr class="msg-row"><td colspan="6"><span class="spinner"></span>Loading brands…</td></tr>
       </tbody>
     </table>
   </div>
 
-  <div class="load-more-wrap" id="loadMoreWrap" style="display:none">
-    <button class="load-btn" id="loadMoreBtn" onclick="loadData(false)">Load more</button>
+  <div class="load-more-wrap" id="loadMoreWrap">
+    <button class="load-btn" id="loadMoreBtn">Load more</button>
   </div>
 </main>
 
 <script>
-const API = 'https://bhvd-signal-api.fly.dev';
-const SIG_COLOR = {green:'#1e9459', yellow:'#c07718', red:'#9e3028'};
+var API = 'https://bhvd-signal-api.fly.dev';
+var cat = 'all', search = '', offset = 0, limit = 50, done = false, busy = false;
+var stats = {n:0, sum:0, g:0, y:0, r:0};
 
-/* ─── State ─── */
-var currentCat='all', currentSearch='', offset=0, limit=50, allDone=false, loading=false;
-
-var CATEGORIES = [
-  {key:'all',label:'All'},
-  {key:'recovery',label:'Recovery'},
-  {key:'sleep',label:'Sleep'},
-  {key:'supplements',label:'Supplements'},
-  {key:'nutrition',label:'Nutrition'},
-  {key:'performance',label:'Performance'},
-  {key:'wearables',label:'Wearables'},
-  {key:'wellness',label:'Wellness'},
+var CATS = [
+  ['all','All'],['supplements','Supplements'],['nutrition','Nutrition'],
+  ['recovery','Recovery'],['sleep','Sleep'],['performance','Performance'],
+  ['wearables','Wearables'],['wellness','Wellness']
 ];
 
-/* ─── Mini breakdown ─── */
-function getMini(sig, risk, score){
-  var ev, cl, dist;
-  if(sig==='green') ev={label:'Strong',cls:'mini-grn'};
-  else if(sig==='yellow') ev={label:'Partial',cls:'mini-yel'};
-  else ev={label:'Weak',cls:'mini-red'};
+function sigColor(s){ return s==='green'?'#1e9459':s==='yellow'?'#c07718':'#9e3028'; }
+function sigText(s){ return s==='green'?'#3ecf82':s==='yellow'?'#e8a840':'#e05a50'; }
+function sigCls(s){ return s==='green'?'grn':s==='yellow'?'yel':'red'; }
+function sigLabel(s){ return s==='green'?'Strong':s==='yellow'?'Partial':'Weak'; }
+function riskLabel(r){ return r<30?['Conservative','grn']:r<60?['Moderate','yel']:['Aggressive','red']; }
 
-  if(risk<30) cl={label:'Conservative',cls:'mini-grn'};
-  else if(risk<60) cl={label:'Moderate',cls:'mini-yel'};
-  else cl={label:'Aggressive',cls:'mini-red'};
-
-  if(score>=70) dist={label:'Low',cls:'mini-grn'};
-  else if(score>=45) dist={label:'Medium',cls:'mini-yel'};
-  else dist={label:'High',cls:'mini-red'};
-
-  return {ev,cl,dist};
-}
-
-/* ─── Render ─── */
-function renderRow(b, idx){
-  var sig = (b.signal_color||'red').toLowerCase();
-  var dotColor = SIG_COLOR[sig] || SIG_COLOR.red;
-  var score = Math.round(b.leaderboard_data&&b.leaderboard_data.total_score!=null ? b.leaderboard_data.total_score : (100-(b.claim_support_risk||50)));
+function row(b, i) {
+  var s = (b.signal_color || 'red').toLowerCase();
+  var score = b.leaderboard_data && b.leaderboard_data.total_score != null
+    ? Math.round(b.leaderboard_data.total_score)
+    : Math.round(100 - (b.claim_support_risk || 50));
   var risk = b.claim_support_risk != null ? b.claim_support_risk : 50;
-  var mini = getMini(sig, risk, score);
-  var scoreColor = sig==='green' ? '#3ecf82' : sig==='yellow' ? '#e8a840' : '#e05a50';
-  var verdict = b.verdict || '';
-  var domain = b.domain || '';
-  var cat = b.category || '—';
-  var rank = b.rank_number || (idx+1);
-
-  var brandId = 'b-'+rank;
-  var insightId = 'i-'+rank;
-
-  return '<tr class="brand-row" id="'+brandId+'" onclick="toggleInsight(\''+insightId+'\',\''+brandId+'\')" data-domain="'+domain+'">'
-    +'<td class="rank-cell">'+rank+'</td>'
-    +'<td><div class="sig-cell"><span class="sig-dot" style="background:'+dotColor+'"></span>'
-    +'<div><a class="brand-name" href="/brand?d='+domain+'" onclick="event.stopPropagation()">'+b.brand_name+'</a>'
-    +'<span class="brand-domain">'+domain+'</span></div></div></td>'
-    +'<td class="cat-cell">'+cat+'</td>'
-    +'<td class="mini-cell"><span class="mini-badge '+mini.ev.cls+'">'+mini.ev.label+'</span></td>'
-    +'<td class="mini-cell"><span class="mini-badge '+mini.cl.cls+'">'+mini.cl.label+'</span></td>'
-    +'<td class="mini-cell"><span class="mini-badge '+mini.dist.cls+'">'+mini.dist.label+'</span></td>'
-    +'<td class="score-cell" style="color:'+scoreColor+'">'+score+'</td>'
-    +'</tr>'
-    +'<tr class="insight-row" id="'+insightId+'">'
-    +'<td colspan="7">'+(verdict||'No verdict available.')
-    +' <a class="cmp-btn" href="/compare?a='+domain+'" onclick="event.stopPropagation()" style="margin-left:12px">Compare →</a>'
-    +'</td></tr>';
+  var rl = riskLabel(risk);
+  var rank = b.rank_number || (offset + i + 1);
+  var id = 'd' + rank;
+  var verdict = (b.leaderboard_data && b.leaderboard_data.bhvd_verdict) || b.verdict || '';
+  return '<tr class="brand-row" onclick="tog(\'' + id + '\')">'
+    + '<td class="rank">' + rank + '</td>'
+    + '<td><div class="sig-cell">'
+    +   '<span class="dot" style="background:' + sigColor(s) + '"></span>'
+    +   '<div>'
+    +     '<a class="bname" href="/brand?d=' + (b.domain||'') + '" onclick="event.stopPropagation()">' + (b.brand_name||'—') + '</a>'
+    +     '<span class="bdomain">' + (b.domain||'') + '</span>'
+    +   '</div>'
+    + '</div></td>'
+    + '<td class="cat-cell">' + (b.category||'—') + '</td>'
+    + '<td style="text-align:center"><span class="badge ' + sigCls(s) + '">' + sigLabel(s) + '</span></td>'
+    + '<td style="text-align:center"><span class="badge ' + rl[1] + '">' + rl[0] + '</span></td>'
+    + '<td class="score-num" style="color:' + sigText(s) + '">' + score + '</td>'
+    + '</tr>'
+    + '<tr class="detail-row" id="' + id + '">'
+    + '<td colspan="6">' + (verdict || 'No verdict available.')
+    + ' <a href="/compare?a=' + (b.domain||'') + '" onclick="event.stopPropagation()" style="margin-left:10px;font-family:var(--mono);font-size:11px;color:var(--t3);border:1px solid var(--b1);border-radius:5px;padding:3px 8px">Compare →</a>'
+    + '</td></tr>';
 }
 
-function toggleInsight(iid, bid){
-  var row = document.getElementById(iid);
-  if(!row) return;
-  if(row.classList.contains('open')){
-    row.classList.remove('open');
-  } else {
-    document.querySelectorAll('.insight-row.open').forEach(function(r){r.classList.remove('open')});
-    row.classList.add('open');
-  }
+function tog(id) {
+  var r = document.getElementById(id);
+  if (!r) return;
+  document.querySelectorAll('.detail-row.open').forEach(function(x){ if(x!==r) x.classList.remove('open'); });
+  r.classList.toggle('open');
 }
 
-/* ─── Load ─── */
-function loadData(reset){
-  if(loading) return;
-  if(reset){offset=0;allDone=false;document.getElementById('lbBody').innerHTML='<tr class="state-row"><td colspan="7"><span class="spinner"></span>Loading…</td></tr>';}
-  if(allDone) return;
-  loading=true;
-  document.getElementById('loadMoreBtn').disabled=true;
+function load(reset) {
+  if (busy) return;
+  if (done && !reset) return;
+  if (reset) { offset = 0; done = false; stats = {n:0,sum:0,g:0,y:0,r:0}; }
+  busy = true;
+  document.getElementById('loadMoreBtn').disabled = true;
 
-  var url = API+'/api/leaderboard/'+(currentCat==='all'?'all':currentCat)+'?limit='+limit+'&offset='+offset;
-  if(currentSearch) url+='&search='+encodeURIComponent(currentSearch);
+  var url = API + '/api/leaderboard/' + cat + '?limit=' + limit + '&offset=' + offset;
+  if (search) url += '&search=' + encodeURIComponent(search);
+  if (reset) document.getElementById('tbody').innerHTML = '<tr class="msg-row"><td colspan="6"><span class="spinner"></span>Loading…</td></tr>';
 
   fetch(url)
-    .then(function(r){return r.json()})
-    .then(function(data){
-      loading=false;
-      var brands = data&&data.data&&Array.isArray(data.data.entries)?data.data.entries:(Array.isArray(data)?data:[]);
-      if(brands.length===0&&offset===0){
-        document.getElementById('lbBody').innerHTML='<tr class="state-row"><td colspan="7">No brands found.</td></tr>';
-        document.getElementById('loadMoreWrap').style.display='none';
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      busy = false;
+      var entries = data && data.data && Array.isArray(data.data.entries) ? data.data.entries : [];
+      if (entries.length === 0 && offset === 0) {
+        document.getElementById('tbody').innerHTML = '<tr class="msg-row"><td colspan="6">No brands found.</td></tr>';
+        document.getElementById('loadMoreWrap').style.display = 'none';
         return;
       }
-      if(reset) document.getElementById('lbBody').innerHTML='';
-      var html='';
-      brands.forEach(function(b,i){html+=renderRow(b, offset+i)});
-      document.getElementById('lbBody').insertAdjacentHTML('beforeend',html);
-      offset+=brands.length;
-      if(brands.length<limit){
-        allDone=true;
-        document.getElementById('loadMoreWrap').style.display='none';
+      var html = '';
+      entries.forEach(function(b, i) { html += row(b, i); });
+      if (reset) {
+        document.getElementById('tbody').innerHTML = html;
       } else {
-        document.getElementById('loadMoreWrap').style.display='block';
-        document.getElementById('loadMoreBtn').disabled=false;
+        document.getElementById('tbody').insertAdjacentHTML('beforeend', html);
       }
-      updateStats(brands, reset);
-      updateMeta(brands);
+      entries.forEach(function(b) {
+        var sc = b.leaderboard_data && b.leaderboard_data.total_score != null ? b.leaderboard_data.total_score : (100 - (b.claim_support_risk || 50));
+        var s = (b.signal_color || 'red').toLowerCase();
+        stats.n++; stats.sum += sc;
+        if (s === 'green') stats.g++; else if (s === 'yellow') stats.y++; else stats.r++;
+      });
+      document.getElementById('sBrands').textContent = stats.n;
+      document.getElementById('sAvg').textContent = stats.n ? Math.round(stats.sum / stats.n) : 0;
+      document.getElementById('sGrn').textContent = stats.g;
+      document.getElementById('sYel').textContent = stats.y;
+      document.getElementById('sRed').textContent = stats.r;
+      document.getElementById('meta').textContent = stats.n + ' brands · Updated ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+      offset += entries.length;
+      if (entries.length < limit) {
+        done = true;
+        document.getElementById('loadMoreWrap').style.display = 'none';
+      } else {
+        document.getElementById('loadMoreWrap').style.display = 'block';
+        document.getElementById('loadMoreBtn').disabled = false;
+      }
     })
-    .catch(function(){
-      loading=false;
-      document.getElementById('lbBody').innerHTML='<tr class="state-row"><td colspan="7">Error loading data. Please try again.</td></tr>';
+    .catch(function(err) {
+      busy = false;
+      document.getElementById('tbody').innerHTML = '<tr class="msg-row"><td colspan="6">Failed to load. Please refresh.</td></tr>';
     });
 }
 
-/* ─── Stats ─── */
-var _statsAcc = {total:0,sum:0,aligned:0,grn:0,yel:0,red:0};
-function updateStats(brands, reset){
-  if(reset) _statsAcc={total:0,sum:0,aligned:0,grn:0,yel:0,red:0};
-  brands.forEach(function(b){
-    var score = b.leaderboard_data&&b.leaderboard_data.total_score!=null?b.leaderboard_data.total_score:(100-(b.claim_support_risk||50));
-    var sig = (b.signal_color||'red').toLowerCase();
-    _statsAcc.total++;
-    _statsAcc.sum+=score;
-    if(sig==='green'){_statsAcc.grn++;_statsAcc.aligned++;}
-    else if(sig==='yellow'){_statsAcc.yel++;_statsAcc.aligned++;}
-    else _statsAcc.red++;
-  });
-  document.getElementById('sBrands').textContent=_statsAcc.total;
-  document.getElementById('sAvg').textContent=_statsAcc.total?Math.round(_statsAcc.sum/_statsAcc.total):0;
-  document.getElementById('sAligned').textContent=_statsAcc.aligned;
-  document.getElementById('sGrn').textContent=_statsAcc.grn;
-  document.getElementById('sYel').textContent=_statsAcc.yel;
-  document.getElementById('sRed').textContent=_statsAcc.red;
-}
-function updateMeta(brands){
-  var d=new Date();
-  document.getElementById('lbMeta').textContent='Updated '+d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+' · Claim quality scoring across wellness, supplement, nutrition, and performance brands';
-}
-
-/* ─── Cats ─── */
-function buildCatTabs(){
-  var tabs=document.getElementById('catTabs');
-  tabs.innerHTML='';
-  CATEGORIES.forEach(function(c){
-    var b=document.createElement('button');
-    b.className='cat-tab'+(c.key===currentCat?' active':'');
-    b.textContent=c.label;
-    b.onclick=function(){currentCat=c.key;document.querySelectorAll('.cat-tab').forEach(function(t){t.classList.remove('active')});b.classList.add('active');loadData(true)};
+function buildCats() {
+  var tabs = document.getElementById('catTabs');
+  CATS.forEach(function(c) {
+    var b = document.createElement('button');
+    b.className = 'cat-tab' + (c[0] === cat ? ' active' : '');
+    b.textContent = c[1];
+    b.addEventListener('click', function() {
+      cat = c[0];
+      document.querySelectorAll('.cat-tab').forEach(function(t){ t.classList.remove('active'); });
+      b.classList.add('active');
+      load(true);
+    });
     tabs.appendChild(b);
   });
 }
 
-/* ─── Search ─── */
-var _searchTimer;
-function onSearch(val){
-  clearTimeout(_searchTimer);
-  currentSearch=val.trim();
-  _searchTimer=setTimeout(function(){loadData(true)},320);
-}
+var searchTimer;
+document.getElementById('searchBox').addEventListener('input', function() {
+  clearTimeout(searchTimer);
+  search = this.value.trim();
+  searchTimer = setTimeout(function(){ load(true); }, 350);
+});
 
-/* ─── Init ─── */
-function init(){
-  buildCatTabs();
-  loadData(true);
-}
-init();
+document.getElementById('loadMoreBtn').addEventListener('click', function(){ load(false); });
+
+buildCats();
+load(true);
 </script>
 </body>
 </html>

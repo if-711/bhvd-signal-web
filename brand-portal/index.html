@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brand Portal · Sigñal by BHVD</title>
-<meta name="description" content="View your Sigñal score, understand your dimension breakdown, and submit supporting evidence for editorial review.">
+<title>Brand Portal · NORM by BHVD</title>
+<meta name="description" content="View your NORM score, understand your dimension breakdown, and submit supporting evidence for editorial review.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
@@ -115,8 +115,14 @@ textarea.form-input{resize:vertical;min-height:90px}
 
 <nav>
   <a href="/" class="nav-logo">
-    <svg width="24" height="11" viewBox="0 0 24 11" fill="none" aria-hidden="true"><path d="M1 8C3.2 3.5 5.8 3.5 7.8 8C9.8 12.5 12.4 12.5 14.4 8C16.4 3.5 19 3.5 23 5.5" stroke="#4a78f0" stroke-width="1.7" stroke-linecap="round"/></svg>
-    Sigñal<span class="nav-byline">by BHVD</span>
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+    <circle cx="11" cy="8.5" r="5.5" stroke="#4a78f0" stroke-width="1.5"/>
+    <circle cx="9.2" cy="7.8" r="1" fill="#4a78f0"/>
+    <circle cx="12.8" cy="7.8" r="1" fill="#4a78f0"/>
+    <path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+  NORM<span class="nav-byline">by BHVD</span>
   </a>
   <ul class="nav-links">
     <li><a href="/leaderboard">Leaderboard</a></li>
@@ -129,22 +135,20 @@ textarea.form-input{resize:vertical;min-height:90px}
     <a href="/brand-portal" class="nav-btn" style="color:var(--t1);border-color:rgba(255,255,255,.25)">For brands</a>
     <a href="/extension" class="nav-btn nav-btn-p">
       <svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
-      Add Sigñal to Browser
+      Add NORM to Browser
     </a>
   </div>
 </nav>
 
-<div class="alpha-bar">
-  Sigñal is in early beta. Scores reflect reviewed public marketing claims and visible evidence references — not product efficacy, safety, or regulatory status.
-</div>
+
 
 <div class="page">
 
   <!-- LOOKUP -->
   <div class="lookup-section">
     <div class="tag">Brand Portal</div>
-    <h1>Look up your<br>Sigñal score.</h1>
-    <p class="sub">Enter your brand's domain to see how Sigñal has scored your public marketing claims, and to submit evidence for editorial review.</p>
+    <h1>Look up your<br>NORM score.</h1>
+    <p class="sub">Enter your brand's domain to see how NORM has scored your public marketing claims, and to submit evidence for editorial review.</p>
 
     <div class="lookup-row">
       <input class="lookup-input" type="text" id="domain-input" placeholder="yoursite.com" autocomplete="off" />
@@ -176,7 +180,7 @@ textarea.form-input{resize:vertical;min-height:90px}
   <div class="not-found" id="not-found">
     <div class="nf-icon">◎</div>
     <div class="nf-title">Not yet reviewed</div>
-    <div class="nf-sub" id="nf-sub">Sigñal hasn't scored this brand yet. You can still submit evidence to get it into the review queue.</div>
+    <div class="nf-sub" id="nf-sub">NORM hasn't scored this brand yet. You can still submit evidence to get it into the review queue.</div>
     <a class="nf-btn" id="nf-request-btn" href="#">Request assessment</a>
   </div>
 
@@ -224,7 +228,7 @@ textarea.form-input{resize:vertical;min-height:90px}
     </div>
 
     <div class="integrity-note">
-      <strong>How scoring works:</strong> Sigñal scores the evidence visible to a consumer at the moment of purchase — on your product page, where they make buying decisions. A well-funded study submitted privately cannot improve your score. Making that evidence clearly visible on your consumer-facing pages can.
+      <strong>How scoring works:</strong> NORM scores the evidence visible to a consumer at the moment of purchase — on your product page, where they make buying decisions. A well-funded study submitted privately cannot improve your score. Making that evidence clearly visible on your consumer-facing pages can.
       <a href="/methodology" style="color:var(--acc2);margin-left:4px">Read the full methodology →</a>
     </div>
   </div>
@@ -267,13 +271,25 @@ function lookupDomain() {
 
   hideAll();
 
-  fetch(API + "/api/lookup?url=https://" + encodeURIComponent(currentDomain))
+  // Try the public leaderboard first so the score matches what users see publicly.
+  // Fall back to /api/lookup only for brands not yet on the leaderboard.
+  fetch(API + "/api/leaderboard/all?limit=500&offset=0")
     .then(function(r){ return r.json(); })
-    .then(function(data){
-      if (data && (data.status === "found" || data.data)) {
-        showScoreCard(data);
+    .then(function(lbData){
+      var entries = lbData && lbData.data && Array.isArray(lbData.data.entries) ? lbData.data.entries : [];
+      var match = entries.find(function(e){ return e.domain === currentDomain; });
+      if (match) {
+        showScoreCard({ data: match });
       } else {
-        showNotFound(currentDomain);
+        return fetch(API + "/api/lookup?url=https://" + encodeURIComponent(currentDomain))
+          .then(function(r){ return r.json(); })
+          .then(function(data){
+            if (data && (data.status === "found" || data.data)) {
+              showScoreCard(data);
+            } else {
+              showNotFound(currentDomain);
+            }
+          });
       }
     })
     .catch(function(){ showNotFound(currentDomain); });
@@ -290,7 +306,7 @@ function showScoreCard(data) {
   var ld  = r.leaderboard_data || {};
   var sig = r.signal_color || "yellow";
   var color = SIG_COLORS[sig] || "#f39c12";
-  var score = ld.total_score || (100 - (r.claim_support_risk || 50));
+  var score = ld.total_score != null ? ld.total_score : Math.round(100 - (r.claim_support_risk || 50));
   var verdict = ld.bhvd_verdict || "—";
 
   var scoreEl = document.getElementById("sc-score-val");

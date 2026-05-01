@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Content Engine — Sigñal Admin</title>
+<title>Content Engine — NORM Admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
@@ -180,7 +180,7 @@ textarea.field-input{resize:vertical;min-height:120px;line-height:1.5;font-size:
 <!-- Gate -->
 <div id="gate">
   <div class="gate-box">
-    <div class="gate-title">SIGÑAL ADMIN</div>
+    <div class="gate-title">NORM ADMIN</div>
     <div class="gate-sub">Content Engine — restricted access</div>
     <input class="gate-input" id="gateKey" type="password" placeholder="Admin key" autocomplete="off">
     <button class="gate-btn" onclick="checkGate()">Enter</button>
@@ -191,7 +191,7 @@ textarea.field-input{resize:vertical;min-height:120px;line-height:1.5;font-size:
 <!-- Nav -->
 <nav>
   <div class="nav-left">
-    <span class="nav-logo">SIGÑAL</span>
+    <span class="nav-logo">NORM</span>
     <span class="nav-sep">·</span>
     <span class="nav-page">Content Engine</span>
     <span class="nav-badge">ADMIN</span>
@@ -611,7 +611,7 @@ function renderReport(d){
     verdictText(d, sigVerb),
     '',
     '── METHODOLOGY NOTE ──',
-    'This analysis evaluates how well ' + d.brand + '\'s public marketing claims are supported, framed, and communicated — not whether the product works or whether any claim is medically true. Signal scores are editorial-only and are never influenced by payment. Full methodology: bhvdsignal.com/methodology',
+    'This analysis evaluates how well ' + d.brand + '\'s public marketing claims are supported, framed, and communicated — not whether the product works or whether any claim is medically true. NORM scores are editorial-only and are never influenced by payment. Full methodology: trynorm.co/methodology',
     '',
     '── SIGNAL SCORE: ' + d.score + '/100 · ' + sigLabel.toUpperCase() + ' ──',
   ].filter(function(l){ return l!==null; }).join('\n');
@@ -689,7 +689,7 @@ function buildXThread(d){
   }
 
   // T3: Evidence check
-  tweets.push('The evidence check:\n\nDoes visible evidence support what\'s claimed?\n\nSignal score: ' + score + '/100 — ' + sigMeaning + '.\n\nThis is what the gap looks like.');
+  tweets.push('The evidence check:\n\nDoes visible evidence support what\'s claimed?\n\nNORM score: ' + score + '/100 — ' + sigMeaning + '.\n\nThis is what the gap looks like.');
 
   // T4: Specific claim if available
   if(claims.length >= 1){
@@ -714,7 +714,7 @@ function buildXThread(d){
   tweets.push(signalExplain);
 
   // T7: Disclaimer + CTA
-  tweets.push('This analysis evaluates claim transparency, not product efficacy.\n\nSignal doesn\'t tell you whether ' + brand + ' works. It tells you whether they showed their proof.\n\n' + (domain ? 'Full report → bhvdsignal.com/brand/' + domain : 'Full analysis → bhvdsignal.com/leaderboard') + '\n@bhvdsignal');
+  tweets.push('This analysis evaluates claim transparency, not product efficacy.\n\nSignal doesn\'t tell you whether ' + brand + ' works. It tells you whether they showed their proof.\n\n' + (domain ? 'Full report → trynorm.co/brand/' + domain : 'Full analysis → trynorm.co/leaderboard') + '\n@trynorm');
 
   return tweets;
 }
@@ -782,7 +782,7 @@ function buildIGSlides(d){
   slides.push({ text: 'WHAT THIS MEANS FOR YOU\n\n' + action, note:'Action slide' });
 
   // CTA
-  slides.push({ text: 'Full brand signal report at\n\nbhvdsignal.com\n\nFollow for daily brand scores.\n\n@bhvdsignal', note:'CTA slide' });
+  slides.push({ text: 'Full brand signal report at\n\ntrynorm.co\n\nFollow for daily brand scores.\n\n@trynorm', note:'CTA slide' });
 
   return slides;
 }
@@ -802,8 +802,8 @@ function buildIGCaption(d){
         yellow: 'What we found: some claims are backed by visible evidence. Others are not clearly connected. The gap exists.',
         red: 'What we found: public claims extend beyond the evidence that is clearly visible and linked. The gap between what\'s claimed and what\'s shown is material.'
       }[sig]
-    + '\n\nThis analysis evaluates claim transparency — not whether the product works.\n\nFull report: bhvdsignal.com' + (d.domain ? '/brand/' + d.domain : '') + '\n\n'
-    + '#wellness #consumertransparency #bhvdsignal #' + brand.toLowerCase().replace(/\s+/g,'') + ' #' + d.cat.replace(/_/g,'');
+    + '\n\nThis analysis evaluates claim transparency — not whether the product works.\n\nFull report: trynorm.co' + (d.domain ? '/brand/' + d.domain : '') + '\n\n'
+    + '#wellness #consumertransparency #trynorm #' + brand.toLowerCase().replace(/\s+/g,'') + ' #' + d.cat.replace(/_/g,'');
 }
 
 /* ── YouTube / TikTok Script ── */
@@ -829,7 +829,7 @@ function buildYTHook(d){
 
   var hooks = [
     brand + ' makes bold claims. But do the receipts exist? We ran it through our framework.',
-    'Signal score: ' + score + '/100. Here\'s everything I found when I scored ' + brand + '.',
+    'NORM score: ' + score + '/100. Here\'s everything I found when I scored ' + brand + '.',
     'Before you spend money on ' + brand + ', here\'s what their claims actually show.',
     'I scored ' + brand + '\'s marketing claims so you don\'t have to.'
   ];
@@ -869,7 +869,7 @@ function buildYTScript(d){
   return '[0–3s — HOOK]\n'
     + 'I scored ' + brand + '\'s marketing claims against their visible evidence. Here\'s exactly what I found.\n\n'
     + '[3–10s — SETUP]\n'
-    + brand + ' is a ' + cat + ' brand. They make public claims about their product — and I ran those claims through the BHVD Signal framework, which measures how well a brand\'s visible evidence supports what they say.\n\n'
+    + brand + ' is a ' + cat + ' brand. They make public claims about their product — and I ran those claims through the NORM framework, which measures how well a brand\'s visible evidence supports what they say.\n\n'
     + '[10–45s — CLAIM WALKTHROUGH]\n'
     + 'Let\'s look at the actual claims:\n\n'
     + claimsSection + '\n\n'
@@ -878,7 +878,7 @@ function buildYTScript(d){
     + '[55–60s — DISCLAIMER]\n'
     + 'Quick note: Signal does not tell you whether ' + brand + '\'s product works. It tells you whether they showed their proof — based on what\'s publicly visible. Whether to buy is still your call.\n\n'
     + '[60s — CTA]\n'
-    + 'Full report is linked below. bhvdsignal.com. Follow for daily brand scores.';
+    + 'Full report is linked below. trynorm.co. Follow for daily brand scores.';
 }
 
 /* ── LinkedIn ── */
@@ -921,9 +921,9 @@ function buildLI(d){
     + sigNum + ' ' + brand + ' — Signal Score: ' + score + '/100 (' + sigLabel + ')\nCategory: ' + cap(cat) + '\n\n'
     + (findings ? 'Claims reviewed:\n' + findings + '\n\n' : '')
     + 'Assessment:\n' + analysis + '\n\n'
-    + 'This is not a product review. Signal scores measure one thing: the observable gap between what a brand publicly claims and what evidence they\'ve made visible.\n\n'
-    + 'Methodology published at bhvdsignal.com/methodology.\n'
-    + 'Full ' + brand + ' report: bhvdsignal.com' + (d.domain ? '/brand/' + d.domain : '') + '\n\n'
+    + 'This is not a product review. NORM scores measure one thing: the observable gap between what a brand publicly claims and what evidence they\'ve made visible.\n\n'
+    + 'Methodology published at trynorm.co/methodology.\n'
+    + 'Full ' + brand + ' report: trynorm.co' + (d.domain ? '/brand/' + d.domain : '') + '\n\n'
     + '#wellness #consumertransparency #marketing #evidencebased #' + brand.toLowerCase().replace(/\s+/g,'');
 }
 

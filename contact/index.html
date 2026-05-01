@@ -84,7 +84,7 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
 <nav>
   <a href="/" class="nav-logo">
     <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#4f7cff" stroke-width="1.5" fill="none"/></svg>
-    BHVD SIGNAL
+    NORM
   </a>
   <div class="nav-back" onclick="window.location.href='/'">← Back to home</div>
   <div style="display:flex;gap:10px">
@@ -196,7 +196,7 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
 <footer>
   <div class="footer-logo">
     <svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#4a5070" stroke-width="1.5" fill="none"/></svg>
-    BHVD SIGNAL
+    NORM
   </div>
   <div class="footer-disc">NORM scores whether brands show visible evidence for their claims — not whether products work. Payment never influences a score.</div>
 </footer>
@@ -292,7 +292,7 @@ function submitForm() {
   if(sessionStorage.getItem('bhvd_ok')==='1') return;
   var gate=document.createElement('div');
   gate.style.cssText='position:fixed;inset:0;z-index:9999;background:#0a0c12;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:system-ui,sans-serif';
-  gate.innerHTML='<div style="font-family:monospace;font-size:12px;font-weight:500;letter-spacing:.14em;color:#f2f2f2;margin-bottom:36px">🛡 BHVD SIGNAL</div><div style="background:#111420;border:1px solid rgba(255,255,255,0.13);border-radius:14px;padding:40px;width:100%;max-width:380px;text-align:center"><h2 style="font-size:24px;font-weight:400;color:#f2f2f2;margin-bottom:8px">Early access</h2><p style="font-size:13px;color:#8b93b0;margin-bottom:24px">Enter your access code to continue</p><input id="pi" type="password" placeholder="Access code" style="width:100%;padding:12px;background:#1f2438;border:1px solid rgba(255,255,255,0.13);border-radius:8px;color:#f2f2f2;font-size:14px;text-align:center;outline:none;margin-bottom:12px;font-family:monospace;letter-spacing:.1em;box-sizing:border-box"><button onclick="pa()" style="width:100%;padding:12px;background:#4f7cff;border:none;border-radius:8px;color:#fff;font-size:14px;font-weight:500;cursor:pointer">Continue →</button><div id="pe" style="font-size:12px;color:#e74c3c;margin-top:10px;min-height:18px"></div></div>';
+  gate.innerHTML='<div style="font-family:monospace;font-size:12px;font-weight:500;letter-spacing:.14em;color:#f2f2f2;margin-bottom:36px">🛡 NORM</div><div style="background:#111420;border:1px solid rgba(255,255,255,0.13);border-radius:14px;padding:40px;width:100%;max-width:380px;text-align:center"><h2 style="font-size:24px;font-weight:400;color:#f2f2f2;margin-bottom:8px">Early access</h2><p style="font-size:13px;color:#8b93b0;margin-bottom:24px">Enter your access code to continue</p><input id="pi" type="password" placeholder="Access code" style="width:100%;padding:12px;background:#1f2438;border:1px solid rgba(255,255,255,0.13);border-radius:8px;color:#f2f2f2;font-size:14px;text-align:center;outline:none;margin-bottom:12px;font-family:monospace;letter-spacing:.1em;box-sizing:border-box"><button onclick="pa()" style="width:100%;padding:12px;background:#4f7cff;border:none;border-radius:8px;color:#fff;font-size:14px;font-weight:500;cursor:pointer">Continue →</button><div id="pe" style="font-size:12px;color:#e74c3c;margin-top:10px;min-height:18px"></div></div>';
   document.body.appendChild(gate);
   document.body.style.overflow='hidden';
   document.getElementById('pi').focus();

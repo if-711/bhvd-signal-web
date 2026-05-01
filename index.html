@@ -1410,8 +1410,9 @@ document.querySelectorAll('.step,.sig-card,.plan,.int-item,.faq-item,.km-stat,.v
         reviewedEl.innerHTML = '<div class="brand-rows-empty">No reviewed brands yet.</div>';
       } else {
         reviewedEl.innerHTML = reviewed.slice(0, 6).map(function(b) {
-          var dotClass = "brand-row-dot " + (b.signal_color || "pending");
-          var color = SIGNAL_COLORS[b.signal_color] || "#8b93b0";
+          var derivedSig = b.total_score != null ? (b.total_score >= 70 ? 'green' : b.total_score >= 45 ? 'yellow' : 'red') : (b.signal_color || 'pending');
+          var dotClass = "brand-row-dot " + derivedSig;
+          var color = SIGNAL_COLORS[derivedSig] || "#8b93b0";
           var scoreText = b.total_score != null ? '<div class="brand-row-score" style="color:' + color + '">' + b.total_score + '<span style="font-size:9px;color:var(--t3)">/100</span></div>' : '';
           var verdictText = b.verdict ? '<div class="brand-row-meta">' + esc(VERDICT_SHORT[b.verdict] || b.verdict) + '</div>' : '';
           var whenText = b.reviewed_at ? '<div class="brand-row-meta">' + timeAgo(b.reviewed_at) + '</div>' : '';

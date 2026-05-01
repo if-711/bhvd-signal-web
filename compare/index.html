@@ -249,12 +249,12 @@ function addSlotEl(container, domain, beforeEl){
   wrap.className = 'slot'; wrap.id = 'slot-' + idx;
 
   var inp = document.createElement('input');
-  inp.className = 'slot-input'; inp.placeholder = 'Brand or domain…';
+  inp.className = 'slot-input'; inp.placeholder = 'Search brand…';
   inp.autocomplete = 'off'; inp.setAttribute('data-idx', idx);
 
   var clearBtn = document.createElement('button');
-  clearBtn.className = 'slot-clear'; clearBtn.innerHTML = '×'; clearBtn.title = 'Remove';
-  clearBtn.onclick = function(){ clearSlot(idx); };
+  clearBtn.className = 'slot-clear'; clearBtn.innerHTML = '×'; clearBtn.title = 'Clear';
+  clearBtn.onclick = function(){ clearSlot(idx); inp.focus(); };
 
   var sugDiv = document.createElement('div');
   sugDiv.className = 'slot-suggestions'; sugDiv.style.display = 'none'; sugDiv.id = 'sug-' + idx;
@@ -266,14 +266,27 @@ function addSlotEl(container, domain, beforeEl){
   if(beforeEl) container.insertBefore(wrap, beforeEl);
   else container.appendChild(wrap);
 
-  inp.addEventListener('input', function(){ onSlotInput(idx, inp.value); });
-  inp.addEventListener('keydown', function(e){ onSlotKey(e, idx); });
-  inp.addEventListener('blur', function(){ setTimeout(function(){ sugDiv.style.display = 'none'; }, 200); });
+  // Select-all on focus so user can immediately retype a pre-filled slot
+  inp.addEventListener('focus', function(){ if(slotObj.domain) inp.select(); });
+
+  // Any typing clears the domain lock and starts a fresh search
+  inp.addEventListener('input', function(){
+    slotObj.domain = null;
+    onSlotInput(idx, inp.value);
+  });
+
+  inp.addEventListener('keydown', function(e){
+    if(e.key === 'Enter') runCompare();
+    if(e.key === 'Escape') sugDiv.style.display = 'none';
+  });
+
+  inp.addEventListener('blur', function(){
+    setTimeout(function(){ sugDiv.style.display = 'none'; }, 200);
+  });
 
   if(domain){
     inp.value = domain;
     slotObj.domain = domain;
-    // try to resolve display name from cache
     fetchDomainLabel(idx, domain);
   }
 }
@@ -282,10 +295,13 @@ function fetchDomainLabel(idx, domain){
   fetch(API + '/api/domain/' + domain)
     .then(function(r){ return r.json(); })
     .then(function(resp){
+      var s = slots[idx];
+      // Don't overwrite if: user is focused on this input, or domain has changed
+      if(!s || s.domain !== domain || document.activeElement === s.inputEl) return;
       var apiData = resp && resp.data;
       if(!apiData) return;
       var name = apiData.brand_name || (apiData.products && apiData.products[0] && apiData.products[0].brand_name) || domain;
-      if(slots[idx]) slots[idx].inputEl.value = name + ' (' + domain + ')';
+      s.inputEl.value = name;
     }).catch(function(){});
 }
 
@@ -337,7 +353,7 @@ function renderSuggestions(idx, brands){
 function selectSuggestion(idx, domain, name){
   var s = slots[idx];
   s.domain = domain;
-  s.inputEl.value = name + ' (' + domain + ')';
+  s.inputEl.value = name;
   s.sugEl.style.display = 'none';
 }
 

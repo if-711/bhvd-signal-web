@@ -180,6 +180,7 @@ canvas#scoreChart{display:block;width:100%;height:90px}
 var API = 'https://bhvd-signal-api.fly.dev';
 var cat = 'all', search = '', offset = 0, limit = 50, done = false, busy = false;
 var stats = {n:0, sum:0, g:0, y:0, r:0};
+var brandIndex = [];  // pre-loaded full list for client-side search
 
 var CATS = [
   ['all','All'],['supplements','Supplements'],['nutrition','Nutrition'],
@@ -233,12 +234,26 @@ function tog(id) {
 function load(reset) {
   if (busy) return;
   if (done && !reset) return;
-  if (reset) { offset = 0; done = false; stats = {n:0,sum:0,g:0,y:0,r:0}; allScores = []; }
+  if (reset) { offset = 0; done = false; stats = {n:0,sum:0,g:0,y:0,r:0}; allScores = []; brandIndex = []; }
   busy = true;
   document.getElementById('loadMoreBtn').disabled = true;
 
+  // If there's a search term, filter client-side from brandIndex
+  if (search && brandIndex.length > 0) {
+    var q = search.toLowerCase();
+    var filtered = brandIndex.filter(function(b){
+      return (b.brand_name || '').toLowerCase().includes(q) || (b.domain || '').toLowerCase().includes(q);
+    });
+    var html = '';
+    filtered.forEach(function(b, i) { html += row(b, i); });
+    document.getElementById('tbody').innerHTML = html || '<tr class="msg-row"><td colspan="6">No brands match "' + search + '".</td></tr>';
+    document.getElementById('loadMoreWrap').style.display = 'none';
+    busy = false;
+    document.getElementById('loadMoreBtn').disabled = false;
+    return;
+  }
+
   var url = API + '/api/leaderboard/' + cat + '?limit=' + limit + '&offset=' + offset;
-  if (search) url += '&search=' + encodeURIComponent(search);
   if (reset) document.getElementById('tbody').innerHTML = '<tr class="msg-row"><td colspan="6"><span class="spinner"></span>Loading…</td></tr>';
 
   fetch(url)
@@ -259,6 +274,7 @@ function load(reset) {
         document.getElementById('tbody').insertAdjacentHTML('beforeend', html);
       }
       entries.forEach(function(b) {
+        brandIndex.push(b);  // accumulate for client-side search
         var sc = b.leaderboard_data && b.leaderboard_data.total_score != null ? b.leaderboard_data.total_score : (100 - (b.claim_support_risk || 50));
         var s = (b.signal_color || 'red').toLowerCase();
         stats.n++; stats.sum += sc; allScores.push(sc);
@@ -378,15 +394,11 @@ searchBoxEl.addEventListener('focus', function(){
 });
 
 function fetchSearchSugs(q){
-  var key = q.toLowerCase();
-  if(searchSugCache[key]){ renderSearchSugs(searchSugCache[key]); return; }
-  fetch(API + '/api/leaderboard/all?limit=8&search=' + encodeURIComponent(q))
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      var entries = data && data.data && Array.isArray(data.data.entries) ? data.data.entries : [];
-      searchSugCache[key] = entries;
-      renderSearchSugs(entries);
-    }).catch(function(){});
+  var ql = q.toLowerCase();
+  var matches = brandIndex.filter(function(b){
+    return (b.brand_name || '').toLowerCase().includes(ql) || (b.domain || '').toLowerCase().includes(ql);
+  }).slice(0, 8);
+  renderSearchSugs(matches);
 }
 
 function renderSearchSugs(brands){
@@ -409,6 +421,17 @@ document.getElementById('loadMoreBtn').addEventListener('click', function(){ loa
 
 buildCats();
 load(true);
+
+// Pre-load brand index for client-side search (silent background fetch)
+fetch(API + '/api/leaderboard/all?limit=200&offset=0')
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    var entries = data && data.data && Array.isArray(data.data.entries) ? data.data.entries : [];
+    // Merge without duplicates (some already in brandIndex from initial load)
+    var seen = {};
+    brandIndex.forEach(function(b){ seen[b.domain] = true; });
+    entries.forEach(function(b){ if(!seen[b.domain]){ brandIndex.push(b); seen[b.domain] = true; } });
+  }).catch(function(){});
 </script>
 </body>
 </html>

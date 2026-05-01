@@ -1539,16 +1539,31 @@ document.querySelectorAll('.step,.sig-card,.plan,.int-item,.faq-item,.km-stat,.v
   var inp = document.getElementById('heroSearch');
   var sugs = document.getElementById('heroSearchSugs');
   if(!inp || !sugs) return;
-  var timer, cache = {};
+  var timer;
+  var heroIndex = [];
+  var heroIndexLoaded = false;
   var SIG_LABEL = {green:'Well Supported', yellow:'Mixed Evidence', red:'Limited Evidence'};
   var SIG_BG = {green:'rgba(30,148,89,.18)', yellow:'rgba(192,119,24,.18)', red:'rgba(158,48,40,.18)'};
   var SIG_COLOR = {green:'#3ecf82', yellow:'#e8a840', red:'#e05a50'};
+
+  function loadHeroIndex(cb){
+    if(heroIndexLoaded){ if(cb) cb(); return; }
+    fetch('https://bhvd-signal-api.fly.dev/api/leaderboard/all?limit=200&offset=0')
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        heroIndex = data && data.data && Array.isArray(data.data.entries) ? data.data.entries : [];
+        heroIndexLoaded = true;
+        if(cb) cb();
+      }).catch(function(){ heroIndexLoaded = true; });
+  }
+
+  inp.addEventListener('focus', function(){ loadHeroIndex(); });
 
   inp.addEventListener('input', function(){
     var q = inp.value.trim();
     clearTimeout(timer);
     if(q.length < 1){ sugs.style.display = 'none'; return; }
-    timer = setTimeout(function(){ fetchHeroSugs(q); }, 220);
+    timer = setTimeout(function(){ fetchHeroSugs(q); }, 180);
   });
   inp.addEventListener('blur', function(){
     setTimeout(function(){ sugs.style.display = 'none'; }, 180);
@@ -1562,15 +1577,12 @@ document.querySelectorAll('.step,.sig-card,.plan,.int-item,.faq-item,.km-stat,.v
   });
 
   function fetchHeroSugs(q){
-    var key = q.toLowerCase();
-    if(cache[key]){ renderHeroSugs(cache[key]); return; }
-    fetch('https://bhvd-signal-api.fly.dev/api/leaderboard/all?limit=8&search=' + encodeURIComponent(q))
-      .then(function(r){ return r.json(); })
-      .then(function(data){
-        var entries = data && data.data && Array.isArray(data.data.entries) ? data.data.entries : [];
-        cache[key] = entries;
-        renderHeroSugs(entries);
-      }).catch(function(){});
+    if(!heroIndexLoaded){ loadHeroIndex(function(){ fetchHeroSugs(q); }); return; }
+    var ql = q.toLowerCase();
+    var matches = heroIndex.filter(function(b){
+      return (b.brand_name || '').toLowerCase().includes(ql) || (b.domain || '').toLowerCase().includes(ql);
+    }).slice(0, 8);
+    renderHeroSugs(matches);
   }
 
   function renderHeroSugs(brands){

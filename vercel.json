@@ -1,27 +1,4 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
-    { "source": "/brand", "destination": "/brand/index.html" },
-    { "source": "/brand/:path*", "destination": "/brand/index.html" },
-    { "source": "/request", "destination": "/request/index.html" },
-    { "source": "/request/:path*", "destination": "/request/index.html" },
-    { "source": "/brand-portal", "destination": "/brand-portal/index.html" },
-    { "source": "/brand-portal/:path*", "destination": "/brand-portal/index.html" },
-    { "source": "/compare", "destination": "/compare/index.html" },
-    { "source": "/compare/:path*", "destination": "/compare/index.html" },
-    { "source": "/extension", "destination": "/extension/index.html" },
-    { "source": "/extension/:path*", "destination": "/extension/index.html" },
-    { "source": "/pricing", "destination": "/pricing/index.html" },
-    { "source": "/pricing/:path*", "destination": "/pricing/index.html" },
-    { "source": "/methodology", "destination": "/methodology/index.html" },
-    { "source": "/leaderboard", "destination": "/leaderboard/index.html" },
-    { "source": "/contact", "destination": "/contact/index.html" },
-    { "source": "/account", "destination": "/account/index.html" },
-    { "source": "/demo", "destination": "/demo/index.html" },
-    { "source": "/admin/signals", "destination": "/admin/signals/index.html" },
-    { "source": "/admin/content-engine", "destination": "/admin/content-engine/index.html" }
-  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -30,20 +7,6 @@
         { "key": "X-Frame-Options", "value": "DENY" },
         { "key": "X-XSS-Protection", "value": "1; mode=block" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
-      ]
-    },
-    {
-      "source": "/og-image.png",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
-      ]
-    },
-    {
-      "source": "/bhvd-extension.zip",
-      "headers": [
-        { "key": "Content-Type", "value": "application/zip" },
-        { "key": "Content-Disposition", "value": "attachment; filename=\"bhvd-signal-extension.zip\"" },
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
       ]
     }
   ]

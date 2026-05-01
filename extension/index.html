@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sigñal Browser Extension — Evidence alignment while you browse</title>
-<meta name="description" content="Sigñal measures the gap between what wellness brands claim and what evidence they visibly connect to those claims. Red, Yellow, or Green. Free Chrome extension in early beta.">
+<title>NORM Browser Extension — Evidence alignment while you browse</title>
+<meta name="description" content="NORM measures the gap between what wellness brands claim and what evidence they visibly connect to those claims. Red, Yellow, or Green. Free Chrome extension in early beta.">
 <meta name="theme-color" content="#0a0c12">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Sigñal Extension — Claim support scores while you browse">
+<meta property="og:title" content="NORM Extension — Claim support scores while you browse">
 <meta property="og:description" content="See a brand's Claim Support Risk score on any wellness product page. Works on supplements, skincare, wearables, neurotech, and more.">
-<meta property="og:image" content="https://bhvdsignal.com/og-image.png">
-<meta property="og:url" content="https://bhvdsignal.com/extension">
+<meta property="og:image" content="https://trynorm.co/og-image.png">
+<meta property="og:url" content="https://trynorm.co/extension">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sigñal Browser Extension — Evidence alignment while you browse">
+<meta name="twitter:title" content="NORM Browser Extension — Evidence alignment while you browse">
 <meta name="twitter:description" content="Claim support scores for wellness brands. Neutral, independent, and on the record. Free Chrome extension."
-<meta name="twitter:image" content="https://bhvdsignal.com/og-image.png">
-<link rel="canonical" href="https://bhvdsignal.com/extension">
+<meta name="twitter:image" content="https://trynorm.co/og-image.png">
+<link rel="canonical" href="https://trynorm.co/extension">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
@@ -213,8 +213,14 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
 
 <nav>
   <a href="/" class="nav-logo">
-    <svg width="24" height="11" viewBox="0 0 24 11" fill="none" aria-hidden="true"><path d="M1 8C3.2 3.5 5.8 3.5 7.8 8C9.8 12.5 12.4 12.5 14.4 8C16.4 3.5 19 3.5 23 5.5" stroke="#4a78f0" stroke-width="1.7" stroke-linecap="round"/></svg>
-    Sigñal<span class="nav-byline">by BHVD</span>
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+    <circle cx="11" cy="8.5" r="5.5" stroke="#4a78f0" stroke-width="1.5"/>
+    <circle cx="9.2" cy="7.8" r="1" fill="#4a78f0"/>
+    <circle cx="12.8" cy="7.8" r="1" fill="#4a78f0"/>
+    <path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+  NORM<span class="nav-byline">by BHVD</span>
   </a>
   <ul class="nav-links">
     <li><a href="/leaderboard">Leaderboard</a></li>
@@ -225,34 +231,29 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
   </ul>
   <div class="nav-cta">
     <a href="/brand-portal" class="btn">For brands</a>
-    <a href="#waitlist" class="btn btn-p" onclick="track('extension_install_click')">
+    <a href="/bhvd-extension.zip" download="norm-extension.zip" class="btn btn-p" onclick="track('extension_install_click')">
       <svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
-      Add Sigñal to Browser
+      Add NORM to Browser
     </a>
   </div>
 </nav>
 
-<div class="alpha-bar">Sigñal is in early beta. Scores reflect reviewed public marketing claims and visible evidence references — not product efficacy, safety, or regulatory status.</div>
+
 
 <!-- HERO -->
 <div class="hero">
   <div class="hero-glow"></div>
-  <div class="hero-eyebrow">Browser Extension · Early Beta</div>
+  <div class="hero-eyebrow">Browser Extension</div>
   <h1>Know what you're buying<br><em>while you're buying it.</em></h1>
-  <p class="hero-sub">Sigñal surfaces a brand's claim score directly on the product page — before the money leaves your pocket. Red, Yellow, or Green. No account needed.</p>
+  <p class="hero-sub">NORM surfaces a brand's claim score directly on the product page — before the money leaves your pocket. Red, Yellow, or Green. No account needed.</p>
   <div class="hero-actions">
-    <a href="#waitlist" class="btn btn-p btn-hero" onclick="track('extension_install_click')">
+    <a href="/bhvd-extension.zip" download="norm-extension.zip" class="btn btn-p btn-hero" onclick="track('extension_install_click')">
       <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
-      Join the waitlist
+      Add to Chrome — Free
     </a>
-    <a href="/bhvd-extension.zip" download="bhvd-signal-extension.zip" class="btn btn-hero btn-demo" onclick="track('extension_install_click')">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Developer build
+    <a href="/leaderboard" class="btn btn-hero btn-demo" onclick="track('leaderboard_click')">
+      Browse leaderboard →
     </a>
-  </div>
-  <div class="alpha-badge">
-    <span class="alpha-dot"></span>
-    Early beta · Chrome · Not yet on Web Store
   </div>
 </div>
 
@@ -331,7 +332,7 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
           </div>
           <div class="ms-verdict-box" id="msVerdictBox"></div>
         </div>
-        <div class="mock-brand-label" id="mockBrandLabel">sigñal by bhvd</div>
+        <div class="mock-brand-label" id="mockBrandLabel">NORM by bhvd</div>
       </div>
     </div>
   </div>
@@ -615,7 +616,7 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
 <div class="section" id="what">
   <div class="sec-tag">Capabilities</div>
   <div class="sec-title">Everything you need to evaluate<br>a brand in seconds.</div>
-  <div class="sec-sub">No research required on your end. Sigñal does the work — you see the result.</div>
+  <div class="sec-sub">No research required on your end. NORM does the work — you see the result.</div>
   <div class="feat-grid">
     <div class="feat-card">
       <div class="feat-icon">◎</div>
@@ -665,8 +666,8 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
     </div>
     <div class="step-card">
       <div class="step-num">02 — MATCH</div>
-      <h3>Extension checks the Sigñal index</h3>
-      <p>The extension reads visible page text — brand name, product claims, evidence references. It sends this to the Sigñal API, which matches against our scored index. No browsing history is stored.</p>
+      <h3>Extension checks the NORM index</h3>
+      <p>The extension reads visible page text — brand name, product claims, evidence references. It sends this to the NORM API, which matches against our scored index. No browsing history is stored.</p>
     </div>
     <div class="step-card">
       <div class="step-num">03 — SIGNAL</div>
@@ -696,7 +697,7 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
         <div class="priv-check">✓</div>
         <div>
           <h4>Claims text only — never your identity</h4>
-          <p>The extracted page text is sent to the Sigñal API. Your name, email, location, and any personal data stay on your device.</p>
+          <p>The extracted page text is sent to the NORM API. Your name, email, location, and any personal data stay on your device.</p>
         </div>
       </div>
       <div class="priv-item">
@@ -749,31 +750,21 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
 
 <div class="divider"></div>
 
-<!-- WAITLIST / INSTALL -->
-<div class="section" id="waitlist">
+<!-- INSTALL -->
+<div class="section" id="install">
   <div style="max-width:1100px;margin:0 auto">
     <div class="install-wrap">
-      <div class="alpha-badge" style="margin:0 auto 24px">
-        <span class="alpha-dot"></span>
-        Early Beta
+      <h2>Install the extension</h2>
+      <p class="sub">Free for everyone. See a brand's NORM score while you shop — no account needed to start.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px">
+        <a href="/bhvd-extension.zip" download="norm-extension.zip" class="btn btn-p btn-demo" style="display:inline-flex" onclick="track('extension_install_click')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download for Chrome
+        </a>
+        <a href="/pricing" class="btn btn-demo" style="display:inline-flex">View Pro features →</a>
       </div>
-      <h2>Get early access</h2>
-      <p class="sub">The Chrome extension is in early beta. Leave your email and we'll send you access when we open the next cohort — and notify you when we ship to the Chrome Web Store.</p>
-      <div class="cap-success" id="ext-success">
-        You're on the list. We'll reach out with access details soon.
-      </div>
-      <div class="cap-form" id="ext-form">
-        <input type="email" class="cap-input" id="ext-email" placeholder="your@email.com" autocomplete="email">
-        <button class="cap-btn" id="ext-btn" onclick="submitExtWaitlist()">Join waitlist</button>
-      </div>
-      <div class="cap-note">No spam. Just access notification and major updates.</div>
-      <div class="cap-or">or</div>
-      <a href="/bhvd-extension.zip" download="bhvd-signal-extension.zip" class="btn btn-demo" style="margin:0 auto;display:inline-flex" onclick="track('extension_install_click')">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download developer build
-      </a>
-      <div class="install-demo" style="margin-top:14px">
-        Unpack in Chrome → <code style="font-family:var(--mono);font-size:10px;color:var(--t3)">chrome://extensions</code> → Developer mode → Load unpacked
+      <div class="install-demo" style="margin-top:20px">
+        Unzip → <code style="font-family:var(--mono);font-size:10px;color:var(--t3)">chrome://extensions</code> → Developer mode → Load unpacked
       </div>
     </div>
   </div>
@@ -798,10 +789,16 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
 <footer>
   <div class="footer-brand">
     <a href="/" class="nav-logo">
-      <svg width="24" height="11" viewBox="0 0 24 11" fill="none" aria-hidden="true"><path d="M1 8C3.2 3.5 5.8 3.5 7.8 8C9.8 12.5 12.4 12.5 14.4 8C16.4 3.5 19 3.5 23 5.5" stroke="#4a78f0" stroke-width="1.7" stroke-linecap="round"/></svg>
-      Sigñal<span class="nav-byline">by BHVD</span>
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+    <circle cx="11" cy="8.5" r="5.5" stroke="#4a78f0" stroke-width="1.5"/>
+    <circle cx="9.2" cy="7.8" r="1" fill="#4a78f0"/>
+    <circle cx="12.8" cy="7.8" r="1" fill="#4a78f0"/>
+    <path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+  NORM<span class="nav-byline">by BHVD</span>
     </a>
-    <p class="footer-disc">Sigñal analyzes whether brands show visible evidence for their public marketing claims — not whether those claims are true or whether products work.</p>
+    <p class="footer-disc">NORM analyzes whether brands show visible evidence for their public marketing claims — not whether those claims are true or whether products work.</p>
   </div>
   <div class="footer-links">
     <div class="footer-col">
@@ -824,7 +821,7 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
     </div>
   </div>
 </footer>
-<div class="footer-copy">&#169; 2025 Sigñal &nbsp;&#183;&nbsp; by BHVD &nbsp;&#183;&nbsp; Payment never influences scores &nbsp;&#183;&nbsp; Open methodology</div>
+<div class="footer-copy">&#169; 2025 NORM &nbsp;&#183;&nbsp; by BHVD &nbsp;&#183;&nbsp; Payment never influences scores &nbsp;&#183;&nbsp; Open methodology</div>
 
 <script>
 var API = "https://bhvd-signal-api.fly.dev";

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BHVD Signal · Social Card Generator</title>
+<title>NORM · Social Card Generator</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -149,8 +149,8 @@ textarea.ctrl-input{resize:vertical;min-height:80px;line-height:1.6}
       <div class="x-header">
         <div class="x-avatar">BH</div>
         <div>
-          <div class="x-handle">BHVD Signal</div>
-          <div class="x-sub">@bhvdsignal</div>
+          <div class="x-handle">NORM</div>
+          <div class="x-sub">@trynorm</div>
         </div>
       </div>
       <div class="x-body" id="x-body">Before you spend on AG1 — here's what the evidence actually shows 🧵</div>
@@ -180,8 +180,8 @@ textarea.ctrl-input{resize:vertical;min-height:80px;line-height:1.6}
         </div>
       </div>
       <div class="x-footer">
-        <span class="x-footer-left" id="x-footer-left">bhvdsignal.com/brand/drinkag1.com</span>
-        <span class="x-footer-tag">#bhvdsignal</span>
+        <span class="x-footer-left" id="x-footer-left">trynorm.co/brand/drinkag1.com</span>
+        <span class="x-footer-tag">#trynorm</span>
       </div>
     </div>
     <div class="x-text-preview" id="x-text-preview"></div>
@@ -205,7 +205,7 @@ textarea.ctrl-input{resize:vertical;min-height:80px;line-height:1.6}
         </div>
         <div class="ig-note" id="ig-note">They've done clinical trials — but they're tiny, company-funded, and don't prove the big promises in the marketing.</div>
         <div class="ig-bar" id="ig-bar" style="background:rgba(243,156,18,.35);width:67%"></div>
-        <div class="ig-footer">bhvdsignal.com · The wellness claim transparency standard</div>
+        <div class="ig-footer">trynorm.co · The wellness claim transparency standard</div>
       </div>
     </div>
     <button class="ig-download-btn" onclick="downloadIG()">Save Instagram card (screenshot to save)</button>
@@ -225,7 +225,7 @@ textarea.ctrl-input{resize:vertical;min-height:80px;line-height:1.6}
       <div class="tt-body">
         <div class="tt-sec">
           <div class="tt-sec-label">Hook (0–3s)</div>
-          <div class="tt-line" id="tt-hook">"I spent $79 on AG1. Here's what BHVD Signal found when we checked the receipts."</div>
+          <div class="tt-line" id="tt-hook">"I spent $79 on AG1. Here's what NORM found when we checked the receipts."</div>
           <div class="tt-tag">Visual: pull out phone, open browser on AG1 site</div>
         </div>
         <div class="tt-sec">
@@ -235,7 +235,7 @@ textarea.ctrl-input{resize:vertical;min-height:80px;line-height:1.6}
         </div>
         <div class="tt-sec">
           <div class="tt-sec-label">Score Reveal (7–11s)</div>
-          <div class="tt-line" id="tt-reveal">"BHVD Signal gives it a 67 out of 100. Generally Aligned. The ingredients are real. The outcome promises are overblown."</div>
+          <div class="tt-line" id="tt-reveal">"NORM gives it a 67 out of 100. Generally Aligned. The ingredients are real. The outcome promises are overblown."</div>
           <div class="tt-tag">Visual: extension panel animates open, score counts to 67</div>
         </div>
         <div class="tt-sec">
@@ -246,15 +246,15 @@ textarea.ctrl-input{resize:vertical;min-height:80px;line-height:1.6}
         <div class="tt-sec">
           <div class="tt-sec-label">CTA (13–15s)</div>
           <div class="tt-line">"Free extension. Link in bio. Check before you buy."</div>
-          <div class="tt-tag">Visual: @bhvdsignal · bhvdsignal.com</div>
+          <div class="tt-tag">Visual: @trynorm · trynorm.co</div>
         </div>
         <div class="tt-sec">
           <div class="tt-sec-label">Caption</div>
-          <div class="tt-line" id="tt-caption">AG1 score: 67/100 · GENERALLY ALIGNED. Real ingredients. But the clinical trial receipts? Tiny and self-funded. Check any wellness brand free at bhvdsignal.com</div>
+          <div class="tt-line" id="tt-caption">AG1 score: 67/100 · GENERALLY ALIGNED. Real ingredients. But the clinical trial receipts? Tiny and self-funded. Check any wellness brand free at trynorm.co</div>
         </div>
         <div class="tt-sec">
           <div class="tt-sec-label">Hashtags</div>
-          <div class="tt-line">#bhvdsignal #wellness #supplements #ag1 #knowbeforeyoubuy #transparencynow</div>
+          <div class="tt-line">#trynorm #wellness #supplements #ag1 #knowbeforeyoubuy #transparencynow</div>
         </div>
       </div>
     </div>
@@ -297,15 +297,15 @@ function update() {
   xV.textContent = verdict; xV.style.color = color;
   xV.style.borderColor = color + "44"; xV.style.background = color + "12";
   document.getElementById("x-note").textContent = summary;
-  document.getElementById("x-footer-left").textContent = "bhvdsignal.com/brand/" + domain;
+  document.getElementById("x-footer-left").textContent = "trynorm.co/brand/" + domain;
   document.getElementById("x-body").textContent = "Before you spend on " + brand + " — here's what the evidence actually shows 🧵";
 
   var shortSum = summary.length > 140 ? summary.slice(0, 137).replace(/\s\S+$/, "…") : summary;
   var xText = "Before you spend on " + brand + ":\n\n" +
     "Score: " + score + "/100 · " + verdict + "\n\n" +
     shortSum + "\n\n" +
-    "Full breakdown → bhvdsignal.com/brand/" + domain + "\n\n" +
-    "#bhvdsignal #wellness";
+    "Full breakdown → trynorm.co/brand/" + domain + "\n\n" +
+    "#trynorm #wellness";
   document.getElementById("x-text-preview").textContent = xText;
 
   // Instagram
@@ -326,11 +326,11 @@ function update() {
 
   // TikTok
   document.getElementById("tt-title").textContent = brand + " · 15-second TikTok";
-  document.getElementById("tt-hook").textContent = '"I checked ' + brand + ' on BHVD Signal. The receipts are... interesting."';
+  document.getElementById("tt-hook").textContent = '"I checked ' + brand + ' on NORM. The receipts are... interesting."';
   document.getElementById("tt-setup").textContent = hook;
-  document.getElementById("tt-reveal").textContent = '"BHVD Signal gives it ' + score + ' out of 100. ' + verdict + '. ' + summary.split(".")[0] + '."';
+  document.getElementById("tt-reveal").textContent = '"NORM gives it ' + score + ' out of 100. ' + verdict + '. ' + summary.split(".")[0] + '."';
   document.getElementById("tt-verdict").textContent = score >= 68 ? '"Solid evidence. One of the better ones." ' : score >= 55 ? '"Some evidence. Claims could be proportionate." ' : '"Big claims. Small receipts. Buyer beware."';
-  document.getElementById("tt-caption").textContent = brand + " score: " + score + "/100 · " + verdict + ". " + summary.slice(0, 100).replace(/\s\S+$/, "") + "… Check any wellness brand free at bhvdsignal.com";
+  document.getElementById("tt-caption").textContent = brand + " score: " + score + "/100 · " + verdict + ". " + summary.slice(0, 100).replace(/\s\S+$/, "") + "… Check any wellness brand free at trynorm.co";
 }
 
 function drawIGBg(color, score) {

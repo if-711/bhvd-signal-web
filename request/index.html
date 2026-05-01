@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Submit a Brand — Sigñal</title>
+<title>Submit a Brand — NORM</title>
 <meta name="description" content="Submit a wellness brand for independent claim quality assessment. Free to request. Payment never influences scores.">
-<meta property="og:title" content="Submit a Brand — Sigñal">
+<meta property="og:title" content="Submit a Brand — NORM">
 <meta property="og:description" content="Request an independent claim quality assessment for any wellness brand.">
-<meta property="og:image" content="https://bhvdsignal.com/og-image.png">
-<meta property="og:url" content="https://bhvdsignal.com/request">
-<link rel="canonical" href="https://bhvdsignal.com/request">
+<meta property="og:image" content="https://trynorm.co/og-image.png">
+<meta property="og:url" content="https://trynorm.co/request">
+<link rel="canonical" href="https://trynorm.co/request">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
@@ -85,15 +85,19 @@ textarea.form-input{resize:vertical;min-height:80px}
 
 <nav>
   <a href="/" class="nav-logo">
-    <svg width="24" height="11" viewBox="0 0 24 11" fill="none" aria-hidden="true"><path d="M1 8C3.2 3.5 5.8 3.5 7.8 8C9.8 12.5 12.4 12.5 14.4 8C16.4 3.5 19 3.5 23 5.5" stroke="#4a78f0" stroke-width="1.7" stroke-linecap="round"/></svg>
-    Sigñal<span class="nav-byline">by BHVD</span>
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+    <circle cx="11" cy="8.5" r="5.5" stroke="#4a78f0" stroke-width="1.5"/>
+    <circle cx="9.2" cy="7.8" r="1" fill="#4a78f0"/>
+    <circle cx="12.8" cy="7.8" r="1" fill="#4a78f0"/>
+    <path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+  NORM<span class="nav-byline">by BHVD</span>
   </a>
   <a class="nav-back" href="/">← Back</a>
 </nav>
 
-<div class="alpha-bar">
-  Sigñal is in early beta. Scores reflect reviewed public marketing claims and visible evidence references — not product efficacy, safety, or regulatory status.
-</div>
+
 
 <div class="page">
   <div class="tag">Assessment Request</div>
@@ -103,7 +107,7 @@ textarea.form-input{resize:vertical;min-height:80px}
   <h1>Not yet reviewed.<br>Help us <em>prioritize</em> it.</h1>
 
   <p class="sub" id="page-sub">
-    Sigñal hasn't scored this brand yet. Every request tells us where consumer scrutiny is highest — brands with the most requests move to the top of the review queue.
+    NORM hasn't scored this brand yet. Every request tells us where consumer scrutiny is highest — brands with the most requests move to the top of the review queue.
   </p>
 
   <div class="brand-chip" id="brand-chip" style="display:none">
@@ -122,7 +126,7 @@ textarea.form-input{resize:vertical;min-height:80px}
       <div class="success-icon">✓</div>
       <div class="success-title">Request submitted</div>
       <div class="success-sub" id="success-sub">We've logged your request. You'll see this brand in the queue — if enough people ask, it moves up.</div>
-      <a class="back-link" href="/">← Back to Sigñal</a>
+      <a class="back-link" href="/">← Back to NORM</a>
     </div>
 
     <div id="form-inner">
@@ -165,7 +169,7 @@ if (domain) {
   chipName.textContent   = domain.split(".")[0].charAt(0).toUpperCase() + domain.split(".")[0].slice(1);
   brandChip.style.display = "inline-flex";
 
-  document.title = "Request: " + domain + " · Sigñal by BHVD";
+  document.title = "Request: " + domain + " · NORM by BHVD";
 
   // Load demand count
   fetch(API + "/api/demand/" + encodeURIComponent(domain))

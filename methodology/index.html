@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Scoring Methodology — How Sigñal measures evidence alignment</title>
-<meta name="description" content="The complete Sigñal scoring methodology — six dimensions, weights, location multipliers, intensity classifications, and category-specific rules. Fully published and auditable.">
-<meta property="og:title" content="Scoring Methodology — Sigñal">
+<title>Scoring Methodology — How NORM measures evidence alignment</title>
+<meta name="description" content="The complete NORM scoring methodology — six dimensions, weights, location multipliers, intensity classifications, and category-specific rules. Fully published and auditable.">
+<meta property="og:title" content="Scoring Methodology — NORM">
 <meta property="og:description" content="Six weighted dimensions produce every brand's Evidence Score. Full formula, weights, and rules published and auditable.">
-<meta property="og:image" content="https://bhvdsignal.com/og-image.png">
-<meta property="og:url" content="https://bhvdsignal.com/methodology">
+<meta property="og:image" content="https://trynorm.co/og-image.png">
+<meta property="og:url" content="https://trynorm.co/methodology">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://bhvdsignal.com/og-image.png">
-<link rel="canonical" href="https://bhvdsignal.com/methodology">
+<meta name="twitter:image" content="https://trynorm.co/og-image.png">
+<link rel="canonical" href="https://trynorm.co/methodology">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -103,8 +103,14 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
 
 <nav>
   <a href="/" class="nav-logo">
-    <svg width="24" height="11" viewBox="0 0 24 11" fill="none" aria-hidden="true"><path d="M1 8C3.2 3.5 5.8 3.5 7.8 8C9.8 12.5 12.4 12.5 14.4 8C16.4 3.5 19 3.5 23 5.5" stroke="#4a78f0" stroke-width="1.7" stroke-linecap="round"/></svg>
-    Sigñal<span class="nav-byline">by BHVD</span>
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+    <circle cx="11" cy="8.5" r="5.5" stroke="#4a78f0" stroke-width="1.5"/>
+    <circle cx="9.2" cy="7.8" r="1" fill="#4a78f0"/>
+    <circle cx="12.8" cy="7.8" r="1" fill="#4a78f0"/>
+    <path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+  NORM<span class="nav-byline">by BHVD</span>
   </a>
   <ul class="nav-links">
     <li><a href="/leaderboard">Leaderboard</a></li>
@@ -117,14 +123,11 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     <a href="/brand-portal" class="btn">For brands</a>
     <a href="/extension" class="btn btn-p">
       <svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
-      Add Sigñal to Browser
+      Add NORM to Browser
     </a>
   </div>
 </nav>
 
-<div style="position:fixed;top:58px;left:0;right:0;z-index:99;background:rgba(26,143,255,0.05);border-bottom:1px solid rgba(26,143,255,0.10);padding:6px 48px;font-size:11px;color:#5a7aaa;line-height:1.45;letter-spacing:.01em;">
-  Sigñal is in early beta. Scores reflect reviewed public marketing claims and visible evidence references — not product efficacy, safety, or regulatory status.
-</div>
 
 <div class="layout" style="margin-top:32px">
   <div class="toc">
@@ -147,13 +150,13 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
   <div class="content">
     <div class="version-badge">Version 1.3 · April 2026</div>
     <h1>Scoring methodology</h1>
-    <p class="lead">Everything about how Sigñal measures the gap between what brands claim and what they visibly support — published in full. Any brand, researcher, or journalist can audit this. Nothing is hidden.</p>
+    <p class="lead">Everything about how NORM measures the gap between what brands claim and what they visibly support — published in full. Any brand, researcher, or journalist can audit this. Nothing is hidden.</p>
 
     <div class="notice"><strong>What this methodology measures:</strong> the alignment between public-facing marketing claims and visibly available supporting information at the time of scan. It does not assess product efficacy, safety, or regulatory status. It does not assume intent.</div>
 
     <h2 id="overview">Overview</h2>
-    <p>Signal is a <strong>claims-intelligence and evidence-alignment system</strong>. It measures the gap between what wellness brands publicly claim, what evidence they visibly provide, and how clearly those claims are connected to that evidence.</p>
-    <p>The <strong>Evidence Score</strong> (0–100) reflects that alignment. Higher score = stronger evidence alignment between what a brand claims and what it visibly supports. The score is composite, weighted, location-sensitive, and category-adjusted. It is calculated every time a page is scanned and stored in the Sigñal Index.</p>
+    <p>NORM is a <strong>claims-intelligence and evidence-alignment system</strong>. It measures the gap between what wellness brands publicly claim, what evidence they visibly provide, and how clearly those claims are connected to that evidence.</p>
+    <p>The <strong>Evidence Score</strong> (0–100) reflects that alignment. Higher score = stronger evidence alignment between what a brand claims and what it visibly supports. The score is composite, weighted, location-sensitive, and category-adjusted. It is calculated every time a page is scanned and stored in the NORM Index.</p>
     <div class="signal-map">
       <div class="signal-block" style="background:#071a0e;border-color:#1a4a2a">
         <div class="signal-block-name" style="color:#1e9459">Green Signal</div>
@@ -315,13 +318,13 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
 
     <h2 id="ai">The role of AI</h2>
     <p>The scoring engine is deterministic — parsing, weighting, math, caching, and ranking are all rule-based and fully auditable. Claude (Anthropic) provides the <strong>analyst layer only</strong>: nuanced language understanding, per-dimension scores, and human-readable explanations.</p>
-    <p>Claude's scores are blended in at 40% weight per dimension. The deterministic engine contributes 60%. No score is determined solely by AI output — and all Claude responses are validated against Signal's language requirements before being stored or displayed.</p>
-    <p>Signal's AI layer operates under strict language constraints. It is never permitted to speculate about intent, render verdicts about honesty, or use: fraud, scam, lie, fake, false, illegal, deceptive, misleading (as a verdict), noncompliant, or "doesn't work."</p>
+    <p>Claude's scores are blended in at 40% weight per dimension. The deterministic engine contributes 60%. No score is determined solely by AI output — and all Claude responses are validated against NORM's language requirements before being stored or displayed.</p>
+    <p>NORM's AI layer operates under strict language constraints. It is never permitted to speculate about intent, render verdicts about honesty, or use: fraud, scam, lie, fake, false, illegal, deceptive, misleading (as a verdict), noncompliant, or "doesn't work."</p>
     <p>Approved language includes: "This claim extends beyond visible support", "Evidence exists, but is not clearly connected to this claim", "Claims appear proportionate to available evidence", "visible support appears limited", "source transparency appears incomplete."</p>
 
     <h2 id="limits">What Signal does not measure</h2>
     <div class="notice">
-      Signal is not a review platform. Signal is not a medical authority. Signal is not a product efficacy judge.<br><br>
+      NORM is not a review platform. NORM is not a medical authority. NORM is not a product efficacy judge.<br><br>
       <strong>Signal measures the gap between what brands claim, what evidence they provide, and how clearly those claims are connected to that evidence.</strong> Nothing more.<br><br>
       A red signal means claims extend beyond visible support on the page at the time of scan — not that a product is unsafe, ineffective, or that any intent to mislead exists.
     </div>
@@ -335,7 +338,7 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     </ul>
 
     <h2 id="disputes">Disputes &amp; corrections</h2>
-    <p>Sigñal is built on public data crawled at a point in time. Crawlers have limits: JavaScript-rendered pages may be partially captured, evidence hosted on subdomains may be missed, and content changes after a scan are not reflected until the next scan.</p>
+    <p>NORM is built on public data crawled at a point in time. Crawlers have limits: JavaScript-rendered pages may be partially captured, evidence hosted on subdomains may be missed, and content changes after a scan are not reflected until the next scan.</p>
     <p>If a score is materially wrong — because our crawler missed a /science page, misread a claim, or the page has changed — brands and third parties can request a correction.</p>
     <h3>How to dispute a score</h3>
     <ul>
@@ -357,7 +360,7 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
 
     <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--b1)">
       <p style="font-size:13px;color:var(--t3)">Questions about the methodology? Email <a href="mailto:signal@bhvd.com">signal@bhvd.com</a>.</p>
-      <p style="font-size:12px;color:var(--t3);margin-top:8px">Version 1.3 · Last updated April 2026 · Sigñal</p>
+      <p style="font-size:12px;color:var(--t3);margin-top:8px">Version 1.3 · Last updated April 2026 · NORM</p>
     </div>
   </div>
 </div>
@@ -365,7 +368,7 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
 <footer>
   <div class="footer-logo">
     <svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#4a5070" stroke-width="1.5" fill="none"/></svg>
-    Sigñal · by BHVD
+    NORM · by BHVD
   </div>
   <div class="footer-disc">This methodology is published in full and auditable by anyone. Scoring weights, location multipliers, and intensity classifications can be verified against our open-source codebase.</div>
 </footer>

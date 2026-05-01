@@ -19,7 +19,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:site_name" content="NORM by BHVD">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@bhvdsignal">
+<meta name="twitter:site" content="@trynorm">
 <meta name="twitter:title" content="NORM — The signal the wellness industry answers to">
 <meta name="twitter:description" content="Independent claim quality index for wellness brands. Editorially reviewed. Payment never influences scores.">
 <meta name="twitter:image" content="https://trynorm.co/og-image.png">
@@ -352,6 +352,7 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
     <li><a href="/pricing">Pricing</a></li>
   </ul>
   <div class="nav-cta">
+    <a href="/brand-portal" class="btn" style="border:1px solid rgba(255,255,255,.15)" onclick="track('brand_portal_nav_click')">For brands</a>
     <a href="/extension" class="btn btn-p" onclick="track('extension_install_click')">Add to Browser</a>
   </div>
 </nav>
@@ -980,116 +981,110 @@ ademoLoad(0);
   </div>
 </div>
 
+<!-- BRAND CTA -->
+<div style="max-width:900px;margin:0 auto;padding:0 24px 80px">
+  <div style="background:#111420;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:40px 48px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap">
+    <div>
+      <div style="font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--acc);text-transform:uppercase;margin-bottom:10px">For brands</div>
+      <h3 style="font-size:20px;font-weight:400;margin-bottom:8px;line-height:1.3">Is your brand in the index?</h3>
+      <p style="font-size:14px;color:var(--t2);line-height:1.6;max-width:440px;margin:0">Look up your public NORM score, see which claims are flagged, and submit evidence for editorial review. Free to access.</p>
+    </div>
+    <a href="/brand-portal" class="btn btn-p" style="white-space:nowrap;flex-shrink:0" onclick="track('brand_portal_cta_click')">Look up your score →</a>
+  </div>
+</div>
+
 <div class="divider"></div>
 
 <!-- PRICING -->
 <div class="section-wrap" id="pricing">
   <div class="sec-tag">Pricing</div>
-  <h2 class="sec-title">Always free to<br>protect yourself.</h2>
-  <p class="sec-sub">The signal is free forever for every consumer. Pro features are for people who want more depth. No brand money touches either tier.</p>
+  <h2 class="sec-title">Transparent pricing for<br>a transparency product.</h2>
+  <p class="sec-sub">Public scores are free. Always. Paid tiers unlock deeper analysis, monitoring, and workflow tools — not better scores or favorable treatment.</p>
 
   <div class="pricing-tabs">
     <button class="ptab on" onclick="showPlans('consumer')">For consumers</button>
-    <button class="ptab" onclick="showPlans('b2b')">For industry</button>
+    <button class="ptab" onclick="showPlans('b2b')">For brands</button>
   </div>
 
   <div id="plans-consumer" style="display:grid" class="pricing-grid">
     <div class="plan">
-      <div class="plan-name">Free</div>
-      <div class="plan-price"><sup>$</sup>0</div>
-      <div class="plan-period">forever · no credit card</div>
+      <div class="plan-name">Consumer Free</div>
+      <div class="plan-price">Free</div>
+      <div class="plan-period">Always free. No card required.</div>
       <ul class="plan-features">
-        <li>Red / Yellow / Green Signal on every scan</li>
-        <li>Claim Support Risk score</li>
-        <li>Category rank</li>
-        <li>Top flagged reasons</li>
-        <li>25 scans per month</li>
-        <li>7-day scan history</li>
-        <li class="dim">Full 6-dimension breakdown</li>
-        <li class="dim">Unlimited scans</li>
-        <li class="dim">Signal change alerts</li>
-        <li class="dim">Watchlist tracking</li>
+        <li>View any brand's public claim record</li>
+        <li>Full verdict, evidence summary, claim receipts</li>
+        <li>Leaderboard access</li>
+        <li>Side-by-side brand comparison (up to 3)</li>
+        <li>Chrome extension (25 scans/month)</li>
+        <li>Submit evidence for review</li>
+        <li class="dim">Saved watchlists</li>
+        <li class="dim">Score change alerts</li>
+        <li class="dim">Claim change notifications</li>
+        <li class="dim">Full scan history</li>
       </ul>
-      <button class="plan-btn">Add to Chrome — free</button>
+      <a href="/extension" class="plan-btn">Add to Chrome — free</a>
+      <div class="plan-note">Public scores are free permanently — this is not a trial.</div>
     </div>
     <div class="plan feat">
-      <div class="plan-badge">Most popular</div>
-      <div class="plan-name">Signal Pro</div>
-      <div class="plan-price"><sup>$</sup>6</div>
-      <div class="plan-period">per month · cancel anytime</div>
+      <div class="plan-badge">NOW LIVE</div>
+      <div class="plan-name">Consumer Pro</div>
+      <div class="plan-price"><sup>$</sup>9</div>
+      <div class="plan-period">per month · or $79/year</div>
       <ul class="plan-features">
-        <li>Everything in Free — unlimited</li>
-        <li>Full 6-dimension breakdown with explanations</li>
-        <li>Complete scan history — never expires</li>
-        <li>Watchlist — track products over time</li>
-        <li>Signal change alerts via email</li>
-        <li>CSV export of your scan history</li>
-        <li>Early access to new categories</li>
+        <li>Score change alerts — get notified when a brand's score moves</li>
+        <li>Claim change notifications — know when marketing language shifts</li>
+        <li>Unlimited extension scans</li>
+        <li>Full scan history export</li>
+        <li>Save brand watchlists (unlimited)</li>
+        <li>Category watchlists (up to 10)</li>
+        <li>Full evidence traceability with source links</li>
+        <li>Score trajectory charts — 30/90/180 day history</li>
+        <li>Early access to new features</li>
       </ul>
-      <button class="plan-btn plan-btn-p">Start free 14-day trial</button>
-    </div>
-    <div class="plan">
-      <div class="plan-name">Brand transparency</div>
-      <div class="plan-price"><sup>$</sup>199</div>
-      <div class="plan-period">per month · brands only</div>
-      <ul class="plan-features">
-        <li>See your full scoring breakdown</li>
-        <li>Understand exactly what drives your signal</li>
-        <li>Submit supporting evidence for review</li>
-        <li>Evidence review status tracking</li>
-        <li>Category benchmark vs. peers</li>
-        <li>Methodology support</li>
-      </ul>
-      <button class="plan-btn">Contact us</button>
-      <div class="plan-note">Brand payment never changes a score. The only path to a better signal is making stronger evidence visible on your actual product page.</div>
+      <a href="/pricing" class="plan-btn plan-btn-p">Get Pro — $9/mo</a>
+      <div class="plan-note">Consumer Pro does not change scores — it gives you deeper visibility.</div>
     </div>
   </div>
 
   <div id="plans-b2b" style="display:none" class="pricing-grid">
     <div class="plan">
-      <div class="plan-name">Retailer intelligence</div>
-      <div class="plan-price"><sup>$</sup>999</div>
-      <div class="plan-period">per month · per category</div>
+      <div class="plan-name">Brand Free</div>
+      <div class="plan-price">Free</div>
+      <div class="plan-period">No card required.</div>
       <ul class="plan-features">
-        <li>Full category leaderboard with all dimension scores</li>
-        <li>Brand portfolio audit across your entire shelf</li>
-        <li>Signal change monitoring with alerts</li>
-        <li>Regulatory risk flagging</li>
-        <li>API access for internal tooling</li>
-        <li>Monthly benchmark report</li>
+        <li>View your public claim record</li>
+        <li>Claim your brand profile</li>
+        <li>Submit evidence for editorial review</li>
+        <li>Request score correction</li>
+        <li>View your claim receipts</li>
+        <li>See your evidence gap map</li>
+        <li class="dim">Private claim audit</li>
+        <li class="dim">Pre-launch copy review</li>
+        <li class="dim">Evidence gap analysis</li>
+        <li class="dim">Monitoring dashboard</li>
+        <li class="dim">Competitor benchmarks</li>
       </ul>
-      <button class="plan-btn">Talk to us</button>
-      <div class="plan-note">For retailers who need ongoing brand risk intelligence before regulatory issues surface in the press.</div>
+      <a href="/brand-portal" class="plan-btn">Claim your profile →</a>
     </div>
     <div class="plan feat">
-      <div class="plan-badge">High value</div>
-      <div class="plan-name">Due diligence report</div>
+      <div class="plan-badge">NOW LIVE</div>
+      <div class="plan-name">Brand Pro</div>
       <div class="plan-price"><sup>$</sup>299</div>
-      <div class="plan-period">per brand · one-time</div>
+      <div class="plan-period">per month</div>
       <ul class="plan-features">
-        <li>Full brand signal audit — every product page scored</li>
-        <li>All 6 dimensions with detailed reasoning</li>
-        <li>Claim-by-claim analysis with exact quotes</li>
-        <li>Regulatory risk summary</li>
-        <li>Category peer comparison</li>
-        <li>Delivered in 48 hours</li>
+        <li>Everything in Brand Free</li>
+        <li>Private claim audit — review claims against our scoring rubric before publishing</li>
+        <li>Pre-launch copy review — advisory, not editorial approval</li>
+        <li>Evidence gap analysis — see which dimensions have gaps and what's accepted</li>
+        <li>Monitoring dashboard — track score and claim changes over time</li>
+        <li>Competitor benchmarks — see how you compare within your category</li>
+        <li>Evidence library — organize and upload supporting materials</li>
+        <li>Score movement alerts — daily digest of changes</li>
+        <li>API access to your own brand data</li>
       </ul>
-      <button class="plan-btn plan-btn-p">Order a report</button>
-      <div class="plan-note">Used by investors before writing checks into wellness brands, journalists investigating marketing claims, and legal teams assessing risk.</div>
-    </div>
-    <div class="plan">
-      <div class="plan-name">BHVD Verified badge</div>
-      <div class="plan-price"><sup>$</sup>299</div>
-      <div class="plan-period">per month · green-signal brands only</div>
-      <ul class="plan-features">
-        <li>License to display the BHVD Verified badge</li>
-        <li>Badge links live to your current score</li>
-        <li>Eligible only while maintaining Green signal</li>
-        <li>Auto-deactivates if signal drops</li>
-        <li>Listed in the BHVD Verified brand directory</li>
-      </ul>
-      <button class="plan-btn">Apply for verification</button>
-      <div class="plan-note">The badge is earned through evidence quality — not purchased. It revokes automatically the moment a signal drops below Green.</div>
+      <a href="/pricing" class="plan-btn plan-btn-p">Get Brand Pro — $299/mo</a>
+      <div class="plan-note">Brand payment never changes a score. The only path to a better signal is making stronger evidence visible on your actual product page.</div>
     </div>
   </div>
 </div>
@@ -1197,7 +1192,7 @@ ademoLoad(0);
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How is the score calculated?</div>
-      <div class="faq-a"><div class="faq-a-inner">The Claim Support Risk score (0–100) runs across six dimensions: Evidence Alignment (25%), Claim Clarity (15%), Evidence Quality (15%), Consumer Distortion Risk (15%), Claim Strength (10%), and Evidence Accessibility (10%). Each claim is also weighted by where it appears — hero headlines carry 3× more weight than footer disclaimers, because that's where brands put the claims they most want you to believe. High-intensity language like "clinically proven" or "guaranteed" with no visible evidence carries an additional penalty. The complete methodology is published publicly at bhvdsignal.com/methodology.</div></div>
+      <div class="faq-a"><div class="faq-a-inner">The Claim Support Risk score (0–100) runs across six dimensions: Evidence Alignment (25%), Claim Clarity (15%), Evidence Quality (15%), Consumer Distortion Risk (15%), Claim Strength (10%), and Evidence Accessibility (10%). Each claim is also weighted by where it appears — hero headlines carry 3× more weight than footer disclaimers, because that's where brands put the claims they most want you to believe. High-intensity language like "clinically proven" or "guaranteed" with no visible evidence carries an additional penalty. The complete methodology is published publicly at trynorm.co/methodology.</div></div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What data does the extension collect?</div>

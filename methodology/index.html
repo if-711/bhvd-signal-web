@@ -7,7 +7,7 @@
 <title>Scoring Methodology — How Sigñal measures evidence alignment</title>
 <meta name="description" content="The complete Sigñal scoring methodology — six dimensions, weights, location multipliers, intensity classifications, and category-specific rules. Fully published and auditable.">
 <meta property="og:title" content="Scoring Methodology — Sigñal">
-<meta property="og:description" content="Six weighted dimensions produce every brand's Claim Support Risk score. Full formula, weights, and rules published and auditable.">
+<meta property="og:description" content="Six weighted dimensions produce every brand's Evidence Score. Full formula, weights, and rules published and auditable.">
 <meta property="og:image" content="https://bhvdsignal.com/og-image.png">
 <meta property="og:url" content="https://bhvdsignal.com/methodology">
 <meta name="twitter:card" content="summary_large_image">
@@ -153,60 +153,62 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
 
     <h2 id="overview">Overview</h2>
     <p>Signal is a <strong>claims-intelligence and evidence-alignment system</strong>. It measures the gap between what wellness brands publicly claim, what evidence they visibly provide, and how clearly those claims are connected to that evidence.</p>
-    <p>The <strong>Claim Support Risk score</strong> (0–100) reflects that gap. Higher score = greater distance between what is claimed and what is visibly supported. The score is composite, weighted, location-sensitive, and category-adjusted. It is calculated every time a page is scanned and stored in the Sigñal Index.</p>
+    <p>The <strong>Evidence Score</strong> (0–100) reflects that alignment. Higher score = stronger evidence alignment between what a brand claims and what it visibly supports. The score is composite, weighted, location-sensitive, and category-adjusted. It is calculated every time a page is scanned and stored in the Sigñal Index.</p>
     <div class="signal-map">
       <div class="signal-block" style="background:#071a0e;border-color:#1a4a2a">
         <div class="signal-block-name" style="color:#1e9459">Green Signal</div>
-        <div class="signal-block-range" style="color:#1e9459">0 – 24</div>
-        <div class="signal-block-desc" style="color:#4a7a5a">Claims appear proportionate to available evidence. Visible support is present and connected.</div>
+        <div class="signal-block-range" style="color:#1e9459">70 – 100</div>
+        <div class="signal-block-desc" style="color:#4a7a5a">Claims appear proportionate to available evidence. Visible support is present and clearly connected.</div>
       </div>
       <div class="signal-block" style="background:#1a1200;border-color:#5a3a0a">
         <div class="signal-block-name" style="color:#c07718">Yellow Signal</div>
-        <div class="signal-block-range" style="color:#c07718">25 – 54</div>
-        <div class="signal-block-desc" style="color:#7a5a20">Evidence exists, but is not clearly connected to all claims. Gaps are present.</div>
+        <div class="signal-block-range" style="color:#c07718">45 – 69</div>
+        <div class="signal-block-desc" style="color:#7a5a20">Evidence exists, but is not clearly connected to all claims. Gaps are present and notable.</div>
       </div>
       <div class="signal-block" style="background:#1a0808;border-color:#5a1a1a">
         <div class="signal-block-name" style="color:#9e3028">Red Signal</div>
-        <div class="signal-block-range" style="color:#9e3028">55 – 100</div>
+        <div class="signal-block-range" style="color:#9e3028">0 – 44</div>
         <div class="signal-block-desc" style="color:#7a2a2a">Claims extend beyond visible support. The gap between what is claimed and what is shown is material.</div>
       </div>
     </div>
 
     <h2 id="formula">The formula</h2>
     <div class="formula-box">
-      final_risk = (base_risk × location_factor) + intensity_penalty + category_addons<br>
-      <span class="formula-comment">// clamped to 0–100</span><br><br>
-      base_risk = Σ (dimension_score<sub>i</sub> × weight<sub>i</sub>)<br>
+      gap_score = (base_gap × location_factor) + intensity_penalty + category_addons<br>
+      <span class="formula-comment">// internal gap measure, clamped to 0–100 (higher = worse alignment)</span><br><br>
+      base_gap = Σ (dimension_gap<sub>i</sub> × weight<sub>i</sub>)<br>
       <span class="formula-comment">// 60% deterministic + 40% AI analysis, blended per dimension</span><br><br>
       location_factor = 0.5 + (avg_claim_location_multiplier / 3.0) × 1.0<br>
       intensity_penalty = Σ (intensity_level × (100 − visible_support_score) × 0.15) × (location_mult / 3.0)<br>
-      category_addons = Σ category_specific_checks <span class="formula-comment">// capped at +15 total</span>
+      category_addons = Σ category_specific_checks <span class="formula-comment">// capped at +15 total</span><br><br>
+      <strong>Evidence Score = 100 − gap_score</strong> <span class="formula-comment">// displayed score: higher = better</span>
     </div>
 
     <h3>Worked example</h3>
     <p>A supplement brand with ingredient-level studies on a <code>/science</code> page, but no finished-product trial and a hero claim of "clinically proven" with no visible citation from the product page.</p>
     <div class="formula-box" style="font-size:12px">
-      <span class="formula-comment">// Step 1: dimension scores × weights → base_risk</span><br><br>
+      <span class="formula-comment">// Step 1: dimension gap scores × weights → base_gap (higher = worse alignment)</span><br><br>
       Evidence Alignment &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48 × 0.25 = 12.0<br>
       Claim Clarity &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;42 × 0.15 = &nbsp;6.3<br>
       Evidence Quality &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;52 × 0.15 = &nbsp;7.8<br>
       Consumer Distortion Risk &nbsp;38 × 0.15 = &nbsp;5.7<br>
       Claim Strength &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;46 × 0.10 = &nbsp;4.6<br>
       Evidence Accessibility &nbsp;55 × 0.10 = &nbsp;5.5<br>
-      <span style="display:block;border-top:1px solid rgba(255,255,255,.1);margin:10px 0;padding-top:10px">base_risk = 41.9</span>
+      <span style="display:block;border-top:1px solid rgba(255,255,255,.1);margin:10px 0;padding-top:10px">base_gap = 41.9</span>
       <span class="formula-comment">// Step 2: location factor — hero headline + benefit bullets dominant</span><br>
       location_factor = 1.15 &nbsp;<span class="formula-comment">// weighted avg of zone multipliers</span><br>
       41.9 × 1.15 = 48.2<br><br>
       <span class="formula-comment">// Step 3: intensity penalty — "clinically proven" (high intensity) with no hero-page citation</span><br>
       intensity_penalty = +2.8<br><br>
-      <span class="formula-comment">// Step 4: category add-ons — supplements: proprietary blend present (+3)</span><br>
+      <span class="formula-comment">// Step 4: category add-ons — supplements: no finished-product trial visible (+3)</span><br>
       category_addons = +3.0<br>
-      <span style="display:block;border-top:1px solid rgba(255,255,255,.1);margin:10px 0;padding-top:10px">final_risk = 48.2 + 2.8 + 3.0 = <strong style="color:#c07718">54 → Yellow Signal</strong><br>
+      <span style="display:block;border-top:1px solid rgba(255,255,255,.1);margin:10px 0;padding-top:10px">gap_score = 48.2 + 2.8 + 3.0 = 54<br>
+      <strong style="color:#c07718">Evidence Score = 100 − 54 = 46 → Yellow Signal</strong><br>
       <span class="formula-comment">// Ingredient studies exist but the finished-product "clinically proven" claim has no visible support</span></span>
     </div>
 
     <h2 id="dimensions">Six dimensions</h2>
-    <p>Each dimension receives a score from 0–100 (higher = greater gap or risk). Scores are blended from deterministic rules (60%) and AI analysis (40%). These six dimensions are the consumer-facing surface of the scoring model.</p>
+    <p>Each dimension measures a specific aspect of evidence alignment and receives an internal gap score from 0–100 (higher = larger gap between claims and visible support). These sub-scores feed the formula above and are inverted in the final Evidence Score. Scores are blended from deterministic rules (60%) and AI analysis (40%).</p>
     <table class="dim-table">
       <thead><tr><th>Dimension</th><th>Weight</th><th>What it measures</th></tr></thead>
       <tbody>
@@ -286,7 +288,7 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     </ul>
 
     <h2 id="confidence">Confidence score</h2>
-    <p>Separate from the risk score, confidence reflects how reliably the scan captured the page's content. Low confidence forces a "Limited Signal" state regardless of risk score.</p>
+    <p>Separate from the Evidence Score, confidence reflects how reliably the scan captured the page's content. Low confidence forces a "Limited Signal" state regardless of score.</p>
     <ul>
       <li><strong>High</strong> — page fully extracted, claims clearly identifiable, content complete</li>
       <li><strong>Medium</strong> — partial extraction or some ambiguity in claim language</li>
@@ -294,7 +296,7 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     </ul>
 
     <h2 id="ranking">Ranking</h2>
-    <p>Within each category, products are sorted by Claim Support Risk ascending — lowest risk = Rank #1. Tie-breakers in order:</p>
+    <p>Within each category, products are sorted by Evidence Score descending — highest score = Rank #1. Tie-breakers in order:</p>
     <ul>
       <li>Higher confidence score</li>
       <li>More product-specific evidence visible</li>
@@ -304,11 +306,11 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     <p>Low-confidence scans are placed at the bottom with "Rank Pending" until confidence improves.</p>
 
     <h2 id="signals">Signal thresholds</h2>
-    <p>The final clamped score maps to three signals. Signal does not tell consumers what to buy. Signal shows what holds.</p>
+    <p>The Evidence Score maps to three signals. Signal does not tell consumers what to buy. Signal shows what holds.</p>
     <ul>
-      <li><strong style="color:var(--grn)">Green (0–24)</strong> — claims appear proportionate to available evidence. Visible support is present and clearly connected.</li>
-      <li><strong style="color:var(--yel)">Yellow (25–54)</strong> — evidence exists, but is not clearly connected to all claims. Gaps are present and notable.</li>
-      <li><strong style="color:var(--red)">Red (55–100)</strong> — claims extend beyond visible support. The gap between what is claimed and what is shown is material.</li>
+      <li><strong style="color:var(--grn)">Green (70–100)</strong> — claims appear proportionate to available evidence. Visible support is present and clearly connected.</li>
+      <li><strong style="color:var(--yel)">Yellow (45–69)</strong> — evidence exists, but is not clearly connected to all claims. Gaps are present and notable.</li>
+      <li><strong style="color:var(--red)">Red (0–44)</strong> — claims extend beyond visible support. The gap between what is claimed and what is shown is material.</li>
     </ul>
 
     <h2 id="ai">The role of AI</h2>

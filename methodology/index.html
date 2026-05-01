@@ -183,6 +183,28 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
       category_addons = Σ category_specific_checks <span class="formula-comment">// capped at +15 total</span>
     </div>
 
+    <h3>Worked example</h3>
+    <p>A supplement brand with ingredient-level studies on a <code>/science</code> page, but no finished-product trial and a hero claim of "clinically proven" with no visible citation from the product page.</p>
+    <div class="formula-box" style="font-size:12px">
+      <span class="formula-comment">// Step 1: dimension scores × weights → base_risk</span><br><br>
+      Evidence Alignment &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48 × 0.25 = 12.0<br>
+      Claim Clarity &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;42 × 0.15 = &nbsp;6.3<br>
+      Evidence Quality &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;52 × 0.15 = &nbsp;7.8<br>
+      Consumer Distortion Risk &nbsp;38 × 0.15 = &nbsp;5.7<br>
+      Claim Strength &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;46 × 0.10 = &nbsp;4.6<br>
+      Evidence Accessibility &nbsp;55 × 0.10 = &nbsp;5.5<br>
+      <span style="display:block;border-top:1px solid rgba(255,255,255,.1);margin:10px 0;padding-top:10px">base_risk = 41.9</span>
+      <span class="formula-comment">// Step 2: location factor — hero headline + benefit bullets dominant</span><br>
+      location_factor = 1.15 &nbsp;<span class="formula-comment">// weighted avg of zone multipliers</span><br>
+      41.9 × 1.15 = 48.2<br><br>
+      <span class="formula-comment">// Step 3: intensity penalty — "clinically proven" (high intensity) with no hero-page citation</span><br>
+      intensity_penalty = +2.8<br><br>
+      <span class="formula-comment">// Step 4: category add-ons — supplements: proprietary blend present (+3)</span><br>
+      category_addons = +3.0<br>
+      <span style="display:block;border-top:1px solid rgba(255,255,255,.1);margin:10px 0;padding-top:10px">final_risk = 48.2 + 2.8 + 3.0 = <strong style="color:#c07718">54 → Yellow Signal</strong><br>
+      <span class="formula-comment">// Ingredient studies exist but the finished-product "clinically proven" claim has no visible support</span></span>
+    </div>
+
     <h2 id="dimensions">Six dimensions</h2>
     <p>Each dimension receives a score from 0–100 (higher = greater gap or risk). Scores are blended from deterministic rules (60%) and AI analysis (40%). These six dimensions are the consumer-facing surface of the scoring model.</p>
     <table class="dim-table">

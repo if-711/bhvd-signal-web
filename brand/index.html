@@ -315,8 +315,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .scope-row:last-of-type{margin-bottom:10px}
 .scope-key{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);flex-shrink:0;width:100px}
 .scope-val{color:var(--t2)}
-.scope-dispute{font-size:12px;color:var(--acc);text-decoration:none;display:inline-block;padding-top:8px;border-top:1px solid var(--b1);width:100%}
-.scope-dispute:hover{text-decoration:underline}
+.dispute-field{margin-bottom:12px}
+.dispute-label{display:block;font-size:10px;color:var(--t3);font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+.dispute-select,.dispute-textarea{width:100%;font-family:var(--sans)}
+.dispute-select{cursor:pointer}
+.dispute-textarea{resize:vertical;min-height:78px;line-height:1.55}
 
 /* PRINT */
 @media print{
@@ -431,7 +434,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
           <span class="scope-key">Not assessed</span>
           <span class="scope-val">Product efficacy, safety, ingredient quality, regulatory compliance, or evidence not publicly visible at scan time</span>
         </div>
-        <a class="scope-dispute" id="scope-dispute-link" href="mailto:signal@bhvd.com?subject=Score%20Dispute">Dispute this report or submit evidence for review →</a>
       </div>
 
       <div class="cat-bar" id="cat-bar">
@@ -606,8 +608,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
     <!-- CTAs -->
     <div class="cta-row">
       <button class="btn btn-primary" id="cta-track" onclick="toggleTrackForm()">Track this brand</button>
-      <a class="btn" id="cta-evidence" href="/brand-portal" onclick="track('submit_evidence_click',{domain:domain})">Submit supporting evidence</a>
-      <a class="btn btn-primary" id="cta-reassess" href="#" onclick="track('request_review_click',{domain:domain})">Request re-evaluation</a>
+      <button class="btn" id="cta-evidence" onclick="toggleDisputeForm('evidence')">Submit supporting evidence</button>
+      <button class="btn btn-primary" id="cta-reassess" onclick="toggleDisputeForm('reassess')">Request re-evaluation</button>
       <a class="btn" href="/methodology">Methodology</a>
     </div>
     <div class="capture-inline" id="track-form">
@@ -618,6 +620,43 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
       </div>
       <div class="capture-inline-ok" id="track-ok">You're tracking this brand. We'll notify you when the alignment rating changes.</div>
       <div class="capture-inline-note">Rating changes and new assessments only. No marketing.</div>
+    </div>
+
+    <!-- Inline dispute / evidence form -->
+    <div class="capture-inline" id="dispute-form">
+      <div class="capture-inline-label" id="dispute-form-title">Submit supporting evidence for review</div>
+      <div id="dispute-form-body">
+        <div class="dispute-field">
+          <label class="dispute-label">Issue type</label>
+          <select class="capture-inline-input dispute-select" id="dispute-type">
+            <option value="missing_evidence">Missing evidence — public evidence exists but wasn't scored</option>
+            <option value="reassessment">Reassessment — page has changed significantly since scan</option>
+            <option value="score_dispute">Score dispute — evidence doesn't match my assessment</option>
+            <option value="technical_error">Technical error — wrong brand or data</option>
+          </select>
+        </div>
+        <div class="dispute-field">
+          <label class="dispute-label">Evidence URL <span style="color:var(--t3);text-transform:none;letter-spacing:0">(optional)</span></label>
+          <input class="capture-inline-input" id="dispute-url" type="url" placeholder="https://brand.com/science or pubmed link">
+        </div>
+        <div class="dispute-field">
+          <label class="dispute-label">Description</label>
+          <textarea class="capture-inline-input dispute-textarea" id="dispute-desc" placeholder="What should be corrected and why. Reference the specific claim or evidence directly."></textarea>
+        </div>
+        <div class="dispute-field" style="margin-bottom:16px">
+          <label class="dispute-label">Email <span style="color:var(--t3);text-transform:none;letter-spacing:0">(for response notification)</span></label>
+          <input class="capture-inline-input" id="dispute-email" type="email" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <button class="capture-inline-btn" id="dispute-btn" onclick="submitDispute()">Submit for review</button>
+          <button class="btn" style="font-size:12px;padding:8px 14px" onclick="toggleDisputeForm(null)">Cancel</button>
+        </div>
+        <div class="capture-inline-note" style="margin-top:10px">We review every submission. Score updates are published only when new evidence is verified and publicly accessible.</div>
+      </div>
+      <div id="dispute-ok" style="display:none">
+        <div style="font-size:13px;color:var(--grn);margin-bottom:6px" id="dispute-ok-ref"></div>
+        <div class="capture-inline-note">Acknowledgement within 2 business days. Score updates only when evidence is confirmed publicly accessible.</div>
+      </div>
     </div>
 
     <!-- Brand Tools: Profile Trigger -->
@@ -1268,12 +1307,8 @@ function renderVerified(brand, product, ld, dims, demand) {
   if (ld.strengths) { setText("fv-strengths", ld.strengths); showEl("fv-strengths"); }
   else hideEl("fv-strengths");
 
-  // CTAs
+  // CTAs — dispute form is inline; no page redirect needed
   var domain = brand.domain || "";
-  var reassessEl = document.getElementById("cta-reassess");
-  if (reassessEl) reassessEl.href = "/request/?d=" + encodeURIComponent(domain) + "&type=reassess";
-  var evidenceEl = document.getElementById("cta-evidence");
-  if (evidenceEl) evidenceEl.href = "/brand-portal?d=" + encodeURIComponent(domain);
 
   // Share card + embed (requires domain, score, sig, verdict, expired — all computed above)
   initShareCard(sanitize(brand.brand_name || brand.domain), score, domain, sig, verdict);
@@ -1406,6 +1441,66 @@ function renderDemand(d, domain) {
   }
 
   if (bar) bar.style.display = "flex";
+}
+
+// ── Inline dispute / evidence form ────────────────────────────
+var _disputeActive = null;
+function toggleDisputeForm(type) {
+  var form = document.getElementById("dispute-form");
+  if (!form) return;
+  var isOpen = form.classList.contains("open");
+  if (isOpen && (type === null || type === _disputeActive)) {
+    form.classList.remove("open");
+    _disputeActive = null;
+    return;
+  }
+  _disputeActive = type;
+  // Reset state
+  document.getElementById("dispute-form-body").style.display = "";
+  document.getElementById("dispute-ok").style.display = "none";
+  var btn = document.getElementById("dispute-btn");
+  if (btn) { btn.disabled = false; btn.textContent = "Submit for review"; }
+  // Set title + pre-select type
+  var titleEl = document.getElementById("dispute-form-title");
+  var sel = document.getElementById("dispute-type");
+  if (type === "evidence") {
+    if (titleEl) titleEl.textContent = "Submit supporting evidence for review";
+    if (sel) sel.value = "missing_evidence";
+  } else {
+    if (titleEl) titleEl.textContent = "Request re-evaluation";
+    if (sel) sel.value = "reassessment";
+  }
+  form.classList.add("open");
+  setTimeout(function() {
+    var focus = type === "evidence" ? document.getElementById("dispute-url") : document.getElementById("dispute-desc");
+    if (focus) focus.focus();
+  }, 60);
+}
+
+function submitDispute() {
+  var email    = (document.getElementById("dispute-email").value || "").trim();
+  var desc     = (document.getElementById("dispute-desc").value || "").trim();
+  var issueType = document.getElementById("dispute-type").value || "";
+  var url      = (document.getElementById("dispute-url").value || "").trim();
+  if (!email || !email.includes("@")) { document.getElementById("dispute-email").focus(); return; }
+  if (!desc) { document.getElementById("dispute-desc").focus(); return; }
+  var btn = document.getElementById("dispute-btn");
+  btn.disabled = true; btn.textContent = "Submitting…";
+  var refDomain = (domain || "").replace(/[^a-z0-9]/gi, "").slice(0, 4).toUpperCase() || "SGNL";
+  var refNum = "DSP-" + refDomain + "-" + Date.now().toString(36).toUpperCase();
+  fetch(API + "/api/capture", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: email, type: "dispute", domain: domain,
+      meta: { issue_type: issueType, evidence_url: url, description: desc, ref: refNum } })
+  })
+  .then(function() {
+    track("dispute_submitted", { domain: domain, issue_type: issueType });
+    document.getElementById("dispute-form-body").style.display = "none";
+    document.getElementById("dispute-ok-ref").textContent = "Submitted — reference " + refNum;
+    document.getElementById("dispute-ok").style.display = "";
+  })
+  .catch(function() { btn.disabled = false; btn.textContent = "Submit for review"; });
 }
 
 // ── Request review / re-review ─────────────────────────────────

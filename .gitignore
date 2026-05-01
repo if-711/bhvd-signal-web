@@ -7,3 +7,12 @@ node_modules/
 *.zip
 *.tsbuildinfo
 next-env.d.ts
+# Next.js artifacts — site is static HTML only
+app/
+components/
+lib/
+middleware.ts
+package.json
+package-lock.json
+components.json
+tsconfig.json

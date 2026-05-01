@@ -325,10 +325,12 @@ function drawChart() {
   ctx.font = '9px DM Mono, monospace'; ctx.fillStyle = '#4a78f0'; ctx.textAlign = 'left';
   ctx.fillText('avg ' + Math.round(avg), padL + cW + 6, avgY + 3);
 
-  // Dots — sorted left→right by score, Y = score position
-  sorted.forEach(function(s, i) {
-    var x = n === 1 ? padL + cW / 2 : padL + (i / (n - 1)) * cW;
-    var y = sy(s);
+  // Dots — random X scatter, Y = score with small jitter for density
+  var rng = (function(seed){ return function(){ seed = (seed * 1664525 + 1013904223) & 0xffffffff; return (seed >>> 0) / 0xffffffff; }; })(allScores.length * 7 + 13);
+  allScores.forEach(function(s) {
+    var x = padL + rng() * cW;
+    var jitter = (rng() - 0.5) * 5;
+    var y = Math.max(padT + 4, Math.min(padT + cH - 4, sy(s) + jitter));
     var sig = s >= 70 ? '#1e9459' : s >= 50 ? '#c07718' : '#9e3028';
     ctx.beginPath(); ctx.arc(x, y, 3.5, 0, Math.PI * 2);
     ctx.fillStyle = sig; ctx.globalAlpha = 0.82; ctx.fill(); ctx.globalAlpha = 1;

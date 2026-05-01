@@ -140,6 +140,7 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     <a href="#signals" class="toc-link" onclick="scrollTo('signals')">Signal thresholds</a>
     <a href="#ai" class="toc-link" onclick="scrollTo('ai')">AI role</a>
     <a href="#limits" class="toc-link" onclick="scrollTo('limits')">What we don't score</a>
+    <a href="#disputes" class="toc-link" onclick="scrollTo('disputes')">Disputes &amp; corrections</a>
     <a href="#updates" class="toc-link" onclick="scrollTo('updates')">Update cadence</a>
   </div>
 
@@ -309,6 +310,18 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
       <li>Company intent — Signal does not assume or assess intent</li>
     </ul>
 
+    <h2 id="disputes">Disputes &amp; corrections</h2>
+    <p>Sigñal is built on public data crawled at a point in time. Crawlers have limits: JavaScript-rendered pages may be partially captured, evidence hosted on subdomains may be missed, and content changes after a scan are not reflected until the next scan.</p>
+    <p>If a score is materially wrong — because our crawler missed a /science page, misread a claim, or the page has changed — brands and third parties can request a correction.</p>
+    <h3>How to dispute a score</h3>
+    <ul>
+      <li>Email <a href="mailto:signal@bhvd.com">signal@bhvd.com</a> with the subject line <strong>Score Dispute — [domain]</strong></li>
+      <li>Describe what was missed or misrepresented and where the correct evidence is publicly accessible</li>
+      <li>Scores are updated only when the supporting evidence is verifiably visible on the live consumer-facing page — not when evidence is emailed to us</li>
+      <li>We aim to acknowledge dispute emails within 5 business days</li>
+    </ul>
+    <div class="notice"><strong>What we correct:</strong> crawling errors, missed public evidence pages, outdated scans. <strong>What we do not change based on disputes:</strong> methodology weights, scoring thresholds, or how the system categorizes claim intensity. Those are fixed rules, published above.</div>
+
     <h2 id="updates">Update cadence</h2>
     <ul>
       <li><strong>New scans</strong> — immediate provisional rank on first scan</li>
@@ -335,20 +348,6 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
 
 <script>
 function scrollTo(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});}
-
-// Password gate
-(function(){
-  var PWD='signal2025';
-  if(sessionStorage.getItem('bhvd_ok')==='1') return;
-  var gate=document.createElement('div');
-  gate.style.cssText='position:fixed;inset:0;z-index:9999;background:#0a0c12;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:system-ui,sans-serif';
-  gate.innerHTML='<div style="font-family:monospace;font-size:12px;font-weight:500;letter-spacing:.08em;color:#f2f2f2;margin-bottom:36px">Sigñal · by BHVD</div><div style="background:#111420;border:1px solid rgba(255,255,255,0.13);border-radius:14px;padding:40px;width:100%;max-width:380px;text-align:center"><h2 style="font-size:24px;font-weight:400;color:#f2f2f2;margin-bottom:8px">Early access</h2><p style="font-size:13px;color:#8b93b0;margin-bottom:24px">Enter your access code to continue</p><input id="pi" type="password" placeholder="Access code" style="width:100%;padding:12px;background:#1f2438;border:1px solid rgba(255,255,255,0.13);border-radius:8px;color:#f2f2f2;font-size:14px;text-align:center;outline:none;margin-bottom:12px;font-family:monospace;letter-spacing:.1em;box-sizing:border-box"><button onclick="pa()" style="width:100%;padding:12px;background:#4a78f0;border:none;border-radius:8px;color:#fff;font-size:14px;font-weight:500;cursor:pointer">Continue →</button><div id="pe" style="font-size:12px;color:#9e3028;margin-top:10px;min-height:18px"></div></div>';
-  document.body.appendChild(gate);
-  document.body.style.overflow='hidden';
-  document.getElementById('pi').focus();
-  window.pa=function(){var v=document.getElementById('pi').value.trim();if(v===PWD){sessionStorage.setItem('bhvd_ok','1');gate.style.opacity='0';gate.style.transition='opacity .35s';setTimeout(function(){gate.remove();document.body.style.overflow='';},360);}else{document.getElementById('pe').textContent='Incorrect access code.';document.getElementById('pi').value='';}};
-  document.getElementById('pi').addEventListener('keydown',function(e){if(e.key==='Enter')pa();document.getElementById('pe').textContent='';});
-})();
 </script>
 </body>
 </html>

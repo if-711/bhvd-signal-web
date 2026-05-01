@@ -309,6 +309,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .ct-strip.ct-brand .ct-btn{border-color:rgba(39,174,96,0.35);color:var(--grn)}
 .ct-strip.ct-brand .ct-btn:hover{background:rgba(39,174,96,0.08);border-color:rgba(39,174,96,0.6)}
 
+/* SCOPE CALLOUT */
+.scope-callout{background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:16px 20px;margin-bottom:24px;font-size:12px;line-height:1.6}
+.scope-row{display:flex;gap:10px;align-items:baseline;margin-bottom:6px}
+.scope-row:last-of-type{margin-bottom:10px}
+.scope-key{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);flex-shrink:0;width:100px}
+.scope-val{color:var(--t2)}
+.scope-dispute{font-size:12px;color:var(--acc);text-decoration:none;display:inline-block;padding-top:8px;border-top:1px solid var(--b1);width:100%}
+.scope-dispute:hover{text-decoration:underline}
+
 /* PRINT */
 @media print{
   nav,.btn,.alpha-bar,.cta-row{display:none!important}
@@ -412,6 +421,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
           <div class="rh-meta-val" id="meta-standing" style="display:none">—</div>
         </div>
       </div>
+      <!-- Scope of assessment -->
+      <div class="scope-callout" id="scope-callout" style="margin-top:16px">
+        <div class="scope-row">
+          <span class="scope-key">Scope</span>
+          <span class="scope-val">Publicly accessible pages at <span id="scope-domain">this domain</span> · Scanned <span id="scope-date">—</span> · Confidence: <span id="scope-confidence">—</span></span>
+        </div>
+        <div class="scope-row">
+          <span class="scope-key">Not assessed</span>
+          <span class="scope-val">Product efficacy, safety, ingredient quality, regulatory compliance, or evidence not publicly visible at scan time</span>
+        </div>
+        <a class="scope-dispute" id="scope-dispute-link" href="mailto:signal@bhvd.com?subject=Score%20Dispute">Dispute this report or submit evidence for review →</a>
+      </div>
+
       <div class="cat-bar" id="cat-bar">
         <div class="cat-bar-header">
           <div class="cat-bar-label">Category Benchmark</div>
@@ -485,7 +507,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 
     <!-- Claim Receipts -->
     <div class="rsec" id="receipts-sec">
-      <div class="rsec-title">Claim Receipts</div>
+      <div class="rsec-title">Claim Evidence Review</div>
       <div class="receipts-list" id="receipts-list"></div>
       <div style="margin-top:10px;font-size:11px;color:var(--t3);font-family:var(--mono)">Claims extracted from brand marketing pages. Status reflects whether visible evidence on the same page supports the claim.</div>
     </div>
@@ -540,7 +562,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 
     <!-- Risk Flags -->
     <div class="rsec" id="flags-sec">
-      <div class="rsec-title">Risk Flags</div>
+      <div class="rsec-title">Evidence Gaps</div>
       <div class="flags-list" id="flags-list"></div>
     </div>
 
@@ -554,17 +576,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
     </div>
 
     <!-- Limitations -->
-    <div class="rsec" id="limitations-sec" style="display:none">
+    <div class="rsec" id="limitations-sec">
       <div class="rsec-title">Assessment Limitations</div>
-      <div class="limitations-box" id="limitations-box"></div>
+      <div class="limitations-box" id="limitations-box">This assessment covers publicly visible content at the time of scan. Our crawler may not have accessed every page on this domain — evidence hosted on subdomains, gated pages, or JavaScript-rendered sections may not be captured. A score reflects what was visible at scan time; it does not assess product safety, efficacy, or regulatory compliance. If relevant evidence was missed, brands can submit it via Brand Portal for review. Scores are updated when evidence becomes verifiably visible on the live page.</div>
     </div>
 
     <!-- Final Verdict -->
     <div class="rsec">
-      <div class="rsec-title">Final Verdict</div>
+      <div class="rsec-title">Signal Assessment</div>
       <div class="final-verdict" id="final-verdict">
         <div class="fv-bg"></div>
-        <div class="fv-label">Sigñal Verdict</div>
+        <div class="fv-label">Signal Assessment</div>
         <div class="fv-verdict" id="fv-verdict"></div>
         <div class="fv-note" id="fv-note"></div>
         <div class="fv-strengths" id="fv-strengths" style="display:none"></div>
@@ -1018,6 +1040,18 @@ function renderVerified(brand, product, ld, dims, demand) {
   var verifiedDate = fmtDate(ld.reviewed_at || product.last_scanned_at);
   if (verifiedDate) setText("meta-verified", verifiedDate);
 
+  // Populate scope callout
+  var scopeDomEl = document.getElementById("scope-domain");
+  if (scopeDomEl && brand.domain) scopeDomEl.textContent = brand.domain;
+  var scopeDateEl = document.getElementById("scope-date");
+  if (scopeDateEl) scopeDateEl.textContent = verifiedDate || "unknown";
+  var scopeConfEl = document.getElementById("scope-confidence");
+  if (scopeConfEl) scopeConfEl.textContent = conf ? conf.charAt(0).toUpperCase() + conf.slice(1) : "—";
+  var scopeDispEl = document.getElementById("scope-dispute-link");
+  if (scopeDispEl && brand.domain) {
+    scopeDispEl.href = "mailto:signal@bhvd.com?subject=Score%20Dispute%20%E2%80%94%20" + encodeURIComponent(brand.domain);
+  }
+
   if (ld.valid_until) {
     var vu = fmtDate(ld.valid_until);
     if (vu) {
@@ -1280,9 +1314,9 @@ function renderVerified(brand, product, ld, dims, demand) {
       signals.push({ cls: "pressure-signal-active", text: "This brand is being actively monitored." });
     }
 
-    // Brand response state — observational, never accusatory
+    // Brand response state — observational only
     if (!ld.brand_response && !ld.brand_submitted_evidence && ld.total_score != null) {
-      signals.push({ cls: "", text: "No evidence has been submitted by this brand." });
+      signals.push({ cls: "", text: "No additional evidence submitted via Brand Portal." });
     }
 
     if (signals.length) {

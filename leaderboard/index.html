@@ -160,6 +160,10 @@ canvas#scoreChart{display:block;width:100%;height:90px}
   <div class="load-more-wrap" id="loadMoreWrap">
     <button class="load-btn" id="loadMoreBtn">Load more</button>
   </div>
+
+  <div style="padding:20px 48px 40px;font-size:11px;color:var(--t3);line-height:1.7;font-family:var(--mono);border-top:1px solid var(--b1);margin-top:8px">
+    Scores reflect publicly visible marketing claims and evidence references at the time of scan. They do not assess product efficacy, safety, ingredient quality, or regulatory compliance. A lower score means claims extend beyond what is visibly supported — not that a product is unsafe or ineffective. Brands can submit supporting evidence via <a href="/brand-portal" style="color:var(--t3);text-decoration:underline">Brand Portal</a>. Methodology published at <a href="/methodology" style="color:var(--t3);text-decoration:underline">/methodology</a>.
+  </div>
 </main>
 
 <script>
@@ -176,7 +180,7 @@ var CATS = [
 function sigColor(s){ return s==='green'?'#1e9459':s==='yellow'?'#c07718':'#9e3028'; }
 function sigText(s){ return s==='green'?'#3ecf82':s==='yellow'?'#e8a840':'#e05a50'; }
 function sigCls(s){ return s==='green'?'grn':s==='yellow'?'yel':'red'; }
-function sigLabel(s){ return s==='green'?'Strong':s==='yellow'?'Partial':'Weak'; }
+function sigLabel(s){ return s==='green'?'Well Supported':s==='yellow'?'Mixed Evidence':'Limited Evidence'; }
 function riskLabel(r){ return r<30?['Conservative','grn']:r<60?['Moderate','yel']:['Aggressive','red']; }
 
 function row(b, i) {

@@ -403,7 +403,17 @@ function renderCompare(domains){
 function parseProduct(resp, domain){
   var apiData = resp && resp.data;
   if(!apiData) return null;
-  var p = (apiData.products && apiData.products[0]) || {};
+  var products = apiData.products || [];
+  var p = products.length > 1
+    ? products.reduce(function(best, cur) {
+        var bld = best.leaderboard_data || {};
+        var cld = cur.leaderboard_data || {};
+        if (cld.public_safe !== true) return best;
+        var bs = bld.total_score != null ? bld.total_score : (100 - (best.claim_support_risk || 50));
+        var cs = cld.total_score != null ? cld.total_score : (100 - (cur.claim_support_risk || 50));
+        return cs > bs ? cur : best;
+      }, products[0])
+    : (products[0] || {});
   var ld = p.leaderboard_data || {};
   var score = ld.total_score != null ? Math.round(ld.total_score)
     : p.claim_support_risk != null ? Math.round(100 - p.claim_support_risk) : 0;

@@ -332,9 +332,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 </head>
 <body>
 
-<div class="alpha-bar">
-  Sigñal is in early beta. Scores reflect reviewed public marketing claims and visible evidence references — not product efficacy, safety, or regulatory status.
-</div>
+
 
 <nav>
   <a class="nav-logo" href="/">
@@ -1238,7 +1236,7 @@ function renderVerified(brand, product, ld, dims, demand) {
       dimsEl.innerHTML = DIMS.map(function(d){
         var val = dims[d.key];
         var pct = (val != null && d.max) ? Math.round(val/d.max*100) : 0;
-        var c   = pct >= 65 ? "#27ae60" : pct >= 40 ? "#f39c12" : "#e74c3c";
+        var c   = pct >= 65 ? "#3ecf82" : pct >= 40 ? "#e8a840" : "#e05a50";
         if (val != null && pct < 40) hasGaps = true;
         return '<div class="dim-row">' +
           '<div class="dim-name">'+esc(d.label)+'</div>'+
@@ -1255,7 +1253,7 @@ function renderVerified(brand, product, ld, dims, demand) {
     } else {
       dimsEl.innerHTML =
         '<div style="padding:20px 0;color:var(--t3);font-size:13px;font-family:var(--mono);letter-spacing:.03em">' +
-          'Detailed dimension scoring is being prepared for this beta report.' +
+          'Detailed dimension scoring for this brand.' +
         '</div>' +
         '<div class="dim-total-row">' +
           '<div class="dim-total-label">Total Score</div>' +

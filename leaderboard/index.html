@@ -300,48 +300,38 @@ function drawChart() {
   var ctx = canvas.getContext('2d');
   ctx.scale(dpr, dpr);
 
-  var padL = 36, padR = 16, padT = 10, padB = 24;
+  var padL = 8, padR = 52, padT = 8, padB = 8;
   var cW = W - padL - padR, cH = H - padT - padB;
-
-  // Background
   ctx.clearRect(0, 0, W, H);
 
-  // Grid lines at 25, 50, 75, 100
-  [25, 50, 75, 100].forEach(function(v) {
-    var x = padL + (v / 100) * cW;
-    ctx.beginPath(); ctx.moveTo(x, padT); ctx.lineTo(x, padT + cH);
-    ctx.strokeStyle = 'rgba(255,255,255,0.05)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.font = '9px DM Mono, monospace'; ctx.fillStyle = '#4a5070'; ctx.textAlign = 'center';
-    ctx.fillText(v, x, padT + cH + 14);
-  });
-
-  // Average line
+  var sorted = allScores.slice().sort(function(a, b) { return a - b; });
   var avg = allScores.reduce(function(a, b) { return a + b; }, 0) / allScores.length;
-  var avgX = padL + (avg / 100) * cW;
-  ctx.beginPath(); ctx.moveTo(avgX, padT); ctx.lineTo(avgX, padT + cH);
-  ctx.strokeStyle = '#4a78f0'; ctx.lineWidth = 1;
-  ctx.setLineDash([4, 3]); ctx.stroke(); ctx.setLineDash([]);
-  ctx.font = '9px DM Mono, monospace'; ctx.fillStyle = '#4a78f0'; ctx.textAlign = 'center';
-  ctx.fillText(Math.round(avg), avgX, padT - 2);
+  var n = sorted.length;
 
-  // Dots — jitter y to show density
-  var buckets = {};
-  allScores.forEach(function(s) {
-    var b = Math.round(s);
-    buckets[b] = (buckets[b] || 0) + 1;
+  // Score → Y: 100 = top, 0 = bottom
+  function sy(s) { return padT + cH * (1 - s / 100); }
+
+  // Faint horizontal guides at 25, 50, 75
+  [25, 50, 75].forEach(function(v) {
+    ctx.beginPath(); ctx.moveTo(padL, sy(v)); ctx.lineTo(padL + cW, sy(v));
+    ctx.strokeStyle = 'rgba(255,255,255,0.04)'; ctx.lineWidth = 1; ctx.setLineDash([]); ctx.stroke();
   });
-  var usedBuckets = {};
-  allScores.forEach(function(s) {
-    var b = Math.round(s);
-    usedBuckets[b] = usedBuckets[b] || 0;
-    var idx = usedBuckets[b]++;
-    var x = padL + (s / 100) * cW;
-    var spread = Math.min(buckets[b] - 1, 4) * 6;
-    var y = padT + cH / 2 + (idx % 2 === 0 ? 1 : -1) * Math.ceil(idx / 2) * 6 - spread / 2;
-    y = Math.max(padT + 5, Math.min(padT + cH - 5, y));
+
+  // Horizontal average line — dashed blue
+  var avgY = sy(avg);
+  ctx.beginPath(); ctx.moveTo(padL, avgY); ctx.lineTo(padL + cW, avgY);
+  ctx.strokeStyle = 'rgba(74,120,240,0.75)'; ctx.lineWidth = 1;
+  ctx.setLineDash([4, 3]); ctx.stroke(); ctx.setLineDash([]);
+  ctx.font = '9px DM Mono, monospace'; ctx.fillStyle = '#4a78f0'; ctx.textAlign = 'left';
+  ctx.fillText('avg ' + Math.round(avg), padL + cW + 6, avgY + 3);
+
+  // Dots — sorted left→right by score, Y = score position
+  sorted.forEach(function(s, i) {
+    var x = n === 1 ? padL + cW / 2 : padL + (i / (n - 1)) * cW;
+    var y = sy(s);
     var sig = s >= 70 ? '#1e9459' : s >= 50 ? '#c07718' : '#9e3028';
-    ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2);
-    ctx.fillStyle = sig; ctx.globalAlpha = 0.85; ctx.fill(); ctx.globalAlpha = 1;
+    ctx.beginPath(); ctx.arc(x, y, 3.5, 0, Math.PI * 2);
+    ctx.fillStyle = sig; ctx.globalAlpha = 0.82; ctx.fill(); ctx.globalAlpha = 1;
   });
 }
 

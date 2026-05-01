@@ -194,11 +194,13 @@ function sigCls(s){ return s==='green'?'grn':s==='yellow'?'yel':'red'; }
 function sigLabel(s){ return s==='green'?'Well Supported':s==='yellow'?'Mixed Evidence':'Limited Evidence'; }
 function riskLabel(r){ return r<30?['Conservative','grn']:r<60?['Moderate','yel']:['Aggressive','red']; }
 
+function scoreToSig(sc){ return sc >= 70 ? 'green' : sc >= 45 ? 'yellow' : 'red'; }
+
 function row(b, i) {
-  var s = (b.signal_color || 'red').toLowerCase();
   var score = b.leaderboard_data && b.leaderboard_data.total_score != null
     ? Math.round(b.leaderboard_data.total_score)
     : Math.round(100 - (b.claim_support_risk || 50));
+  var s = scoreToSig(score);  // derive from score, not stored signal_color
   var risk = b.claim_support_risk != null ? b.claim_support_risk : 50;
   var rl = riskLabel(risk);
   var rank = b.rank_number || (offset + i + 1);
@@ -402,7 +404,11 @@ function fetchSearchSugs(q){
 }
 
 function renderSearchSugs(brands){
-  if(!brands || brands.length === 0){ searchSugEl.style.display = 'none'; return; }
+  if(!brands || brands.length === 0){
+    searchSugEl.innerHTML = '<div class="search-sug" style="cursor:default;color:var(--t3);font-size:12px">No brands matching your search in the index.</div>';
+    searchSugEl.style.display = 'block';
+    return;
+  }
   searchSugEl.innerHTML = brands.map(function(b){
     var domain = (b.domain || '').replace(/"/g,'&quot;');
     return '<div class="search-sug" onmousedown="goToBrand(\'' + domain + '\')">'

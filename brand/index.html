@@ -1021,9 +1021,9 @@ function renderSparkline(history, color) {
 
 // ── Render: verified brand ─────────────────────────────────────
 function renderVerified(brand, product, ld, dims, demand) {
-  var sig   = product.signal_color || "yellow";
-  var color = VERDICT_COLOR[ld.bhvd_verdict] || SIG_COLOR[sig] || "#f39c12";
   var score = ld.total_score != null ? ld.total_score : Math.round(100 - (product.claim_support_risk || 50));
+  var sig   = score >= 70 ? "green" : score >= 45 ? "yellow" : "red";  // derive from score
+  var color = VERDICT_COLOR[ld.bhvd_verdict] || SIG_COLOR[sig] || "#f39c12";
   var verdict = ld.bhvd_verdict || "—";
 
   document.title = esc(brand.brand_name || brand.domain) + " · Public Claim Record · Sigñal";

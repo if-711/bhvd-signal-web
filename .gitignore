@@ -5,6 +5,8 @@ node_modules/
 .env.local
 .vercel
 *.zip
+!bhvd-extension.zip
+!bhvd-signal-extension.zip
 *.tsbuildinfo
 next-env.d.ts
 # Next.js artifacts — site is static HTML only

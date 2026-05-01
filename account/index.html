@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>BHVD Signal — Your account</title>
+<title>BHVD NORM — Your account</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -404,7 +404,7 @@ function loadSubscription(data) {
 
   if(!isPro) {
     el.innerHTML =
-      '<div class="upgrade-banner"><div class="upgrade-text"><strong>Upgrade to Signal Pro</strong> — $6/month. Unlimited scans, full history, watchlist, email alerts, CSV export. 14-day free trial.</div><button class="upgrade-cta" onclick="startCheckout()">Start free trial →</button></div>' +
+      '<div class="upgrade-banner"><div class="upgrade-text"><strong>Upgrade to NORM Pro</strong> — $6/month. Unlimited scans, full history, watchlist, email alerts, CSV export. 14-day free trial.</div><button class="upgrade-cta" onclick="startCheckout()">Start free trial →</button></div>' +
       '<div class="sub-card"><div class="sub-tier">Current plan</div><div class="sub-name">Free</div><div class="sub-status sub-free">Active</div><p style="font-size:13px;color:var(--t2);line-height:1.65;max-width:480px">25 scans per month. 7-day scan history. Core Red / Yellow / Green signal on every scan.</p></div>';
   } else {
     var end = data.current_period_end ? new Date(data.current_period_end).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : '—';
@@ -455,7 +455,7 @@ function fmtDate(iso) {
 
 // Password gate
 (function(){
-  var PWD='signal2025';
+  var PWD='newnorm';
   if(sessionStorage.getItem('bhvd_ok')==='1') return;
   var gate=document.createElement('div');
   gate.style.cssText='position:fixed;inset:0;z-index:9999;background:#0a0c12;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:system-ui,sans-serif';

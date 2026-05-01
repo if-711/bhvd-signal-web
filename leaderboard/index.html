@@ -81,6 +81,14 @@ tbody tr.detail-row td{padding:10px 16px 14px 56px;font-size:12px;color:var(--t2
 .msg-row td{text-align:center;padding:64px 24px;color:var(--t3);font-size:14px}
 .spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--b2);border-top-color:var(--acc);border-radius:50%;animation:spin .6s linear infinite;margin-right:8px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+.chart-wrap{padding:0 48px;border-bottom:1px solid var(--b1);background:var(--bg)}
+.chart-header{display:flex;align-items:baseline;justify-content:space-between;padding:16px 0 10px}
+.chart-title{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
+.chart-legend{display:flex;gap:16px;font-size:11px;color:var(--t3);font-family:var(--mono)}
+.chart-legend span{display:flex;align-items:center;gap:5px}
+canvas#scoreChart{display:block;width:100%;height:90px}
+@media(max-width:760px){.chart-wrap{padding:0 20px}}
 </style>
 </head>
 <body>
@@ -113,6 +121,17 @@ tbody tr.detail-row td{padding:10px 16px 14px 56px;font-size:12px;color:var(--t2
     <div class="stat-item"><div class="stat-val" id="sGrn">—</div><div class="stat-lbl">Strong Signal</div></div>
     <div class="stat-item"><div class="stat-val" id="sYel">—</div><div class="stat-lbl">Partial Signal</div></div>
     <div class="stat-item"><div class="stat-val" id="sRed">—</div><div class="stat-lbl">Weak Signal</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-header">
+      <span class="chart-title">Score Distribution</span>
+      <span class="chart-legend">
+        <span><svg width="20" height="2"><line x1="0" y1="1" x2="20" y2="1" stroke="#4a78f0" stroke-width="1" stroke-dasharray="4,2"/></svg> Index average</span>
+      </span>
+    </div>
+    <canvas id="scoreChart" height="90"></canvas>
+    <div style="height:12px"></div>
   </div>
 
   <div class="controls">
@@ -200,7 +219,7 @@ function tog(id) {
 function load(reset) {
   if (busy) return;
   if (done && !reset) return;
-  if (reset) { offset = 0; done = false; stats = {n:0,sum:0,g:0,y:0,r:0}; }
+  if (reset) { offset = 0; done = false; stats = {n:0,sum:0,g:0,y:0,r:0}; allScores = []; }
   busy = true;
   document.getElementById('loadMoreBtn').disabled = true;
 
@@ -228,7 +247,7 @@ function load(reset) {
       entries.forEach(function(b) {
         var sc = b.leaderboard_data && b.leaderboard_data.total_score != null ? b.leaderboard_data.total_score : (100 - (b.claim_support_risk || 50));
         var s = (b.signal_color || 'red').toLowerCase();
-        stats.n++; stats.sum += sc;
+        stats.n++; stats.sum += sc; allScores.push(sc);
         if (s === 'green') stats.g++; else if (s === 'yellow') stats.y++; else stats.r++;
       });
       document.getElementById('sBrands').textContent = stats.n;
@@ -237,6 +256,7 @@ function load(reset) {
       document.getElementById('sYel').textContent = stats.y;
       document.getElementById('sRed').textContent = stats.r;
       document.getElementById('meta').textContent = stats.n + ' brands · Updated ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+      drawChart();
       offset += entries.length;
       if (entries.length < limit) {
         done = true;
@@ -267,6 +287,65 @@ function buildCats() {
     tabs.appendChild(b);
   });
 }
+
+/* ─── Score Distribution Chart ─── */
+var allScores = [];
+
+function drawChart() {
+  var canvas = document.getElementById('scoreChart');
+  if (!canvas || !allScores.length) return;
+  var dpr = window.devicePixelRatio || 1;
+  var W = canvas.offsetWidth, H = 90;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  var ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  var padL = 36, padR = 16, padT = 10, padB = 24;
+  var cW = W - padL - padR, cH = H - padT - padB;
+
+  // Background
+  ctx.clearRect(0, 0, W, H);
+
+  // Grid lines at 25, 50, 75, 100
+  [25, 50, 75, 100].forEach(function(v) {
+    var x = padL + (v / 100) * cW;
+    ctx.beginPath(); ctx.moveTo(x, padT); ctx.lineTo(x, padT + cH);
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.font = '9px DM Mono, monospace'; ctx.fillStyle = '#4a5070'; ctx.textAlign = 'center';
+    ctx.fillText(v, x, padT + cH + 14);
+  });
+
+  // Average line
+  var avg = allScores.reduce(function(a, b) { return a + b; }, 0) / allScores.length;
+  var avgX = padL + (avg / 100) * cW;
+  ctx.beginPath(); ctx.moveTo(avgX, padT); ctx.lineTo(avgX, padT + cH);
+  ctx.strokeStyle = '#4a78f0'; ctx.lineWidth = 1;
+  ctx.setLineDash([4, 3]); ctx.stroke(); ctx.setLineDash([]);
+  ctx.font = '9px DM Mono, monospace'; ctx.fillStyle = '#4a78f0'; ctx.textAlign = 'center';
+  ctx.fillText(Math.round(avg), avgX, padT - 2);
+
+  // Dots — jitter y to show density
+  var buckets = {};
+  allScores.forEach(function(s) {
+    var b = Math.round(s);
+    buckets[b] = (buckets[b] || 0) + 1;
+  });
+  var usedBuckets = {};
+  allScores.forEach(function(s) {
+    var b = Math.round(s);
+    usedBuckets[b] = usedBuckets[b] || 0;
+    var idx = usedBuckets[b]++;
+    var x = padL + (s / 100) * cW;
+    var spread = Math.min(buckets[b] - 1, 4) * 6;
+    var y = padT + cH / 2 + (idx % 2 === 0 ? 1 : -1) * Math.ceil(idx / 2) * 6 - spread / 2;
+    y = Math.max(padT + 5, Math.min(padT + cH - 5, y));
+    var sig = s >= 70 ? '#1e9459' : s >= 50 ? '#c07718' : '#9e3028';
+    ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2);
+    ctx.fillStyle = sig; ctx.globalAlpha = 0.85; ctx.fill(); ctx.globalAlpha = 1;
+  });
+}
+
+window.addEventListener('resize', drawChart);
 
 var searchTimer;
 document.getElementById('searchBox').addEventListener('input', function() {

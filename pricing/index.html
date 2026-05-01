@@ -563,30 +563,26 @@ var SUPABASE = 'https://klhhkjmvxxsmfxpuzfhj.supabase.co';
 var ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtsaGhram12eHhzbWZ4cHV6ZmhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwNTI3NDMsImV4cCI6MjA5MjYyODc0M30.4gIkTBDMaNKemtVIWeQCvaIo4iJIDyh_ztByTlM7bg8';
 var _capType = "";
 
-function startCheckout() {
+function _stripeCheckout(payload) {
   var token = localStorage.getItem('bhvd_token');
-  if (!token) { window.location.href = '/account?next=checkout'; return; }
+  var headers = { 'Content-Type': 'application/json' };
+  if (token) headers['Authorization'] = 'Bearer ' + token;
   fetch(API + '/api/stripe/checkout', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-    body: JSON.stringify({ tier: 'pro_monthly' })
+    headers: headers,
+    body: JSON.stringify(payload)
   })
   .then(function(r){ return r.json(); })
   .then(function(d){ if(d.url) window.location.href = d.url; })
-  .catch(function(){ window.location.href = '/account?next=checkout'; });
+  .catch(function(){});
+}
+
+function startCheckout() {
+  _stripeCheckout({ tier: 'pro_monthly' });
 }
 
 function startBrandCheckout() {
-  var token = localStorage.getItem('bhvd_token');
-  if (!token) { window.location.href = '/account?next=brand-checkout'; return; }
-  fetch(API + '/api/stripe/checkout', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-    body: JSON.stringify({ price_id: 'price_1TSHI2FNLiSb0DEuHrgCLd9K' })
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(d){ if(d.url) window.location.href = d.url; })
-  .catch(function(){ window.location.href = '/account?next=brand-checkout'; });
+  _stripeCheckout({ price_id: 'price_1TSHI2FNLiSb0DEuHrgCLd9K' });
 }
 var _dataApiPlan = "";
 var _capShowBrand = false;

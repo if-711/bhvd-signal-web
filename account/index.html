@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>BHVD NORM — Your account</title>
+<title>NORM — Your account</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -175,7 +175,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
     <!-- SCAN HISTORY -->
     <div class="tab-view active" id="view-history">
       <div class="section-title">Scan history</div>
-      <div class="section-sub">Every product page you've scanned with BHVD Signal.</div>
+      <div class="section-sub">Every product page you've scanned with NORM.</div>
       <div class="stats-row">
         <div class="stat-card"><div class="stat-card-num" id="totalScans">—</div><div class="stat-card-lbl">Total scans</div></div>
         <div class="stat-card"><div class="stat-card-num" style="color:var(--red)" id="redCount">—</div><div class="stat-card-lbl">Red signals</div></div>
@@ -214,7 +214,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
     <!-- SUBSCRIPTION -->
     <div class="tab-view" id="view-subscription">
       <div class="section-title">Subscription</div>
-      <div class="section-sub">Manage your BHVD Signal plan.</div>
+      <div class="section-sub">Manage your NORM plan.</div>
       <div id="subContent"><div class="spinner"></div></div>
     </div>
 
@@ -357,7 +357,7 @@ function loadWatchlist() {
   .then(function(data) {
     var list = document.getElementById('watchList');
     if(!data||!data.length) {
-      list.innerHTML = '<div class="hist-empty">Your watchlist is empty. Add products from the BHVD Signal extension while browsing.</div>';
+      list.innerHTML = '<div class="hist-empty">Your watchlist is empty. Add products from the NORM extension while browsing.</div>';
       return;
     }
     list.innerHTML = '';

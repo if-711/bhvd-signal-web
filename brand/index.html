@@ -1798,10 +1798,19 @@ function copyEmbedCode() {
         return;
       }
 
-      // Use the best-scored product (lowest risk = first in list)
-      var product = d.products[0];
-      var ld      = product.leaderboard_data || {};
-      var dims    = product.dimension_scores || {};
+      // Pick the product with the highest total_score (most evidence-aligned).
+      // Domain API returns products sorted by risk ascending, but we want the
+      // highest evidence score (= lowest risk in old framing is now worst).
+      var product = d.products.reduce(function(best, p) {
+        var bld = best.leaderboard_data || {};
+        var pld = p.leaderboard_data || {};
+        if (pld.public_safe !== true) return best;
+        var bs = bld.total_score != null ? bld.total_score : (100 - (best.claim_support_risk || 50));
+        var ps = pld.total_score != null ? pld.total_score : (100 - (p.claim_support_risk || 50));
+        return ps > bs ? p : best;
+      }, d.products[0]);
+      var ld   = product.leaderboard_data || {};
+      var dims = product.dimension_scores || {};
 
       // Frontend public_safe double-check (API enforces this, but belt-and-suspenders)
       if (ld.public_safe !== true) {

@@ -172,7 +172,7 @@ canvas#scoreChart{display:block;width:100%;height:90px}
   </div>
 
   <div style="padding:20px 48px 40px;font-size:11px;color:var(--t3);line-height:1.7;font-family:var(--mono);border-top:1px solid var(--b1);margin-top:8px">
-    Scores reflect publicly visible marketing claims and evidence references at the time of scan. They do not assess product efficacy, safety, ingredient quality, or regulatory compliance. A lower score means claims extend beyond what is visibly supported — not that a product is unsafe or ineffective. Brands can submit supporting evidence via <a href="/brand-portal" style="color:var(--t3);text-decoration:underline">Brand Portal</a>. Methodology published at <a href="/methodology" style="color:var(--t3);text-decoration:underline">/methodology</a>.
+    Scores reflect publicly visible marketing claims and evidence references at the time of scan. They do not assess product efficacy, safety, ingredient quality, or regulatory compliance. A higher score means stronger evidence alignment — a lower score means claims extend beyond what is visibly supported. Brands can submit supporting evidence via <a href="/brand-portal" style="color:var(--t3);text-decoration:underline">Brand Portal</a>. Methodology published at <a href="/methodology" style="color:var(--t3);text-decoration:underline">/methodology</a>.
   </div>
 </main>
 
@@ -183,9 +183,9 @@ var stats = {n:0, sum:0, g:0, y:0, r:0};
 var brandIndex = [];  // pre-loaded full list for client-side search
 
 var CATS = [
-  ['all','All'],['supplements','Supplements'],['nutrition','Nutrition'],
-  ['recovery','Recovery'],['sleep','Sleep'],['performance','Performance'],
-  ['wearables','Wearables'],['wellness','Wellness']
+  ['all','All'],['supplements','Supplements'],['wearables','Wearables'],
+  ['recovery_devices','Recovery'],['sleep_aids','Sleep'],['functional_food','Nutrition'],
+  ['mental_wellness','Mental Wellness'],['neurotech','Neurotech']
 ];
 
 function sigColor(s){ return s==='green'?'#1e9459':s==='yellow'?'#c07718':'#9e3028'; }

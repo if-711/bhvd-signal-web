@@ -41,8 +41,15 @@ function loginPage(error = false) {
 </html>`;
 }
 
+const PUBLIC_PATHS = ["/login", "/pricing", "/_auth", "/api/auth"];
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Auth-related routes are always public
+  if (PUBLIC_PATHS.some(p => pathname.startsWith(p))) {
+    return NextResponse.next();
+  }
 
   // Handle auth form submission
   if (pathname === "/_auth" && request.method === "POST") {

@@ -1,24 +1,44 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { capture } from '@/lib/api'
+import { supabase } from '@/lib/supabase'
+
+const API = process.env.NEXT_PUBLIC_API_URL ?? 'https://bhvd-signal-api.fly.dev'
 
 export default function PricingPage() {
-  const [consumerEmail, setConsumerEmail] = useState('')
-  const [consumerSent, setConsumerSent] = useState(false)
+  const [session, setSession] = useState<any>(null)
+  const [loadingCheckout, setLoadingCheckout] = useState(false)
   const [brandEmail, setBrandEmail] = useState('')
   const [brandDomain, setBrandDomain] = useState('')
   const [brandSent, setBrandSent] = useState(false)
 
-  async function handleConsumer(e: React.FormEvent) {
-    e.preventDefault()
-    await capture('consumer_pro_interest', { email: consumerEmail.trim() })
-    setConsumerSent(true)
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => setSession(session))
+  }, [])
+
+  async function handleProUpgrade() {
+    if (!session) {
+      window.location.href = '/login?next=/pricing'
+      return
+    }
+    setLoadingCheckout(true)
+    const res = await fetch(`${API}/api/stripe/checkout`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${session.access_token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tier: 'pro_monthly' }),
+    })
+    const data = await res.json()
+    if (data.url) window.location.href = data.url
+    else setLoadingCheckout(false)
   }
 
   async function handleBrand(e: React.FormEvent) {
     e.preventDefault()
-    await capture('brand_pro_interest', { email: brandEmail.trim(), domain: brandDomain.trim() })
+    await fetch(`${API}/api/capture`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ event: 'brand_pro_interest', email: brandEmail.trim(), domain: brandDomain.trim() }),
+    })
     setBrandSent(true)
   }
 
@@ -36,76 +56,55 @@ export default function PricingPage() {
           <div className="plan-price">$0</div>
           <div className="plan-price-sub">forever</div>
           <ul className="plan-features">
-            <li>Full scores for all published brands</li>
-            <li>Dimension breakdowns</li>
+            <li>Signal scores for all published brands</li>
             <li>Leaderboard access</li>
             <li>Brand comparison</li>
             <li>Browser extension</li>
+            <li>25 new brand scans / month</li>
           </ul>
           <Link href="/leaderboard" className="plan-cta btn-secondary">View Leaderboard</Link>
         </div>
 
         <div className="plan-card plan-featured">
-          <div className="plan-badge">Coming soon</div>
-          <div className="plan-tier">Consumer Pro</div>
-          <div className="plan-price">$4<span className="plan-price-mo">/mo</span></div>
-          <div className="plan-price-sub">billed monthly</div>
+          <div className="plan-tier">Pro</div>
+          <div className="plan-price">$6<span className="plan-price-mo">/mo</span></div>
+          <div className="plan-price-sub">14-day free trial</div>
           <ul className="plan-features">
             <li>Everything in Free</li>
             <li>Full evidence gap analysis</li>
             <li>Claim-by-claim breakdown</li>
             <li>Score history and trend tracking</li>
-            <li>Early access to new brand scores</li>
-            <li>Email alerts when followed brands are re-scored</li>
+            <li>Unlimited brand scans</li>
+            <li>Embed badge for your site</li>
+            <li>Email alerts on score changes</li>
           </ul>
-          {consumerSent ? (
-            <div className="plan-sent">You&apos;re on the list — we&apos;ll notify you at launch.</div>
-          ) : (
-            <form onSubmit={handleConsumer} className="plan-form">
-              <input
-                className="form-input"
-                type="email"
-                placeholder="your@email.com"
-                value={consumerEmail}
-                onChange={e => setConsumerEmail(e.target.value)}
-                required
-              />
-              <button type="submit" className="plan-cta btn-primary">Notify Me at Launch</button>
-            </form>
-          )}
+          <button
+            onClick={handleProUpgrade}
+            disabled={loadingCheckout}
+            className="plan-cta btn-primary"
+            style={{ opacity: loadingCheckout ? 0.6 : 1 }}
+          >
+            {loadingCheckout ? 'Redirecting…' : session ? 'Start free trial' : 'Sign up & start trial'}
+          </button>
         </div>
 
         <div className="plan-card">
-          <div className="plan-tier">Brand Pro</div>
-          <div className="plan-price">$49<span className="plan-price-mo">/mo</span></div>
+          <div className="plan-tier">Brand</div>
+          <div className="plan-price">$199<span className="plan-price-mo">/mo</span></div>
           <div className="plan-price-sub">per brand</div>
           <ul className="plan-features">
-            <li>Everything in Consumer Pro</li>
-            <li>Structured delivery with data provenance documentation</li>
-            <li>Verified score badge for your website</li>
+            <li>Verified score badge</li>
             <li>Claim submission portal</li>
             <li>Re-score request (1/quarter)</li>
+            <li>Evidence documentation package</li>
             <li>Editorial independence guaranteed</li>
           </ul>
           {brandSent ? (
             <div className="plan-sent">Request received — we&apos;ll be in touch.</div>
           ) : (
             <form onSubmit={handleBrand} className="plan-form">
-              <input
-                className="form-input"
-                type="text"
-                placeholder="yourbrand.com"
-                value={brandDomain}
-                onChange={e => setBrandDomain(e.target.value)}
-              />
-              <input
-                className="form-input"
-                type="email"
-                placeholder="your@email.com"
-                value={brandEmail}
-                onChange={e => setBrandEmail(e.target.value)}
-                required
-              />
+              <input className="form-input" type="text" placeholder="yourbrand.com" value={brandDomain} onChange={e => setBrandDomain(e.target.value)} />
+              <input className="form-input" type="email" placeholder="your@email.com" value={brandEmail} onChange={e => setBrandEmail(e.target.value)} required />
               <button type="submit" className="plan-cta btn-primary">Get in Touch</button>
             </form>
           )}

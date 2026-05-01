@@ -71,6 +71,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .hero-proof{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center}
 .hero-proof-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--t3);font-family:var(--mono);letter-spacing:.04em}
 .hero-proof-dot{width:4px;height:4px;border-radius:50%;background:var(--t3)}
+.hero-search-wrap{position:relative;width:100%;max-width:480px;margin:0 auto 40px}
+.hero-search-input{width:100%;padding:14px 20px;background:rgba(17,20,32,.85);border:1px solid rgba(255,255,255,.14);border-radius:12px;color:var(--t1);font-size:15px;font-family:var(--sans);outline:none;transition:border-color .2s;backdrop-filter:blur(8px)}
+.hero-search-input:focus{border-color:rgba(74,120,240,.6)}
+.hero-search-input::placeholder{color:var(--t3)}
+.hero-search-sugs{position:absolute;top:calc(100%+6px);left:0;right:0;background:var(--bg2);border:1px solid var(--b2);border-radius:10px;z-index:200;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.6);display:none}
+.hero-search-sug{padding:11px 16px;cursor:pointer;border-bottom:1px solid var(--b1);transition:background .1s;text-align:left}
+.hero-search-sug:last-child{border-bottom:none}
+.hero-search-sug:hover{background:var(--bg3)}
+.hero-search-sug-name{font-size:14px;color:var(--t1);font-weight:500}
+.hero-search-sug-meta{font-size:11px;color:var(--t3);font-family:var(--mono);margin-top:2px;display:flex;gap:10px;align-items:center}
+.hero-search-sug-sig{font-size:10px;font-weight:500;padding:2px 6px;border-radius:3px}
 
 /* VALUE PROP BAND */
 .value-band{background:var(--bg2);border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);padding:56px 32px}
@@ -346,6 +357,10 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
   <div class="hero-eyebrow">Early beta · Claim integrity infrastructure</div>
   <h1>The signal the wellness<br>industry <em>answers to.</em></h1>
   <p class="hero-sub">Brand claims are evaluated against evidence. Sigñal quantifies the gap.</p>
+  <div class="hero-search-wrap">
+    <input class="hero-search-input" id="heroSearch" type="search" placeholder="Search a brand — e.g. Athletic Greens, Oura…" autocomplete="off" spellcheck="false">
+    <div class="hero-search-sugs" id="heroSearchSugs"></div>
+  </div>
   <div class="hero-actions">
     <a href="/leaderboard" class="btn btn-p btn-hero" onclick="track('leaderboard_click')">View the Index</a>
     <a href="/extension" class="btn btn-hero btn-demo" onclick="track('extension_install_click')">Get the Extension</a>
@@ -1515,6 +1530,65 @@ document.querySelectorAll('.step,.sig-card,.plan,.int-item,.faq-item,.km-stat,.v
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ event: 'data_api_trigger_view', meta: { context: 'homepage' } })
   }).catch(function(){});
+})();
+</script>
+
+<script>
+/* ── Hero brand search ── */
+(function(){
+  var inp = document.getElementById('heroSearch');
+  var sugs = document.getElementById('heroSearchSugs');
+  if(!inp || !sugs) return;
+  var timer, cache = {};
+  var SIG_LABEL = {green:'Well Supported', yellow:'Mixed Evidence', red:'Limited Evidence'};
+  var SIG_BG = {green:'rgba(30,148,89,.18)', yellow:'rgba(192,119,24,.18)', red:'rgba(158,48,40,.18)'};
+  var SIG_COLOR = {green:'#3ecf82', yellow:'#e8a840', red:'#e05a50'};
+
+  inp.addEventListener('input', function(){
+    var q = inp.value.trim();
+    clearTimeout(timer);
+    if(q.length < 1){ sugs.style.display = 'none'; return; }
+    timer = setTimeout(function(){ fetchHeroSugs(q); }, 220);
+  });
+  inp.addEventListener('blur', function(){
+    setTimeout(function(){ sugs.style.display = 'none'; }, 180);
+  });
+  inp.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){
+      var first = sugs.querySelector('.hero-search-sug');
+      if(first) first.dispatchEvent(new MouseEvent('mousedown'));
+    }
+    if(e.key === 'Escape') sugs.style.display = 'none';
+  });
+
+  function fetchHeroSugs(q){
+    var key = q.toLowerCase();
+    if(cache[key]){ renderHeroSugs(cache[key]); return; }
+    fetch('https://bhvd-signal-api.fly.dev/api/leaderboard/all?limit=8&search=' + encodeURIComponent(q))
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        var entries = data && data.data && Array.isArray(data.data.entries) ? data.data.entries : [];
+        cache[key] = entries;
+        renderHeroSugs(entries);
+      }).catch(function(){});
+  }
+
+  function renderHeroSugs(brands){
+    if(!brands || brands.length === 0){ sugs.style.display = 'none'; return; }
+    sugs.innerHTML = brands.map(function(b){
+      var domain = (b.domain || '').replace(/'/g,"\\'");
+      var sig = b.signal_color || 'yellow';
+      var score = b.claim_support_risk != null ? b.claim_support_risk : (b.leaderboard_data && b.leaderboard_data.total_score != null ? 100 - b.leaderboard_data.total_score : '—');
+      return '<div class="hero-search-sug" onmousedown="window.location.href=\'/brand?d=' + domain + '\'">'
+        + '<div class="hero-search-sug-name">' + (b.brand_name || b.domain) + '</div>'
+        + '<div class="hero-search-sug-meta">'
+        + '<span>' + (b.domain || '') + '</span>'
+        + '<span class="hero-search-sug-sig" style="background:' + (SIG_BG[sig]||SIG_BG.yellow) + ';color:' + (SIG_COLOR[sig]||SIG_COLOR.yellow) + '">' + (SIG_LABEL[sig]||sig) + '</span>'
+        + '</div>'
+        + '</div>';
+    }).join('');
+    sugs.style.display = 'block';
+  }
 })();
 </script>
 

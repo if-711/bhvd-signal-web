@@ -45,9 +45,16 @@ main{padding-top:96px}
 .cat-tab{font-size:12px;color:var(--t2);padding:6px 14px;border-radius:6px;cursor:pointer;border:none;background:none;font-family:var(--sans);transition:all .15s}
 .cat-tab:hover{background:var(--bg3);color:var(--t1)}
 .cat-tab.active{background:var(--bg3);color:var(--t1);border:1px solid var(--b2)}
+.search-wrap{position:relative}
 .search-box{background:var(--bg3);border:1px solid var(--b1);border-radius:8px;padding:7px 12px;font-size:13px;color:var(--t1);font-family:var(--sans);outline:none;width:200px}
 .search-box:focus{border-color:var(--acc)}
 .search-box::placeholder{color:var(--t3)}
+.search-sugs{position:absolute;top:calc(100%+4px);right:0;width:260px;background:var(--bg3);border:1px solid var(--b2);border-radius:8px;z-index:100;max-height:240px;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,.5);display:none}
+.search-sug{padding:9px 13px;cursor:pointer;border-bottom:1px solid var(--b1);transition:background .1s}
+.search-sug:last-child{border-bottom:none}
+.search-sug:hover{background:var(--bg4)}
+.search-sug-name{font-size:13px;color:var(--t1);font-weight:500}
+.search-sug-domain{font-size:11px;color:var(--t3);font-family:var(--mono);margin-top:1px}
 
 .table-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse}
@@ -136,7 +143,10 @@ canvas#scoreChart{display:block;width:100%;height:90px}
 
   <div class="controls">
     <div class="cat-tabs" id="catTabs"></div>
-    <input class="search-box" id="searchBox" placeholder="Search brands…" type="search">
+    <div class="search-wrap">
+      <input class="search-box" id="searchBox" placeholder="Search brands…" type="search" autocomplete="off">
+      <div class="search-sugs" id="searchSugs"></div>
+    </div>
   </div>
 
   <div class="table-wrap">
@@ -344,11 +354,56 @@ function drawChart() {
 window.addEventListener('resize', drawChart);
 
 var searchTimer;
-document.getElementById('searchBox').addEventListener('input', function() {
+var searchSugTimer;
+var searchSugCache = {};
+var searchSugEl = document.getElementById('searchSugs');
+var searchBoxEl = document.getElementById('searchBox');
+
+searchBoxEl.addEventListener('input', function() {
+  var q = this.value.trim();
   clearTimeout(searchTimer);
-  search = this.value.trim();
-  searchTimer = setTimeout(function(){ load(true); }, 350);
+  clearTimeout(searchSugTimer);
+  search = q;
+  searchTimer = setTimeout(function(){ load(true); }, 400);
+  if(q.length < 1){ searchSugEl.style.display = 'none'; return; }
+  searchSugTimer = setTimeout(function(){ fetchSearchSugs(q); }, 200);
 });
+
+searchBoxEl.addEventListener('blur', function(){
+  setTimeout(function(){ searchSugEl.style.display = 'none'; }, 180);
+});
+
+searchBoxEl.addEventListener('focus', function(){
+  if(searchBoxEl.value.trim().length > 0 && searchSugEl.innerHTML) searchSugEl.style.display = 'block';
+});
+
+function fetchSearchSugs(q){
+  var key = q.toLowerCase();
+  if(searchSugCache[key]){ renderSearchSugs(searchSugCache[key]); return; }
+  fetch(API + '/api/leaderboard/all?limit=8&search=' + encodeURIComponent(q))
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var entries = data && data.data && Array.isArray(data.data.entries) ? data.data.entries : [];
+      searchSugCache[key] = entries;
+      renderSearchSugs(entries);
+    }).catch(function(){});
+}
+
+function renderSearchSugs(brands){
+  if(!brands || brands.length === 0){ searchSugEl.style.display = 'none'; return; }
+  searchSugEl.innerHTML = brands.map(function(b){
+    var domain = (b.domain || '').replace(/"/g,'&quot;');
+    return '<div class="search-sug" onmousedown="goToBrand(\'' + domain + '\')">'
+      + '<div class="search-sug-name">' + (b.brand_name || b.domain) + '</div>'
+      + '<div class="search-sug-domain">' + (b.domain || '') + '</div>'
+      + '</div>';
+  }).join('');
+  searchSugEl.style.display = 'block';
+}
+
+function goToBrand(domain){
+  window.location.href = '/brand?d=' + encodeURIComponent(domain);
+}
 
 document.getElementById('loadMoreBtn').addEventListener('click', function(){ load(false); });
 

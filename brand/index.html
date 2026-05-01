@@ -344,6 +344,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   <ul class="nav-links">
     <li><a href="/leaderboard">Leaderboard</a></li>
     <li><a href="/compare">Compare</a></li>
+    <li><a href="/extension">Extension</a></li>
     <li><a href="/methodology">Methodology</a></li>
     <li><a href="/pricing">Pricing</a></li>
   </ul>
@@ -1352,6 +1353,13 @@ function renderVerified(brand, product, ld, dims, demand) {
     // Brand response state — observational only
     if (!ld.brand_response && !ld.brand_submitted_evidence && ld.total_score != null) {
       signals.push({ cls: "", text: "No additional evidence submitted via Brand Portal." });
+    }
+
+    // Low extraction confidence — score may not reflect actual evidence quality
+    var integrity = ld.data_integrity || ld.data_confidence || null;
+    var coverage  = ld.coverage_score != null ? ld.coverage_score : null;
+    if (!integrity || integrity === "low" || (coverage !== null && coverage < 20)) {
+      signals.push({ cls: "pressure-signal-warn", text: "Extraction confidence is limited — the scan captured navigation/UI rather than product-level content. This score may understate actual evidence quality. Brands can submit evidence for re-assessment." });
     }
 
     if (signals.length) {

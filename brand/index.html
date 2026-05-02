@@ -144,6 +144,25 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .badge-reviewed{background:rgba(74,120,240,.1);color:#4a78f0;border-color:rgba(74,120,240,.2)}
 .badge-missing{background:rgba(255,255,255,.05);color:var(--t3);border-color:var(--b1)}
 
+/* RAW CLAIMS + CAPTURE SCOPE */
+.raw-claim-row{background:var(--bg2);border:1px solid var(--b1);border-radius:8px;padding:12px 16px;margin-bottom:8px}
+.raw-claim-row:last-child{margin-bottom:0}
+.raw-claim-text{font-size:13px;color:var(--t1);line-height:1.6;margin-bottom:6px}
+.raw-claim-meta{display:flex;gap:14px;flex-wrap:wrap}
+.raw-claim-tier{font-family:var(--mono);font-size:9px;letter-spacing:.07em;text-transform:uppercase;padding:2px 8px;border-radius:100px}
+.raw-claim-tier-1{background:rgba(158,48,40,.1);color:#9e3028;border:1px solid rgba(158,48,40,.2)}
+.raw-claim-tier-2{background:rgba(192,119,24,.1);color:#c07718;border:1px solid rgba(192,119,24,.2)}
+.raw-claim-tier-3{background:rgba(30,148,89,.1);color:#1e9459;border:1px solid rgba(30,148,89,.2)}
+.raw-claim-src{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.03em;align-self:center}
+.ev-signal-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.ev-signal-tag{font-family:var(--mono);font-size:10px;letter-spacing:.06em;padding:4px 12px;border-radius:100px;background:rgba(74,120,240,.1);color:#4a78f0;border:1px solid rgba(74,120,240,.2);text-transform:uppercase}
+.capture-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.capture-stat{background:var(--bg2);border:1px solid var(--b1);border-radius:8px;padding:12px 16px}
+.capture-stat-val{font-family:var(--serif);font-size:22px;color:var(--t1);line-height:1;margin-bottom:4px}
+.capture-stat-lbl{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase}
+.capture-gap-list{display:flex;flex-wrap:wrap;gap:6px}
+.capture-gap-tag{font-family:var(--mono);font-size:9px;letter-spacing:.05em;padding:3px 10px;border-radius:100px;background:rgba(255,255,255,.04);color:var(--t3);border:1px solid var(--b1);text-transform:uppercase}
+
 /* EVIDENCE */
 .ev-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
 .ev-card{background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:16px 20px}
@@ -517,6 +536,30 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
       <div class="rsec-title">Claim Evidence Review</div>
       <div class="receipts-list" id="receipts-list"></div>
       <div style="margin-top:10px;font-size:11px;color:var(--t3);font-family:var(--mono)">Claims extracted from brand marketing pages. Status reflects whether visible evidence on the same page supports the claim.</div>
+    </div>
+
+    <!-- Raw Claims Captured -->
+    <div class="rsec" id="raw-claims-sec" style="display:none">
+      <div class="rsec-title">All Claims Captured <span id="raw-claims-count" style="font-family:var(--mono);font-size:11px;color:var(--t3);font-weight:400;margin-left:8px"></span></div>
+      <div id="raw-claims-list"></div>
+      <div style="margin-top:10px;font-size:11px;color:var(--t3);font-family:var(--mono)">Verbatim marketing language extracted from brand pages. Tier 1 = high-risk claim, Tier 2 = standard claim, Tier 3 = contextual/structural.</div>
+    </div>
+
+    <!-- Evidence Signals Detected -->
+    <div class="rsec" id="ev-signals-sec" style="display:none">
+      <div class="rsec-title">Evidence Signals Detected</div>
+      <div class="ev-signal-list" id="ev-signal-list"></div>
+      <div style="font-size:12px;color:var(--t2);line-height:1.6" id="ev-signals-note"></div>
+    </div>
+
+    <!-- Capture Report -->
+    <div class="rsec" id="capture-report-sec" style="display:none">
+      <div class="rsec-title">Capture Report</div>
+      <div class="capture-grid" id="capture-grid"></div>
+      <div id="capture-gaps-wrap" style="display:none">
+        <div style="font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">Unresolved capture gaps</div>
+        <div class="capture-gap-list" id="capture-gap-list"></div>
+      </div>
     </div>
 
     <!-- What Changed -->
@@ -1093,7 +1136,7 @@ function renderVerified(brand, product, ld, dims, demand) {
   if (scopeConfEl) scopeConfEl.textContent = conf ? conf.charAt(0).toUpperCase() + conf.slice(1) : "—";
   var scopeDispEl = document.getElementById("scope-dispute-link");
   if (scopeDispEl && brand.domain) {
-    scopeDispEl.href = "mailto:signal@bhvd.com?subject=Score%20Dispute%20%E2%80%94%20" + encodeURIComponent(brand.domain);
+    scopeDispEl.href = "mailto:support@trynorm.co?subject=Score%20Dispute%20%E2%80%94%20" + encodeURIComponent(brand.domain);
   }
 
   if (ld.valid_until) {
@@ -1209,6 +1252,86 @@ function renderVerified(brand, product, ld, dims, demand) {
     } else {
       hideEl("receipts-sec");
     }
+  }
+
+  // Raw claim receipts (verbatim scraped claims)
+  var rawClaimsList = document.getElementById("raw-claims-list");
+  var rawClaimsSec  = document.getElementById("raw-claims-sec");
+  var rawReceipts   = ld.claim_receipts || [];
+  if (rawClaimsList && rawReceipts.length) {
+    var tierLabel = { 1: "High risk", 2: "Standard", 3: "Contextual" };
+    var tierClass = { 1: "raw-claim-tier-1", 2: "raw-claim-tier-2", 3: "raw-claim-tier-3" };
+    rawClaimsList.innerHTML = rawReceipts.map(function(rc) {
+      var tier = rc.tier || 2;
+      var srcShort = (rc.source_url || "").replace(/^https?:\/\//, "").split(" ")[0].split("?")[0];
+      return '<div class="raw-claim-row">' +
+        '<div class="raw-claim-text">' + esc(rc.text || rc.text_snippet || "") + '</div>' +
+        '<div class="raw-claim-meta">' +
+          '<span class="raw-claim-tier ' + (tierClass[tier] || "raw-claim-tier-2") + '">' + (tierLabel[tier] || "Claim") + '</span>' +
+          (srcShort ? '<span class="raw-claim-src">' + esc(srcShort) + '</span>' : '') +
+        '</div>' +
+      '</div>';
+    }).join("");
+    var countEl = document.getElementById("raw-claims-count");
+    if (countEl) countEl.textContent = "(" + rawReceipts.length + " extracted)";
+    if (rawClaimsSec) rawClaimsSec.style.display = "";
+  }
+
+  // Evidence signals detected
+  var evSignalSec  = document.getElementById("ev-signals-sec");
+  var evSignalList = document.getElementById("ev-signal-list");
+  var evSignals    = ld.extraction_evidence || [];
+  var externalUrls = ld.external_evidence_urls || [];
+  if (evSignalList && (evSignals.length || externalUrls.length)) {
+    evSignalList.innerHTML = evSignals.map(function(s) {
+      return '<span class="ev-signal-tag">' + esc(s) + '</span>';
+    }).join("");
+    var evNote = document.getElementById("ev-signals-note");
+    if (evNote) {
+      if (externalUrls.length) {
+        evNote.innerHTML = externalUrls.map(function(u) {
+          return '<a href="' + esc(u) + '" target="_blank" rel="noopener" style="color:var(--acc);font-size:12px;display:block;margin-top:4px;word-break:break-all">' + esc(u) + '</a>';
+        }).join("");
+      } else if (!evSignals.length) {
+        evNote.textContent = "No evidence signals detected on publicly visible pages at scan time.";
+        evNote.style.color = "var(--t3)";
+      }
+    }
+    if (evSignalSec) evSignalSec.style.display = "";
+  }
+
+  // Capture report
+  var capReportSec  = document.getElementById("capture-report-sec");
+  var capGrid       = document.getElementById("capture-grid");
+  var capReport     = ld.capture_report || {};
+  var pagesAttempted = ld.scrape_pages_attempted || capReport.pages_discovered || null;
+  var pagesCaptured  = ld.scrape_pages || capReport.pages_captured || null;
+  var claimsExtracted = ld.extraction_claim_count || capReport.claims_extracted || null;
+  var captureMethod  = (capReport.best_capture_method || ld.capture_method || "crawler").replace(/_/g," ");
+  var capGaps        = (capReport.unresolved_capture_gaps || []).filter(function(g){ return g && g !== "firecrawl_not_configured"; });
+  if (capGrid && (pagesAttempted != null || claimsExtracted != null)) {
+    var stats = [];
+    if (pagesCaptured != null && pagesAttempted != null) {
+      stats.push({ val: pagesCaptured + " / " + pagesAttempted, lbl: "Pages captured" });
+    } else if (pagesCaptured != null) {
+      stats.push({ val: pagesCaptured, lbl: "Pages captured" });
+    }
+    if (claimsExtracted != null) stats.push({ val: claimsExtracted, lbl: "Claims extracted" });
+    stats.push({ val: captureMethod, lbl: "Capture method" });
+    capGrid.innerHTML = stats.map(function(s) {
+      return '<div class="capture-stat"><div class="capture-stat-val">' + esc(String(s.val)) + '</div><div class="capture-stat-lbl">' + esc(s.lbl) + '</div></div>';
+    }).join("");
+    if (capGaps.length) {
+      var capGapList = document.getElementById("capture-gap-list");
+      var capGapsWrap = document.getElementById("capture-gaps-wrap");
+      if (capGapList) {
+        capGapList.innerHTML = capGaps.map(function(g) {
+          return '<span class="capture-gap-tag">' + esc(g.replace(/_/g," ")) + '</span>';
+        }).join("");
+      }
+      if (capGapsWrap) capGapsWrap.style.display = "";
+    }
+    if (capReportSec) capReportSec.style.display = "";
   }
 
   // Evidence cards
@@ -1698,7 +1821,7 @@ function initEmbedSection(domain, isExpired) {
   if (isExpired) {
     content.innerHTML =
       '<div class="embed-expired-msg">Score expired — embed unavailable until re-evaluated. ' +
-      'Contact signal@bhvd.com to request reassessment.</div>';
+      'Contact support@trynorm.co to request reassessment.</div>';
     sec.style.display = '';
     return;
   }

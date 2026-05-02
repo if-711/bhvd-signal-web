@@ -514,7 +514,13 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
         </div>
         <div class="ademo-tab" id="ademo-tab" onclick="ademoTabClick()">
           <div class="ademo-tab-inner">
-            <svg viewBox="0 0 52 52" width="28" height="28" fill="none"><path id="ademo-blob" d="M25.9998 0C28.1731 0 29.9538 1.72582 30.0217 3.8981C30.1312 7.40731 33.1026 10.2196 35.1071 13.102C36.0252 14.4222 36.5452 16.038 36.4956 17.7728L36.2914 24.9228C36.1757 28.9731 33.5493 32.7567 33.2607 36.7983L32.6148 45.8407C32.3669 49.3111 29.4792 52 26 52C22.5207 52 19.633 49.3112 19.3851 45.8407L18.7391 36.7982C18.4504 32.7566 15.8242 28.9731 15.7085 24.9228L15.5041 17.7728C15.4545 16.0382 15.9744 14.4226 16.8924 13.1025C18.8968 10.2198 21.8683 7.4075 21.9781 3.8981C22.046 1.72584 23.8265 3.83946e-05 25.9998 0Z" fill="#1e2440"/></svg>
+            <svg id="ademo-blob-svg" viewBox="0 0 22 22" width="28" height="28" fill="none" style="color:#1e2440">
+              <circle cx="11" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <circle cx="9.2" cy="7.8" r="1" fill="currentColor"/>
+              <circle cx="12.8" cy="7.8" r="1" fill="currentColor"/>
+              <path d="M9 10.5 Q11 12.5 13 10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+              <path d="M5.5 19 Q11 16 16.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            </svg>
           </div>
         </div>
       </div>
@@ -659,7 +665,7 @@ function ademoLoad(idx) {
   });
 
   // Update blob color
-  document.getElementById("ademo-blob").style.fill = "#1e2440";
+  document.getElementById("ademo-blob-svg").style.color = "#1e2440";
   document.getElementById("ademo-panel-brand").textContent = b.name + " · " + b.domain;
 
   // Auto-play sequence
@@ -682,7 +688,7 @@ function ademoTabClick(auto) {
   document.getElementById("ademo-score-state").style.display = "none";
 
   var b = ADEMO_BRANDS[ademoState.brand];
-  document.getElementById("ademo-blob").style.fill = b.color + "44";
+  document.getElementById("ademo-blob-svg").style.color = b.color;
 
   ademoTimer = setTimeout(function(){ ademoShowScore(); }, 1600);
 }
@@ -1278,14 +1284,14 @@ ademoLoad(0);
     </div>
     <div class="footer-col">
       <h5>Industry</h5>
-      <a href="mailto:signal@bhvd.com">For retailers</a>
-      <a href="mailto:signal@bhvd.com">For investors</a>
+      <a href="mailto:support@trynorm.co">For retailers</a>
+      <a href="mailto:support@trynorm.co">For investors</a>
       <a href="/brand-portal">For brands</a>
-      <a href="mailto:signal@bhvd.com">BHVD Verified</a>
+      <a href="mailto:support@trynorm.co">BHVD Verified</a>
     </div>
     <div class="footer-col">
       <h5>Company</h5>
-      <a href="mailto:signal@bhvd.com">Contact</a>
+      <a href="mailto:support@trynorm.co">Contact</a>
     </div>
   </div>
 </footer>

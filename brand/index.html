@@ -1287,7 +1287,11 @@ function renderVerified(brand, product, ld, dims, demand) {
   var score = ld.total_score != null ? ld.total_score : Math.round(100 - (product.claim_support_risk || 50));
   var sig   = score >= 68 ? "green" : score >= 55 ? "yellow" : "red";  // green≥68 yellow≥55 red<55
   var color = SIG_COLOR[sig] || "#f39c12";
-  var verdict = ld.bhvd_verdict || "—";
+  var score0  = ld.total_score != null ? ld.total_score : Math.round(100 - (product.claim_support_risk || 50));
+  var verdict = ld.bhvd_verdict || brand.verdict || (
+    score0 >= 75 ? "ALIGNED" : score0 >= 68 ? "VALIDATED" : score0 >= 60 ? "GENERALLY ALIGNED" :
+    score0 >= 55 ? "PARTIALLY ALIGNED" : score0 >= 40 ? "OVEREXTENDED" : "EVIDENCE GAP"
+  );
 
   document.title = esc(brand.brand_name || brand.domain) + " · Public Claim Record · NORM";
 
@@ -1413,10 +1417,10 @@ function renderVerified(brand, product, ld, dims, demand) {
   renderDemand(demand, brand.domain || "");
 
   // Executive summary
-  var summary = sanitize(ld.why_this_verdict || "");
+  var summary = sanitize(ld.why_this_verdict || ld.consumer_note || brand.summary || "");
   setText("exec-verdict", summary || verdict);
-  var consumerNote = sanitize(ld.consumer_note || "");
-  if (consumerNote) {
+  var consumerNote = sanitize(ld.consumer_note || brand.summary || "");
+  if (consumerNote && !summary) {
     setText("exec-consumer-text", consumerNote);
     showEl("exec-consumer");
   }

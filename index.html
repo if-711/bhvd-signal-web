@@ -174,32 +174,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .sc-product{font-size:12px;font-weight:500;margin-bottom:10px;color:var(--t1)}
 .sc-verdict{margin-top:14px;padding:10px 12px;border-radius:7px;font-size:12px;line-height:1.5;border-left:3px solid;font-style:italic}
 
-/* PRICING */
-.pricing-tabs{display:flex;gap:2px;margin-bottom:24px;background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:4px;width:fit-content}
-.ptab{padding:8px 20px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;color:var(--t3);border:none;background:transparent;font-family:var(--sans);transition:all .2s}
-.ptab.on{background:var(--bg4);color:var(--t1)}
-.billing-toggle{display:flex;gap:2px;background:var(--bg3);border:1px solid var(--b1);border-radius:9px;padding:3px;margin-bottom:18px;width:fit-content}
-.billing-opt{padding:6px 14px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;color:var(--t3);border:none;background:transparent;font-family:var(--sans);transition:all .18s;display:flex;align-items:center;gap:7px}
-.billing-opt.on{background:var(--bg4);color:var(--t1)}
-.save-badge{background:rgba(39,174,96,.15);border:1px solid rgba(39,174,96,.25);color:#1e9459;font-size:9px;font-family:var(--mono);letter-spacing:.06em;padding:2px 7px;border-radius:4px}
-.pricing-grid{grid-template-columns:repeat(2,1fr);gap:16px;max-width:780px}
-.plan{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:30px 26px;position:relative}
-.plan.feat{border-color:var(--acc);background:var(--bg3)}
-.plan-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--acc);color:#fff;font-size:10px;font-family:var(--mono);letter-spacing:.08em;padding:3px 13px;border-radius:0 0 8px 8px}
-.plan-name{font-family:var(--mono);font-size:11px;letter-spacing:.11em;color:var(--t3);text-transform:uppercase;margin-bottom:10px}
-.plan-price{font-family:var(--serif);font-size:44px;font-weight:400;line-height:1;margin-bottom:3px}
-.plan-price sup{font-size:20px;vertical-align:top;margin-top:8px;font-family:var(--sans)}
-.plan-period{font-size:12px;color:var(--t3);margin-bottom:26px}
-.plan-features{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:26px}
-.plan-features li{font-size:12px;color:var(--t2);display:flex;align-items:flex-start;gap:9px;line-height:1.5}
-.plan-features li::before{content:'';width:15px;height:15px;border-radius:50%;flex-shrink:0;margin-top:1px;background:var(--gbg);border:1px solid var(--grn)}
-.plan-features li.dim::before{background:var(--bg4);border-color:var(--b2)}
-.plan-features li.dim{color:var(--t3)}
-.plan-btn{width:100%;text-align:center;padding:11px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;border:1px solid var(--b2);background:transparent;color:var(--t2);font-family:var(--sans)}
-.plan-btn:hover{color:var(--t1);border-color:var(--t3)}
-.plan-btn-p{background:var(--acc);border-color:var(--acc);color:#fff}
-.plan-btn-p:hover{background:#3d6ae0}
-.plan-note{margin-top:14px;padding:10px 12px;background:rgba(39,174,96,.05);border:1px solid rgba(39,174,96,.14);border-radius:7px;font-size:11px;color:var(--t3);line-height:1.55}
 
 /* INTEGRITY */
 .integrity-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
@@ -1035,149 +1009,14 @@ ademoLoad(0);
 
 <!-- PRICING -->
 <div class="section-wrap" id="pricing">
-  <div class="sec-tag">Pricing</div>
-  <h2 class="sec-title">Transparent pricing for<br>a transparency product.</h2>
-  <p class="sec-sub">Public scores are free. Always. Paid tiers unlock deeper analysis, monitoring, and workflow tools — not better scores or favorable treatment.</p>
-
-  <div class="pricing-tabs" style="margin-top:32px">
-    <button class="ptab on" onclick="showPlans('consumer')">Consumer</button>
-    <button class="ptab" onclick="showPlans('b2b')">Brand</button>
-    <button class="ptab" onclick="showPlans('data')">Data API</button>
-  </div>
-
-  <!-- Consumer -->
-  <div id="plans-consumer" style="display:grid" class="pricing-grid">
-    <div class="plan">
-      <div class="plan-name">Consumer — Free</div>
-      <div class="plan-price">Free</div>
-      <div class="plan-period">Always free. No card required.</div>
-      <ul class="plan-features">
-        <li>Signal verdict — Low / Moderate / High Mismatch</li>
-        <li>Overall score and confidence level</li>
-        <li>Why-this-verdict summary</li>
-        <li>Leaderboard access</li>
-        <li>Chrome extension (25 scans/month)</li>
-        <li>Submit evidence for review</li>
-        <li class="dim">Which claims have no supporting evidence</li>
-        <li class="dim">Dimension scores</li>
-        <li class="dim">Score change alerts &amp; watchlists</li>
-        <li class="dim">Unlimited extension scans</li>
-      </ul>
-      <a href="/leaderboard" class="plan-btn">Browse the leaderboard →</a>
-      <div class="plan-note">Public scores are free permanently — this is not a trial.</div>
+  <div style="max-width:780px;background:var(--bg2);border:1px solid var(--b1);border-radius:16px;padding:40px 48px;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap">
+    <div>
+      <div class="sec-tag" style="margin-bottom:10px">Pricing</div>
+      <h2 style="font-family:var(--serif);font-size:clamp(22px,2.5vw,30px);font-weight:400;line-height:1.2;margin-bottom:10px">Public scores are free.<br><em style="color:var(--t2)">Always.</em></h2>
+      <p style="font-size:14px;color:var(--t2);line-height:1.7;max-width:400px;margin-bottom:18px">Paid tiers unlock deeper analysis, monitoring, and workflow tools — not better scores or favorable treatment. Consumer, Brand, and Data API plans.</p>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.04em">Paid access never influences public NORM scores, rankings, or review outcomes.</div>
     </div>
-    <div class="plan feat">
-      <div class="plan-badge">NOW LIVE</div>
-      <div class="plan-name">Consumer Pro</div>
-      <div class="billing-toggle">
-        <button class="billing-opt on" data-billing="monthly" onclick="setBillingHome('monthly')">Monthly</button>
-        <button class="billing-opt" data-billing="annual" onclick="setBillingHome('annual')">Annual <span class="save-badge">save 27%</span></button>
-      </div>
-      <div class="plan-price" id="hp-pro-price"><sup>$</sup>9</div>
-      <div class="plan-period" id="hp-pro-period">per month</div>
-      <ul class="plan-features">
-        <li><strong>Which claims have no supporting evidence</strong></li>
-        <li>Claim breakdown — high-pressure vs. contextual counts</li>
-        <li>Dimension scores — specificity, transparency, mechanism</li>
-        <li>Evidence source summary</li>
-        <li>Unlimited extension scans</li>
-        <li>Score change alerts &amp; trajectory charts (30/90/180 day)</li>
-        <li>Unlimited brand watchlists + category watchlists (up to 10)</li>
-        <li>Full scan history export</li>
-      </ul>
-      <a href="/pricing" id="hp-pro-btn" class="plan-btn plan-btn-p">Get Pro — $9/mo</a>
-      <div class="plan-note">Consumer Pro does not change scores — it gives you deeper visibility.</div>
-    </div>
-  </div>
-
-  <!-- Brand -->
-  <div id="plans-b2b" style="display:none" class="pricing-grid">
-    <div class="plan">
-      <div class="plan-name">Brand — Free</div>
-      <div class="plan-price">Free</div>
-      <div class="plan-period">No card required.</div>
-      <ul class="plan-features">
-        <li>View your public claim record</li>
-        <li>Claim your brand profile</li>
-        <li>Submit evidence for editorial review</li>
-        <li>Request score correction</li>
-        <li>See your overall score &amp; verdict</li>
-        <li>Competitor benchmarks (public data)</li>
-        <li class="dim">Claim receipts — exact text + source URLs</li>
-        <li class="dim">Evidence gap map per dimension</li>
-        <li class="dim">Private claim audit</li>
-        <li class="dim">Monitoring dashboard</li>
-      </ul>
-      <a href="/brand-portal" class="plan-btn">Claim your profile →</a>
-    </div>
-    <div class="plan feat">
-      <div class="plan-badge">NOW LIVE</div>
-      <div class="plan-name">Brand Pro</div>
-      <div class="plan-price"><sup>$</sup>299</div>
-      <div class="plan-period">per month</div>
-      <ul class="plan-features">
-        <li><strong>Every flagged claim — exact text + source page URL</strong></li>
-        <li>Gap analysis per scoring dimension with specific fix path</li>
-        <li>Competitor score comparison (up to 5 peers)</li>
-        <li>Priority rescore request (1 per 7 days)</li>
-        <li>Private claim audit — review claims against scoring rubric</li>
-        <li>Evidence gap map — which dimensions need evidence</li>
-        <li>Daily score movement alerts</li>
-        <li>API access to your own brand data</li>
-      </ul>
-      <a href="/pricing" class="plan-btn plan-btn-p">Get Brand Pro — $299/mo</a>
-      <div class="plan-note">Brand payment never changes a score. The only path to a better signal is making stronger evidence visible on your actual product page.</div>
-    </div>
-  </div>
-
-  <!-- Data API -->
-  <div id="plans-data" style="display:none;grid-template-columns:repeat(3,1fr);max-width:none" class="pricing-grid">
-    <div class="plan">
-      <div class="plan-name">Early Access</div>
-      <div class="plan-price" style="font-size:28px;margin-top:4px">Starting at</div>
-      <div class="plan-period" style="font-size:14px;color:var(--t2);margin-bottom:24px">$499 / month</div>
-      <ul class="plan-features">
-        <li>Trust score endpoint</li>
-        <li>Score history — full time series</li>
-        <li>Claim pattern index</li>
-        <li>Evidence gap trends by category</li>
-        <li>Bulk domain queries (up to 50/request)</li>
-        <li>Webhook alerts on score changes</li>
-        <li>JSON + CSV export</li>
-        <li class="dim">Category benchmark feeds</li>
-        <li class="dim">Raw claim text access</li>
-      </ul>
-      <a href="/pricing" class="plan-btn plan-btn-p">Request data access</a>
-    </div>
-    <div class="plan feat">
-      <div class="plan-badge">EARLY ACCESS</div>
-      <div class="plan-name">Pro Access</div>
-      <div class="plan-price" style="font-size:28px;margin-top:4px">Contact us</div>
-      <div class="plan-period" style="margin-bottom:24px">for volume pricing</div>
-      <ul class="plan-features">
-        <li>Everything in Early Access</li>
-        <li>Category benchmark feeds</li>
-        <li>Raw claim text access</li>
-        <li>Custom domain filtering</li>
-        <li>Priority support + dedicated Slack</li>
-        <li>Monthly data briefing</li>
-      </ul>
-      <a href="/pricing" class="plan-btn plan-btn-p">Request data access</a>
-    </div>
-    <div class="plan">
-      <div class="plan-name">Enterprise</div>
-      <div class="plan-price" style="font-size:28px;margin-top:4px">Custom</div>
-      <div class="plan-period" style="margin-bottom:24px">volume pricing · SLA available</div>
-      <ul class="plan-features">
-        <li>Unlimited API calls</li>
-        <li>Custom data schema</li>
-        <li>White-label licensing</li>
-        <li>SLA and uptime guarantee</li>
-        <li>Historical archive access</li>
-        <li>Dedicated data team contact</li>
-      </ul>
-      <a href="/pricing" class="plan-btn plan-btn-p">Request data access</a>
-    </div>
+    <a href="/pricing" class="btn btn-p" style="white-space:nowrap;flex-shrink:0;font-size:14px;padding:12px 28px" onclick="track('pricing_cta_click')">See full pricing →</a>
   </div>
 </div>
 
@@ -1372,27 +1211,7 @@ function toggleFaq(el){
   document.querySelectorAll('.faq-item.open').forEach(function(i){i.classList.remove('open')});
   if(!isOpen)item.classList.add('open');
 }
-function showPlans(type){
-  document.getElementById('plans-consumer').style.display=type==='consumer'?'grid':'none';
-  document.getElementById('plans-b2b').style.display=type==='b2b'?'grid':'none';
-  document.getElementById('plans-data').style.display=type==='data'?'grid':'none';
-  document.querySelectorAll('.ptab').forEach(function(btn,i){
-    btn.classList.toggle('on',(i===0&&type==='consumer')||(i===1&&type==='b2b')||(i===2&&type==='data'));
-  });
-}
-function setBillingHome(b){
-  document.querySelectorAll('.billing-opt').forEach(function(el){
-    el.classList.toggle('on',el.dataset.billing===b);
-  });
-  var p=document.getElementById('hp-pro-price');
-  var per=document.getElementById('hp-pro-period');
-  var btn=document.getElementById('hp-pro-btn');
-  if(b==='annual'){
-    p.innerHTML='<sup>$</sup>79';per.textContent='per year';btn.textContent='Get Pro — $79/yr';
-  } else {
-    p.innerHTML='<sup>$</sup>9';per.textContent='per month';btn.textContent='Get Pro — $9/mo';
-  }
-}
+
 var obs=new IntersectionObserver(function(entries){
   entries.forEach(function(e){
     if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}

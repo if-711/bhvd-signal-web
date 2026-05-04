@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>NORM — The independent claim quality index for wellness</title>
-<meta name="description" content="NORM analyzes public marketing claims, visible evidence references, and claim proportionality for wellness brands. Independent. Editorially reviewed. Payment never influences scores.">
+<title>NORM — Know which wellness brands show their proof</title>
+<meta name="description" content="NORM scores wellness brand claims against visible evidence. Search any brand and see whether what they claim is backed by what they show. Independent. Editorially reviewed. Payment never influences scores.">
 <meta name="author" content="NORM">
 <meta name="theme-color" content="#0a0c12">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://trynorm.co/">
 <link rel="canonical" href="https://trynorm.co/">
 <link rel="icon" type="image/png" href="/favicon.png">
-<meta property="og:title" content="NORM — The signal the wellness industry answers to">
+<meta property="og:title" content="NORM — Know which wellness brands show their proof">
 <meta property="og:description" content="Independent assessment of public marketing claims, visible evidence references, and claim proportionality across wellness, nutrition, and performance. Payment never influences ratings.">
 <meta property="og:image" content="https://trynorm.co/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -20,11 +20,11 @@
 <meta property="og:site_name" content="NORM">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@trynorm">
-<meta name="twitter:title" content="NORM — The signal the wellness industry answers to">
+<meta name="twitter:title" content="NORM — Know which wellness brands show their proof">
 <meta name="twitter:description" content="Independent claim quality index for wellness brands. Editorially reviewed. Payment never influences scores.">
 <meta name="twitter:image" content="https://trynorm.co/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=VT323&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0a0c12;--bg2:#111420;--bg3:#181c2e;--bg4:#1f2438;
@@ -44,7 +44,7 @@ body{background:var(--bg);color:var(--t1);font-family:var(--sans);font-size:16px
 a{color:inherit;text-decoration:none}
 
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:58px;background:rgba(10,12,18,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--b1)}
-.nav-logo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--t1);display:flex;align-items:center;gap:9px;text-decoration:none}
+.nav-logo{font-family:var(--mono);font-size:12px;font-weight:400;letter-spacing:.28em;color:rgba(255,255,255,.72);display:flex;align-items:center;gap:9px;text-decoration:none}
 .nav-byline{font-size:9px;color:var(--t3);letter-spacing:.13em;font-weight:400;text-transform:uppercase;border-left:1px solid var(--b2);padding-left:8px;margin-left:1px}
 .nav-links{display:flex;gap:32px;list-style:none}
 .nav-links a{font-size:13px;color:var(--t2);transition:color .15s;cursor:pointer}
@@ -58,21 +58,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 /* HERO */
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
 .hero-glow{position:absolute;top:15%;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(79,124,255,0.09) 0%,transparent 65%);pointer-events:none}
-.hero-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--acc);text-transform:uppercase;margin-bottom:28px;display:flex;align-items:center;justify-content:center;gap:10px}
-.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:36px;height:1px;background:var(--acc);opacity:.45}
-.hero h1{font-family:var(--serif);font-size:clamp(44px,7vw,90px);font-weight:400;line-height:1.04;letter-spacing:-.025em;max-width:940px;margin-bottom:26px}
+.hero h1{font-family:var(--serif);font-size:clamp(44px,7vw,90px);font-weight:400;line-height:1.04;letter-spacing:-.025em;max-width:860px;margin-bottom:22px}
 .hero h1 em{font-style:italic;color:var(--t2)}
-.hero-sub{font-size:18px;color:var(--t2);max-width:560px;line-height:1.7;margin-bottom:52px;font-weight:300}
-.hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:60px}
-.btn-hero{font-size:15px;padding:14px 28px;border-radius:10px}
-.btn-demo{border-color:rgba(79,124,255,0.35);color:var(--acc);background:rgba(79,124,255,0.07)}
-.btn-demo:hover{background:rgba(79,124,255,0.14);border-color:rgba(79,124,255,0.6);color:#7fa8ff}
-.demo-note{font-size:11px;color:var(--t3);font-family:var(--mono);letter-spacing:.04em;margin-top:10px;text-align:center}
-.hero-proof{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center}
+.hero-sub{font-size:18px;color:var(--t2);max-width:520px;line-height:1.7;margin-bottom:40px;font-weight:300}
+.hero-browse{font-size:13px;color:var(--t3);font-family:var(--mono);letter-spacing:.04em;margin-top:14px;transition:color .15s;display:inline-block}
+.hero-browse:hover{color:var(--t2)}
+.hero-proof{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:40px}
 .hero-proof-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--t3);font-family:var(--mono);letter-spacing:.04em}
 .hero-proof-dot{width:4px;height:4px;border-radius:50%;background:var(--t3)}
-.hero-search-wrap{position:relative;width:100%;max-width:480px;margin:0 auto 40px}
-.hero-search-input{width:100%;padding:14px 20px;background:rgba(17,20,32,.85);border:1px solid rgba(255,255,255,.14);border-radius:12px;color:var(--t1);font-size:15px;font-family:var(--sans);outline:none;transition:border-color .2s;backdrop-filter:blur(8px)}
+.hero-search-wrap{position:relative;width:100%;max-width:500px;margin:0 auto}
+.hero-search-input{width:100%;padding:15px 22px;background:rgba(17,20,32,.85);border:1px solid rgba(255,255,255,.14);border-radius:13px;color:var(--t1);font-size:15px;font-family:var(--sans);outline:none;transition:border-color .2s;backdrop-filter:blur(8px)}
 .hero-search-input:focus{border-color:rgba(74,120,240,.6)}
 .hero-search-input::placeholder{color:var(--t3)}
 .hero-search-sugs{position:absolute;top:calc(100%+6px);left:0;right:0;background:var(--bg2);border:1px solid var(--b2);border-radius:10px;z-index:200;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.6);display:none}
@@ -83,57 +78,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .hero-search-sug-meta{font-size:11px;color:var(--t3);font-family:var(--mono);margin-top:2px;display:flex;gap:10px;align-items:center}
 .hero-search-sug-sig{font-size:10px;font-weight:500;padding:2px 6px;border-radius:3px}
 
-/* VALUE PROP BAND */
-.value-band{background:var(--bg2);border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);padding:56px 32px}
-.value-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-.value-card{padding:32px 28px;position:relative}
-.value-card::after{content:'';position:absolute;top:20%;right:0;height:60%;width:1px;background:var(--b1)}
-.value-card:last-child::after{display:none}
-.value-num{font-family:var(--serif);font-size:52px;font-weight:400;line-height:1;margin-bottom:8px}
-.value-label{font-size:15px;font-weight:500;color:var(--t1);margin-bottom:10px}
-.value-desc{font-size:13px;color:var(--t2);line-height:1.65}
-
-/* BROWSER DEMO */
-.demo-outer{width:100%;max-width:880px;margin:0 auto;padding:0 24px 100px}
-.browser{background:var(--bg2);border:1px solid var(--b2);border-radius:14px;overflow:hidden}
-.b-chrome{background:var(--bg3);padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--b1)}
-.b-dots{display:flex;gap:5px}
-.b-dot{width:10px;height:10px;border-radius:50%}
-.b-url{flex:1;background:var(--bg4);border-radius:6px;padding:5px 12px;font-family:var(--mono);font-size:11px;color:var(--t3);display:flex;align-items:center;gap:6px}
-.b-lock{color:var(--grn);font-size:9px}
-.b-ext{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;border:1.5px solid;flex-shrink:0;font-family:var(--mono)}
-.b-body{display:grid;grid-template-columns:1fr 272px;min-height:360px}
-.page-side{padding:32px;border-right:1px solid var(--b1)}
-.p-tag{font-size:10px;color:var(--t3);margin-bottom:6px;letter-spacing:.07em;text-transform:uppercase}
-.p-headline{font-family:var(--serif);font-size:22px;margin-bottom:6px;line-height:1.2}
-.p-price{font-size:12px;color:var(--t3);margin-bottom:18px}
-.p-claims{display:flex;flex-direction:column;gap:9px;margin-bottom:22px}
-.p-claim{background:var(--bg3);border-radius:8px;padding:10px 13px;font-size:12px;color:var(--t2);border-left:3px solid;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.p-verdict{font-size:10px;font-family:var(--mono);font-weight:500;flex-shrink:0}
-.buy-btn{width:100%;padding:11px;background:var(--acc);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans)}
-.signal-side{padding:20px;display:flex;flex-direction:column;gap:12px}
-.sig-hero-block{border-radius:10px;padding:14px;border:1px solid}
-.sh-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.sh-ball{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;border:2px solid}
-.sh-name{font-size:14px;font-weight:500}
-.sh-sub{font-size:10px;opacity:.65;margin-top:2px}
-.sh-meter{height:4px;background:var(--bg4);border-radius:2px;overflow:hidden;position:relative;margin-bottom:9px}
-.sh-meter-bg{position:absolute;inset:0;background:linear-gradient(to right,#ef4444,#f59e0b,#22c55e);opacity:.12}
-.sh-meter-fill{position:absolute;top:0;right:0;bottom:0;border-radius:2px;opacity:.9}
-.sh-meter-labels{display:flex;justify-content:space-between;font-size:8px;opacity:.38;margin-bottom:9px}
-.sh-summary{font-size:11px;opacity:.72;font-style:italic;line-height:1.55}
-.sig-stats{display:flex;gap:7px}
-.sig-stat{flex:1;background:var(--bg3);border-radius:6px;padding:7px 8px;text-align:center}
-.sig-stat-v{font-size:15px;font-weight:500;font-family:var(--mono)}
-.sig-stat-l{font-size:8px;color:var(--t3);margin-top:2px}
-.sig-dims{display:flex;flex-direction:column;gap:5px}
-.sig-dim{display:flex;align-items:center;gap:6px;font-size:10px}
-.sig-dim-n{flex:1;color:var(--t2)}
-.sig-dim-b{width:56px;height:3px;background:var(--bg4);border-radius:2px;overflow:hidden;position:relative}
-.sig-dim-f{position:absolute;top:0;right:0;bottom:0;border-radius:2px}
-.sig-dim-v{font-family:var(--mono);font-size:9px;font-weight:500;width:44px;text-align:right}
-.sig-cta-btn{width:100%;padding:8px;background:var(--bg3);border:1px solid var(--b2);border-radius:7px;color:var(--t2);font-size:11px;cursor:pointer;font-family:var(--sans)}
-
 /* SECTIONS */
 .section-wrap{max-width:1100px;margin:0 auto;padding:96px 32px}
 .sec-tag{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--t3);text-transform:uppercase;margin-bottom:14px}
@@ -141,20 +85,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .sec-sub{font-size:17px;color:var(--t2);max-width:520px;font-weight:300;line-height:1.7;margin-bottom:56px}
 .divider{height:1px;background:var(--b1)}
 
-/* KNOWLEDGE/MONEY SECTION */
-.km-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-bottom:64px}
-.km-text{}
-.km-text h3{font-family:var(--serif);font-size:32px;font-weight:400;line-height:1.15;letter-spacing:-.015em;margin-bottom:18px}
-.km-text h3 em{font-style:italic;color:var(--t2)}
-.km-text p{font-size:15px;color:var(--t2);line-height:1.75;margin-bottom:14px;font-weight:300}
-.km-stats{display:flex;flex-direction:column;gap:12px}
-.km-stat{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:22px 26px;display:flex;align-items:center;gap:20px}
-.km-stat-icon{width:44px;height:44px;border-radius:10px;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.km-stat-num{font-family:var(--serif);font-size:32px;font-weight:400;line-height:1;margin-bottom:3px}
-.km-stat-desc{font-size:12px;color:var(--t2);line-height:1.5}
-
 /* HOW IT WORKS */
-.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
 .step{background:var(--bg2);border:1px solid var(--b1);padding:28px 22px}
 .step:first-child{border-radius:12px 0 0 12px}
 .step:last-child{border-radius:0 12px 12px 0}
@@ -174,7 +106,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .sc-product{font-size:12px;font-weight:500;margin-bottom:10px;color:var(--t1)}
 .sc-verdict{margin-top:14px;padding:10px 12px;border-radius:7px;font-size:12px;line-height:1.5;border-left:3px solid;font-style:italic}
 
-
 /* INTEGRITY */
 .integrity-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
 .int-list{display:flex;flex-direction:column;gap:22px}
@@ -185,58 +116,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .int-visual{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:28px}
 .flow-title{font-size:10px;color:var(--t3);letter-spacing:.09em;text-transform:uppercase;font-family:var(--mono);margin-bottom:16px}
 .flow-row{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:8px;font-size:12px;margin-bottom:6px}
-.flow-allowed{background:rgba(79,124,255,.08);border:1px solid rgba(79,124,255,.15)}
+.flow-allowed{background:rgba(79,124,240,.08);border:1px solid rgba(79,124,240,.15)}
 .flow-blocked{background:rgba(255,255,255,.03)}
 .flow-label{flex:1}
 .flow-ok{font-size:10px;color:var(--acc);font-family:var(--mono)}
 .flow-no{font-size:10px;color:var(--red);font-family:var(--mono)}
 .flow-note{font-size:10px;color:var(--t3);padding:2px 14px 12px;line-height:1.5}
 .firewall{display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(39,174,96,.07);border:1px solid rgba(39,174,96,.18);border-radius:8px;font-size:11px;color:var(--grn);font-family:var(--mono);letter-spacing:.04em;margin-top:10px}
-
-/* CONVERSION TRIGGER */
-.ct-strip{padding:16px 20px;border-radius:10px;background:rgba(74,120,240,0.04);border:1px solid rgba(74,120,240,0.12);display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:32px}
-.ct-body{flex:1;min-width:0}
-.ct-copy{font-size:13px;color:var(--t1);line-height:1.5;margin-bottom:3px}
-.ct-note{font-size:10px;color:var(--t3);font-family:var(--mono);letter-spacing:.01em}
-.ct-btn{flex-shrink:0;align-self:center;padding:7px 14px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;background:transparent;border:1px solid rgba(74,120,240,0.35);color:var(--acc);font-family:var(--sans);transition:all .15s;text-decoration:none;white-space:nowrap;display:inline-block}
-.ct-btn:hover{background:rgba(74,120,240,0.08);border-color:rgba(74,120,240,0.6)}
-
-/* DYNAMIC BRAND ROWS */
-.ms-stat-row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:14px}
-@media(max-width:600px){.ms-stat-row{grid-template-columns:repeat(2,1fr)}}
-.ms-stat-card{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:18px 16px}
-.ms-stat-val{font-family:var(--mono);font-size:24px;font-weight:600;color:var(--t1);margin-bottom:2px}
-.ms-stat-delta{font-size:11px;color:var(--t3);font-family:var(--mono);margin-bottom:4px;min-height:15px}
-.ms-stat-label{font-size:11px;color:var(--t3)}
-.ms-list-title{font-size:10px;font-weight:600;color:var(--t2);margin-bottom:2px;text-transform:uppercase;letter-spacing:.08em;font-family:var(--mono)}
-.ms-movers-card{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:18px 20px}
-.ms-val{font-family:var(--mono);font-size:26px;font-weight:600;color:var(--t1);margin-bottom:4px}
-.ms-label{font-size:12px;color:var(--t3)}
-.ms-mover-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--b1);cursor:pointer;text-decoration:none}
-.ms-mover-row:last-child{border-bottom:none}
-.ms-mover-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.ms-mover-name{flex:1;font-size:13px;color:var(--t1)}
-.ms-mover-delta{font-family:var(--mono);font-size:12px;font-weight:600}
-.brand-rows-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.brand-row-col{}
-.brand-row-col-title{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
-.brand-row-list{display:flex;flex-direction:column;gap:6px}
-.brand-row-item{display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:12px 16px;text-decoration:none;transition:border-color .15s;cursor:pointer}
-.brand-row-item:hover{border-color:var(--b2)}
-.brand-row-left{display:flex;align-items:center;gap:12px}
-.brand-row-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.brand-row-dot.green{background:#1e9459}
-.brand-row-dot.yellow{background:#c07718}
-.brand-row-dot.red{background:#9e3028}
-.brand-row-dot.pending{background:rgba(255,255,255,0.15)}
-.brand-row-name{font-size:13px;font-weight:500;color:var(--t1)}
-.brand-row-domain{font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:1px}
-.brand-row-right{text-align:right;flex-shrink:0}
-.brand-row-score{font-family:var(--mono);font-size:13px;font-weight:500}
-.brand-row-meta{font-family:var(--mono);font-size:9px;color:var(--t3);margin-top:1px}
-.brand-row-count{font-family:var(--mono);font-size:11px;color:var(--acc);font-weight:500}
-.brand-row-req{font-size:10px;color:var(--t3)}
-.brand-rows-empty{font-size:13px;color:var(--t3);padding:16px 0}
 
 /* FAQ */
 .faq-list{display:flex;flex-direction:column;gap:3px;max-width:700px}
@@ -256,6 +142,29 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .cta-band-btns{display:flex;align-items:center;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
 .cta-band-small{font-size:12px;color:var(--t3);font-family:var(--mono);letter-spacing:.04em}
 
+/* DYNAMIC BRAND ROWS */
+.brand-row-list{display:flex;flex-direction:column;gap:6px;transition:opacity .3s ease}
+.brand-row-list.fading{opacity:0}
+.brand-row-item{display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:12px 16px;text-decoration:none;transition:border-color .15s;cursor:pointer}
+.brand-row-item:hover{border-color:var(--b2)}
+.brand-row-left{display:flex;align-items:center;gap:12px}
+.brand-row-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.brand-row-dot.green{background:#1e9459}
+.brand-row-dot.yellow{background:#c07718}
+.brand-row-dot.red{background:#9e3028}
+.brand-row-dot.pending{background:rgba(255,255,255,0.15)}
+.brand-row-name{font-size:13px;font-weight:500;color:var(--t1)}
+.brand-row-domain{font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:1px}
+.brand-row-right{text-align:right;flex-shrink:0}
+.brand-row-score{font-family:var(--mono);font-size:13px;font-weight:500}
+.brand-row-meta{font-family:var(--mono);font-size:9px;color:var(--t3);margin-top:1px}
+.brand-rows-empty{font-size:13px;color:var(--t3);padding:16px 0}
+
+/* LIVE DOT */
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#1e9459;margin-right:7px;animation:live-pulse 2s ease-in-out infinite;vertical-align:middle;position:relative;top:-1px}
+@keyframes live-pulse{0%,100%{box-shadow:0 0 0 0 rgba(30,148,89,.6);opacity:1}50%{box-shadow:0 0 0 5px rgba(30,148,89,0);opacity:.8}}
+.live-label{font-family:var(--mono);font-size:10px;color:#1e9459;letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center}
+
 /* FOOTER */
 footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:36px}
 .footer-disc{font-size:11px;color:var(--t3);max-width:340px;line-height:1.65;margin-top:10px}
@@ -267,19 +176,13 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 .hero-mark{animation:fadeUp .6s ease both}
-.hero-eyebrow{animation:fadeUp .6s .06s ease both}
-.hero h1{animation:fadeUp .6s .08s ease both}
-.hero-sub{animation:fadeUp .6s .18s ease both}
-.hero-actions{animation:fadeUp .6s .27s ease both}
-.hero-proof{animation:fadeUp .6s .35s ease both}
-
-@media(max-width:768px){
-  nav{padding:0 20px}.nav-links{display:none}
-  .b-body{grid-template-columns:1fr}.signal-side{display:none}
-  .steps{grid-template-columns:1fr 1fr}
-  .sigs-grid,.integrity-grid,.km-grid,.value-inner,.pricing-grid{grid-template-columns:1fr}
-  .value-card::after{display:none}
-}
+.hero h1{animation:fadeUp .6s .1s ease both}
+.hero-sub{animation:fadeUp .6s .2s ease both}
+.hero-search-wrap{animation:fadeUp .6s .3s ease both}
+.hero-browse{animation:fadeUp .6s .36s ease both}
+.hero-proof{animation:fadeUp .6s .42s ease both}
+.hero-mark-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:36px;gap:11px}
+.hero-mark-word{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.26em;color:rgba(74,120,240,.55);text-transform:uppercase}
 
 /* PASSWORD GATE */
 #pw-gate{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--sans)}
@@ -296,6 +199,14 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
 .gate-disc{font-size:10px;color:var(--t3);margin-top:28px;letter-spacing:.04em;font-family:var(--mono)}
 @keyframes pw-shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
 .pw-shake{animation:pw-shake .38s ease}
+
+@media(max-width:768px){
+  nav{padding:0 20px}.nav-links{display:none}
+  .steps,.sigs-grid,.integrity-grid{grid-template-columns:1fr}
+  .step:first-child,.step:last-child{border-radius:0}
+  .step:first-child{border-radius:12px 12px 0 0}
+  .step:last-child{border-radius:0 0 12px 12px}
+}
 </style>
 </head>
 <body>
@@ -313,8 +224,6 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
   </a>
   <ul class="nav-links">
     <li><a href="/leaderboard">Leaderboard</a></li>
-    
-    
     <li><a href="/methodology">Methodology</a></li>
     <li><a href="/pricing">Pricing</a></li>
   </ul>
@@ -329,24 +238,23 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
 <!-- HERO -->
 <div class="hero">
   <div class="hero-glow"></div>
-  <svg class="hero-mark" width="64" height="64" viewBox="0 0 22 22" fill="none" aria-hidden="true" style="margin-bottom:28px;opacity:.92">
-    <circle cx="11" cy="8.5" r="5.5" stroke="#4a78f0" stroke-width="1.5"/>
-    <circle cx="9.2" cy="7.8" r="1" fill="#4a78f0"/>
-    <circle cx="12.8" cy="7.8" r="1" fill="#4a78f0"/>
-    <path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/>
-    <path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/>
-  </svg>
-  <div class="hero-eyebrow">Claim integrity infrastructure</div>
-  <h1>The signal the wellness<br>industry <em>answers to.</em></h1>
-  <p class="hero-sub">Brand claims are evaluated against evidence. NORM quantifies the gap.</p>
+  <div class="hero-mark" style="margin-bottom:32px">
+    <svg width="80" height="80" viewBox="0 0 22 22" fill="none" aria-hidden="true" style="opacity:.88">
+      <circle cx="11" cy="8.5" r="5.5" stroke="#4a78f0" stroke-width="1.5"/>
+      <circle cx="9.2" cy="7.8" r="1" fill="#4a78f0"/>
+      <circle cx="12.8" cy="7.8" r="1" fill="#4a78f0"/>
+      <path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <h1>Know which wellness brands<br><em>show their proof.</em></h1>
+  <p class="hero-sub">NORM scores every brand claim against its visible evidence. Search any brand below — before you spend.</p>
   <div class="hero-search-wrap">
     <input class="hero-search-input" id="heroSearch" type="search" placeholder="Search a brand — e.g. Athletic Greens, Oura…" autocomplete="off" spellcheck="false">
     <div class="hero-search-sugs" id="heroSearchSugs"></div>
   </div>
-  <div class="hero-actions">
-    <a href="/leaderboard" class="btn btn-p btn-hero" onclick="track('leaderboard_click')">View the Index</a>
-    <a href="/bhvd-extension.zip" download="norm-extension.zip" class="btn btn-hero btn-demo" onclick="track('extension_install_click')">Get the Extension</a>
-  </div>
+  <a href="/bhvd-extension.zip" download="norm-extension.zip" class="btn btn-p" style="margin-top:18px;font-size:15px;padding:13px 32px;border-radius:10px" onclick="track('extension_install_click')">Try NORM — Add to Browser</a>
+  <a href="/leaderboard" class="hero-browse" onclick="track('leaderboard_click')">Browse the full index →</a>
   <div class="hero-proof">
     <div class="hero-proof-item">Editorially reviewed</div>
     <div class="hero-proof-dot"></div>
@@ -354,453 +262,7 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
     <div class="hero-proof-dot"></div>
     <div class="hero-proof-item">Open methodology</div>
     <div class="hero-proof-dot"></div>
-    <div class="hero-proof-item">Wellness, nutrition &amp; performance</div>
-  </div>
-</div>
-
-<!-- VALUE PROP BAND -->
-<div class="value-band">
-  <div style="text-align:center;font-size:12px;color:var(--t3);font-family:var(--mono);letter-spacing:.04em;margin-bottom:36px">Scores update as claims and evidence change.</div>
-  <div class="value-inner">
-    <div class="value-card">
-      <div class="value-num" style="color:var(--acc)">$6,293</div>
-      <div class="value-label">average annual wellness spend per U.S. consumer</div>
-      <div class="value-desc">Most of that spending is guided by marketing claims, not proof. Start knowing before you spend.</div>
-    </div>
-    <div class="value-card">
-      <div class="value-num" style="color:var(--grn)">2 sec</div>
-      <div class="value-label">from page load to NORM</div>
-      <div class="value-desc">The signal appears instantly — before checkout, without additional research.</div>
-    </div>
-    <div class="value-card">
-      <div class="value-num" style="color:var(--yel)">587</div>
-      <div class="value-label">public claim receipts archived</div>
-      <div class="value-desc">Each receipt links a brand claim to visible supporting evidence — or highlights where that connection is missing.</div>
-    </div>
-  </div>
-  <div style="text-align:center;padding-top:36px;border-top:1px solid var(--b1);margin-top:40px">
-    <div style="font-family:var(--serif);font-size:22px;font-weight:400;color:var(--t1);letter-spacing:-.01em;margin-bottom:8px">Start knowing before you spend.</div>
-    <div style="font-size:13px;color:var(--t3);font-family:var(--mono);letter-spacing:.02em;max-width:520px;margin:0 auto;line-height:1.6">NORM creates a public record of brand claims and the evidence — or absence of it — behind them.</div>
-  </div>
-</div>
-
-<!-- ANIMATED DEMO -->
-<style>
-/* ── Animated Demo ── */
-.ademo-wrap{padding:60px 0 80px;background:linear-gradient(to bottom,transparent,rgba(17,20,32,.5),transparent)}
-.ademo-inner{max-width:900px;margin:0 auto;padding:0 24px}
-.ademo-label{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.14em;text-transform:uppercase;text-align:center;margin-bottom:10px}
-.ademo-title{font-family:var(--serif);font-size:clamp(22px,3vw,34px);font-weight:400;text-align:center;letter-spacing:-.018em;margin-bottom:40px;color:var(--t1)}
-.ademo-title em{font-style:italic;color:var(--t2)}
-
-/* Browser chrome */
-.ademo-browser{background:#111420;border:1px solid rgba(255,255,255,.10);border-radius:14px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.6)}
-.ademo-chrome{height:42px;background:#0e1020;display:flex;align-items:center;gap:10px;padding:0 16px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0}
-.ademo-dots{display:flex;gap:5px}
-.ademo-dot{width:10px;height:10px;border-radius:50%}
-.ademo-url{flex:1;background:rgba(255,255,255,.05);border-radius:6px;height:24px;display:flex;align-items:center;padding:0 10px;font-size:11px;color:#5a6090;font-family:var(--mono);overflow:hidden;transition:opacity .3s}
-.ademo-url-lock{color:#27ae60;font-size:8px;margin-right:5px;flex-shrink:0}
-.ademo-url-text{transition:opacity .2s}
-
-/* Extension tab */
-.ademo-tab{width:42px;height:42px;flex-shrink:0;border-radius:50%;background:#07080e;border:1px solid rgba(255,255,255,.10);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:transform .15s,box-shadow .3s}
-.ademo-tab-inner{width:28px;height:28px;display:flex;align-items:center;justify-content:center}
-.ademo-tab svg path{transition:fill .5s}
-
-/* Body */
-.ademo-body{display:flex;min-height:340px;position:relative;overflow:hidden}
-
-/* Brand page */
-.ademo-page{flex:1;padding:28px 32px;transition:opacity .4s;position:relative;overflow:hidden}
-.ademo-page-tag{font-size:9px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;font-family:var(--mono)}
-.ademo-page-name{font-family:var(--serif);font-size:26px;line-height:1.1;margin-bottom:6px;transition:opacity .3s}
-.ademo-page-cat{font-size:11px;color:var(--t3);margin-bottom:20px}
-.ademo-page-claims{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
-.ademo-claim{background:rgba(255,255,255,.04);border-radius:7px;padding:9px 12px;font-size:11px;color:var(--t2);border-left:2px solid rgba(255,255,255,.08);transition:border-color .5s}
-.ademo-claim.flagged{border-color:#9e3028;background:rgba(158,48,40,.04)}
-.ademo-claim.ok{border-color:#1e9459;background:rgba(30,148,89,.04)}
-.ademo-page-btn{padding:10px 20px;border-radius:8px;font-size:12px;font-weight:500;border:none;cursor:pointer;font-family:var(--sans);transition:background .4s,color .4s}
-
-/* Sidebar panel */
-.ademo-panel{width:230px;flex-shrink:0;background:#08090f;border-left:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;transform:translateX(100%);opacity:0;transition:transform .55s cubic-bezier(.34,1.1,.64,1),opacity .4s}
-.ademo-panel.open{transform:translateX(0);opacity:1}
-.ademo-panel-hdr{padding:14px 16px 12px;border-bottom:1px solid rgba(255,255,255,.06)}
-.ademo-panel-logo{font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.25);letter-spacing:.14em}
-
-/* Scanning state */
-.ademo-scanning{padding:20px 16px;display:flex;flex-direction:column;align-items:center;gap:12px;flex:1;justify-content:center}
-.ademo-spinner{width:32px;height:32px;border:2px solid rgba(255,255,255,.08);border-top-color:var(--acc);border-radius:50%}
-@keyframes ademo-spin{to{transform:rotate(360deg)}}
-.ademo-spinner.spin{animation:ademo-spin .7s linear infinite}
-.ademo-scan-text{font-size:11px;color:var(--t3);font-family:var(--mono)}
-
-/* Score state */
-.ademo-score-state{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1}
-.ademo-score-hero{border-radius:10px;padding:14px;border:1px solid;transition:all .6s}
-.ademo-score-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.ademo-score-ball{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-family:var(--mono);font-weight:700;flex-shrink:0;border:2px solid;transition:all .6s}
-.ademo-score-num-wrap{display:flex;flex-direction:column}
-.ademo-score-main{font-family:var(--mono);font-size:22px;font-weight:700;line-height:1;transition:color .6s}
-.ademo-verdict-badge{font-family:var(--mono);font-size:8px;font-weight:600;letter-spacing:.08em;margin-top:3px;text-transform:uppercase;opacity:.85}
-.ademo-score-bar{height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-bottom:8px;position:relative}
-.ademo-score-bar-fill{position:absolute;top:0;left:0;bottom:0;border-radius:2px;transition:width 1.2s cubic-bezier(.34,1.1,.64,1),background .6s}
-.ademo-score-summary{font-size:10px;line-height:1.6;opacity:.65;font-style:italic}
-.ademo-dims-mini{display:flex;flex-direction:column;gap:5px}
-.ademo-dim-mini{display:flex;align-items:center;gap:6px;font-size:9px;color:var(--t3)}
-.ademo-dim-mini-bar{flex:1;height:2px;background:rgba(255,255,255,.06);border-radius:1px;overflow:hidden;position:relative}
-.ademo-dim-mini-fill{position:absolute;top:0;left:0;bottom:0;border-radius:1px;transition:width .8s ease}
-.ademo-panel-brand-label{font-size:9px;color:rgba(255,255,255,.2);font-family:var(--mono);letter-spacing:.07em;padding:0 14px;margin-top:auto;padding-bottom:12px;text-align:center}
-
-/* Assessment open state */
-.ademo-assess{display:none;background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.06);padding:10px 14px;font-size:10px;line-height:1.65;color:var(--t2)}
-.ademo-assess.visible{display:block}
-.ademo-gap-row{display:flex;gap:6px;margin-bottom:5px;font-size:9.5px}
-.ademo-gap-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:3px}
-
-/* Brand cycle pills */
-.ademo-brands{display:flex;gap:8px;justify-content:center;margin-top:20px;flex-wrap:wrap}
-.ademo-brand-pill{font-family:var(--mono);font-size:10px;padding:5px 14px;border-radius:100px;border:1px solid var(--b1);color:var(--t3);cursor:pointer;transition:all .2s;background:transparent}
-.ademo-brand-pill.on{color:var(--t1);border-color:rgba(255,255,255,.25);background:var(--bg2)}
-</style>
-
-<div class="ademo-wrap">
-  <div class="ademo-inner">
-    <div class="ademo-label">Live Demo</div>
-    <div class="ademo-title">See the signal appear. <em>In real time.</em></div>
-
-    <div class="ademo-browser">
-      <div class="ademo-chrome">
-        <div class="ademo-dots">
-          <div class="ademo-dot" style="background:#ff5f57"></div>
-          <div class="ademo-dot" style="background:#febc2e"></div>
-          <div class="ademo-dot" style="background:#28c840"></div>
-        </div>
-        <div class="ademo-url">
-          <span class="ademo-url-lock">●</span>
-          <span class="ademo-url-text" id="ademo-url-text">drinkag1.com</span>
-        </div>
-        <div class="ademo-tab" id="ademo-tab" onclick="ademoTabClick()">
-          <div class="ademo-tab-inner">
-            <svg id="ademo-blob-svg" viewBox="0 0 22 22" width="28" height="28" fill="none" style="color:#1e2440">
-              <circle cx="11" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <circle cx="9.2" cy="7.8" r="1" fill="currentColor"/>
-              <circle cx="12.8" cy="7.8" r="1" fill="currentColor"/>
-              <path d="M9 10.5 Q11 12.5 13 10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-              <path d="M5.5 19 Q11 16 16.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div class="ademo-body">
-        <div class="ademo-page" id="ademo-page">
-          <div class="ademo-page-tag" id="ademo-page-tag">Supplements &nbsp;·&nbsp; Daily Nutrition</div>
-          <div class="ademo-page-name" id="ademo-page-name">AG1</div>
-          <div class="ademo-page-cat" id="ademo-page-cat">All-in-one greens powder · $79/month subscription</div>
-          <div class="ademo-page-claims" id="ademo-page-claims">
-            <div class="ademo-claim">"Clinically studied to support energy and recovery"</div>
-            <div class="ademo-claim">"Supports gut health and microbiome diversity"</div>
-            <div class="ademo-claim">"75+ vitamins, minerals, and whole-food nutrients"</div>
-          </div>
-          <button class="ademo-page-btn" id="ademo-buy-btn" style="background:#1e9459;color:#fff">Add to cart — $79/month</button>
-        </div>
-        <div class="ademo-panel" id="ademo-panel">
-          <div class="ademo-panel-hdr">
-            <div class="ademo-panel-logo">NORM</div>
-          </div>
-          <div class="ademo-scanning" id="ademo-scanning">
-            <div class="ademo-spinner spin" id="ademo-spinner"></div>
-            <div class="ademo-scan-text">Analyzing claims…</div>
-          </div>
-          <div class="ademo-score-state" id="ademo-score-state" style="display:none">
-            <div class="ademo-score-hero" id="ademo-score-hero">
-              <div class="ademo-score-row">
-                <div class="ademo-score-ball" id="ademo-ball"></div>
-                <div class="ademo-score-num-wrap">
-                  <div class="ademo-score-main" id="ademo-score-main">—</div>
-                  <div class="ademo-verdict-badge" id="ademo-verdict"></div>
-                </div>
-              </div>
-              <div class="ademo-score-bar"><div class="ademo-score-bar-fill" id="ademo-bar-fill"></div></div>
-              <div class="ademo-score-summary" id="ademo-summary"></div>
-            </div>
-            <div class="ademo-dims-mini" id="ademo-dims">
-              <div class="ademo-dim-mini"><span style="width:90px">Evidence Strength</span><div class="ademo-dim-mini-bar"><div class="ademo-dim-mini-fill" id="dim-ev" style="background:#9e3028"></div></div></div>
-              <div class="ademo-dim-mini"><span style="width:90px">Claim Scope</span><div class="ademo-dim-mini-bar"><div class="ademo-dim-mini-fill" id="dim-cp"></div></div></div>
-              <div class="ademo-dim-mini"><span style="width:90px">Specificity</span><div class="ademo-dim-mini-bar"><div class="ademo-dim-mini-fill" id="dim-sp"></div></div></div>
-            </div>
-            <div class="ademo-assess" id="ademo-assess"></div>
-          </div>
-          <div class="ademo-panel-brand-label" id="ademo-panel-brand">AG1 · drinkag1.com</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="ademo-brands">
-      <div class="ademo-brand-pill on" onclick="ademoLoad(0)">AG1</div>
-      <div class="ademo-brand-pill" onclick="ademoLoad(1)">Bloom Nutrition</div>
-      <div class="ademo-brand-pill" onclick="ademoLoad(2)">Thorne</div>
-      <div class="ademo-brand-pill" onclick="ademoLoad(3)">Elemind</div>
-    </div>
-  </div>
-</div>
-
-<script>
-var ADEMO_BRANDS = [
-  {
-    name:"AG1", domain:"drinkag1.com", cat:"Supplements · Daily Nutrition",
-    product:"All-in-one greens powder · $79/month",
-    claims:["\"Clinically studied to support energy and recovery\"","\"Supports gut health and microbiome diversity\"","\"75+ vitamins, minerals, and whole-food nutrients\""],
-    claimFlags:[false,false,true],
-    btnColor:"#1e9459", btnLabel:"Add to cart — $79/month",
-    score:67, verdict:"GENERALLY ALIGNED", color:"#c07718",
-    summary:"Company-funded trials, 24 people. Real ingredients, bigger promises.",
-    dims:{ev:36,cp:45,sp:80},
-    gap:[{c:"Clinically studied energy",e:"n=24 company trial",s:"gap"},{c:"Gut health supported",e:"Probiotic ingredients — no product RCT",s:"partial"}]
-  },
-  {
-    name:"Bloom Nutrition", domain:"bloomnutrition.com", cat:"Supplements · Women's Health",
-    product:"Greens & Superfoods Powder · $44.99",
-    claims:["\"Supports gut health, immunity, and energy\"","\"Made with 15 superfoods\"","\"Loved by 5 million customers\""],
-    claimFlags:[true,false,true],
-    btnColor:"#c060e0", btnLabel:"Shop now — $44.99",
-    score:31, verdict:"EVIDENCE GAP", color:"#9e3028",
-    summary:"Big marketing, zero product-level clinical evidence. Influencer backing is not proof.",
-    dims:{ev:8,cp:15,sp:40},
-    gap:[{c:"Supports immunity & energy",e:"No clinical evidence found",s:"missing"},{c:"5 million customers",e:"Sales claim, not evidence",s:"gap"}]
-  },
-  {
-    name:"Thorne", domain:"thorne.com", cat:"Supplements · NSF Certified",
-    product:"Multivitamin / Mineral line",
-    claims:["\"NSF Certified for Sport\"","\"Practitioner-grade formulations\"","\"Full-dose ingredient transparency\""],
-    claimFlags:[true,true,true],
-    btnColor:"#4f7cff", btnLabel:"Shop Thorne",
-    score:71, verdict:"VALIDATED", color:"#1e9459",
-    summary:"NSF certified, practitioner-grade. One of the more trustworthy supplement brands.",
-    dims:{ev:72,cp:78,sp:87},
-    gap:[{c:"NSF Certified for Sport",e:"Independently verified certification",s:"aligned"},{c:"Full label transparency",e:"All doses disclosed on label",s:"aligned"}]
-  },
-  {
-    name:"Elemind", domain:"elemindtech.com", cat:"Neurotech · Sleep Device",
-    product:"EEG Sleep Headband · $349 + $19.99/mo",
-    claims:["\"Falls asleep 2.2× faster\"","\"EEG-based adaptive stimulation\"","\"Scientifically validated\""],
-    claimFlags:[true,false,false],
-    btnColor:"#4f7cff", btnLabel:"Pre-order — $349",
-    score:47, verdict:"OVEREXTENDED", color:"#9e3028",
-    summary:"Real EEG tech — but the evidence base is early and the required subscription to use the device is a red flag.",
-    dims:{ev:32,cp:30,sp:65},
-    gap:[{c:"2.2× faster sleep onset",e:"Single internal pilot study",s:"gap"},{c:"EEG adaptive stimulation",e:"Technology is real — clinical outcomes limited",s:"partial"}]
-  }
-];
-
-var ademoState = {open:false, brand:0, phase:"idle"};
-var ademoTimer = null;
-
-function ademoLoad(idx) {
-  clearTimeout(ademoTimer);
-  ademoState.brand = idx;
-  ademoState.open = false;
-  ademoState.phase = "idle";
-
-  // Update pills
-  document.querySelectorAll(".ademo-brand-pill").forEach(function(p,i){
-    p.classList.toggle("on", i===idx);
-  });
-
-  var b = ADEMO_BRANDS[idx];
-
-  // Reset panel
-  var panel = document.getElementById("ademo-panel");
-  panel.classList.remove("open");
-  document.getElementById("ademo-scanning").style.display = "";
-  document.getElementById("ademo-score-state").style.display = "none";
-
-  // Update page content
-  document.getElementById("ademo-url-text").textContent = b.domain;
-  document.getElementById("ademo-page-name").textContent = b.name;
-  document.getElementById("ademo-page-cat").textContent = b.product;
-  document.getElementById("ademo-page-tag").textContent = b.cat;
-  var btn = document.getElementById("ademo-buy-btn");
-  btn.style.background = b.btnColor; btn.textContent = b.btnLabel;
-
-  var claimsEl = document.getElementById("ademo-page-claims");
-  claimsEl.innerHTML = "";
-  b.claims.forEach(function(c,i){
-    var d = document.createElement("div");
-    d.className = "ademo-claim" + (b.claimFlags[i] ? " ok" : "");
-    d.textContent = c;
-    claimsEl.appendChild(d);
-  });
-
-  // Update blob color
-  document.getElementById("ademo-blob-svg").style.color = "#1e2440";
-  document.getElementById("ademo-panel-brand").textContent = b.name + " · " + b.domain;
-
-  // Auto-play sequence
-  ademoTimer = setTimeout(function(){ ademoTabClick(true); }, 1200);
-}
-
-function ademoTabClick(auto) {
-  if (ademoState.phase === "scanning") return;
-  var panel = document.getElementById("ademo-panel");
-  if (ademoState.open && !auto) {
-    panel.classList.remove("open");
-    ademoState.open = false;
-    ademoState.phase = "idle";
-    return;
-  }
-  ademoState.phase = "scanning";
-  ademoState.open = true;
-  panel.classList.add("open");
-  document.getElementById("ademo-scanning").style.display = "";
-  document.getElementById("ademo-score-state").style.display = "none";
-
-  var b = ADEMO_BRANDS[ademoState.brand];
-  document.getElementById("ademo-blob-svg").style.color = b.color;
-
-  ademoTimer = setTimeout(function(){ ademoShowScore(); }, 1600);
-}
-
-function ademoShowScore() {
-  var b = ADEMO_BRANDS[ademoState.brand];
-  document.getElementById("ademo-scanning").style.display = "none";
-  var ss = document.getElementById("ademo-score-state");
-  ss.style.display = "";
-
-  var hero = document.getElementById("ademo-score-hero");
-  hero.style.background = b.color + "0a";
-  hero.style.borderColor = b.color + "33";
-
-  var ball = document.getElementById("ademo-ball");
-  ball.style.background = b.color + "22";
-  ball.style.borderColor = b.color;
-  ball.style.color = b.color;
-  ball.textContent = b.score >= 68 ? "✓" : b.score >= 55 ? "~" : "✗";
-
-  var scoreEl = document.getElementById("ademo-score-main");
-  scoreEl.style.color = b.color;
-  // Animate count up
-  var start = 0, end = b.score, dur = 900, startTime = null;
-  function tick(t){
-    if (!startTime) startTime = t;
-    var prog = Math.min((t-startTime)/dur,1);
-    var ease = 1 - Math.pow(1-prog,3);
-    scoreEl.textContent = Math.round(start + (end-start)*ease);
-    document.getElementById("ademo-bar-fill").style.width = (ease*b.score) + "%";
-    document.getElementById("ademo-bar-fill").style.background = b.color;
-    if (prog < 1) requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-
-  document.getElementById("ademo-verdict").textContent = b.verdict;
-  document.getElementById("ademo-verdict").style.color = b.color;
-  document.getElementById("ademo-summary").textContent = b.summary;
-  document.getElementById("ademo-summary").style.color = b.color;
-
-  var dimEv = document.getElementById("dim-ev");
-  var dimCp = document.getElementById("dim-cp");
-  var dimSp = document.getElementById("dim-sp");
-  dimEv.style.width = "0%"; dimEv.style.background = b.dims.ev < 40 ? "#9e3028" : "#1e9459";
-  dimCp.style.width = "0%"; dimCp.style.background = b.dims.cp < 40 ? "#9e3028" : "#c07718";
-  dimSp.style.width = "0%"; dimSp.style.background = b.dims.sp >= 60 ? "#1e9459" : "#c07718";
-  requestAnimationFrame(function() {
-    requestAnimationFrame(function() {
-      dimEv.style.width = b.dims.ev + "%";
-      dimCp.style.width = b.dims.cp + "%";
-      dimSp.style.width = b.dims.sp + "%";
-    });
-  });
-
-  ademoState.phase = "scored";
-
-  // Auto-show assessment
-  ademoTimer = setTimeout(function(){
-    var assess = document.getElementById("ademo-assess");
-    assess.innerHTML = "<div style='font-size:9px;color:#4a5280;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px'>Claim vs Evidence</div>" +
-      b.gap.map(function(g){
-        var c = g.s==="aligned"?"#1e9459":g.s==="partial"?"#c07718":"#9e3028";
-        return '<div class="ademo-gap-row"><div class="ademo-gap-dot" style="background:'+c+'"></div><div><div style="color:#c0c8e0;font-size:9.5px">'+g.c+'</div><div style="color:#5a6080;font-size:9px">'+g.e+'</div></div></div>';
-      }).join("");
-    assess.classList.add("visible");
-  }, 700);
-
-  // Auto cycle to next brand
-  ademoTimer = setTimeout(function(){
-    var next = (ademoState.brand + 1) % ADEMO_BRANDS.length;
-    ademoLoad(next);
-  }, 5500);
-}
-
-ademoLoad(0);
-</script>
-
-<div class="divider"></div>
-
-<!-- KNOWLEDGE / MONEY SECTION -->
-<div class="section-wrap">
-  <div class="km-grid">
-    <div class="km-text">
-      <div class="sec-tag" style="margin-bottom:14px">Why it matters</div>
-      <h3>The wellness industry spends<br><em>billions teaching you to trust it.</em><br>We help you understand what that means.</h3>
-      <p>Every wellness brand website, every "clinically proven" hero headline, every decorative trust badge — designed to feel like evidence. Most of the time, they're not.</p>
-      <p>NORM doesn't tell you whether a product works. It tells you whether the brand showed their proof. That distinction is everything — because when you know which brands back their claims, you stop spending money on the ones that don't.</p>
-    </div>
-    <div class="km-stats">
-      <div class="km-stat">
-        <div class="km-stat-icon">&#9632;</div>
-        <div>
-          <div class="km-stat-num" style="color:var(--red)">68%</div>
-          <div class="km-stat-desc">of wellness products scanned across supplements, skincare, devices, and wearables carry high-intensity claims with limited or no visible evidence on the page.</div>
-        </div>
-      </div>
-      <div class="km-stat">
-        <div class="km-stat-icon">&#9673;</div>
-        <div>
-          <div class="km-stat-num" style="color:var(--yel)">$2.1B</div>
-          <div class="km-stat-desc">spent annually on wellness products consumers later say didn't deliver what the marketing promised — across supplements, skincare, recovery tech, and more. Most had no signal before buying.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- HOW IT WORKS -->
-<div class="section-wrap" id="how">
-  <div class="sec-tag">Process</div>
-  <h2 class="sec-title">Five steps.<br>Under two seconds.</h2>
-  <p class="sec-sub">Fully automated. No manual review. No brand influence at any stage.</p>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">01</div>
-      <div class="step-icon">&#9654;</div>
-      <h3>Page detected</h3>
-      <p>Detects any wellness product page — supplements, skincare, neurotech, recovery devices, wearables, sleep tech, functional food, fitness nutrition, and more. If it makes a health-adjacent claim, we score it.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <div class="step-icon">&#9673;</div>
-      <h3>Claims extracted</h3>
-      <p>Every marketing claim is pulled and tagged by location. Hero headlines count 3&#215; more than footer disclaimers — because that's where the money is.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <div class="step-icon">&#9632;</div>
-      <h3>Receipts checked</h3>
-      <p>Study links, certifications, dosage panels, and third-party testing are matched against each claim — across the brand's full public domain. Evidence counts wherever it's visible and clearly connected.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">04</div>
-      <div class="step-icon">&#9650;</div>
-      <h3>Score calculated</h3>
-      <p>Six weighted dimensions — blended with AI analysis — produce a single Claim Support Risk score. The full methodology is published publicly.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">05</div>
-      <div class="step-icon" style="background:var(--gbg);border-color:var(--grn)">&#10003;</div>
-      <h3>Signal appears</h3>
-      <p>Red, Yellow, or Green. Category rank. One sentence. The gap between what a brand claims and what it visibly supports — measured and on the record.</p>
-    </div>
+    <div class="hero-proof-item">Wellness &amp; nutrition</div>
   </div>
 </div>
 
@@ -808,9 +270,9 @@ ademoLoad(0);
 
 <!-- SIGNAL EXAMPLES -->
 <div class="section-wrap" id="signals">
-  <div class="sec-tag">Signals in action</div>
-  <h2 class="sec-title">What you actually<br>learn from the signal.</h2>
-  <p class="sec-sub">The signal is not a product review. It's a proof check — does a brand's visible evidence actually support what it claims?</p>
+  <div class="sec-tag">How scores work</div>
+  <h2 class="sec-title">Three verdicts.<br>One question: did they show their proof?</h2>
+  <p class="sec-sub">NORM doesn't review products. It measures whether a brand's visible evidence actually supports what it claims — on the page you're buying from.</p>
   <div class="sigs-grid">
     <div class="sig-card">
       <div class="sc-hero" style="background:var(--ghero);border-color:var(--gbdr)">
@@ -864,115 +326,63 @@ ademoLoad(0);
       </div>
     </div>
   </div>
-  <p style="font-size:13px;color:var(--t3);margin-top:20px;font-style:italic;text-align:center">NORM scores whether brands show their proof — not whether claims are true or whether the product works. A red signal means ask more questions, not that the product is bad.</p>
+  <p style="font-size:13px;color:var(--t3);margin-top:20px;font-style:italic;text-align:center">A red signal means ask more questions, not that the product is bad. A green signal means the brand has shown their proof — not that it works for you personally.</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- HOW IT WORKS — 3 steps -->
+<div class="section-wrap" id="how">
+  <div class="sec-tag">Process</div>
+  <h2 class="sec-title">Page to verdict<br>in under two seconds.</h2>
+  <p class="sec-sub" style="margin-bottom:48px">Fully automated. No manual review required. No brand can buy a better result.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-icon">&#9654;</div>
+      <h3>Claims extracted</h3>
+      <p>Every marketing claim is pulled and tagged by location. Hero headlines count 3&times; more than footer disclaimers — because that's where brands put the claims they most want you to believe.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-icon">&#9632;</div>
+      <h3>Evidence matched</h3>
+      <p>Study links, certifications, dosage panels, and third-party testing are matched against each claim across the brand's full public domain. Evidence counts wherever it's visible and clearly connected.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-icon" style="background:var(--gbg);border-color:var(--grn)">&#10003;</div>
+      <h3>Score appears</h3>
+      <p>Six weighted dimensions produce a single score. Red, Yellow, or Green. Category rank. The gap between what a brand claims and what it visibly supports — measured and on the record.</p>
+    </div>
+  </div>
+  <div style="margin-top:20px;text-align:center">
+    <a href="/methodology" style="font-family:var(--mono);font-size:12px;color:var(--t3);letter-spacing:.04em;transition:color .15s" onmouseover="this.style.color='var(--t2)'" onmouseout="this.style.color='var(--t3)'">Read the full methodology →</a>
+  </div>
 </div>
 
 <div class="divider"></div>
 
 <!-- BRAND PULSE -->
-<style>
-.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#1e9459;margin-right:7px;animation:live-pulse 2s ease-in-out infinite;vertical-align:middle;position:relative;top:-1px}
-@keyframes live-pulse{0%,100%{box-shadow:0 0 0 0 rgba(30,148,89,.6);opacity:1}50%{box-shadow:0 0 0 5px rgba(30,148,89,0);opacity:.8}}
-.live-label{font-family:var(--mono);font-size:10px;color:#1e9459;letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center}
-.brand-pulse-header{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:48px}
-.brand-pulse-header .sec-title{margin-bottom:0}
-.brand-pulse-refresh{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.06em;cursor:pointer;transition:color .15s;display:flex;align-items:center;gap:5px;border:none;background:none;padding:0}
-.brand-pulse-refresh:hover{color:var(--t2)}
-.brand-row-list{transition:opacity .3s ease}
-.brand-row-list.fading{opacity:0}
-</style>
 <div class="section-wrap" id="brands">
-  <div class="brand-pulse-header">
+  <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:40px">
     <div>
       <div class="sec-tag" style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
         <span class="live-dot"></span><span>Brand Pulse</span><span class="live-label" style="margin-left:4px">· Live</span>
       </div>
-      <h2 class="sec-title">What's being<br>reviewed right now.</h2>
+      <h2 class="sec-title" style="margin-bottom:8px">Recently reviewed.</h2>
+      <p style="font-size:15px;color:var(--t2);font-weight:300;line-height:1.6">Brands added to the index, updated as claims and evidence change.</p>
     </div>
-    <button class="brand-pulse-refresh" onclick="loadBrandPulse()" title="Refresh">
-      <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M13.5 8A5.5 5.5 0 1 1 8 2.5c1.8 0 3.4.87 4.4 2.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M13 2v3h-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Refresh
-    </button>
-  </div>
-  <p class="sec-sub" style="margin-top:-32px">Brands recently added to the index, and brands people are requesting next.</p>
-
-  <div class="brand-rows-grid" style="margin-top:32px">
-    <div class="brand-row-col">
-      <div class="brand-row-col-title">Recently reviewed</div>
-      <div class="brand-row-list" id="recently-reviewed-list">
-        <div class="brand-rows-empty">Loading…</div>
-      </div>
-    </div>
-    <div class="brand-row-col">
-      <div class="brand-row-col-title">Most requested</div>
-      <div class="brand-row-list" id="most-requested-list">
-        <div class="brand-rows-empty">Loading…</div>
-      </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px">
+      <button style="font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.06em;cursor:pointer;transition:color .15s;display:flex;align-items:center;gap:5px;border:none;background:none;padding:0" onmouseover="this.style.color='var(--t2)'" onmouseout="this.style.color='var(--t3)'" onclick="loadBrandPulse(true)" title="Refresh">
+        <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M13.5 8A5.5 5.5 0 1 1 8 2.5c1.8 0 3.4.87 4.4 2.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M13 2v3h-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Refresh
+      </button>
+      <a href="/leaderboard" class="btn" style="font-size:12px;padding:7px 14px">View full index →</a>
     </div>
   </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- MARKET SIGNALS -->
-<div class="section-wrap" id="market-signals">
-  <div class="sec-tag">Market Signals</div>
-  <h2 class="sec-title">Live activity across<br>the NORM index.</h2>
-  <p class="sec-sub" style="margin-bottom:32px">Scores reflect public marketing claims and visible evidence — updated as brands change what they say.</p>
-
-  <div class="ms-stat-row" style="grid-template-columns:repeat(2,1fr);max-width:520px">
-    <div class="ms-stat-card">
-      <div class="ms-stat-val" id="ms-watchers">—</div>
-      <div class="ms-stat-label">Brands in the index</div>
-    </div>
-    <div class="ms-stat-card">
-      <div class="ms-stat-val" id="ms-signals-7d">—</div>
-      <div class="ms-stat-delta" id="ms-signals-delta"></div>
-      <div class="ms-stat-label">Scored this week</div>
-    </div>
-  </div>
-
-  <div style="margin-top:20px">
-    <div class="ms-movers-card" id="ms-movers-card" style="display:none;max-width:520px">
-      <div class="ms-list-title" style="margin-bottom:12px">Recent score updates</div>
-      <div id="ms-movers-list"></div>
-    </div>
-  </div>
-
-  <div class="ct-strip" style="margin-top:32px">
-    <div class="ct-body">
-      <div class="ct-copy">Monitor claim trends across a category.</div>
-      <div style="font-size:12px;color:var(--t2);margin-top:3px;margin-bottom:4px;line-height:1.5">Request structured access to score history, claim patterns, and category benchmarks. Designed for investors, retailers, due diligence teams, researchers, and journalists.</div>
-      <div class="ct-note">Paid access never influences public NORM scores, rankings, or review outcomes.</div>
-    </div>
-    <a class="ct-btn" href="/pricing" onclick="ctTrackData()">Request data access →</a>
-  </div>
-</div>
-
-<!-- BRAND CTA -->
-<div style="max-width:900px;margin:0 auto;padding:0 24px 80px">
-  <div style="background:#111420;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:40px 48px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap">
-    <div>
-      <div style="font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--acc);text-transform:uppercase;margin-bottom:10px">For brands</div>
-      <h3 style="font-size:20px;font-weight:400;margin-bottom:8px;line-height:1.3">Is your brand in the index?</h3>
-      <p style="font-size:14px;color:var(--t2);line-height:1.6;max-width:440px;margin:0">Look up your public NORM score, see which claims are flagged, and submit evidence for editorial review. Free to access.</p>
-    </div>
-    <a href="/brand-portal" class="btn btn-p" style="white-space:nowrap;flex-shrink:0" onclick="track('brand_portal_cta_click')">Look up your score →</a>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- PRICING -->
-<div class="section-wrap" id="pricing">
-  <div style="max-width:780px;background:var(--bg2);border:1px solid var(--b1);border-radius:16px;padding:40px 48px;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap">
-    <div>
-      <div class="sec-tag" style="margin-bottom:10px">Pricing</div>
-      <h2 style="font-family:var(--serif);font-size:clamp(22px,2.5vw,30px);font-weight:400;line-height:1.2;margin-bottom:10px">Public scores are free.<br><em style="color:var(--t2)">Always.</em></h2>
-      <p style="font-size:14px;color:var(--t2);line-height:1.7;max-width:400px;margin-bottom:18px">Paid tiers unlock deeper analysis, monitoring, and workflow tools — not better scores or favorable treatment. Consumer, Brand, and Data API plans.</p>
-      <div style="font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.04em">Paid access never influences public NORM scores, rankings, or review outcomes.</div>
-    </div>
-    <a href="/pricing" class="btn btn-p" style="white-space:nowrap;flex-shrink:0;font-size:14px;padding:12px 28px" onclick="track('pricing_cta_click')">See full pricing →</a>
+  <div class="brand-row-list" id="recently-reviewed-list" style="max-width:680px">
+    <div class="brand-rows-empty">Loading…</div>
   </div>
 </div>
 
@@ -1059,6 +469,21 @@ ademoLoad(0);
 
 <div class="divider"></div>
 
+<!-- PRICING -->
+<div class="section-wrap" id="pricing">
+  <div style="max-width:780px;background:var(--bg2);border:1px solid var(--b1);border-radius:16px;padding:40px 48px;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap">
+    <div>
+      <div class="sec-tag" style="margin-bottom:10px">Pricing</div>
+      <h2 style="font-family:var(--serif);font-size:clamp(22px,2.5vw,30px);font-weight:400;line-height:1.2;margin-bottom:10px">Public scores are free.<br><em style="color:var(--t2)">Always.</em></h2>
+      <p style="font-size:14px;color:var(--t2);line-height:1.7;max-width:400px;margin-bottom:18px">Paid tiers unlock deeper analysis, monitoring, and workflow tools — not better scores or favorable treatment. Consumer, Brand, and Data API plans.</p>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.04em">Paid access never influences public NORM scores, rankings, or review outcomes.</div>
+    </div>
+    <a href="/pricing" class="btn btn-p" style="white-space:nowrap;flex-shrink:0;font-size:14px;padding:12px 28px" onclick="track('pricing_cta_click')">See full pricing →</a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
 <!-- FAQ -->
 <div class="section-wrap" id="faq">
   <div class="sec-tag">Questions</div>
@@ -1070,7 +495,7 @@ ademoLoad(0);
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">So what does NORM actually tell me?</div>
-      <div class="faq-a"><div class="faq-a-inner">It measures the gap between what a brand claims and what evidence they visibly connect to those claims. Green means claims appear proportionate to available evidence — support exists and is clearly linked. Yellow means evidence exists, but is not clearly connected to all claims — gaps are present. Red means claims extend beyond visible support — the gap between what is claimed and what is shown is material. Signal does not tell you whether to buy. It shows what holds.</div></div>
+      <div class="faq-a"><div class="faq-a-inner">It measures the gap between what a brand claims and what evidence they visibly connect to those claims. Green means claims appear proportionate to available evidence — support exists and is clearly linked. Yellow means evidence exists, but is not clearly connected to all claims — gaps are present. Red means claims extend beyond visible support — the gap between what is claimed and what is shown is material. NORM does not tell you whether to buy. It shows what holds.</div></div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can a brand pay to improve their signal?</div>
@@ -1078,30 +503,25 @@ ademoLoad(0);
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How is the score calculated?</div>
-      <div class="faq-a"><div class="faq-a-inner">The Claim Support Risk score (0–100) runs across six dimensions: Evidence Alignment (25%), Claim Clarity (15%), Evidence Quality (15%), Consumer Distortion Risk (15%), Claim Strength (10%), and Evidence Accessibility (10%). Each claim is also weighted by where it appears — hero headlines carry 3× more weight than footer disclaimers, because that's where brands put the claims they most want you to believe. High-intensity language like "clinically proven" or "guaranteed" with no visible evidence carries an additional penalty. The complete methodology is published publicly at trynorm.co/methodology.</div></div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">What data does the extension collect?</div>
-      <div class="faq-a"><div class="faq-a-inner">The extension reads the text content of health and wellness product pages to extract marketing claims and visible evidence. It sends that extracted text — never your personal data, identity, or browsing history — to our API for scoring. Free users' scan history is retained for 7 days. Pro users retain full history. We never sell scan data to the brands being scored.</div></div>
+      <div class="faq-a"><div class="faq-a-inner">The Claim Support Risk score (0–100) runs across six dimensions: Evidence Alignment (25%), Claim Clarity (15%), Evidence Quality (15%), Consumer Distortion Risk (15%), Claim Strength (10%), and Evidence Accessibility (10%). Each claim is also weighted by where it appears — hero headlines carry 3× more weight than footer disclaimers, because that's where brands put the claims they most want you to believe. High-intensity language like "clinically proven" with no visible evidence carries an additional penalty. The complete methodology is published at trynorm.co/methodology.</div></div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">I'm a brand with a Red signal — what do I do?</div>
-      <div class="faq-a"><div class="faq-a-inner">The signal reflects what's visible on your page right now. The fastest path to a better signal is making your evidence more visible — add links to published studies, display your third-party testing certificates, disclose ingredient dosages clearly, and make sure your disclaimer is visible. Our Brand Transparency plan ($199/month) shows you exactly which dimensions are driving your score so you know where to focus. We also accept evidence submissions for human review at any time.</div></div>
+      <div class="faq-a"><div class="faq-a-inner">The signal reflects what's visible on your page right now. The fastest path to a better signal is making your evidence more visible — add links to published studies, display your third-party testing certificates, disclose ingredient dosages clearly. Our Brand Transparency plan ($199/month) shows you exactly which dimensions are driving your score so you know where to focus. We also accept evidence submissions for human review at any time.</div></div>
     </div>
   </div>
 </div>
-
 
 <!-- CTA BAND -->
 <div class="cta-band">
   <h2>Start knowing<br><em>before you spend.</em></h2>
   <p>The wellness industry spends billions on marketing claims. NORM is free. Independent analysis, before the money leaves your pocket.</p>
   <div class="cta-band-btns">
-    <a href="/bhvd-extension.zip" download="norm-extension.zip" class="btn btn-p btn-hero" onclick="track('extension_install_click')">
+    <a href="/bhvd-extension.zip" download="norm-extension.zip" class="btn btn-p btn-hero" onclick="track('extension_install_click')" style="font-size:15px;padding:14px 28px;border-radius:10px">
       <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
       Add NORM to Browser
     </a>
-    <a href="/leaderboard" class="btn btn-hero">Browse the leaderboard</a>
+    <a href="/leaderboard" class="btn" style="font-size:15px;padding:14px 28px;border-radius:10px">Browse the leaderboard</a>
   </div>
   <div class="cta-band-small">No account required &nbsp;·&nbsp; Free &nbsp;·&nbsp; No brand payments</div>
 </div>
@@ -1141,18 +561,10 @@ ademoLoad(0);
     </div>
   </div>
 </footer>
-<div class="footer-copy">&#169; 2025 NORM &nbsp;&#183;&nbsp; by BHVD &nbsp;&#183;&nbsp;#169; 2026 NORM &nbsp;&#183;&nbsp; Payment never influences scores &nbsp;&#183;&nbsp; Open methodology</div>
+<div class="footer-copy">&copy; 2026 NORM &nbsp;&middot;&nbsp; by BHVD &nbsp;&middot;&nbsp; Payment never influences scores &nbsp;&middot;&nbsp; Open methodology</div>
 
 <script>
 var API = "https://bhvd-signal-api.fly.dev";
-
-function ctTrackData() {
-  fetch(API + '/api/event', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ event: 'data_api_request_click', meta: { context: 'homepage' } })
-  }).catch(function(){});
-}
 
 function track(event_name, meta) {
   fetch(API + "/api/event", {
@@ -1161,6 +573,7 @@ function track(event_name, meta) {
     body: JSON.stringify({ event: event_name, meta: meta || null })
   }).catch(function(){});
 }
+
 function toggleFaq(el){
   var item=el.parentElement;
   var isOpen=item.classList.contains('open');
@@ -1173,7 +586,7 @@ var obs=new IntersectionObserver(function(entries){
     if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}
   });
 },{threshold:0.08});
-document.querySelectorAll('.step,.sig-card,.plan,.int-item,.faq-item,.km-stat,.value-card').forEach(function(el){
+document.querySelectorAll('.step,.sig-card,.int-item,.faq-item').forEach(function(el){
   el.style.opacity='0';el.style.transform='translateY(14px)';
   el.style.transition='opacity 0.48s ease, transform 0.48s ease';
   obs.observe(el);
@@ -1237,19 +650,15 @@ document.querySelectorAll('.step,.sig-card,.plan,.int-item,.faq-item,.km-stat,.v
 </script>
 
 <script>
-// ── Brand Pulse — live, auto-refreshing ──
+// ── Brand Pulse ──
 var _bpTimer = null;
 
 function loadBrandPulse(isRefresh) {
-  var API = "https://bhvd-signal-api.fly.dev";
-
-  // Test/internal domains to exclude from display
   var INTERNAL = ["vercel.app","localhost","trynorm.co","bhvd-signal-nextjs.vercel.app","bhvd-signal.vercel.app"];
   function isInternal(domain) {
     if (!domain) return true;
     return INTERNAL.some(function(x){ return domain === x || domain.endsWith("." + x) || domain.includes("vercel.app"); });
   }
-
   function esc(str) {
     return String(str || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
   }
@@ -1276,24 +685,17 @@ function loadBrandPulse(isRefresh) {
     "OVEREXTENDED": "Overextended", "EVIDENCE GAP": "Evidence Gap", "INFLATED": "Inflated",
   };
 
-  var reviewedEl  = document.getElementById("recently-reviewed-list");
-  var requestedEl = document.getElementById("most-requested-list");
-
-  // Fade out before refresh
-  if (isRefresh) {
-    reviewedEl.classList.add("fading");
-    requestedEl.classList.add("fading");
-  }
+  var reviewedEl = document.getElementById("recently-reviewed-list");
+  if (isRefresh) reviewedEl.classList.add("fading");
 
   fetch(API + "/api/demand")
     .then(function(r) { return r.json(); })
     .then(function(data) {
       var reviewed = (data.recently_reviewed || []).filter(function(b){ return !isInternal(b.domain); });
-      var requested = (data.most_requested || []).filter(function(b){ return !isInternal(b.domain); });
 
       function renderReviewed(list) {
         if (list.length === 0) return '<div class="brand-rows-empty">No reviewed brands yet.</div>';
-        return list.slice(0, 6).map(function(b) {
+        return list.slice(0, 8).map(function(b) {
           var sig = b.total_score != null ? (b.total_score >= 68 ? 'green' : b.total_score >= 55 ? 'yellow' : 'red') : (b.signal_color || 'pending');
           var color = SIGNAL_COLORS[sig] || "#8b93b0";
           var scoreHtml = b.total_score != null
@@ -1313,85 +715,21 @@ function loadBrandPulse(isRefresh) {
         }).join("");
       }
 
-      function renderRequested(list) {
-        if (list.length === 0) return '<div class="brand-rows-empty">No requests yet — <a href="/request" style="color:var(--acc)">request a brand →</a></div>';
-        return list.slice(0, 6).map(function(b) {
-          var countHtml = b.demand_count > 0
-            ? '<div class="brand-row-count">' + b.demand_count + '</div><div class="brand-row-req">requests</div>'
-            : '';
-          return '<a href="/request/?d=' + encodeURIComponent(b.domain) + '" class="brand-row-item">' +
-            '<div class="brand-row-left">' +
-              '<div class="brand-row-dot pending"></div>' +
-              '<div><div class="brand-row-name">' + esc(b.name || b.domain) + '</div>' +
-              '<div class="brand-row-domain">' + esc(b.domain) + '</div></div>' +
-            '</div>' +
-            '<div class="brand-row-right">' + countHtml + '</div>' +
-          '</a>';
-        }).join("");
-      }
-
-      // Short pause so fade-out is visible on manual refresh
       setTimeout(function() {
         reviewedEl.classList.remove("fading");
-        requestedEl.classList.remove("fading");
-        reviewedEl.innerHTML  = renderReviewed(reviewed);
-        requestedEl.innerHTML = renderRequested(requested);
+        reviewedEl.innerHTML = renderReviewed(reviewed);
       }, isRefresh ? 220 : 0);
     })
     .catch(function() {
       reviewedEl.classList.remove("fading");
-      requestedEl.classList.remove("fading");
-      reviewedEl.innerHTML  = '<div class="brand-rows-empty">Unable to load.</div>';
-      requestedEl.innerHTML = '<div class="brand-rows-empty">Unable to load.</div>';
+      reviewedEl.innerHTML = '<div class="brand-rows-empty">Unable to load.</div>';
     });
 
-  // Schedule next auto-refresh (45s)
   clearTimeout(_bpTimer);
   _bpTimer = setTimeout(function(){ loadBrandPulse(true); }, 45000);
 }
 
 loadBrandPulse();
-
-// ── Market Signals ───────────────────────────────────────────
-(function(){
-  function fmt(n) {
-    if (n == null) return '—';
-    if (n >= 1000000) return (n/1000000).toFixed(1) + 'M';
-    if (n >= 1000) return (n/1000).toFixed(1) + 'K';
-    return String(n);
-  }
-  fetch(API + '/api/market-signals')
-    .then(function(r){ return r.json(); })
-    .then(function(res){
-      if (!res.success) return;
-      var d = res.data;
-
-      document.getElementById('ms-watchers').textContent   = fmt(d.active_watchers || d.track_signups);
-      document.getElementById('ms-signals-7d').textContent = fmt(d.signals_generated_7d);
-
-      var movers = d.biggest_movers || [];
-      if (movers.length) {
-        var mCard = document.getElementById('ms-movers-card');
-        var mList = document.getElementById('ms-movers-list');
-        var SIG = { green:'#1e9459', yellow:'#c07718', red:'#9e3028' };
-        mList.innerHTML = movers.map(function(m){
-          var name = (m.brand_name || m.domain || '').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-          return '<a class="ms-mover-row" href="/brand/?d=' + encodeURIComponent(m.domain || '') + '">' +
-            '<div class="ms-mover-dot" style="background:' + (SIG[m.signal_color]||SIG.yellow) + '"></div>' +
-            '<div class="ms-mover-name">' + name + '</div>' +
-            '</a>';
-        }).join('');
-        mCard.style.display = '';
-      }
-    }).catch(function(){});
-
-  // fire data api trigger view
-  fetch(API + '/api/event', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ event: 'data_api_trigger_view', meta: { context: 'homepage' } })
-  }).catch(function(){});
-})();
 </script>
 
 <script>
@@ -1418,7 +756,6 @@ loadBrandPulse();
       }).catch(function(){ heroIndexLoaded = true; });
   }
 
-  // Pre-load immediately so index is ready before user types
   loadHeroIndex();
 
   inp.addEventListener('input', function(){
@@ -1427,55 +764,38 @@ loadBrandPulse();
     if(q.length < 1){ sugs.style.display = 'none'; return; }
     timer = setTimeout(function(){ fetchHeroSugs(q); }, 180);
   });
-  inp.addEventListener('blur', function(){
-    setTimeout(function(){ sugs.style.display = 'none'; }, 180);
-  });
-  inp.addEventListener('keydown', function(e){
-    if(e.key === 'Enter'){
-      var first = sugs.querySelector('.hero-search-sug');
-      if(first) first.dispatchEvent(new MouseEvent('mousedown'));
-    }
-    if(e.key === 'Escape') sugs.style.display = 'none';
-  });
 
   function fetchHeroSugs(q){
-    if(!heroIndexLoaded){ loadHeroIndex(function(){ fetchHeroSugs(q); }); return; }
     var ql = q.toLowerCase();
-    var matches = heroIndex.filter(function(b){
-      return (b.brand_name || '').toLowerCase().includes(ql) || (b.domain || '').toLowerCase().includes(ql);
-    }).slice(0, 8);
-    renderHeroSugs(matches, q);
-  }
+    var results = heroIndex.filter(function(e){
+      return (e.brand_name||'').toLowerCase().includes(ql) || (e.domain||'').toLowerCase().includes(ql);
+    }).slice(0,6);
 
-  function scoreToSig(sc){ return sc >= 68 ? 'green' : sc >= 55 ? 'yellow' : 'red'; }
-
-  function renderHeroSugs(brands, query){
-    if(!brands || brands.length === 0){
-      var safeQ = (query||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-      var requestUrl = '/request/?d=' + encodeURIComponent(query||'');
-      sugs.innerHTML = heroIndexLoaded
-        ? '<div style="padding:14px 16px">'
-          + '<div style="font-size:12px;color:var(--t2);margin-bottom:8px">"' + safeQ + '" isn\'t in the index yet.</div>'
-          + '<a href="' + requestUrl + '" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--acc);background:rgba(74,120,240,0.08);border:1px solid rgba(74,120,240,0.22);border-radius:6px;padding:6px 12px;text-decoration:none">◎ Request an assessment →</a>'
-          + '</div>'
-        : '<div style="padding:12px 16px;font-size:13px;color:var(--t3);font-family:var(--mono)">Loading…</div>';
-      sugs.style.display = 'block';
-      return;
-    }
-    sugs.innerHTML = brands.map(function(b){
-      var domain = (b.domain || '').replace(/'/g,"\\'");
-      var ts = b.leaderboard_data && b.leaderboard_data.total_score != null ? b.leaderboard_data.total_score : Math.round(100 - (b.claim_support_risk || 50));
-      var sig = scoreToSig(ts);
-      return '<div class="hero-search-sug" onmousedown="window.location.href=\'/brand?d=' + domain + '\'">'
-        + '<div class="hero-search-sug-name">' + (b.brand_name || b.domain) + '</div>'
-        + '<div class="hero-search-sug-meta">'
-        + '<span>' + (b.domain || '') + '</span>'
-        + '<span class="hero-search-sug-sig" style="background:' + (SIG_BG[sig]||SIG_BG.yellow) + ';color:' + (SIG_COLOR[sig]||SIG_COLOR.yellow) + '">' + (SIG_LABEL[sig]||sig) + '</span>'
-        + '</div>'
-        + '</div>';
+    if(!results.length){ sugs.style.display='none'; return; }
+    sugs.innerHTML = results.map(function(e){
+      var sig = e.signal_color || 'red';
+      var sc = e.total_score != null ? e.total_score : null;
+      return '<div class="hero-search-sug" onclick="location.href=\'/brand/?d=\'+encodeURIComponent(\''+e.domain+'\')">' +
+        '<div class="hero-search-sug-name">'+(e.brand_name||e.domain)+'</div>' +
+        '<div class="hero-search-sug-meta">' +
+          '<span style="color:var(--t3)">'+(e.domain||'')+'</span>' +
+          (sc!=null ? '<span class="hero-search-sug-sig" style="background:'+SIG_BG[sig]+';color:'+SIG_COLOR[sig]+'">'+sc+'</span>' : '') +
+        '</div>' +
+      '</div>';
     }).join('');
-    sugs.style.display = 'block';
+    sugs.style.display = '';
   }
+
+  document.addEventListener('click', function(e){
+    if(!sugs.contains(e.target) && e.target !== inp) sugs.style.display='none';
+  });
+  inp.addEventListener('keydown', function(e){
+    if(e.key==='Escape') sugs.style.display='none';
+    if(e.key==='Enter'){
+      var q=inp.value.trim();
+      if(q) location.href='/leaderboard?q='+encodeURIComponent(q);
+    }
+  });
 })();
 </script>
 

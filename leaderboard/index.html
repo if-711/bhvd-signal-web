@@ -88,6 +88,7 @@ tbody tr.detail-row td{padding:10px 16px 14px 56px;font-size:12px;color:var(--t2
 .msg-row td{text-align:center;padding:64px 24px;color:var(--t3);font-size:14px}
 .spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--b2);border-top-color:var(--acc);border-radius:50%;animation:spin .6s linear infinite;margin-right:8px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
+.lb-loading-msg{transition:opacity .2s;display:inline}
 
 .chart-wrap{padding:0 48px;border-bottom:1px solid var(--b1);background:var(--bg)}
 .chart-header{display:flex;align-items:baseline;justify-content:space-between;padding:16px 0 10px}
@@ -167,7 +168,7 @@ canvas#scoreChart{display:block;width:100%;height:90px}
         </tr>
       </thead>
       <tbody id="tbody">
-        <tr class="msg-row"><td colspan="5"><span class="spinner"></span>Loading brands…</td></tr>
+        <tr class="msg-row"><td colspan="5"><span class="spinner"></span><span class="lb-loading-msg" id="lb-loading-msg">Ranking the evidence…</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -184,7 +185,7 @@ canvas#scoreChart{display:block;width:100%;height:90px}
 <script>
 var API = 'https://bhvd-signal-api.fly.dev';
 var cat = 'all', search = '', offset = 0, limit = 200, done = false, busy = false;
-var stats = {n:0, sum:0, g:0, y:0, r:0};
+var stats = {n:0, sum:0};
 var brandIndex = [];  // pre-loaded full list for client-side search
 
 var CATS = [
@@ -196,7 +197,6 @@ var CATS = [
 function sigColor(s){ return s==='green'?'#1e9459':s==='yellow'?'#c07718':'#9e3028'; }
 function sigText(s){ return s==='green'?'#3ecf82':s==='yellow'?'#e8a840':'#e05a50'; }
 function sigCls(s){ return s==='green'?'grn':s==='yellow'?'yel':'red'; }
-function sigLabel(s){ return s==='green'?'Well Supported':s==='yellow'?'Mixed Evidence':'Limited Evidence'; }
 function riskLabel(r){ return r<30?['Conservative','grn']:r<60?['Moderate','yel']:['Aggressive','red']; }
 
 function scoreToSig(sc){ return sc >= 68 ? 'green' : sc >= 55 ? 'yellow' : 'red'; }
@@ -247,7 +247,7 @@ function tog(id, domain) {
 function load(reset) {
   if (busy) return;
   if (done && !reset) return;
-  if (reset) { offset = 0; done = false; stats = {n:0,sum:0,g:0,y:0,r:0}; allScores = []; brandIndex = []; }
+  if (reset) { offset = 0; done = false; stats = {n:0,sum:0}; allScores = []; brandIndex = []; }
   busy = true;
   document.getElementById('loadMoreBtn').disabled = true;
 
@@ -267,12 +267,13 @@ function load(reset) {
   }
 
   var url = API + '/api/leaderboard/' + cat + '?limit=' + limit + '&offset=' + offset;
-  if (reset) document.getElementById('tbody').innerHTML = '<tr class="msg-row"><td colspan="5"><span class="spinner"></span>Loading…</td></tr>';
+  if (reset) { document.getElementById('tbody').innerHTML = '<tr class="msg-row"><td colspan="5"><span class="spinner"></span><span class="lb-loading-msg" id="lb-loading-msg">Ranking the evidence…</span></td></tr>'; startLbMessages(); }
 
   fetch(url)
     .then(function(r) { return r.json(); })
     .then(function(data) {
       busy = false;
+      stopLbMessages();
       var entries = data && data.data && Array.isArray(data.data.entries) ? data.data.entries : [];
       if (entries.length === 0 && offset === 0) {
         document.getElementById('tbody').innerHTML = '<tr class="msg-row"><td colspan="5">No brands found.</td></tr>';
@@ -287,11 +288,9 @@ function load(reset) {
         document.getElementById('tbody').insertAdjacentHTML('beforeend', html);
       }
       entries.forEach(function(b) {
-        brandIndex.push(b);  // accumulate for client-side search
+        brandIndex.push(b);
         var sc = b.leaderboard_data && b.leaderboard_data.total_score != null ? b.leaderboard_data.total_score : (100 - (b.claim_support_risk || 50));
-        var s = (b.signal_color || 'red').toLowerCase();
         stats.n++; stats.sum += sc; allScores.push(sc);
-        if (s === 'green') stats.g++; else if (s === 'yellow') stats.y++; else stats.r++;
       });
       document.getElementById('sBrands').textContent = stats.n;
       document.getElementById('sAvg').textContent = stats.n ? Math.round(stats.sum / stats.n) : 0;
@@ -432,6 +431,32 @@ function goToBrand(domain){
 }
 
 document.getElementById('loadMoreBtn').addEventListener('click', function(){ load(false); });
+
+var LB_MSGS = [
+  'Ranking the evidence…','Sorting by signal strength…','Tallying the scores…',
+  'Checking who made the cut…','Counting verified claims…','Ordering by evidence quality…',
+  'Compiling the rankings…','Pulling the leaderboard…'
+];
+var _lbMsgIdx = Math.floor(Math.random() * LB_MSGS.length);
+var _lbMsgInterval = null;
+function startLbMessages() {
+  stopLbMessages();
+  var el = document.getElementById('lb-loading-msg');
+  if (!el) return;
+  el.textContent = LB_MSGS[_lbMsgIdx];
+  el.style.opacity = '1';
+  _lbMsgInterval = setInterval(function() {
+    el.style.opacity = '0';
+    setTimeout(function() {
+      _lbMsgIdx = (_lbMsgIdx + 1) % LB_MSGS.length;
+      var el2 = document.getElementById('lb-loading-msg');
+      if (el2) { el2.textContent = LB_MSGS[_lbMsgIdx]; el2.style.opacity = '1'; }
+    }, 200);
+  }, 2800);
+}
+function stopLbMessages() {
+  if (_lbMsgInterval) { clearInterval(_lbMsgInterval); _lbMsgInterval = null; }
+}
 
 buildCats();
 load(true);

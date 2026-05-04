@@ -151,8 +151,7 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     <div class="notice"><strong>What this methodology measures:</strong> the alignment between public-facing marketing claims and visibly available supporting information at the time of scan. It does not assess product efficacy, safety, or regulatory status. It does not assume intent.</div>
 
     <h2 id="overview">Overview</h2>
-    <p>NORM is a <strong>claims-intelligence and evidence-alignment system</strong>. It measures the gap between what wellness brands publicly claim, what evidence they visibly provide, and how clearly those claims are connected to that evidence.</p>
-    <p>The <strong>NORM Rating</strong> (0–100) reflects that alignment. Higher score = stronger evidence alignment between what a brand claims and what it visibly supports. The score is composite, AI-proposed, and gate-enforced. It is calculated every time a page is scanned and stored in the NORM index.</p>
+    <p>NORM measures the gap between what wellness brands publicly claim, what evidence they visibly provide, and how clearly those claims are connected to that evidence. The <strong>NORM Rating</strong> (0–100) reflects that alignment — AI-proposed, gate-enforced, recalculated on every scan.</p>
     <div class="signal-map">
       <div class="signal-block" style="background:#071a0e;border-color:#1a4a2a">
         <div class="signal-block-name" style="color:#1e9459">Green Rating</div>
@@ -374,11 +373,10 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     </table>
 
     <h2 id="ai">The role of AI</h2>
-    <p>NORM uses a <strong>hybrid architecture</strong>: AI analysis proposes scores, deterministic gates enforce ceilings. These are not blended — they are sequenced. The AI cannot override a triggered gate, and gates cannot raise a score above what AI analysis proposed.</p>
-    <p><strong>AI layer (Claude, Anthropic):</strong> analyzes the full claim packet — extracted claims, tier classifications, and visible evidence signals — and proposes a score across six dimensions. Haiku handles the first pass for most brands (~$0.001/brand). Sonnet is escalated automatically for brands with uncertain, high-risk, or low-confidence scores.</p>
-    <p><strong>Deterministic gate layer:</strong> evaluates observable signals in the structured claim data — outcome claim presence, evidence signal types, regulatory language, extraction confidence. Gates fire on rules, not judgment. A triggered gate sets a maximum allowed score that the AI-proposed score cannot exceed.</p>
-    <p>All Claude responses are validated against NORM's language requirements before being stored or displayed. The AI layer operates under strict constraints — it is never permitted to speculate about intent or use: fraud, scam, lie, fake, false, illegal, deceptive, misleading (as a verdict), noncompliant, or "doesn't work."</p>
-    <p>Approved language includes: "This claim extends beyond visible support", "Evidence exists but is not clearly connected to this claim", "Claims appear proportionate to available evidence", "visible support appears limited."</p>
+    <p>NORM uses a <strong>hybrid architecture</strong>: AI proposes scores, deterministic gates enforce ceilings. They are sequenced, not blended — a triggered gate cannot be overridden by AI output.</p>
+    <p><strong>AI layer (Claude):</strong> analyzes the full claim packet and proposes a score across six dimensions. Haiku handles the first pass (~$0.001/brand); Sonnet escalates automatically for uncertain, high-risk, or low-confidence scores.</p>
+    <p><strong>Gate layer:</strong> fires on observable signals — outcome claim presence, evidence types, regulatory language, extraction confidence — setting a maximum the AI score cannot exceed.</p>
+    <p>All AI output is validated against NORM's language requirements. The AI cannot speculate about intent or use verdict language like: fraud, scam, fake, false, illegal, deceptive, noncompliant, or "doesn't work."</p>
 
     <h2 id="v1scope">V1 scope and maturity</h2>
     <p>NORM v1 establishes the foundational framework: a consistent, reproducible way to measure the distance between what a brand claims and what it visibly shows. The scoring dimensions, evidence hierarchy, and claim tier system are designed to be stable — but the specific thresholds, gate values, and verdict bands are calibrated starting points, not final authority.</p>
@@ -397,9 +395,8 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
       <li>Longitudinal authority — one scoring run is a snapshot; confidence in verdicts increases as brands are rescored across multiple cycles</li>
     </ul>
 
-    <h3>How the methodology grows</h3>
-    <p>Three inputs improve the methodology over time: (1) brand appeals that surface publicly visible evidence our crawlers missed, (2) editorial review of outlier scores that expose calibration gaps, and (3) category expansion as we build specialized models for devices and diagnostics. Each refinement cycle produces a versioned update. The gate <em>structure</em> — that outcome claims require visible evidence, that regulatory language triggers a floor — is a stable design principle. Only the specific floor values and weight distributions are subject to refinement.</p>
-    <div class="notice">We publish this scope explicitly because the value of NORM is the framework, not a claim of perfect scoring. A v1 rating is our best current read — and we'll tell you when it changes.</div>
+    <h3>How it improves</h3>
+    <p>Brand appeals that surface missed evidence, editorial review of outlier scores, and category expansion each trigger versioned updates. Gate structure is stable — only floor values and weight distributions are refined.</p>
 
     <h2 id="limits">What NORM does not measure</h2>
     <div class="notice">
@@ -417,8 +414,7 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     </ul>
 
     <h2 id="disputes">Disputes &amp; corrections</h2>
-    <p>NORM is built on public data crawled at a point in time. Crawlers have limits: JavaScript-rendered pages may be partially captured, evidence hosted on subdomains may be missed, and content changes after a scan are not reflected until the next scan.</p>
-    <p>If a score is materially wrong — because our crawler missed a /science page, misread a claim, or the page has changed — brands and third parties can request a correction.</p>
+    <p>If a score is wrong because a /science page was missed, a claim was misread, or the page has changed, brands and third parties can request a correction.</p>
     <h3>How to dispute a score</h3>
     <ul>
       <li>Email <a href="mailto:support@trynorm.co">support@trynorm.co</a> with the subject line <strong>Score Dispute — [domain]</strong></li>

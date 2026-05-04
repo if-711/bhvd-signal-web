@@ -59,7 +59,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .loading-screen{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
 .spinner{width:28px;height:28px;border:2px solid rgba(255,255,255,.07);border-top-color:var(--acc);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading-label{font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.1em}
+.loading-label{font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.1em;transition:opacity .2s;text-align:center;max-width:280px}
 
 /* STATUS BADGE */
 .status-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;padding:4px 12px;border-radius:100px;text-transform:uppercase;border:1px solid}
@@ -476,7 +476,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 <!-- Loading -->
 <div class="loading-screen" id="loading-screen">
   <div class="spinner"></div>
-  <div class="loading-label">Loading report…</div>
+  <div class="loading-label" id="loading-label">Reading the fine print…</div>
 </div>
 
 <main class="page" id="page-main" style="display:none">
@@ -1087,6 +1087,34 @@ function showEl(id)  { var el=document.getElementById(id); if(el) el.style.displ
 function hideEl(id)  { var el=document.getElementById(id); if(el) el.style.display="none"; }
 function flexEl(id)  { var el=document.getElementById(id); if(el) el.style.display="flex"; }
 
+var SCAN_MESSAGES = [
+  'Reading the fine print…','Following the citations…','Checking what they didn\'t link to…',
+  'Cross-referencing the claims…','Parsing the peer review…','Asking for the study…',
+  'Separating signal from noise…','Pulling the thread…','Tracing the evidence chain…',
+  'Running the receipts…','Looking behind the marketing…','Verifying the science…',
+  'Checking if "clinically proven" means anything here…','Reading what most shoppers skip…',
+  'Auditing the ingredients…'
+];
+var _scanInterval = null;
+var _scanIdx = Math.floor(Math.random() * SCAN_MESSAGES.length);
+function startScanMessages() {
+  var el = document.getElementById('loading-label');
+  if (!el) return;
+  el.textContent = SCAN_MESSAGES[_scanIdx];
+  el.style.opacity = '1';
+  _scanInterval = setInterval(function() {
+    el.style.opacity = '0';
+    setTimeout(function() {
+      _scanIdx = (_scanIdx + 1) % SCAN_MESSAGES.length;
+      el.textContent = SCAN_MESSAGES[_scanIdx];
+      el.style.opacity = '1';
+    }, 200);
+  }, 2800);
+}
+function stopScanMessages() {
+  if (_scanInterval) { clearInterval(_scanInterval); _scanInterval = null; }
+}
+
 function fmtDate(iso) {
   if (!iso) return null;
   try { return new Date(iso).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}); }
@@ -1107,6 +1135,7 @@ function showState(name) {
   showEl("state-" + name);
   showEl("page-main");
   hideEl("loading-screen");
+  stopScanMessages();
 }
 
 function statusBadge(type) {
@@ -2092,6 +2121,7 @@ function copyEmbedCode() {
 
 // ── Boot ───────────────────────────────────────────────────────
 (function(){
+  startScanMessages();
   var params = new URLSearchParams(window.location.search);
   var domain = params.get("d") || params.get("domain") ||
     window.location.pathname.replace(/.*\/brand\//,"").replace(/\/$/,"").replace(/index\.html$/,"");

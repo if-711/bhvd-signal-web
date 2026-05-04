@@ -202,25 +202,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .ct-btn:hover{background:rgba(74,120,240,0.08);border-color:rgba(74,120,240,0.6)}
 
 /* DYNAMIC BRAND ROWS */
-.ms-framing{font-size:12px;color:var(--t3);font-family:var(--mono);letter-spacing:.01em;margin-bottom:24px;line-height:1.65;border-left:2px solid var(--b2);padding-left:12px}
-.ms-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.ms-stat-row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:14px}
 @media(max-width:600px){.ms-stat-row{grid-template-columns:repeat(2,1fr)}}
 .ms-stat-card{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:18px 16px}
 .ms-stat-val{font-family:var(--mono);font-size:24px;font-weight:600;color:var(--t1);margin-bottom:2px}
 .ms-stat-delta{font-size:11px;color:var(--t3);font-family:var(--mono);margin-bottom:4px;min-height:15px}
 .ms-stat-label{font-size:11px;color:var(--t3)}
-.ms-delta-up{color:#1e9459;font-weight:600}
-.ms-delta-down{color:#9e3028;font-weight:600}
-.ms-list-card{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:18px 20px;margin-bottom:12px}
 .ms-list-title{font-size:10px;font-weight:600;color:var(--t2);margin-bottom:2px;text-transform:uppercase;letter-spacing:.08em;font-family:var(--mono)}
-.ms-list-sub{font-size:11px;color:var(--t3);margin-bottom:14px;font-family:var(--mono)}
-.ms-list-row{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid var(--b1)}
-.ms-list-row:last-child{border-bottom:none;padding-bottom:0}
-.ms-list-brand{font-size:13px;color:var(--t1);font-weight:500;flex-shrink:0;min-width:110px}
-.ms-list-note{font-size:11px;color:var(--t3);font-family:var(--mono);line-height:1.5;flex:1}
-.ms-bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
-@media(max-width:600px){.ms-bottom-row{grid-template-columns:1fr}}
-.ms-vol-card,.ms-movers-card{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:18px 20px}
+.ms-movers-card{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:18px 20px}
 .ms-val{font-family:var(--mono);font-size:26px;font-weight:600;color:var(--t1);margin-bottom:4px}
 .ms-label{font-size:12px;color:var(--t3)}
 .ms-mover-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--b1);cursor:pointer;text-decoration:none}
@@ -929,56 +918,23 @@ ademoLoad(0);
 <div class="section-wrap" id="market-signals">
   <div class="sec-tag">Market Signals</div>
   <h2 class="sec-title">Live activity across<br>the NORM index.</h2>
-  <p class="sec-sub">Real-time activity from searches, extension lookups, and public claim records.</p>
-  <p style="font-size:13px;color:var(--t3);font-family:var(--mono);letter-spacing:.01em;margin-top:-16px;margin-bottom:28px">Scores update as claims and evidence change.</p>
+  <p class="sec-sub" style="margin-bottom:32px">Scores reflect public marketing claims and visible evidence — updated as brands change what they say.</p>
 
-  <p class="ms-framing">NORM reflects how brands present claims publicly — and how that presentation changes over time.</p>
-
-  <div class="ms-stat-row">
+  <div class="ms-stat-row" style="grid-template-columns:repeat(2,1fr);max-width:520px">
     <div class="ms-stat-card">
-      <div class="ms-stat-val" id="ms-views-7d">—</div>
-      <div class="ms-stat-delta" id="ms-views-delta"></div>
-      <div class="ms-stat-label">Record views (7d)</div>
+      <div class="ms-stat-val" id="ms-watchers">—</div>
+      <div class="ms-stat-label">Brands in the index</div>
     </div>
     <div class="ms-stat-card">
       <div class="ms-stat-val" id="ms-signals-7d">—</div>
       <div class="ms-stat-delta" id="ms-signals-delta"></div>
-      <div class="ms-stat-label">Signals generated (7d)</div>
-    </div>
-    <div class="ms-stat-card">
-      <div class="ms-stat-val" id="ms-watchers">—</div>
-      <div class="ms-stat-delta"></div>
-      <div class="ms-stat-label">Brands being tracked</div>
+      <div class="ms-stat-label">Scored this week</div>
     </div>
   </div>
 
-  <div class="ms-stat-row" style="margin-top:12px">
-    <div class="ms-stat-card">
-      <div class="ms-stat-val" id="ms-assess-7d">—</div>
-      <div class="ms-stat-delta" id="ms-assess-delta"></div>
-      <div class="ms-stat-label">Assessment requests (7d)</div>
-    </div>
-    <div class="ms-stat-card">
-      <div class="ms-stat-val" id="ms-evidence-7d">—</div>
-      <div class="ms-stat-delta"></div>
-      <div class="ms-stat-label">Evidence submissions (7d)</div>
-    </div>
-    <div class="ms-stat-card">
-      <div class="ms-stat-val" id="ms-claim-changes">—</div>
-      <div class="ms-stat-delta"></div>
-      <div class="ms-stat-label">Claim changes detected (30d)</div>
-    </div>
-  </div>
-
-  <div class="ms-list-card" id="ms-demand-wrap" style="display:none;margin-top:16px">
-    <div class="ms-list-title">Unanswered demand</div>
-    <div class="ms-list-sub">Brands being requested — no assessment on record</div>
-    <div id="ms-demand-list"></div>
-  </div>
-
-  <div class="ms-bottom-row" style="margin-top:12px">
-    <div class="ms-movers-card" id="ms-movers-card" style="display:none">
-      <div class="ms-list-title" style="margin-bottom:12px">Rating movement (7d)</div>
+  <div style="margin-top:20px">
+    <div class="ms-movers-card" id="ms-movers-card" style="display:none;max-width:520px">
+      <div class="ms-list-title" style="margin-bottom:12px">Recent score updates</div>
       <div id="ms-movers-list"></div>
     </div>
   </div>
@@ -1410,37 +1366,8 @@ loadBrandPulse();
       if (!res.success) return;
       var d = res.data;
 
-      document.getElementById('ms-views-7d').textContent    = fmt(d.report_views_7d);
-      document.getElementById('ms-signals-7d').textContent  = fmt(d.signals_generated_7d);
-      document.getElementById('ms-watchers').textContent    = fmt(d.active_watchers || d.track_signups);
-      document.getElementById('ms-assess-7d').textContent   = fmt(d.assessment_requests_7d);
-      document.getElementById('ms-evidence-7d').textContent = fmt(d.evidence_submissions_7d);
-      document.getElementById('ms-claim-changes').textContent = fmt(d.claim_changes_30d);
-
-      function renderDelta(elId, delta) {
-        var el = document.getElementById(elId);
-        if (!el || delta == null) return;
-        var dir = delta > 0 ? '↑' : delta < 0 ? '↓' : '';
-        var cls = delta > 0 ? 'ms-delta-up' : delta < 0 ? 'ms-delta-down' : '';
-        el.innerHTML = '<span class="' + cls + '">' + dir + ' ' + Math.abs(delta) + '%</span> vs prior 7d';
-      }
-      renderDelta('ms-views-delta',   d.report_views_7d_pct_delta);
-      renderDelta('ms-signals-delta', d.signals_generated_7d_delta);
-      renderDelta('ms-assess-delta',  d.assessment_requests_7d_delta);
-
-      var demanded = d.most_requested_brands || [];
-      if (demanded.length) {
-        var dWrap = document.getElementById('ms-demand-wrap');
-        var dList = document.getElementById('ms-demand-list');
-        dList.innerHTML = demanded.map(function(b){
-          var name = (b.brand_name || b.domain || '').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-          return '<div class="ms-list-row">' +
-            '<span class="ms-list-brand">' + name + '</span>' +
-            '<span class="ms-list-note">This brand is being requested but has not been assessed.</span>' +
-            '</div>';
-        }).join('');
-        dWrap.style.display = '';
-      }
+      document.getElementById('ms-watchers').textContent   = fmt(d.active_watchers || d.track_signups);
+      document.getElementById('ms-signals-7d').textContent = fmt(d.signals_generated_7d);
 
       var movers = d.biggest_movers || [];
       if (movers.length) {
@@ -1448,13 +1375,10 @@ loadBrandPulse();
         var mList = document.getElementById('ms-movers-list');
         var SIG = { green:'#1e9459', yellow:'#c07718', red:'#9e3028' };
         mList.innerHTML = movers.map(function(m){
-          var sign  = m.score_delta > 0 ? '+' : '';
-          var color = m.score_delta > 0 ? '#1e9459' : '#9e3028';
-          var name  = (m.brand_name || m.domain || '').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+          var name = (m.brand_name || m.domain || '').replace(/</g,'&lt;').replace(/>/g,'&gt;');
           return '<a class="ms-mover-row" href="/brand/?d=' + encodeURIComponent(m.domain || '') + '">' +
             '<div class="ms-mover-dot" style="background:' + (SIG[m.signal_color]||SIG.yellow) + '"></div>' +
             '<div class="ms-mover-name">' + name + '</div>' +
-            '<div class="ms-mover-delta" style="color:' + color + '">' + sign + m.score_delta + ' pts</div>' +
             '</a>';
         }).join('');
         mCard.style.display = '';

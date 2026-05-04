@@ -110,21 +110,16 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     <path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/>
     <path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/>
   </svg>
-  NORM<span class="nav-byline">by BHVD</span>
+  NORM
   </a>
   <ul class="nav-links">
     <li><a href="/leaderboard">Leaderboard</a></li>
-    <li><a href="/compare">Compare</a></li>
-    <li><a href="/extension">Extension</a></li>
+    
     <li><a href="/methodology" style="color:var(--t1)">Methodology</a></li>
     <li><a href="/pricing">Pricing</a></li>
   </ul>
   <div class="nav-cta">
     <a href="/brand-portal" class="btn">For brands</a>
-    <a href="/extension" class="btn btn-p">
-      <svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
-      Add NORM to Browser
-    </a>
   </div>
 </nav>
 
@@ -133,22 +128,23 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
   <div class="toc">
     <div class="toc-title">On this page</div>
     <a href="#overview" class="toc-link" onclick="scrollTo('overview')">Overview</a>
-    <a href="#formula" class="toc-link" onclick="scrollTo('formula')">The formula</a>
+    <a href="#formula" class="toc-link" onclick="scrollTo('formula')">How scoring works</a>
     <a href="#dimensions" class="toc-link" onclick="scrollTo('dimensions')">Six dimensions</a>
     <a href="#location" class="toc-link" onclick="scrollTo('location')">Location multipliers</a>
     <a href="#intensity" class="toc-link" onclick="scrollTo('intensity')">Claim intensity</a>
-    <a href="#categories" class="toc-link" onclick="scrollTo('categories')">Category add-ons</a>
+    <a href="#categories" class="toc-link" onclick="scrollTo('categories')">Category rules</a>
     <a href="#confidence" class="toc-link" onclick="scrollTo('confidence')">Confidence score</a>
     <a href="#ranking" class="toc-link" onclick="scrollTo('ranking')">Ranking</a>
-    <a href="#signals" class="toc-link" onclick="scrollTo('signals')">Signal thresholds</a>
+    <a href="#signals" class="toc-link" onclick="scrollTo('signals')">Score thresholds &amp; verdicts</a>
     <a href="#ai" class="toc-link" onclick="scrollTo('ai')">AI role</a>
-    <a href="#limits" class="toc-link" onclick="scrollTo('limits')">What we don't score</a>
+    <a href="#v1scope" class="toc-link" onclick="scrollTo('v1scope')">V1 scope &amp; maturity</a>
+    <a href="#limits" class="toc-link" onclick="scrollTo('limits')">What NORM doesn't measure</a>
     <a href="#disputes" class="toc-link" onclick="scrollTo('disputes')">Disputes &amp; corrections</a>
     <a href="#updates" class="toc-link" onclick="scrollTo('updates')">Update cadence</a>
   </div>
 
   <div class="content">
-    <div class="version-badge">Version 1.3 · April 2026</div>
+    <div class="version-badge">Version 4.1 · May 2026</div>
     <h1>Scoring methodology</h1>
     <p class="lead">Everything about how NORM measures the gap between what brands claim and what they visibly support — published in full. Any brand, researcher, or journalist can audit this. Nothing is hidden.</p>
 
@@ -156,85 +152,95 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
 
     <h2 id="overview">Overview</h2>
     <p>NORM is a <strong>claims-intelligence and evidence-alignment system</strong>. It measures the gap between what wellness brands publicly claim, what evidence they visibly provide, and how clearly those claims are connected to that evidence.</p>
-    <p>The <strong>Evidence Score</strong> (0–100) reflects that alignment. Higher score = stronger evidence alignment between what a brand claims and what it visibly supports. The score is composite, weighted, location-sensitive, and category-adjusted. It is calculated every time a page is scanned and stored in the NORM Index.</p>
+    <p>The <strong>NORM Rating</strong> (0–100) reflects that alignment. Higher score = stronger evidence alignment between what a brand claims and what it visibly supports. The score is composite, AI-proposed, and gate-enforced. It is calculated every time a page is scanned and stored in the NORM index.</p>
     <div class="signal-map">
       <div class="signal-block" style="background:#071a0e;border-color:#1a4a2a">
-        <div class="signal-block-name" style="color:#1e9459">Green Signal</div>
-        <div class="signal-block-range" style="color:#1e9459">70 – 100</div>
+        <div class="signal-block-name" style="color:#1e9459">Green Rating</div>
+        <div class="signal-block-range" style="color:#1e9459">68 – 100</div>
         <div class="signal-block-desc" style="color:#4a7a5a">Claims appear proportionate to available evidence. Visible support is present and clearly connected.</div>
       </div>
       <div class="signal-block" style="background:#1a1200;border-color:#5a3a0a">
-        <div class="signal-block-name" style="color:#c07718">Yellow Signal</div>
-        <div class="signal-block-range" style="color:#c07718">45 – 69</div>
-        <div class="signal-block-desc" style="color:#7a5a20">Evidence exists, but is not clearly connected to all claims. Gaps are present and notable.</div>
+        <div class="signal-block-name" style="color:#c07718">Yellow Rating</div>
+        <div class="signal-block-range" style="color:#c07718">40 – 67</div>
+        <div class="signal-block-desc" style="color:#7a5a20">Evidence exists, but gaps are present between what is claimed and what is visibly supported.</div>
       </div>
       <div class="signal-block" style="background:#1a0808;border-color:#5a1a1a">
-        <div class="signal-block-name" style="color:#9e3028">Red Signal</div>
-        <div class="signal-block-range" style="color:#9e3028">0 – 44</div>
-        <div class="signal-block-desc" style="color:#7a2a2a">Claims extend beyond visible support. The gap between what is claimed and what is shown is material.</div>
+        <div class="signal-block-name" style="color:#9e3028">Red Rating</div>
+        <div class="signal-block-range" style="color:#9e3028">0 – 39</div>
+        <div class="signal-block-desc" style="color:#7a2a2a">Claims extend materially beyond visible support. The gap between what is claimed and what is shown is significant.</div>
       </div>
     </div>
 
-    <h2 id="formula">The formula</h2>
+    <h2 id="formula">How scoring works</h2>
+    <p>The scoring engine uses a hybrid architecture: an AI analysis layer proposes a score across six dimensions, and a deterministic gate layer can only lower that score — never raise it. No gate can be overridden by AI output.</p>
     <div class="formula-box">
-      gap_score = (base_gap × location_factor) + intensity_penalty + category_addons<br>
-      <span class="formula-comment">// internal gap measure, clamped to 0–100 (higher = worse alignment)</span><br><br>
-      base_gap = Σ (dimension_gap<sub>i</sub> × weight<sub>i</sub>)<br>
-      <span class="formula-comment">// 60% deterministic + 40% AI analysis, blended per dimension</span><br><br>
-      location_factor = 0.5 + (avg_claim_location_multiplier / 3.0) × 1.0<br>
-      intensity_penalty = Σ (intensity_level × (100 − visible_support_score) × 0.15) × (location_mult / 3.0)<br>
-      category_addons = Σ category_specific_checks <span class="formula-comment">// capped at +15 total</span><br><br>
-      <strong>Evidence Score = 100 − gap_score</strong> <span class="formula-comment">// displayed score: higher = better</span>
+      <span class="formula-comment">// Step 1: AI analysis layer</span><br>
+      ai_proposed_score = analyze(claim_packet, evidence_signals, category)<br>
+      <span class="formula-comment">// Haiku first pass (~$0.001/brand). Sonnet escalation for uncertain / high-risk.</span><br><br>
+      <span class="formula-comment">// Step 2: Deterministic gate layer</span><br>
+      risk_floor = evaluate_gates(tier1_claims, evidence_signals, regulatory_language, confidence)<br>
+      max_allowed = 100 − risk_floor<br><br>
+      <strong>final_score = min(ai_proposed_score, max_allowed)</strong><br>
+      <span class="formula-comment">// Gates are decisions. AI output is a proposal. Higher score = better alignment.</span>
+    </div>
+
+    <h3>Deterministic gates</h3>
+    <p>Gates fire based on observable signals in the claim data — not AI judgment. When a gate fires, the score cannot exceed the gate's ceiling regardless of what AI analysis returns.</p>
+    <div class="formula-box" style="font-size:12px">
+      <span class="formula-comment">// G1: Outcome claims present, zero evidence signals → max score: 28</span><br>
+      if has_outcome_claims AND no_evidence: risk_floor = 72<br><br>
+      <span class="formula-comment">// G2: Outcome claims + some evidence, but no studies or certifications → max score: 42</span><br>
+      if has_outcome_claims AND has_evidence AND no_studies AND no_certs: risk_floor = 58<br><br>
+      <span class="formula-comment">// G4: Regulatory language (treats / prevents / cures / FDA-approved) → max score: 35</span><br>
+      if has_regulatory_language: risk_floor = 65<br><br>
+      <span class="formula-comment">// G6: Low extraction confidence (fewer than 6 claims captured) → max score: 60</span><br>
+      if confidence == "low": risk_floor = 40<br><br>
+      <span class="formula-comment">// Multiple gates: take the highest floor</span><br>
+      final_floor = max(all triggered floors)
     </div>
 
     <h3>Worked example</h3>
-    <p>A supplement brand with ingredient-level studies on a <code>/science</code> page, but no finished-product trial and a hero claim of "clinically proven" with no visible citation from the product page.</p>
+    <p>A supplement brand with ingredient-level studies on a <code>/science</code> page, a "clinically proven" hero claim, but no product-level trial and no third-party certification.</p>
     <div class="formula-box" style="font-size:12px">
-      <span class="formula-comment">// Step 1: dimension gap scores × weights → base_gap (higher = worse alignment)</span><br><br>
-      Evidence Alignment &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48 × 0.25 = 12.0<br>
-      Claim Clarity &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;42 × 0.15 = &nbsp;6.3<br>
-      Evidence Quality &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;52 × 0.15 = &nbsp;7.8<br>
-      Consumer Distortion Risk &nbsp;38 × 0.15 = &nbsp;5.7<br>
-      Claim Strength &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;46 × 0.10 = &nbsp;4.6<br>
-      Evidence Accessibility &nbsp;55 × 0.10 = &nbsp;5.5<br>
-      <span style="display:block;border-top:1px solid rgba(255,255,255,.1);margin:10px 0;padding-top:10px">base_gap = 41.9</span>
-      <span class="formula-comment">// Step 2: location factor — hero headline + benefit bullets dominant</span><br>
-      location_factor = 1.15 &nbsp;<span class="formula-comment">// weighted avg of zone multipliers</span><br>
-      41.9 × 1.15 = 48.2<br><br>
-      <span class="formula-comment">// Step 3: intensity penalty — "clinically proven" (high intensity) with no hero-page citation</span><br>
-      intensity_penalty = +2.8<br><br>
-      <span class="formula-comment">// Step 4: category add-ons — supplements: no finished-product trial visible (+3)</span><br>
-      category_addons = +3.0<br>
-      <span style="display:block;border-top:1px solid rgba(255,255,255,.1);margin:10px 0;padding-top:10px">gap_score = 48.2 + 2.8 + 3.0 = 54<br>
-      <strong style="color:#c07718">Evidence Score = 100 − 54 = 46 → Yellow Signal</strong><br>
-      <span class="formula-comment">// Ingredient studies exist but the finished-product "clinically proven" claim has no visible support</span></span>
+      <span class="formula-comment">// Step 1: AI analysis proposes a score across six dimensions</span><br><br>
+      Specificity &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9 / 15 &nbsp;<span class="formula-comment">// doses partially disclosed</span><br>
+      Mechanism &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8 / 15 &nbsp;<span class="formula-comment">// delivery rationale mentioned</span><br>
+      Evidence Presence &nbsp;&nbsp;&nbsp;&nbsp;5 / 10 &nbsp;<span class="formula-comment">// science page exists, no links</span><br>
+      Evidence Strength &nbsp;&nbsp;&nbsp;&nbsp;9 / 25 &nbsp;<span class="formula-comment">// ingredient-level only, no product RCT</span><br>
+      Effect Reality &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8 / 15 &nbsp;<span class="formula-comment">// claims plausible but overstated</span><br>
+      Claim Proportionality &nbsp;8 / 20 &nbsp;<span class="formula-comment">// "clinically proven" not matched by evidence</span><br>
+      <span style="display:block;border-top:1px solid rgba(255,255,255,.1);margin:10px 0;padding-top:10px">ai_proposed_score = 47</span>
+      <span class="formula-comment">// Step 2: Gate check — has outcome claim ("clinically proven") + has evidence signals → G2 fires</span><br>
+      G2: risk_floor = 58 → max_allowed = 42<br><br>
+      <span class="formula-comment">// AI proposed 47, but gate ceiling is 42</span><br>
+      <strong style="color:#c07718">final_score = min(47, 42) = 42 → OVEREXTENDED → Yellow Rating</strong><br>
+      <span class="formula-comment">// Outcome claim present, evidence exists but no studies or certs visible — gate enforced</span>
     </div>
 
     <h2 id="dimensions">Six dimensions</h2>
-    <p>Each dimension measures a specific aspect of evidence alignment and receives an internal gap score from 0–100 (higher = larger gap between claims and visible support). These sub-scores feed the formula above and are inverted in the final Evidence Score. Scores are blended from deterministic rules (60%) and AI analysis (40%).</p>
+    <p>Each dimension contributes a specific point value to the total score (0–100). AI analysis proposes each dimension score; the deterministic gate layer may cap the total but does not modify individual dimension scores.</p>
     <table class="dim-table">
-      <thead><tr><th>Dimension</th><th>Weight</th><th>What it measures</th></tr></thead>
+      <thead><tr><th>Dimension</th><th>Max pts</th><th>What it measures</th></tr></thead>
       <tbody>
-        <tr><td>Evidence Alignment</td><td>25%</td><td>How well visible evidence matches the strength and specificity of claims made. A brand with peer-reviewed studies clearly connected to its claims scores well here regardless of where those studies are hosted on the domain.</td></tr>
-        <tr><td>Claim Clarity</td><td>15%</td><td>How precisely claims are stated — whether outcomes are quantified, durations specified, and subject populations identified. Vague language with no visible support scores higher risk than specific language with visible backing.</td></tr>
-        <tr><td>Evidence Quality</td><td>15%</td><td>The verifiability of cited sources — clickable study links, author names, DOIs, COA links. Evidence that exists but cannot be inspected is scored differently from evidence that is fully transparent.</td></tr>
-        <tr><td>Consumer Distortion Risk</td><td>15%</td><td>Combined signal of regulatory proximity (disease-treatment language), comparison fairness ("3× faster" without a baseline), and trust marker integrity (badges or testimonials used as proof without a link to underlying evidence).</td></tr>
-        <tr><td>Claim Strength</td><td>10%</td><td>How plausibly the described biological or physiological mechanism is grounded in visible references. A mechanism claim with no citations scores higher risk than one with linked human trial data.</td></tr>
-        <tr><td>Evidence Accessibility</td><td>10%</td><td>How easily a consumer can locate the supporting evidence from the page they are reading. Evidence buried several clicks away or hidden behind login gates scores higher than evidence linked directly from the claim.</td></tr>
+        <tr><td>Specificity</td><td>15</td><td>Are ingredients named with specific doses, forms, and sources? Exact mg/mcg/IU doses, named bioavailable forms (methylfolate vs folic acid, D3 vs D2, MK-7 vs K2), and disclosed ingredient sources score highest. Vague "proprietary blend" with no disclosed amounts scores near zero.</td></tr>
+        <tr><td>Mechanism</td><td>15</td><td>Does the brand explain how claimed effects occur biologically? Credit for delivery system rationale (liposomal, enteric coating, chelation), form-selection reasoning (why D3 over D2), and device mechanism description. Bioavailability claims establish how a nutrient is absorbed — mechanism credit, not evidence of clinical outcomes.</td></tr>
+        <tr><td>Evidence Presence</td><td>10</td><td>Are there any visible evidence signals at all? Linked PubMed studies, DOI journal links, dedicated science pages with named studies, third-party certifications (NSF, USP, Informed Sport, USDA Organic, GMP), and brand-run clinical trials with disclosed methodology each contribute. Subscription-gated content does not count — only what a consumer can verify publicly.</td></tr>
+        <tr><td>Evidence Strength</td><td>25</td><td>The quality gate. Product-level RCTs on the actual marketed product score highest. Ingredient-level peer-reviewed studies at relevant doses earn moderate credit. Internal brand studies, small samples (&lt;50), bioavailability data, and testimonials earn near-zero. Critical check: does the cited evidence directly support the specific marketed claim? Evidence that doesn't match the claim is scored accordingly.</td></tr>
+        <tr><td>Effect Reality</td><td>15</td><td>Do claimed effects match what published science generally supports for this product type, category, and ingredient class? Claims that exceed what the literature shows for the category score lower. Plausible claims consistent with established science score higher.</td></tr>
+        <tr><td>Claim Proportionality</td><td>20</td><td>How proportionate is the marketing language to the visible evidence base? Measured, qualified language that accurately represents what evidence shows scores highest. Claims that extend materially beyond cited evidence score lowest — including clinical language for weak studies, treatment-adjacent claims, or narrow findings extrapolated to broad consumer promises.</td></tr>
       </tbody>
     </table>
-    <div class="notice"><strong>Note on internal analysis:</strong> The scoring engine uses seven sub-dimensions internally for analysis fidelity. The six dimensions above are the public-facing surface derived from those sub-scores. The full internal model is available to researchers on request.</div>
 
-    <h2 id="location">Location multipliers</h2>
-    <p>Claims are weighted by where they appear on the page. A "clinically proven" claim in the hero headline carries 6× more weight than the same claim buried in the footer, because that's where brands put the claims they most want you to believe.</p>
+    <h2 id="location">Claim placement context</h2>
+    <p>Every extracted claim is tagged with where it appeared on the page. Placement context is passed to the analysis layer because a "clinically proven" claim in the hero headline carries different weight than the same phrase in fine-print footer copy — that's where brands put the claims they most want you to believe.</p>
     <div class="mult-grid">
-      <div class="mult-item"><span class="mult-zone">Hero / above-fold</span><span class="mult-val" style="color:var(--red)">3.0×</span></div>
-      <div class="mult-item"><span class="mult-zone">Benefit bullets / CTAs</span><span class="mult-val" style="color:var(--red)">2.0×</span></div>
-      <div class="mult-item"><span class="mult-zone">Science / clinical section</span><span class="mult-val" style="color:var(--red)">2.0×</span></div>
-      <div class="mult-item"><span class="mult-zone">Comparison charts / tables</span><span class="mult-val" style="color:var(--red)">2.0×</span></div>
-      <div class="mult-item"><span class="mult-zone">FAQ / testimonials</span><span class="mult-val" style="color:var(--yel)">1.5×</span></div>
-      <div class="mult-item"><span class="mult-zone">Footer / disclaimer</span><span class="mult-val" style="color:var(--grn)">0.5×</span></div>
-      <div class="mult-item"><span class="mult-zone">Hidden / collapsed content</span><span class="mult-val" style="color:var(--grn)">0.3×</span></div>
+      <div class="mult-item"><span class="mult-zone">Hero / above-fold</span><span class="mult-val" style="color:var(--red)">Highest scrutiny</span></div>
+      <div class="mult-item"><span class="mult-zone">Benefit bullets / CTAs</span><span class="mult-val" style="color:var(--red)">High scrutiny</span></div>
+      <div class="mult-item"><span class="mult-zone">Science / clinical section</span><span class="mult-val" style="color:var(--red)">High scrutiny</span></div>
+      <div class="mult-item"><span class="mult-zone">Comparison charts / tables</span><span class="mult-val" style="color:var(--red)">High scrutiny</span></div>
+      <div class="mult-item"><span class="mult-zone">FAQ / testimonials</span><span class="mult-val" style="color:var(--yel)">Moderate scrutiny</span></div>
+      <div class="mult-item"><span class="mult-zone">Footer / disclaimer</span><span class="mult-val" style="color:var(--grn)">Lower scrutiny</span></div>
+      <div class="mult-item"><span class="mult-zone">Hidden / collapsed content</span><span class="mult-val" style="color:var(--grn)">Lowest scrutiny</span></div>
     </div>
 
     <h2 id="intensity">Claim intensity ladder</h2>
@@ -263,14 +269,53 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
       </div>
     </div>
 
-    <h2 id="categories">Category-specific add-ons</h2>
-    <p>Each product category has additional risk checks applied after the base score. These are capped at a combined <strong>+15 total</strong> to the final score.</p>
+    <h2 id="categories">Category-specific rules</h2>
+    <p>Each product category has additional analysis rules applied during scoring. These rules flag patterns specific to the category — they are qualitative checks baked into the AI analysis layer, not separate mathematical additions to the score.</p>
+
+    <div class="notice" style="margin-bottom:24px"><strong>Cross-category rules applied to every scan:</strong>
+      <ul style="margin-top:10px">
+        <li><strong>Dose non-disclosure</strong> — if a product makes specific outcome claims (skin glow, mood boost, energy, craving control, recovery) but does not disclose the amount of each active functional ingredient per serving, this is flagged. "Contains collagen peptides" with no mg amount + a skin claim = an unverifiable claim by design.</li>
+        <li><strong>Ingredient presence ≠ ingredient effect</strong> — listing an ingredient does not substantiate its claimed effect. The scoring system requires that the ingredient, form, and dose all be visible and connected to the specific claim.</li>
+        <li><strong>Evidence-claim distance</strong> — evidence that doesn't directly address the marketed claim is scored for what it is. Ingredient-level studies used to back finished-product claims receive lower credit than product-level evidence.</li>
+        <li><strong>Regulatory language</strong> — language that implies disease treatment, prevention, or cure ("treats", "prevents", "reverses", FDA-adjacent framing) triggers an elevated risk floor regardless of evidence present.</li>
+      </ul>
+    </div>
+
     <h3>Supplements</h3>
     <ul>
-      <li>Dosage transparency missing — no Supplement Facts panel visible</li>
+      <li>No Supplement Facts panel visible, or individual active amounts hidden in proprietary blends</li>
       <li>No third-party testing certificate visible (NSF, Informed Sport, USP, COA)</li>
       <li>Ingredient-level evidence used in place of finished-product evidence</li>
       <li>No author names or citation links visible alongside study claims</li>
+    </ul>
+    <h3>Functional food &amp; beverages</h3>
+    <ul>
+      <li>Energy, cognitive, or mood claims require visible studies at the delivered dose — ingredient-level evidence alone is not sufficient</li>
+      <li>Mood booster or craving control as a product name or hero claim is treated as an implicit health claim and requires ingredient-level evidence at disclosed doses</li>
+    </ul>
+    <h3>Mental wellness</h3>
+    <ul>
+      <li>Anxiety, stress, or mood claims carry elevated regulatory risk sensitivity</li>
+      <li>Adaptogen efficacy claims require visible human studies at relevant doses</li>
+    </ul>
+    <h3>Skincare</h3>
+    <ul>
+      <li>Dermatologist-tested language without citations</li>
+      <li>Clinical claims without visible study references</li>
+      <li>Before/after photo use as clinical proof without referenced methodology</li>
+      <li>SPF claims without visible testing references</li>
+    </ul>
+    <h3>Fitness &amp; performance</h3>
+    <ul>
+      <li>Strength or endurance claims without product-specific human trials</li>
+      <li>Proprietary blends claiming specific performance outcomes without individual ingredient disclosure</li>
+      <li>Device accuracy claims (calorie burn, muscle activation) without third-party validation against clinical reference standards</li>
+    </ul>
+    <h3>Sleep aids</h3>
+    <ul>
+      <li>Melatonin dosage claims should align with visible Supplement Facts</li>
+      <li>Sleep stage improvement claims (REM, deep sleep) require polysomnography or validated tracking data</li>
+      <li>Device-based sleep claims without product-specific validation</li>
     </ul>
     <h3>Neurotech &amp; brain devices</h3>
     <ul>
@@ -291,7 +336,7 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     </ul>
 
     <h2 id="confidence">Confidence score</h2>
-    <p>Separate from the Evidence Score, confidence reflects how reliably the scan captured the page's content. Low confidence forces a "Limited Signal" state regardless of score.</p>
+    <p>Separate from the NORM Rating, confidence reflects how reliably the scan captured the page's content. Low confidence triggers a "Limited Data" state and activates the G6 gate, capping the score at 60 regardless of AI analysis.</p>
     <ul>
       <li><strong>High</strong> — page fully extracted, claims clearly identifiable, content complete</li>
       <li><strong>Medium</strong> — partial extraction or some ambiguity in claim language</li>
@@ -299,7 +344,7 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     </ul>
 
     <h2 id="ranking">Ranking</h2>
-    <p>Within each category, products are sorted by Evidence Score descending — highest score = Rank #1. Tie-breakers in order:</p>
+    <p>Within each category, products are sorted by NORM Rating descending — highest score = Rank #1. Tie-breakers in order:</p>
     <ul>
       <li>Higher confidence score</li>
       <li>More product-specific evidence visible</li>
@@ -308,25 +353,59 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     </ul>
     <p>Low-confidence scans are placed at the bottom with "Rank Pending" until confidence improves.</p>
 
-    <h2 id="signals">Signal thresholds</h2>
-    <p>The Evidence Score maps to three signals. Signal does not tell consumers what to buy. Signal shows what holds.</p>
+    <h2 id="signals">Score thresholds &amp; verdict labels</h2>
+    <p>The NORM Rating maps to three colors. The rating does not tell consumers what to buy — it shows what holds.</p>
     <ul>
-      <li><strong style="color:var(--grn)">Green (70–100)</strong> — claims appear proportionate to available evidence. Visible support is present and clearly connected.</li>
-      <li><strong style="color:var(--yel)">Yellow (45–69)</strong> — evidence exists, but is not clearly connected to all claims. Gaps are present and notable.</li>
-      <li><strong style="color:var(--red)">Red (0–44)</strong> — claims extend beyond visible support. The gap between what is claimed and what is shown is material.</li>
+      <li><strong style="color:var(--grn)">Green (68–100)</strong> — claims appear proportionate to available evidence. Visible support is present and clearly connected.</li>
+      <li><strong style="color:var(--yel)">Yellow (40–67)</strong> — evidence exists, but gaps are present between what is claimed and what is visibly supported.</li>
+      <li><strong style="color:var(--red)">Red (0–39)</strong> — claims extend materially beyond visible support. The gap between what is claimed and what is shown is significant.</li>
     </ul>
+    <p>Within each color band, a plain-language verdict label describes the specific alignment pattern found:</p>
+    <table class="dim-table" style="margin-top:12px">
+      <thead><tr><th>Verdict</th><th>Score</th><th>Rating</th><th>What it means</th></tr></thead>
+      <tbody>
+        <tr><td>ALIGNED</td><td style="font-family:var(--mono);font-size:12px;color:var(--acc)">75–100</td><td style="color:var(--grn)">Green</td><td>Claims well-supported by visible, directly connected evidence. Strong alignment across dimensions.</td></tr>
+        <tr><td>VALIDATED</td><td style="font-family:var(--mono);font-size:12px;color:var(--acc)">68–74</td><td style="color:var(--grn)">Green</td><td>Strong evidence base with minor gaps. Claims are largely proportionate to what is visibly shown.</td></tr>
+        <tr><td>GENERALLY ALIGNED</td><td style="font-family:var(--mono);font-size:12px;color:var(--acc)">60–67</td><td style="color:var(--yel)">Yellow</td><td>Reasonable evidence foundation with some areas lacking direct support. Some reliance on category-typical rather than product-specific evidence.</td></tr>
+        <tr><td>PARTIALLY ALIGNED</td><td style="font-family:var(--mono);font-size:12px;color:var(--acc)">55–59</td><td style="color:var(--yel)">Yellow</td><td>Evidence supports some claims but key marketing language extends beyond what is visibly shown.</td></tr>
+        <tr><td>OVEREXTENDED</td><td style="font-family:var(--mono);font-size:12px;color:var(--acc)">40–54</td><td style="color:var(--yel)">Yellow</td><td>Claims extend materially beyond the visible evidence base. Significant gaps between marketing language and what is shown.</td></tr>
+        <tr><td>EVIDENCE GAP</td><td style="font-family:var(--mono);font-size:12px;color:var(--acc)">0–39</td><td style="color:var(--red)">Red</td><td>Visible evidence does not meaningfully support marketed claims. Treatment-adjacent or unsupported mechanism language present with no backing.</td></tr>
+      </tbody>
+    </table>
 
     <h2 id="ai">The role of AI</h2>
-    <p>The scoring engine is deterministic — parsing, weighting, math, caching, and ranking are all rule-based and fully auditable. Claude (Anthropic) provides the <strong>analyst layer only</strong>: nuanced language understanding, per-dimension scores, and human-readable explanations.</p>
-    <p>Claude's scores are blended in at 40% weight per dimension. The deterministic engine contributes 60%. No score is determined solely by AI output — and all Claude responses are validated against NORM's language requirements before being stored or displayed.</p>
-    <p>NORM's AI layer operates under strict language constraints. It is never permitted to speculate about intent, render verdicts about honesty, or use: fraud, scam, lie, fake, false, illegal, deceptive, misleading (as a verdict), noncompliant, or "doesn't work."</p>
-    <p>Approved language includes: "This claim extends beyond visible support", "Evidence exists, but is not clearly connected to this claim", "Claims appear proportionate to available evidence", "visible support appears limited", "source transparency appears incomplete."</p>
+    <p>NORM uses a <strong>hybrid architecture</strong>: AI analysis proposes scores, deterministic gates enforce ceilings. These are not blended — they are sequenced. The AI cannot override a triggered gate, and gates cannot raise a score above what AI analysis proposed.</p>
+    <p><strong>AI layer (Claude, Anthropic):</strong> analyzes the full claim packet — extracted claims, tier classifications, and visible evidence signals — and proposes a score across six dimensions. Haiku handles the first pass for most brands (~$0.001/brand). Sonnet is escalated automatically for brands with uncertain, high-risk, or low-confidence scores.</p>
+    <p><strong>Deterministic gate layer:</strong> evaluates observable signals in the structured claim data — outcome claim presence, evidence signal types, regulatory language, extraction confidence. Gates fire on rules, not judgment. A triggered gate sets a maximum allowed score that the AI-proposed score cannot exceed.</p>
+    <p>All Claude responses are validated against NORM's language requirements before being stored or displayed. The AI layer operates under strict constraints — it is never permitted to speculate about intent or use: fraud, scam, lie, fake, false, illegal, deceptive, misleading (as a verdict), noncompliant, or "doesn't work."</p>
+    <p>Approved language includes: "This claim extends beyond visible support", "Evidence exists but is not clearly connected to this claim", "Claims appear proportionate to available evidence", "visible support appears limited."</p>
 
-    <h2 id="limits">What Signal does not measure</h2>
+    <h2 id="v1scope">V1 scope and maturity</h2>
+    <p>NORM v1 establishes the foundational framework: a consistent, reproducible way to measure the distance between what a brand claims and what it visibly shows. The scoring dimensions, evidence hierarchy, and claim tier system are designed to be stable — but the specific thresholds, gate values, and verdict bands are calibrated starting points, not final authority.</p>
+
+    <h3>What v1 is built to do well</h3>
+    <ul>
+      <li>Detect clear evidence gaps: brands making clinical-strength claims with no linked evidence</li>
+      <li>Reward transparency: brands that cite studies, disclose ingredient forms, and show third-party testing</li>
+      <li>Create a consistent baseline across categories that can be tracked over time</li>
+    </ul>
+
+    <h3>What v1 does not yet claim</h3>
+    <ul>
+      <li>Optimal threshold calibration across every product category — gate floors and verdict bands will be refined as scored brands and appeals data accumulate</li>
+      <li>Category-specific depth — a recovery device and a cognitive supplement are measured against the same framework today; category-specific weighting is in the roadmap</li>
+      <li>Longitudinal authority — one scoring run is a snapshot; confidence in verdicts increases as brands are rescored across multiple cycles</li>
+    </ul>
+
+    <h3>How the methodology grows</h3>
+    <p>Three inputs improve the methodology over time: (1) brand appeals that surface publicly visible evidence our crawlers missed, (2) editorial review of outlier scores that expose calibration gaps, and (3) category expansion as we build specialized models for devices and diagnostics. Each refinement cycle produces a versioned update. The gate <em>structure</em> — that outcome claims require visible evidence, that regulatory language triggers a floor — is a stable design principle. Only the specific floor values and weight distributions are subject to refinement.</p>
+    <div class="notice">We publish this scope explicitly because the value of NORM is the framework, not a claim of perfect scoring. A v1 rating is our best current read — and we'll tell you when it changes.</div>
+
+    <h2 id="limits">What NORM does not measure</h2>
     <div class="notice">
       NORM is not a review platform. NORM is not a medical authority. NORM is not a product efficacy judge.<br><br>
-      <strong>Signal measures the gap between what brands claim, what evidence they provide, and how clearly those claims are connected to that evidence.</strong> Nothing more.<br><br>
-      A red signal means claims extend beyond visible support on the page at the time of scan — not that a product is unsafe, ineffective, or that any intent to mislead exists.
+      <strong>NORM measures the gap between what brands claim, what evidence they provide, and how clearly those claims are connected to that evidence.</strong> Nothing more.<br><br>
+      A red rating means claims extend beyond visible support on the page at the time of scan — not that a product is unsafe, ineffective, or that any intent to mislead exists.
     </div>
     <ul>
       <li>Product efficacy — whether the product delivers its promised outcome</li>
@@ -334,7 +413,7 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
       <li>Ingredient quality — whether underlying ingredients are effective at any dose</li>
       <li>Manufacturing standards — GMP compliance, facility audits, contamination risk</li>
       <li>Regulatory compliance — whether claims violate FTC, FDA, or other regulations</li>
-      <li>Company intent — Signal does not assume or assess intent</li>
+      <li>Company intent — NORM does not assume or assess intent</li>
     </ul>
 
     <h2 id="disputes">Disputes &amp; corrections</h2>
@@ -342,7 +421,7 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     <p>If a score is materially wrong — because our crawler missed a /science page, misread a claim, or the page has changed — brands and third parties can request a correction.</p>
     <h3>How to dispute a score</h3>
     <ul>
-      <li>Email <a href="mailto:signal@bhvd.com">signal@bhvd.com</a> with the subject line <strong>Score Dispute — [domain]</strong></li>
+      <li>Email <a href="mailto:support@trynorm.co">support@trynorm.co</a> with the subject line <strong>Score Dispute — [domain]</strong></li>
       <li>Describe what was missed or misrepresented and where the correct evidence is publicly accessible</li>
       <li>Scores are updated only when the supporting evidence is verifiably visible on the live consumer-facing page — not when evidence is emailed to us</li>
       <li>We aim to acknowledge dispute emails within 5 business days</li>
@@ -359,8 +438,8 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     </ul>
 
     <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--b1)">
-      <p style="font-size:13px;color:var(--t3)">Questions about the methodology? Email <a href="mailto:signal@bhvd.com">signal@bhvd.com</a>.</p>
-      <p style="font-size:12px;color:var(--t3);margin-top:8px">Version 1.3 · Last updated April 2026 · NORM</p>
+      <p style="font-size:13px;color:var(--t3)">Questions about the methodology? Email <a href="mailto:support@trynorm.co">support@trynorm.co</a>.</p>
+      <p style="font-size:12px;color:var(--t3);margin-top:8px">Version 4.1 · Last updated May 2026 · NORM</p>
     </div>
   </div>
 </div>
@@ -368,9 +447,9 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
 <footer>
   <div class="footer-logo">
     <svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#4a5070" stroke-width="1.5" fill="none"/></svg>
-    NORM · by BHVD
+    NORM
   </div>
-  <div class="footer-disc">This methodology is published in full and auditable by anyone. Scoring weights, location multipliers, and intensity classifications can be verified against our open-source codebase.</div>
+  <div class="footer-disc">This methodology is published in full and auditable by any brand, researcher, or journalist. Scoring dimensions, gate thresholds, and verdict bands are documented exactly as implemented.</div>
 </footer>
 
 <script>

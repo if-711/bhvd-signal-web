@@ -6,7 +6,7 @@
 
 <title>NORM — The independent claim quality index for wellness</title>
 <meta name="description" content="NORM analyzes public marketing claims, visible evidence references, and claim proportionality for wellness brands. Independent. Editorially reviewed. Payment never influences scores.">
-<meta name="author" content="NORM by BHVD">
+<meta name="author" content="NORM">
 <meta name="theme-color" content="#0a0c12">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://trynorm.co/">
@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://trynorm.co/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:site_name" content="NORM by BHVD">
+<meta property="og:site_name" content="NORM">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@trynorm">
 <meta name="twitter:title" content="NORM — The signal the wellness industry answers to">
@@ -178,7 +178,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .pricing-tabs{display:flex;gap:2px;margin-bottom:24px;background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:4px;width:fit-content}
 .ptab{padding:8px 20px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;color:var(--t3);border:none;background:transparent;font-family:var(--sans);transition:all .2s}
 .ptab.on{background:var(--bg4);color:var(--t1)}
-.pricing-grid{grid-template-columns:repeat(3,1fr);gap:16px}
+.billing-toggle{display:flex;gap:2px;background:var(--bg3);border:1px solid var(--b1);border-radius:9px;padding:3px;margin-bottom:18px;width:fit-content}
+.billing-opt{padding:6px 14px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;color:var(--t3);border:none;background:transparent;font-family:var(--sans);transition:all .18s;display:flex;align-items:center;gap:7px}
+.billing-opt.on{background:var(--bg4);color:var(--t1)}
+.save-badge{background:rgba(39,174,96,.15);border:1px solid rgba(39,174,96,.25);color:#1e9459;font-size:9px;font-family:var(--mono);letter-spacing:.06em;padding:2px 7px;border-radius:4px}
+.pricing-grid{grid-template-columns:repeat(2,1fr);gap:16px;max-width:780px}
 .plan{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:30px 26px;position:relative}
 .plan.feat{border-color:var(--acc);background:var(--bg3)}
 .plan-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--acc);color:#fff;font-size:10px;font-family:var(--mono);letter-spacing:.08em;padding:3px 13px;border-radius:0 0 8px 8px}
@@ -342,18 +346,18 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
     <path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/>
     <path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/>
   </svg>
-  NORM<span class="nav-byline">by BHVD</span>
+  NORM
   </a>
   <ul class="nav-links">
     <li><a href="/leaderboard">Leaderboard</a></li>
-    <li><a href="/compare">Compare</a></li>
-    <li><a href="/extension">Extension</a></li>
+    
+    
     <li><a href="/methodology">Methodology</a></li>
     <li><a href="/pricing">Pricing</a></li>
   </ul>
   <div class="nav-cta">
     <a href="/brand-portal" class="btn" style="border:1px solid rgba(255,255,255,.15)" onclick="track('brand_portal_nav_click')">For brands</a>
-    <a href="/extension" class="btn btn-p" onclick="track('extension_install_click')">Add to Browser</a>
+    <a href="/bhvd-extension.zip" download="norm-extension.zip" class="btn btn-p" onclick="track('extension_install_click')">Add to Browser</a>
   </div>
 </nav>
 
@@ -378,7 +382,7 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
   </div>
   <div class="hero-actions">
     <a href="/leaderboard" class="btn btn-p btn-hero" onclick="track('leaderboard_click')">View the Index</a>
-    <a href="/extension" class="btn btn-hero btn-demo" onclick="track('extension_install_click')">Get the Extension</a>
+    <a href="/bhvd-extension.zip" download="norm-extension.zip" class="btn btn-hero btn-demo" onclick="track('extension_install_click')">Get the Extension</a>
   </div>
   <div class="hero-proof">
     <div class="hero-proof-item">Editorially reviewed</div>
@@ -729,12 +733,19 @@ function ademoShowScore() {
   document.getElementById("ademo-summary").textContent = b.summary;
   document.getElementById("ademo-summary").style.color = b.color;
 
-  document.getElementById("dim-ev").style.width = b.dims.ev + "%";
-  document.getElementById("dim-ev").style.background = b.dims.ev < 40 ? "#9e3028" : "#1e9459";
-  document.getElementById("dim-cp").style.width = b.dims.cp + "%";
-  document.getElementById("dim-cp").style.background = b.dims.cp < 40 ? "#9e3028" : "#c07718";
-  document.getElementById("dim-sp").style.width = b.dims.sp + "%";
-  document.getElementById("dim-sp").style.background = b.dims.sp >= 60 ? "#1e9459" : "#c07718";
+  var dimEv = document.getElementById("dim-ev");
+  var dimCp = document.getElementById("dim-cp");
+  var dimSp = document.getElementById("dim-sp");
+  dimEv.style.width = "0%"; dimEv.style.background = b.dims.ev < 40 ? "#9e3028" : "#1e9459";
+  dimCp.style.width = "0%"; dimCp.style.background = b.dims.cp < 40 ? "#9e3028" : "#c07718";
+  dimSp.style.width = "0%"; dimSp.style.background = b.dims.sp >= 60 ? "#1e9459" : "#c07718";
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      dimEv.style.width = b.dims.ev + "%";
+      dimCp.style.width = b.dims.cp + "%";
+      dimSp.style.width = b.dims.sp + "%";
+    });
+  });
 
   ademoState.phase = "scored";
 
@@ -896,12 +907,33 @@ ademoLoad(0);
 <div class="divider"></div>
 
 <!-- BRAND PULSE -->
+<style>
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#1e9459;margin-right:7px;animation:live-pulse 2s ease-in-out infinite;vertical-align:middle;position:relative;top:-1px}
+@keyframes live-pulse{0%,100%{box-shadow:0 0 0 0 rgba(30,148,89,.6);opacity:1}50%{box-shadow:0 0 0 5px rgba(30,148,89,0);opacity:.8}}
+.live-label{font-family:var(--mono);font-size:10px;color:#1e9459;letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center}
+.brand-pulse-header{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:48px}
+.brand-pulse-header .sec-title{margin-bottom:0}
+.brand-pulse-refresh{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.06em;cursor:pointer;transition:color .15s;display:flex;align-items:center;gap:5px;border:none;background:none;padding:0}
+.brand-pulse-refresh:hover{color:var(--t2)}
+.brand-row-list{transition:opacity .3s ease}
+.brand-row-list.fading{opacity:0}
+</style>
 <div class="section-wrap" id="brands">
-  <div class="sec-tag">Brand Pulse</div>
-  <h2 class="sec-title">What's being<br>reviewed right now.</h2>
-  <p class="sec-sub">Brands recently added to the index, and brands people are asking us to review next.</p>
+  <div class="brand-pulse-header">
+    <div>
+      <div class="sec-tag" style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+        <span class="live-dot"></span><span>Brand Pulse</span><span class="live-label" style="margin-left:4px">· Live</span>
+      </div>
+      <h2 class="sec-title">What's being<br>reviewed right now.</h2>
+    </div>
+    <button class="brand-pulse-refresh" onclick="loadBrandPulse()" title="Refresh">
+      <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M13.5 8A5.5 5.5 0 1 1 8 2.5c1.8 0 3.4.87 4.4 2.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M13 2v3h-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Refresh
+    </button>
+  </div>
+  <p class="sec-sub" style="margin-top:-32px">Brands recently added to the index, and brands people are requesting next.</p>
 
-  <div class="brand-rows-grid">
+  <div class="brand-rows-grid" style="margin-top:32px">
     <div class="brand-row-col">
       <div class="brand-row-col-title">Recently reviewed</div>
       <div class="brand-row-list" id="recently-reviewed-list">
@@ -1007,55 +1039,61 @@ ademoLoad(0);
   <h2 class="sec-title">Transparent pricing for<br>a transparency product.</h2>
   <p class="sec-sub">Public scores are free. Always. Paid tiers unlock deeper analysis, monitoring, and workflow tools — not better scores or favorable treatment.</p>
 
-  <div class="pricing-tabs">
-    <button class="ptab on" onclick="showPlans('consumer')">For consumers</button>
-    <button class="ptab" onclick="showPlans('b2b')">For brands</button>
+  <div class="pricing-tabs" style="margin-top:32px">
+    <button class="ptab on" onclick="showPlans('consumer')">Consumer</button>
+    <button class="ptab" onclick="showPlans('b2b')">Brand</button>
+    <button class="ptab" onclick="showPlans('data')">Data API</button>
   </div>
 
+  <!-- Consumer -->
   <div id="plans-consumer" style="display:grid" class="pricing-grid">
     <div class="plan">
-      <div class="plan-name">Consumer Free</div>
+      <div class="plan-name">Consumer — Free</div>
       <div class="plan-price">Free</div>
       <div class="plan-period">Always free. No card required.</div>
       <ul class="plan-features">
-        <li>View any brand's public claim record</li>
-        <li>Full verdict, evidence summary, claim receipts</li>
+        <li>Signal verdict — Low / Moderate / High Mismatch</li>
+        <li>Overall score and confidence level</li>
+        <li>Why-this-verdict summary</li>
         <li>Leaderboard access</li>
-        <li>Side-by-side brand comparison (up to 3)</li>
         <li>Chrome extension (25 scans/month)</li>
         <li>Submit evidence for review</li>
-        <li class="dim">Saved watchlists</li>
-        <li class="dim">Score change alerts</li>
-        <li class="dim">Claim change notifications</li>
-        <li class="dim">Full scan history</li>
+        <li class="dim">Which claims have no supporting evidence</li>
+        <li class="dim">Dimension scores</li>
+        <li class="dim">Score change alerts &amp; watchlists</li>
+        <li class="dim">Unlimited extension scans</li>
       </ul>
-      <a href="/extension" class="plan-btn">Add to Chrome — free</a>
+      <a href="/leaderboard" class="plan-btn">Browse the leaderboard →</a>
       <div class="plan-note">Public scores are free permanently — this is not a trial.</div>
     </div>
     <div class="plan feat">
       <div class="plan-badge">NOW LIVE</div>
       <div class="plan-name">Consumer Pro</div>
-      <div class="plan-price"><sup>$</sup>9</div>
-      <div class="plan-period">per month · or $79/year</div>
+      <div class="billing-toggle">
+        <button class="billing-opt on" data-billing="monthly" onclick="setBillingHome('monthly')">Monthly</button>
+        <button class="billing-opt" data-billing="annual" onclick="setBillingHome('annual')">Annual <span class="save-badge">save 27%</span></button>
+      </div>
+      <div class="plan-price" id="hp-pro-price"><sup>$</sup>9</div>
+      <div class="plan-period" id="hp-pro-period">per month</div>
       <ul class="plan-features">
-        <li>Score change alerts — get notified when a brand's score moves</li>
-        <li>Claim change notifications — know when marketing language shifts</li>
+        <li><strong>Which claims have no supporting evidence</strong></li>
+        <li>Claim breakdown — high-pressure vs. contextual counts</li>
+        <li>Dimension scores — specificity, transparency, mechanism</li>
+        <li>Evidence source summary</li>
         <li>Unlimited extension scans</li>
+        <li>Score change alerts &amp; trajectory charts (30/90/180 day)</li>
+        <li>Unlimited brand watchlists + category watchlists (up to 10)</li>
         <li>Full scan history export</li>
-        <li>Save brand watchlists (unlimited)</li>
-        <li>Category watchlists (up to 10)</li>
-        <li>Full evidence traceability with source links</li>
-        <li>Score trajectory charts — 30/90/180 day history</li>
-        <li>Early access to new features</li>
       </ul>
-      <a href="/pricing" class="plan-btn plan-btn-p">Get Pro — $9/mo</a>
+      <a href="/pricing" id="hp-pro-btn" class="plan-btn plan-btn-p">Get Pro — $9/mo</a>
       <div class="plan-note">Consumer Pro does not change scores — it gives you deeper visibility.</div>
     </div>
   </div>
 
+  <!-- Brand -->
   <div id="plans-b2b" style="display:none" class="pricing-grid">
     <div class="plan">
-      <div class="plan-name">Brand Free</div>
+      <div class="plan-name">Brand — Free</div>
       <div class="plan-price">Free</div>
       <div class="plan-period">No card required.</div>
       <ul class="plan-features">
@@ -1063,13 +1101,12 @@ ademoLoad(0);
         <li>Claim your brand profile</li>
         <li>Submit evidence for editorial review</li>
         <li>Request score correction</li>
-        <li>View your claim receipts</li>
-        <li>See your evidence gap map</li>
+        <li>See your overall score &amp; verdict</li>
+        <li>Competitor benchmarks (public data)</li>
+        <li class="dim">Claim receipts — exact text + source URLs</li>
+        <li class="dim">Evidence gap map per dimension</li>
         <li class="dim">Private claim audit</li>
-        <li class="dim">Pre-launch copy review</li>
-        <li class="dim">Evidence gap analysis</li>
         <li class="dim">Monitoring dashboard</li>
-        <li class="dim">Competitor benchmarks</li>
       </ul>
       <a href="/brand-portal" class="plan-btn">Claim your profile →</a>
     </div>
@@ -1079,18 +1116,67 @@ ademoLoad(0);
       <div class="plan-price"><sup>$</sup>299</div>
       <div class="plan-period">per month</div>
       <ul class="plan-features">
-        <li>Everything in Brand Free</li>
-        <li>Private claim audit — review claims against our scoring rubric before publishing</li>
-        <li>Pre-launch copy review — advisory, not editorial approval</li>
-        <li>Evidence gap analysis — see which dimensions have gaps and what's accepted</li>
-        <li>Monitoring dashboard — track score and claim changes over time</li>
-        <li>Competitor benchmarks — see how you compare within your category</li>
-        <li>Evidence library — organize and upload supporting materials</li>
-        <li>Score movement alerts — daily digest of changes</li>
+        <li><strong>Every flagged claim — exact text + source page URL</strong></li>
+        <li>Gap analysis per scoring dimension with specific fix path</li>
+        <li>Competitor score comparison (up to 5 peers)</li>
+        <li>Priority rescore request (1 per 7 days)</li>
+        <li>Private claim audit — review claims against scoring rubric</li>
+        <li>Evidence gap map — which dimensions need evidence</li>
+        <li>Daily score movement alerts</li>
         <li>API access to your own brand data</li>
       </ul>
       <a href="/pricing" class="plan-btn plan-btn-p">Get Brand Pro — $299/mo</a>
       <div class="plan-note">Brand payment never changes a score. The only path to a better signal is making stronger evidence visible on your actual product page.</div>
+    </div>
+  </div>
+
+  <!-- Data API -->
+  <div id="plans-data" style="display:none;grid-template-columns:repeat(3,1fr);max-width:none" class="pricing-grid">
+    <div class="plan">
+      <div class="plan-name">Early Access</div>
+      <div class="plan-price" style="font-size:28px;margin-top:4px">Starting at</div>
+      <div class="plan-period" style="font-size:14px;color:var(--t2);margin-bottom:24px">$499 / month</div>
+      <ul class="plan-features">
+        <li>Trust score endpoint</li>
+        <li>Score history — full time series</li>
+        <li>Claim pattern index</li>
+        <li>Evidence gap trends by category</li>
+        <li>Bulk domain queries (up to 50/request)</li>
+        <li>Webhook alerts on score changes</li>
+        <li>JSON + CSV export</li>
+        <li class="dim">Category benchmark feeds</li>
+        <li class="dim">Raw claim text access</li>
+      </ul>
+      <a href="/pricing" class="plan-btn plan-btn-p">Request data access</a>
+    </div>
+    <div class="plan feat">
+      <div class="plan-badge">EARLY ACCESS</div>
+      <div class="plan-name">Pro Access</div>
+      <div class="plan-price" style="font-size:28px;margin-top:4px">Contact us</div>
+      <div class="plan-period" style="margin-bottom:24px">for volume pricing</div>
+      <ul class="plan-features">
+        <li>Everything in Early Access</li>
+        <li>Category benchmark feeds</li>
+        <li>Raw claim text access</li>
+        <li>Custom domain filtering</li>
+        <li>Priority support + dedicated Slack</li>
+        <li>Monthly data briefing</li>
+      </ul>
+      <a href="/pricing" class="plan-btn plan-btn-p">Request data access</a>
+    </div>
+    <div class="plan">
+      <div class="plan-name">Enterprise</div>
+      <div class="plan-price" style="font-size:28px;margin-top:4px">Custom</div>
+      <div class="plan-period" style="margin-bottom:24px">volume pricing · SLA available</div>
+      <ul class="plan-features">
+        <li>Unlimited API calls</li>
+        <li>Custom data schema</li>
+        <li>White-label licensing</li>
+        <li>SLA and uptime guarantee</li>
+        <li>Historical archive access</li>
+        <li>Dedicated data team contact</li>
+      </ul>
+      <a href="/pricing" class="plan-btn plan-btn-p">Request data access</a>
     </div>
   </div>
 </div>
@@ -1182,7 +1268,6 @@ ademoLoad(0);
 <div class="section-wrap" id="faq">
   <div class="sec-tag">Questions</div>
   <h2 class="sec-title">Things people<br>ask us.</h2>
-  <p class="sec-sub"></p>
   <div class="faq-list">
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Does a Red signal mean the product doesn't work?</div>
@@ -1212,48 +1297,16 @@ ademoLoad(0);
 </div>
 
 
-<!-- KNOWLEDGE / MONEY CALLOUT -->
-<div style="background:var(--bg2);border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);padding:72px 32px">
-  <div style="max-width:860px;margin:0 auto;text-align:center">
-    <div style="font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--acc);text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;justify-content:center;gap:10px">
-      <span style="display:block;width:32px;height:1px;background:var(--acc);opacity:.45"></span>
-      Why it matters
-      <span style="display:block;width:32px;height:1px;background:var(--acc);opacity:.45"></span>
-    </div>
-    <h2 style="font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:400;line-height:1.08;letter-spacing:-.022em;margin-bottom:20px">Knowledge in your head.<br><em>Money back in your pocket.</em></h2>
-    <p style="font-size:17px;color:var(--t2);max-width:600px;margin:0 auto 16px;font-weight:300;line-height:1.7">The wellness industry spans supplements, skincare, recovery tech, wearables, neurotech, sleep devices, and more. Across every single category, the pattern is the same — marketing language engineered to feel like evidence. Most of the time, it isn't. It's just confident copy.</p>
-    <p style="font-size:17px;color:var(--t2);max-width:600px;margin:0 auto 52px;font-weight:300;line-height:1.7">NORM doesn't tell you whether a product works. It tells you whether the brand showed their proof — before you spend.</p>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:800px;margin:0 auto">
-      <div style="background:var(--bg3);border:1px solid var(--b1);padding:28px 24px;border-radius:12px 0 0 12px">
-        <div style="font-family:var(--serif);font-size:44px;font-weight:400;color:var(--acc);line-height:1;margin-bottom:10px">$500B</div>
-        <div style="font-size:13px;font-weight:500;color:var(--t1);margin-bottom:8px">global wellness market by 2026</div>
-        <div style="font-size:12px;color:var(--t2);line-height:1.6">The largest it has ever been. The marketing budgets are bigger than ever. The receipts are harder to find than ever.</div>
-      </div>
-      <div style="background:var(--bg3);border:1px solid var(--b1);padding:28px 24px">
-        <div style="font-family:var(--serif);font-size:44px;font-weight:400;color:var(--red);line-height:1;margin-bottom:10px">0</div>
-        <div style="font-size:13px;font-weight:500;color:var(--t1);margin-bottom:8px">tools like this existed before NORM</div>
-        <div style="font-size:12px;color:var(--t2);line-height:1.6">No real-time, independent, claim-level transparency index for wellness. Until now. That's the gap we exist to close.</div>
-      </div>
-      <div style="background:var(--bg3);border:1px solid var(--b1);padding:28px 24px;border-radius:0 12px 12px 0">
-        <div style="font-family:var(--serif);font-size:44px;font-weight:400;color:var(--grn);line-height:1;margin-bottom:10px">2 sec</div>
-        <div style="font-size:13px;font-weight:500;color:var(--t1);margin-bottom:8px">from page load to signal</div>
-        <div style="font-size:12px;color:var(--t2);line-height:1.6">Independent. Editorial. On the record.</div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- CTA BAND -->
 <div class="cta-band">
   <h2>Start knowing<br><em>before you spend.</em></h2>
   <p>The wellness industry spends billions on marketing claims. NORM is free. Independent analysis, before the money leaves your pocket.</p>
   <div class="cta-band-btns">
-    <a href="/extension" class="btn btn-p btn-hero" onclick="track('extension_install_click')">
+    <a href="/bhvd-extension.zip" download="norm-extension.zip" class="btn btn-p btn-hero" onclick="track('extension_install_click')">
       <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
       Add NORM to Browser
     </a>
     <a href="/leaderboard" class="btn btn-hero">Browse the leaderboard</a>
-    <a href="/compare" class="btn btn-hero">Compare brands</a>
   </div>
   <div class="cta-band-small">No account required &nbsp;·&nbsp; Free &nbsp;·&nbsp; No brand payments</div>
 </div>
@@ -1269,16 +1322,14 @@ ademoLoad(0);
     <path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/>
     <path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/>
   </svg>
-  NORM<span class="nav-byline">by BHVD</span>
+  NORM
     </a>
     <p class="footer-disc">NORM scores whether brands show their proof — not whether claims are true or whether products work. Editorial-only. Never influenced by payment.</p>
   </div>
   <div class="footer-links">
     <div class="footer-col">
       <h5>Product</h5>
-      <a href="/extension">Browser Extension</a>
       <a href="/leaderboard">Leaderboard</a>
-      <a href="/compare">Compare brands</a>
       <a href="/methodology">Methodology</a>
       <a href="#how">How it works</a>
     </div>
@@ -1287,7 +1338,7 @@ ademoLoad(0);
       <a href="mailto:support@trynorm.co">For retailers</a>
       <a href="mailto:support@trynorm.co">For investors</a>
       <a href="/brand-portal">For brands</a>
-      <a href="mailto:support@trynorm.co">BHVD Verified</a>
+      <a href="mailto:support@trynorm.co">NORM Verified</a>
     </div>
     <div class="footer-col">
       <h5>Company</h5>
@@ -1295,7 +1346,7 @@ ademoLoad(0);
     </div>
   </div>
 </footer>
-<div class="footer-copy">&#169; 2025 NORM &nbsp;&#183;&nbsp; by BHVD &nbsp;&#183;&nbsp; Payment never influences scores &nbsp;&#183;&nbsp; Open methodology</div>
+<div class="footer-copy">&#169; 2025 NORM &nbsp;&#183;&nbsp; by BHVD &nbsp;&#183;&nbsp;#169; 2026 NORM &nbsp;&#183;&nbsp; Payment never influences scores &nbsp;&#183;&nbsp; Open methodology</div>
 
 <script>
 var API = "https://bhvd-signal-api.fly.dev";
@@ -1324,9 +1375,23 @@ function toggleFaq(el){
 function showPlans(type){
   document.getElementById('plans-consumer').style.display=type==='consumer'?'grid':'none';
   document.getElementById('plans-b2b').style.display=type==='b2b'?'grid':'none';
+  document.getElementById('plans-data').style.display=type==='data'?'grid':'none';
   document.querySelectorAll('.ptab').forEach(function(btn,i){
-    btn.classList.toggle('on',(i===0&&type==='consumer')||(i===1&&type==='b2b'));
+    btn.classList.toggle('on',(i===0&&type==='consumer')||(i===1&&type==='b2b')||(i===2&&type==='data'));
   });
+}
+function setBillingHome(b){
+  document.querySelectorAll('.billing-opt').forEach(function(el){
+    el.classList.toggle('on',el.dataset.billing===b);
+  });
+  var p=document.getElementById('hp-pro-price');
+  var per=document.getElementById('hp-pro-period');
+  var btn=document.getElementById('hp-pro-btn');
+  if(b==='annual'){
+    p.innerHTML='<sup>$</sup>79';per.textContent='per year';btn.textContent='Get Pro — $79/yr';
+  } else {
+    p.innerHTML='<sup>$</sup>9';per.textContent='per month';btn.textContent='Get Pro — $9/mo';
+  }
 }
 var obs=new IntersectionObserver(function(entries){
   entries.forEach(function(e){
@@ -1359,7 +1424,7 @@ document.querySelectorAll('.step,.sig-card,.plan,.int-item,.faq-item,.km-stat,.v
     <button id="pw-btn">Continue &#8594;</button>
     <div id="pw-err"></div>
   </div>
-  <div class="gate-disc">NORM &nbsp;&#183;&nbsp; by BHVD &nbsp;&#183;&nbsp; Private preview</div>
+  <div class="gate-disc">NORM &nbsp;&#183;&nbsp; Private preview</div>
 </div>
 
 <script>
@@ -1397,19 +1462,31 @@ document.querySelectorAll('.step,.sig-card,.plan,.int-item,.faq-item,.km-stat,.v
 </script>
 
 <script>
-// ── Brand Pulse — populate Recently Reviewed + Most Requested ──
-(function() {
+// ── Brand Pulse — live, auto-refreshing ──
+var _bpTimer = null;
+
+function loadBrandPulse(isRefresh) {
   var API = "https://bhvd-signal-api.fly.dev";
+
+  // Test/internal domains to exclude from display
+  var INTERNAL = ["vercel.app","localhost","trynorm.co","bhvd-signal-nextjs.vercel.app","bhvd-signal.vercel.app"];
+  function isInternal(domain) {
+    if (!domain) return true;
+    return INTERNAL.some(function(x){ return domain === x || domain.endsWith("." + x) || domain.includes("vercel.app"); });
+  }
 
   function esc(str) {
     return String(str || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
   }
-
   function timeAgo(iso) {
     if (!iso) return "";
     var diff = Date.now() - new Date(iso).getTime();
-    var days = Math.floor(diff / 86400000);
-    if (days < 1) return "today";
+    var mins = Math.floor(diff / 60000);
+    if (mins < 2) return "just now";
+    if (mins < 60) return mins + "m ago";
+    var hrs = Math.floor(mins / 60);
+    if (hrs < 24) return hrs + "h ago";
+    var days = Math.floor(hrs / 24);
     if (days === 1) return "yesterday";
     if (days < 7) return days + "d ago";
     var wks = Math.floor(days / 7);
@@ -1419,73 +1496,86 @@ document.querySelectorAll('.step,.sig-card,.plan,.int-item,.faq-item,.km-stat,.v
 
   var SIGNAL_COLORS = { green: "#3ecf82", yellow: "#e8a840", red: "#e05a50" };
   var VERDICT_SHORT = {
-    "ALIGNED": "Aligned",
-    "VALIDATED": "Validated",
-    "GENERALLY ALIGNED": "Generally Aligned",
-    "PARTIALLY ALIGNED": "Partially Aligned",
-    "OVEREXTENDED": "Overextended",
-    "INFLATED": "Inflated",
+    "ALIGNED": "Aligned", "VALIDATED": "Validated",
+    "GENERALLY ALIGNED": "Generally Aligned", "PARTIALLY ALIGNED": "Partially Aligned",
+    "OVEREXTENDED": "Overextended", "EVIDENCE GAP": "Evidence Gap", "INFLATED": "Inflated",
   };
+
+  var reviewedEl  = document.getElementById("recently-reviewed-list");
+  var requestedEl = document.getElementById("most-requested-list");
+
+  // Fade out before refresh
+  if (isRefresh) {
+    reviewedEl.classList.add("fading");
+    requestedEl.classList.add("fading");
+  }
 
   fetch(API + "/api/demand")
     .then(function(r) { return r.json(); })
     .then(function(data) {
-      // Recently reviewed
-      var reviewedEl = document.getElementById("recently-reviewed-list");
-      var reviewed = data.recently_reviewed || [];
-      if (reviewed.length === 0) {
-        reviewedEl.innerHTML = '<div class="brand-rows-empty">No reviewed brands yet.</div>';
-      } else {
-        reviewedEl.innerHTML = reviewed.slice(0, 6).map(function(b) {
-          var derivedSig = b.total_score != null ? (b.total_score >= 70 ? 'green' : b.total_score >= 45 ? 'yellow' : 'red') : (b.signal_color || 'pending');
-          var dotClass = "brand-row-dot " + derivedSig;
-          var color = SIGNAL_COLORS[derivedSig] || "#8b93b0";
-          var scoreText = b.total_score != null ? '<div class="brand-row-score" style="color:' + color + '">' + b.total_score + '<span style="font-size:9px;color:var(--t3)">/100</span></div>' : '';
-          var verdictText = b.verdict ? '<div class="brand-row-meta">' + esc(VERDICT_SHORT[b.verdict] || b.verdict) + '</div>' : '';
-          var whenText = b.reviewed_at ? '<div class="brand-row-meta">' + timeAgo(b.reviewed_at) + '</div>' : '';
+      var reviewed = (data.recently_reviewed || []).filter(function(b){ return !isInternal(b.domain); });
+      var requested = (data.most_requested || []).filter(function(b){ return !isInternal(b.domain); });
+
+      function renderReviewed(list) {
+        if (list.length === 0) return '<div class="brand-rows-empty">No reviewed brands yet.</div>';
+        return list.slice(0, 6).map(function(b) {
+          var sig = b.total_score != null ? (b.total_score >= 68 ? 'green' : b.total_score >= 55 ? 'yellow' : 'red') : (b.signal_color || 'pending');
+          var color = SIGNAL_COLORS[sig] || "#8b93b0";
+          var scoreHtml = b.total_score != null
+            ? '<div class="brand-row-score" style="color:' + color + '">' + b.total_score + '<span style="font-size:9px;color:var(--t3)">/100</span></div>'
+            : '';
+          var metaHtml = b.verdict
+            ? '<div class="brand-row-meta">' + esc(VERDICT_SHORT[b.verdict] || b.verdict) + '</div>'
+            : (b.reviewed_at ? '<div class="brand-row-meta">' + timeAgo(b.reviewed_at) + '</div>' : '');
           return '<a href="/brand/?d=' + encodeURIComponent(b.domain) + '" class="brand-row-item">' +
             '<div class="brand-row-left">' +
-              '<div class="' + dotClass + '"></div>' +
-              '<div>' +
-                '<div class="brand-row-name">' + esc(b.name || b.domain) + '</div>' +
-                '<div class="brand-row-domain">' + esc(b.domain) + '</div>' +
-              '</div>' +
+              '<div class="brand-row-dot ' + sig + '"></div>' +
+              '<div><div class="brand-row-name">' + esc(b.name || b.domain) + '</div>' +
+              '<div class="brand-row-domain">' + esc(b.domain) + '</div></div>' +
             '</div>' +
-            '<div class="brand-row-right">' +
-              scoreText + (verdictText || whenText) +
-            '</div>' +
+            '<div class="brand-row-right">' + scoreHtml + metaHtml + '</div>' +
           '</a>';
         }).join("");
       }
 
-      // Most requested
-      var requestedEl = document.getElementById("most-requested-list");
-      var requested = data.most_requested || [];
-      if (requested.length === 0) {
-        requestedEl.innerHTML = '<div class="brand-rows-empty">No requests recorded yet.</div>';
-      } else {
-        requestedEl.innerHTML = requested.slice(0, 6).map(function(b) {
-          var countText = b.demand_count > 0
+      function renderRequested(list) {
+        if (list.length === 0) return '<div class="brand-rows-empty">No requests yet — <a href="/request" style="color:var(--acc)">request a brand →</a></div>';
+        return list.slice(0, 6).map(function(b) {
+          var countHtml = b.demand_count > 0
             ? '<div class="brand-row-count">' + b.demand_count + '</div><div class="brand-row-req">requests</div>'
             : '';
           return '<a href="/request/?d=' + encodeURIComponent(b.domain) + '" class="brand-row-item">' +
             '<div class="brand-row-left">' +
               '<div class="brand-row-dot pending"></div>' +
-              '<div>' +
-                '<div class="brand-row-name">' + esc(b.name || b.domain) + '</div>' +
-                '<div class="brand-row-domain">' + esc(b.domain) + '</div>' +
-              '</div>' +
+              '<div><div class="brand-row-name">' + esc(b.name || b.domain) + '</div>' +
+              '<div class="brand-row-domain">' + esc(b.domain) + '</div></div>' +
             '</div>' +
-            '<div class="brand-row-right">' + countText + '</div>' +
+            '<div class="brand-row-right">' + countHtml + '</div>' +
           '</a>';
         }).join("");
       }
+
+      // Short pause so fade-out is visible on manual refresh
+      setTimeout(function() {
+        reviewedEl.classList.remove("fading");
+        requestedEl.classList.remove("fading");
+        reviewedEl.innerHTML  = renderReviewed(reviewed);
+        requestedEl.innerHTML = renderRequested(requested);
+      }, isRefresh ? 220 : 0);
     })
     .catch(function() {
-      document.getElementById("recently-reviewed-list").innerHTML = '<div class="brand-rows-empty">Unable to load.</div>';
-      document.getElementById("most-requested-list").innerHTML = '<div class="brand-rows-empty">Unable to load.</div>';
+      reviewedEl.classList.remove("fading");
+      requestedEl.classList.remove("fading");
+      reviewedEl.innerHTML  = '<div class="brand-rows-empty">Unable to load.</div>';
+      requestedEl.innerHTML = '<div class="brand-rows-empty">Unable to load.</div>';
     });
-})();
+
+  // Schedule next auto-refresh (45s)
+  clearTimeout(_bpTimer);
+  _bpTimer = setTimeout(function(){ loadBrandPulse(true); }, 45000);
+}
+
+loadBrandPulse();
 
 // ── Market Signals ───────────────────────────────────────────
 (function(){
@@ -1614,13 +1704,18 @@ document.querySelectorAll('.step,.sig-card,.plan,.int-item,.faq-item,.km-stat,.v
     renderHeroSugs(matches, q);
   }
 
-  function scoreToSig(sc){ return sc >= 70 ? 'green' : sc >= 45 ? 'yellow' : 'red'; }
+  function scoreToSig(sc){ return sc >= 68 ? 'green' : sc >= 55 ? 'yellow' : 'red'; }
 
   function renderHeroSugs(brands, query){
     if(!brands || brands.length === 0){
-      sugs.innerHTML = '<div style="padding:12px 16px;font-size:13px;color:var(--t3);font-family:var(--mono)">'
-        + (heroIndexLoaded ? 'No brands matching "' + (query||'').replace(/</g,'&lt;') + '" in the index. <a href="/leaderboard" style="color:var(--acc)">Browse all →</a>' : 'Loading…')
-        + '</div>';
+      var safeQ = (query||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      var requestUrl = '/request/?d=' + encodeURIComponent(query||'');
+      sugs.innerHTML = heroIndexLoaded
+        ? '<div style="padding:14px 16px">'
+          + '<div style="font-size:12px;color:var(--t2);margin-bottom:8px">"' + safeQ + '" isn\'t in the index yet.</div>'
+          + '<a href="' + requestUrl + '" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--acc);background:rgba(74,120,240,0.08);border:1px solid rgba(74,120,240,0.22);border-radius:6px;padding:6px 12px;text-decoration:none">◎ Request an assessment →</a>'
+          + '</div>'
+        : '<div style="padding:12px 16px;font-size:13px;color:var(--t3);font-family:var(--mono)">Loading…</div>';
       sugs.style.display = 'block';
       return;
     }

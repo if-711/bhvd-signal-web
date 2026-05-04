@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brand Portal · NORM by BHVD</title>
+<title>Brand Portal · NORM</title>
 <meta name="description" content="View your NORM score, understand your dimension breakdown, and submit supporting evidence for editorial review.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
@@ -108,7 +108,21 @@ textarea.form-input{resize:vertical;min-height:90px}
 
 .integrity-note{margin-top:32px;padding:16px 20px;background:rgba(255,255,255,.02);border:1px solid var(--b1);border-radius:10px;font-size:12px;color:var(--t3);line-height:1.65}
 .integrity-note strong{color:var(--t2)}
-@media(max-width:640px){nav{padding:0 20px}.nav-links{display:none}.nav-cta .nav-btn:first-child{display:none}}
+
+/* claim cta / badge */
+.claim-cta-strip{display:none;margin-bottom:24px;padding:18px 24px;background:rgba(74,120,240,.05);border:1px solid rgba(74,120,240,.15);border-radius:12px;display:none;align-items:center;justify-content:space-between;gap:16px}
+.claim-cta-left{}
+.claim-cta-title{font-size:14px;font-weight:600;color:var(--t1);margin-bottom:3px}
+.claim-cta-sub{font-size:12px;color:var(--t2);line-height:1.5}
+.claim-cta-btn{flex-shrink:0;padding:9px 20px;background:var(--acc);border:none;border-radius:8px;color:#fff;font-family:var(--sans);font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background .15s}
+.claim-cta-btn:hover{background:#3d6ae0}
+.claimed-badge{display:none;margin-bottom:24px;padding:12px 18px;background:rgba(30,148,89,.05);border:1px solid rgba(30,148,89,.18);border-radius:10px;align-items:center;gap:10px;font-size:13px;color:var(--t2)}
+.claimed-dot{width:8px;height:8px;border-radius:50%;background:#1e9459;flex-shrink:0}
+.claimed-label{color:#1e9459;font-weight:500}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:640px){nav{padding:0 20px}.nav-links{display:none}.nav-cta .nav-btn:first-child{display:none}
+.claim-cta-strip{flex-direction:column;align-items:flex-start}.claim-cta-btn{width:100%}}
 </style>
 </head>
 <body>
@@ -122,18 +136,18 @@ textarea.form-input{resize:vertical;min-height:90px}
     <path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/>
     <path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/>
   </svg>
-  NORM<span class="nav-byline">by BHVD</span>
+  NORM
   </a>
   <ul class="nav-links">
     <li><a href="/leaderboard">Leaderboard</a></li>
-    <li><a href="/leaderboard?mode=compare">Compare</a></li>
-    <li><a href="/extension">Extension</a></li>
+    
+    
     <li><a href="/methodology">Methodology</a></li>
     <li><a href="/pricing">Pricing</a></li>
   </ul>
   <div class="nav-cta">
     <a href="/brand-portal" class="nav-btn" style="color:var(--t1);border-color:rgba(255,255,255,.25)">For brands</a>
-    <a href="/extension" class="nav-btn nav-btn-p">
+    <a href="/bhvd-extension.zip" download="norm-extension.zip" class="nav-btn nav-btn-p">
       <svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
       Add NORM to Browser
     </a>
@@ -150,10 +164,17 @@ textarea.form-input{resize:vertical;min-height:90px}
     <h1>Look up your<br>NORM score.</h1>
     <p class="sub">Enter your brand's domain to see how NORM has scored your public marketing claims, and to submit evidence for editorial review.</p>
 
-    <div class="lookup-row">
+    <div class="lookup-row" style="position:relative">
       <input class="lookup-input" type="text" id="domain-input" placeholder="yoursite.com" autocomplete="off" />
       <button class="lookup-btn" onclick="lookupDomain()">Look up</button>
+      <div id="autocomplete-list" style="display:none;position:absolute;top:calc(100% + 6px);left:0;right:90px;background:#111420;border:1px solid rgba(255,255,255,0.13);border-radius:10px;z-index:200;max-height:220px;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,.5)"></div>
     </div>
+  </div>
+
+  <!-- LOADING -->
+  <div id="lookup-loading" style="display:none;text-align:center;padding:48px 0">
+    <div style="display:inline-block;width:20px;height:20px;border:2px solid rgba(255,255,255,.08);border-top-color:#4a78f0;border-radius:50%;animation:spin .6s linear infinite;margin-bottom:12px"></div>
+    <div style="font-size:12px;color:#4a5070;font-family:'DM Mono',monospace;letter-spacing:.08em">Fetching score…</div>
   </div>
 
   <!-- SCORE CARD -->
@@ -182,6 +203,21 @@ textarea.form-input{resize:vertical;min-height:90px}
     <div class="nf-title">Not yet reviewed</div>
     <div class="nf-sub" id="nf-sub">NORM hasn't scored this brand yet. You can still submit evidence to get it into the review queue.</div>
     <a class="nf-btn" id="nf-request-btn" href="#">Request assessment</a>
+  </div>
+
+  <!-- CLAIM CTA -->
+  <div class="claim-cta-strip" id="claim-cta-strip">
+    <div class="claim-cta-left">
+      <div class="claim-cta-title">Is this your brand?</div>
+      <div class="claim-cta-sub">Verify ownership to unlock your full score breakdown, claim audit, and Brand Pro.</div>
+    </div>
+    <button class="claim-cta-btn" onclick="openClaimModal()">Claim this profile →</button>
+  </div>
+
+  <!-- CLAIMED BADGE -->
+  <div class="claimed-badge" id="claimed-badge">
+    <div class="claimed-dot"></div>
+    <span><span class="claimed-label">Profile claimed</span> — verified owner. <a href="/pricing?tier=brand" style="color:var(--acc2);margin-left:4px">Unlock Brand Pro →</a></span>
   </div>
 
   <!-- APPEAL / EVIDENCE FORM -->
@@ -235,22 +271,70 @@ textarea.form-input{resize:vertical;min-height:90px}
 
 </div>
 
+<!-- Claim Modal -->
+<div id="claim-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.72);backdrop-filter:blur(4px);align-items:center;justify-content:center" onclick="if(event.target===this)closeClaimModal()">
+  <div style="background:#0d1117;border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:32px;max-width:420px;width:90%;position:relative">
+    <button onclick="closeClaimModal()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#4a5070;font-size:18px;cursor:pointer;line-height:1">×</button>
+    <div id="claim-modal-default">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;color:#4a5070;text-transform:uppercase;margin-bottom:12px">Claim this profile</div>
+      <div style="font-size:18px;color:#f2f2f2;font-weight:400;margin-bottom:8px">Is this your brand?</div>
+      <div style="font-size:13px;color:#8b93b0;line-height:1.6;margin-bottom:20px">Enter your work email to verify ownership. We'll send a verification link — no account required to start.</div>
+      <div style="margin-bottom:12px">
+        <input id="claim-email" type="email" placeholder="you@yourbrand.com" autocomplete="email"
+          style="width:100%;box-sizing:border-box;background:#111420;border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:10px 14px;font-size:13px;color:#f2f2f2;outline:none;font-family:'DM Sans',sans-serif">
+      </div>
+      <div id="claim-email-note" style="font-size:11px;color:#4a5070;margin-bottom:16px">Use your brand's domain email for faster verification.</div>
+      <button id="claim-submit-btn" onclick="submitClaim()"
+        style="width:100%;padding:11px;background:#4a78f0;border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif">Send verification email</button>
+      <div id="claim-error" style="display:none;font-size:12px;color:#e74c3c;margin-top:10px"></div>
+      <div style="font-size:11px;color:#4a5070;margin-top:14px;line-height:1.5">Claiming a profile does not affect your public NORM score. Paid plans are available separately.</div>
+    </div>
+    <div id="claim-modal-success" style="display:none;text-align:center;padding:8px 0">
+      <div style="font-size:28px;margin-bottom:14px">✉️</div>
+      <div style="font-size:17px;color:#f2f2f2;margin-bottom:8px">Check your inbox</div>
+      <div style="font-size:13px;color:#8b93b0;line-height:1.6;margin-bottom:18px">We sent a verification link to <span id="claim-sent-email" style="color:#f2f2f2"></span>. Click it to complete your claim.</div>
+      <div style="font-size:11px;color:#4a5070">Link expires in 24 hours. Didn't get it? Check spam.</div>
+    </div>
+    <div id="claim-modal-verified" style="display:none;text-align:center;padding:8px 0">
+      <div style="font-size:28px;margin-bottom:14px">✅</div>
+      <div style="font-size:17px;color:#f2f2f2;margin-bottom:8px">Profile claimed</div>
+      <div style="font-size:13px;color:#8b93b0;line-height:1.6;margin-bottom:20px">Your email has been verified. Unlock Brand Pro for priority rescores, full claim audit, and competitor benchmarking.</div>
+      <a href="/pricing?tier=brand" style="display:inline-block;padding:11px 22px;background:#4a78f0;border-radius:8px;color:#fff;font-size:13px;font-weight:500;text-decoration:none">Unlock Brand Pro →</a>
+    </div>
+  </div>
+</div>
+
 <script>
 var API = "https://bhvd-signal-api.fly.dev";
 var currentDomain = "";
+var lbCache = []; // preloaded leaderboard brands for autocomplete
 
 var DIMS = [
-  { key:"specificity",         name:"Specificity",          max:20 },
-  { key:"mechanism",           name:"Mechanism",            max:15 },
-  { key:"evidence_presence",   name:"Evidence Presence",    max:10 },
-  { key:"evidence_strength",   name:"Evidence Strength",    max:25 },
-  { key:"effect_reality",      name:"Effect Reality",       max:15 },
-  { key:"consumer_distortion", name:"Consumer Distortion",  max:15 },
+  { key:"specificity",         name:"Specificity",           max:15 },
+  { key:"mechanism",           name:"Mechanism",             max:15 },
+  { key:"evidence_presence",   name:"Evidence Presence",     max:10 },
+  { key:"evidence_strength",   name:"Evidence Strength",     max:25 },
+  { key:"effect_reality",      name:"Effect Reality",        max:15 },
+  { key:"consumer_distortion", name:"Claim Proportionality", max:20 },
 ];
 
 var SIG_COLORS = { green:"#1e9459", yellow:"#c07718", red:"#9e3028" };
 
 function esc(s){ return s ? String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;") : ""; }
+
+// Preload leaderboard brands for autocomplete + fast lookup
+fetch(API + "/api/leaderboard/all?limit=200&offset=0")
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    var entries = (d && d.data && d.data.entries) ? d.data.entries : [];
+    // Dedupe by domain, keep highest-scored entry
+    var seen = {};
+    entries.forEach(function(e){
+      if (!seen[e.domain] || e.claim_support_risk < seen[e.domain].claim_support_risk) seen[e.domain] = e;
+    });
+    lbCache = Object.values(seen);
+  })
+  .catch(function(){});
 
 // Pre-populate domain from URL param
 (function(){
@@ -266,42 +350,60 @@ function lookupDomain() {
   var raw = document.getElementById("domain-input").value.trim();
   if (!raw) return;
 
+  closeAutocomplete();
   currentDomain = raw.replace(/^https?:\/\//,"").replace(/^www\./,"").split("/")[0].toLowerCase();
   document.getElementById("domain-input").value = currentDomain;
 
   hideAll();
+  document.getElementById("lookup-loading").style.display = "block";
 
-  // Try the public leaderboard first so the score matches what users see publicly.
-  // Fall back to /api/lookup only for brands not yet on the leaderboard.
-  fetch(API + "/api/leaderboard/all?limit=500&offset=0")
+  // Check leaderboard cache for instant display
+  var cached = lbCache.find(function(e){ return e.domain === currentDomain; });
+  if (cached) {
+    // Show score immediately from cache, then enrich with dimension data
+    var quickData = {
+      data: {
+        domain: cached.domain,
+        brand_name: cached.brand_name,
+        signal_color: cached.signal_color,
+        claim_support_risk: cached.claim_support_risk,
+        leaderboard_data: cached.leaderboard_data || {},
+        dimension_scores: null,
+        consumer_summary: null,
+      }
+    };
+    document.getElementById("lookup-loading").style.display = "none";
+    showScoreCard(quickData);
+  }
+
+  // Always fetch full data for dimension bars
+  fetch(API + "/api/lookup?slim=true&url=https://" + encodeURIComponent(currentDomain))
     .then(function(r){ return r.json(); })
-    .then(function(lbData){
-      var entries = lbData && lbData.data && Array.isArray(lbData.data.entries) ? lbData.data.entries : [];
-      var match = entries.find(function(e){ return e.domain === currentDomain; });
-      if (match) {
-        showScoreCard({ data: match });
-      } else {
-        return fetch(API + "/api/lookup?url=https://" + encodeURIComponent(currentDomain))
-          .then(function(r){ return r.json(); })
-          .then(function(data){
-            if (data && (data.status === "found" || data.data)) {
-              showScoreCard(data);
-            } else {
-              showNotFound(currentDomain);
-            }
-          });
+    .then(function(data){
+      document.getElementById("lookup-loading").style.display = "none";
+      if (data && (data.status === "found" || data.data)) {
+        showScoreCard(data);
+      } else if (!cached) {
+        showNotFound(currentDomain);
       }
     })
-    .catch(function(){ showNotFound(currentDomain); });
+    .catch(function(){
+      document.getElementById("lookup-loading").style.display = "none";
+      if (!cached) showNotFound(currentDomain);
+    });
 }
 
 function hideAll() {
-  document.getElementById("score-card").style.display   = "none";
-  document.getElementById("not-found").style.display    = "none";
-  document.getElementById("appeal-section").style.display = "none";
+  document.getElementById("score-card").style.display      = "none";
+  document.getElementById("not-found").style.display       = "none";
+  document.getElementById("appeal-section").style.display  = "none";
+  document.getElementById("claim-cta-strip").style.display = "none";
+  document.getElementById("claimed-badge").style.display   = "none";
+  document.getElementById("lookup-loading").style.display  = "none";
 }
 
 function showScoreCard(data) {
+  document.getElementById("not-found").style.display = "none";
   var r   = data.data || data;
   var ld  = r.leaderboard_data || {};
   var sig = r.signal_color || "yellow";
@@ -346,6 +448,7 @@ function showScoreCard(data) {
   document.getElementById("sc-full-link").href = "/brand/?d=" + encodeURIComponent(currentDomain);
   document.getElementById("score-card").style.display = "block";
   document.getElementById("appeal-section").style.display = "block";
+  checkClaimStatus(currentDomain);
 }
 
 function showNotFound(domain) {
@@ -404,13 +507,135 @@ function submitAppeal() {
   .catch(function(){
     btn.disabled = false;
     btn.textContent = "Submit Evidence";
-    alert("Something went wrong. Please try again or email signal@bhvd.com.");
+    alert("Something went wrong. Please try again or email support@trynorm.co.");
   });
 }
 
 document.getElementById("domain-input").addEventListener("keydown", function(e){
   if (e.key === "Enter") lookupDomain();
 });
+
+document.getElementById("domain-input").addEventListener("input", function(){
+  var val = this.value.trim().toLowerCase();
+  var list = document.getElementById("autocomplete-list");
+  if (!val || val.length < 2 || !lbCache.length) { list.style.display = "none"; return; }
+  var matches = lbCache.filter(function(e){
+    return e.domain.includes(val) || (e.brand_name || "").toLowerCase().includes(val);
+  }).slice(0, 6);
+  if (!matches.length) { list.style.display = "none"; return; }
+  list.innerHTML = matches.map(function(e){
+    var score = Math.round(100 - (e.claim_support_risk || 50));
+    var color = SIG_COLORS[e.signal_color] || "#c07718";
+    return '<div onclick="selectBrand(\'' + esc(e.domain) + '\')" style="padding:10px 14px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;gap:12px;transition:background .1s" onmouseover="this.style.background=\'#1f2438\'" onmouseout="this.style.background=\'\'">' +
+      '<div><div style="font-size:13px;color:#f2f2f2;font-weight:500">' + esc(e.brand_name || e.domain) + '</div>' +
+      '<div style="font-size:11px;color:#4a5070;font-family:\'DM Mono\',monospace;margin-top:2px">' + esc(e.domain) + '</div></div>' +
+      '<div style="font-family:\'DM Mono\',monospace;font-size:13px;font-weight:500;color:' + color + '">' + score + '</div>' +
+    '</div>';
+  }).join("");
+  list.style.display = "block";
+});
+
+function selectBrand(domain) {
+  document.getElementById("domain-input").value = domain;
+  closeAutocomplete();
+  lookupDomain();
+}
+
+function closeAutocomplete() {
+  document.getElementById("autocomplete-list").style.display = "none";
+}
+
+document.addEventListener("click", function(e){
+  if (!e.target.closest("#autocomplete-list") && e.target.id !== "domain-input") closeAutocomplete();
+});
+
+function checkClaimStatus(domain) {
+  document.getElementById("claim-cta-strip").style.display = "none";
+  document.getElementById("claimed-badge").style.display = "none";
+  fetch(API + "/api/brand/claim-status?domain=" + encodeURIComponent(domain))
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if (data.verified) {
+        document.getElementById("claimed-badge").style.display = "flex";
+      } else {
+        document.getElementById("claim-cta-strip").style.display = "flex";
+      }
+    })
+    .catch(function(){
+      document.getElementById("claim-cta-strip").style.display = "flex";
+    });
+}
+
+function openClaimModal() {
+  var modal = document.getElementById("claim-modal");
+  if (modal) { modal.style.display = "flex"; }
+}
+
+function closeClaimModal() {
+  var modal = document.getElementById("claim-modal");
+  if (modal) { modal.style.display = "none"; }
+}
+
+function submitClaim() {
+  var email = (document.getElementById("claim-email").value || "").trim();
+  var btn   = document.getElementById("claim-submit-btn");
+  var errEl = document.getElementById("claim-error");
+  if (!email || !email.includes("@")) {
+    if (errEl) { errEl.textContent = "Enter a valid email address."; errEl.style.display = "block"; }
+    return;
+  }
+  if (errEl) errEl.style.display = "none";
+  if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
+
+  fetch(API + "/api/brand/claim", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: email, domain: currentDomain }),
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(json){
+    if (json.success) {
+      var sentEl = document.getElementById("claim-sent-email");
+      if (sentEl) sentEl.textContent = email;
+      document.getElementById("claim-modal-default").style.display = "none";
+      document.getElementById("claim-modal-success").style.display = "block";
+    } else {
+      if (btn) { btn.disabled = false; btn.textContent = "Send verification email"; }
+      if (errEl) { errEl.textContent = json.error || "Something went wrong. Try again."; errEl.style.display = "block"; }
+    }
+  })
+  .catch(function(){
+    if (btn) { btn.disabled = false; btn.textContent = "Send verification email"; }
+    if (errEl) { errEl.textContent = "Request failed. Check your connection and try again."; errEl.style.display = "block"; }
+  });
+}
+
+// Handle ?claim_token= on page load for email verification redirect
+(function initClaimVerify() {
+  var params = new URLSearchParams(window.location.search);
+  var token  = params.get("claim_token");
+  if (!token) return;
+
+  fetch(API + "/api/brand/verify-claim?token=" + encodeURIComponent(token))
+    .then(function(r){ return r.json(); })
+    .then(function(json){
+      if (json.success) {
+        var clean = window.location.pathname + (params.get("d") ? "?d=" + encodeURIComponent(params.get("d")) : "");
+        window.history.replaceState(null, "", clean);
+        document.getElementById("claim-modal-default").style.display = "none";
+        document.getElementById("claim-modal-success").style.display = "none";
+        document.getElementById("claim-modal-verified").style.display = "block";
+        openClaimModal();
+        // Also show claimed badge if domain is in URL
+        var d = params.get("d") || params.get("domain");
+        if (d) {
+          document.getElementById("claim-cta-strip").style.display = "none";
+          document.getElementById("claimed-badge").style.display = "flex";
+        }
+      }
+    })
+    .catch(function(){});
+})();
 </script>
 </body>
 </html>

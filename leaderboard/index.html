@@ -101,16 +101,25 @@ canvas#scoreChart{display:block;width:100%;height:90px}
 <body>
 
 <nav>
-  <a class="nav-logo" href="/">NORM <span class="nav-byline">Claim Quality Index</span></a>
+  <a class="nav-logo" href="/">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+    <circle cx="11" cy="8.5" r="5.5" stroke="#4a78f0" stroke-width="1.5"/>
+    <circle cx="9.2" cy="7.8" r="1" fill="#4a78f0"/>
+    <circle cx="12.8" cy="7.8" r="1" fill="#4a78f0"/>
+    <path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    NORM
+  </a>
   <ul class="nav-links">
     <li><a href="/leaderboard" class="active">Leaderboard</a></li>
-    <li><a href="/compare">Compare</a></li>
-    <li><a href="/extension">Extension</a></li>
+    
+    
     <li><a href="/methodology">Methodology</a></li>
     <li><a href="/pricing">Pricing</a></li>
   </ul>
   <div class="nav-cta">
-    <a class="btn btn-p" href="/extension">Get Extension</a>
+    <a href="/brand-portal" class="btn btn-p">For brands</a>
   </div>
 </nav>
 
@@ -125,9 +134,6 @@ canvas#scoreChart{display:block;width:100%;height:90px}
   <div class="stats-strip">
     <div class="stat-item"><div class="stat-val" id="sBrands">—</div><div class="stat-lbl">Brands Scored</div></div>
     <div class="stat-item"><div class="stat-val" id="sAvg">—</div><div class="stat-lbl">Avg Score</div></div>
-    <div class="stat-item"><div class="stat-val" id="sGrn">—</div><div class="stat-lbl">Strong Signal</div></div>
-    <div class="stat-item"><div class="stat-val" id="sYel">—</div><div class="stat-lbl">Partial Signal</div></div>
-    <div class="stat-item"><div class="stat-val" id="sRed">—</div><div class="stat-lbl">Weak Signal</div></div>
   </div>
 
   <div class="chart-wrap">
@@ -156,13 +162,12 @@ canvas#scoreChart{display:block;width:100%;height:90px}
           <th style="width:48px;text-align:center">#</th>
           <th style="width:220px">Brand</th>
           <th style="width:130px">Category</th>
-          <th style="width:90px" class="center">Signal</th>
           <th style="width:110px" class="center">Claims</th>
           <th style="width:90px" class="right">Score</th>
         </tr>
       </thead>
       <tbody id="tbody">
-        <tr class="msg-row"><td colspan="6"><span class="spinner"></span>Loading brands…</td></tr>
+        <tr class="msg-row"><td colspan="5"><span class="spinner"></span>Loading brands…</td></tr>
       </tbody>
     </table>
   </div>
@@ -194,7 +199,7 @@ function sigCls(s){ return s==='green'?'grn':s==='yellow'?'yel':'red'; }
 function sigLabel(s){ return s==='green'?'Well Supported':s==='yellow'?'Mixed Evidence':'Limited Evidence'; }
 function riskLabel(r){ return r<30?['Conservative','grn']:r<60?['Moderate','yel']:['Aggressive','red']; }
 
-function scoreToSig(sc){ return sc >= 70 ? 'green' : sc >= 45 ? 'yellow' : 'red'; }
+function scoreToSig(sc){ return sc >= 68 ? 'green' : sc >= 55 ? 'yellow' : 'red'; }
 
 function row(b, i) {
   var score = b.leaderboard_data && b.leaderboard_data.total_score != null
@@ -205,8 +210,7 @@ function row(b, i) {
   var rl = riskLabel(risk);
   var rank = b.rank_number || (offset + i + 1);
   var id = 'd' + rank;
-  var verdict = (b.leaderboard_data && b.leaderboard_data.bhvd_verdict) || b.verdict || '';
-  return '<tr class="brand-row" onclick="tog(\'' + id + '\')">'
+  return '<tr class="brand-row" data-domain="' + (b.domain||'') + '" onclick="tog(\'' + id + '\',\'' + (b.domain||'') + '\')">'
     + '<td class="rank">' + rank + '</td>'
     + '<td><div class="sig-cell">'
     +   '<span class="dot" style="background:' + sigColor(s) + '"></span>'
@@ -216,21 +220,28 @@ function row(b, i) {
     +   '</div>'
     + '</div></td>'
     + '<td class="cat-cell">' + (b.category||'—') + '</td>'
-    + '<td style="text-align:center"><span class="badge ' + sigCls(s) + '">' + sigLabel(s) + '</span></td>'
     + '<td style="text-align:center"><span class="badge ' + rl[1] + '">' + rl[0] + '</span></td>'
     + '<td class="score-num" style="color:' + sigText(s) + '">' + score + '</td>'
     + '</tr>'
     + '<tr class="detail-row" id="' + id + '">'
-    + '<td colspan="6">' + (verdict || 'No verdict available.')
-    + ' <a href="/compare?a=' + (b.domain||'') + '" onclick="event.stopPropagation()" style="margin-left:10px;font-family:var(--mono);font-size:11px;color:var(--t3);border:1px solid var(--b1);border-radius:5px;padding:3px 8px">Compare →</a>'
+    + '<td colspan="5"><span class="verdict-text" style="color:var(--t2);font-style:italic">Loading…</span>'
     + '</td></tr>';
 }
 
-function tog(id) {
+var _verdictCache = {};
+function tog(id, domain) {
   var r = document.getElementById(id);
   if (!r) return;
   document.querySelectorAll('.detail-row.open').forEach(function(x){ if(x!==r) x.classList.remove('open'); });
   r.classList.toggle('open');
+  if (!r.classList.contains('open') || !domain) return;
+  var vt = r.querySelector('.verdict-text');
+  if (!vt || vt.dataset.loaded) return;
+  if (_verdictCache[domain]) { vt.textContent = _verdictCache[domain]; vt.dataset.loaded = '1'; return; }
+  fetch(API + '/api/domain/' + encodeURIComponent(domain))
+    .then(function(res){ return res.json(); })
+    .then(function(d){ var v = (d.data||{}).verdict || 'No verdict available.'; _verdictCache[domain]=v; vt.textContent=v; vt.dataset.loaded='1'; vt.style.fontStyle='italic'; })
+    .catch(function(){ vt.textContent='No verdict available.'; vt.dataset.loaded='1'; });
 }
 
 function load(reset) {
@@ -248,7 +259,7 @@ function load(reset) {
     });
     var html = '';
     filtered.forEach(function(b, i) { html += row(b, i); });
-    document.getElementById('tbody').innerHTML = html || '<tr class="msg-row"><td colspan="6">No brands match "' + search + '".</td></tr>';
+    document.getElementById('tbody').innerHTML = html || '<tr class="msg-row"><td colspan="5">No brands match "' + search + '".</td></tr>';
     document.getElementById('loadMoreWrap').style.display = 'none';
     busy = false;
     document.getElementById('loadMoreBtn').disabled = false;
@@ -256,7 +267,7 @@ function load(reset) {
   }
 
   var url = API + '/api/leaderboard/' + cat + '?limit=' + limit + '&offset=' + offset;
-  if (reset) document.getElementById('tbody').innerHTML = '<tr class="msg-row"><td colspan="6"><span class="spinner"></span>Loading…</td></tr>';
+  if (reset) document.getElementById('tbody').innerHTML = '<tr class="msg-row"><td colspan="5"><span class="spinner"></span>Loading…</td></tr>';
 
   fetch(url)
     .then(function(r) { return r.json(); })
@@ -264,7 +275,7 @@ function load(reset) {
       busy = false;
       var entries = data && data.data && Array.isArray(data.data.entries) ? data.data.entries : [];
       if (entries.length === 0 && offset === 0) {
-        document.getElementById('tbody').innerHTML = '<tr class="msg-row"><td colspan="6">No brands found.</td></tr>';
+        document.getElementById('tbody').innerHTML = '<tr class="msg-row"><td colspan="5">No brands found.</td></tr>';
         document.getElementById('loadMoreWrap').style.display = 'none';
         return;
       }
@@ -284,9 +295,6 @@ function load(reset) {
       });
       document.getElementById('sBrands').textContent = stats.n;
       document.getElementById('sAvg').textContent = stats.n ? Math.round(stats.sum / stats.n) : 0;
-      document.getElementById('sGrn').textContent = stats.g;
-      document.getElementById('sYel').textContent = stats.y;
-      document.getElementById('sRed').textContent = stats.r;
       document.getElementById('meta').textContent = stats.n + ' brands · Updated ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
       drawChart();
       offset += entries.length;
@@ -300,7 +308,7 @@ function load(reset) {
     })
     .catch(function(err) {
       busy = false;
-      document.getElementById('tbody').innerHTML = '<tr class="msg-row"><td colspan="6">Failed to load. Please refresh.</td></tr>';
+      document.getElementById('tbody').innerHTML = '<tr class="msg-row"><td colspan="5">Failed to load. Please refresh.</td></tr>';
     });
 }
 

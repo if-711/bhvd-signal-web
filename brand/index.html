@@ -2157,23 +2157,21 @@ function copyEmbedCode() {
       // Pick the product with the highest total_score (most evidence-aligned).
       // Domain API returns products sorted by risk ascending, but we want the
       // highest evidence score (= lowest risk in old framing is now worst).
-      var product = d.products.reduce(function(best, p) {
+      var displayable = d.products.filter(function(p) {
+        var pld = p.leaderboard_data || {};
+        return pld.public_safe === true || pld.review_status === "seeder_reviewed";
+      });
+      if (!displayable.length) { renderNotAssessed(domain, demandData); return; }
+
+      var product = displayable.reduce(function(best, p) {
         var bld = best.leaderboard_data || {};
         var pld = p.leaderboard_data || {};
-        var isDisplayable = pld.public_safe === true || pld.review_status === "seeder_reviewed";
-        if (!isDisplayable) return best;
         var bs = bld.total_score != null ? bld.total_score : (100 - (best.claim_support_risk || 50));
         var ps = pld.total_score != null ? pld.total_score : (100 - (p.claim_support_risk || 50));
         return ps > bs ? p : best;
-      }, d.products[0]);
+      }, displayable[0]);
       var ld   = product.leaderboard_data || {};
       var dims = product.dimension_scores || {};
-
-      // Gate: must be public_safe OR seeder_reviewed to display
-      if (ld.public_safe !== true && ld.review_status !== "seeder_reviewed") {
-        renderNotAssessed(domain, demandData);
-        return;
-      }
 
       renderVerified(d, product, ld, dims, demandData);
     })

@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How We Score — NORM</title>
+<title>How NORM Scores — NORM</title>
 <meta name="description" content="NORM measures whether a brand's marketing is proportional to its visible evidence — not whether the product works.">
-<meta property="og:title" content="How We Score — NORM">
+<meta property="og:title" content="How NORM Scores — NORM">
 <meta property="og:description" content="NORM measures whether a brand's marketing is proportional to its visible evidence — not whether the product works.">
 <meta property="og:image" content="https://trynorm.co/og-image.png">
 <meta property="og:url" content="https://trynorm.co/methodology">
@@ -30,6 +30,7 @@ a:hover{text-decoration:underline}
 
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:58px;background:rgba(10,12,18,0.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--b1)}
 .nav-logo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--t1);display:flex;align-items:center;gap:9px;text-decoration:none}
+.nav-byline{font-size:9px;color:var(--t3);letter-spacing:.13em;font-weight:400;text-transform:uppercase;border-left:1px solid var(--b2);padding-left:8px;margin-left:1px}
 .nav-links{display:flex;gap:32px;list-style:none}
 .nav-links a{font-size:13px;color:var(--t2);transition:color .15s}
 .nav-links a:hover{color:var(--t1)}
@@ -84,14 +85,16 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     <li><a href="/pricing">Pricing</a></li>
   </ul>
   <div class="nav-cta">
-    <a href="/brand-portal" class="btn">For brands</a>
+    <a href="/account" class="btn" id="nav-account-btn" style="display:none">Account</a>
+    <a href="/account" class="btn" id="nav-signin-btn">Sign in</a>
+    <a href="/pricing" class="btn btn-p">Get NORM Pro</a>
   </div>
 </nav>
 
 <div class="page-wrap">
   <div class="section-label">Transparency</div>
-  <h1>How We Score</h1>
-  <p class="lead">We measure whether a brand's marketing is proportional to its visible evidence — not whether the product works.</p>
+  <h1>How NORM Scores</h1>
+  <p class="lead">NORM measures whether a brand's marketing is proportional to its visible evidence — not whether the product works.</p>
 
   <p>
     NORM scores the gap between what a brand claims and what it publicly shows to back those claims.
@@ -99,9 +102,9 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
     A weak score means the marketing runs ahead of what the brand actually shows — not necessarily that the product doesn't work.
   </p>
 
-  <h2>What we look at</h2>
+  <h2>What NORM looks at</h2>
   <p>
-    Every brand is evaluated on six dimensions: how specific the claims are, whether the brand explains
+    Every brand is evaluated on: how specific the claims are, whether the brand explains
     the mechanism behind them, whether evidence is present and linked, how strong that evidence is,
     whether claimed effects match published science, and whether the marketing language is proportionate
     to what's actually shown.
@@ -110,28 +113,16 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
   <h2>Verdicts</h2>
   <div class="verdict-list">
     <div class="verdict-row">
-      <span class="verdict-name grn">Aligned</span>
-      <p>Claims are specific, grounded, and backed by visible evidence.</p>
+      <span class="verdict-name grn">Green</span>
+      <p>Claims are specific and backed by visible evidence.</p>
     </div>
     <div class="verdict-row">
-      <span class="verdict-name grn">Validated</span>
-      <p>Strong evidence base with minor gaps.</p>
+      <span class="verdict-name yel">Yellow</span>
+      <p>Some claims are supported, but the marketing goes beyond what's fully shown.</p>
     </div>
     <div class="verdict-row">
-      <span class="verdict-name yel">Generally Aligned</span>
-      <p>Reasonable foundation with some unsupported areas.</p>
-    </div>
-    <div class="verdict-row">
-      <span class="verdict-name yel">Partially Aligned</span>
-      <p>Some claims are supported, but key marketing language goes beyond what's shown.</p>
-    </div>
-    <div class="verdict-row">
-      <span class="verdict-name red">Overextended</span>
+      <span class="verdict-name red">Red</span>
       <p>Claims materially exceed the visible evidence.</p>
-    </div>
-    <div class="verdict-row">
-      <span class="verdict-name red">Evidence Gap</span>
-      <p>Marketing is not meaningfully supported by anything the brand makes publicly visible.</p>
     </div>
   </div>
 
@@ -143,16 +134,17 @@ footer{border-top:1px solid var(--b1);padding:24px 48px;display:flex;justify-con
 
   <h2>Scope</h2>
   <p>
-    We review publicly visible brand websites and product pages only. Scores reflect a point-in-time snapshot and are periodically refreshed as brands update their pages.
+    NORM reviews publicly visible brand websites and product pages only. Scores reflect a point-in-time snapshot and are refreshed as brands update their pages.
   </p>
 </div>
 
 <footer>
   <div class="footer-logo">
     <svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v5c0 4.5 3 7.5 7 8.5C14 17.5 17 14.5 17 10V5L10 2z" stroke="#4a5070" stroke-width="1.5" fill="none"/></svg>
-    NORM
+    NORM Analytics
   </div>
   <div class="footer-disc">Scores are editorial assessments — not FDA approval, health endorsements, or legal clearance of any kind.</div>
+  <div style="margin-top:12px;font-size:10px;color:var(--t3);font-family:var(--mono)">&copy; 2026 NORM Analytics &nbsp;&middot;&nbsp; Payment never influences scores &nbsp;&middot;&nbsp; Open methodology</div>
 </footer>
 
 </body>

@@ -198,7 +198,9 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
     <li><a href="/pricing" style="color:var(--t1)">Pricing</a></li>
   </ul>
   <div class="nav-cta">
-    <a href="/brand-portal" class="btn">For brands</a>
+    <a href="/account" class="btn" id="nav-account-btn" style="display:none">Account</a>
+    <a href="/account" class="btn" id="nav-signin-btn">Sign in</a>
+    <a href="/pricing" class="btn btn-p">Get NORM Pro</a>
   </div>
 </nav>
 
@@ -238,18 +240,15 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
         <div class="plan-period">Always free. No card required.</div>
         <div class="plan-desc">See a brand's signal, score, and verdict summary before you buy. No account required.</div>
         <ul class="plan-features">
-          <li>Signal verdict — Low / Moderate / High Mismatch</li>
-          <li>Overall score and confidence level</li>
-          <li>Why-this-verdict summary</li>
-          <li>Leaderboard access</li>
-          <li>Side-by-side brand comparison (up to 3)</li>
-          <li>Chrome extension (25 scans/month)</li>
-          <li>Submit evidence for review</li>
-          <li class="dim">Which claims have no supporting evidence</li>
-          <li class="dim">Claim breakdown by type</li>
-          <li class="dim">Dimension scores</li>
+          <li>Green / Yellow / Red verdict for every brand</li>
+          <li>Verdict explained in plain language</li>
+          <li>Side-by-side brand comparison</li>
+          <li>Full leaderboard access</li>
+          <li>Submit evidence for editorial review</li>
+          <li>Browser extension — coming soon</li>
+          <li class="dim">Which specific claims have no supporting evidence</li>
           <li class="dim">Score change alerts &amp; watchlists</li>
-          <li class="dim">Unlimited extension scans</li>
+          <li class="dim">Claim breakdown by evidence type</li>
         </ul>
         <a href="/leaderboard" class="plan-btn">Browse the leaderboard →</a>
         <div class="plan-note">Public scores are free permanently — this is not a trial.</div>
@@ -267,21 +266,17 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
         <div class="plan-desc">See which claims have no supporting evidence — before you spend.</div>
         <p style="font-size:12px;color:var(--t3);margin-bottom:16px;line-height:1.6;font-family:var(--mono);letter-spacing:.01em">Consumer Pro shows you what the free tier doesn't: which specific claims are unsupported.</p>
         <ul class="plan-features">
-          <li><strong>Which claims have no supporting evidence</strong></li>
-          <li>Claim breakdown — high-pressure vs. contextual counts</li>
-          <li>Dimension scores — specificity, transparency, mechanism</li>
-          <li>Evidence source summary (PubMed refs, certifications, Labdoor)</li>
-          <li>Red flags in plain language</li>
-          <li>Unlimited extension scans</li>
-          <li>Score change alerts &amp; trajectory charts (30/90/180 day)</li>
-          <li>Unlimited brand watchlists + category watchlists (up to 10)</li>
-          <li>Full scan history export</li>
+          <li><strong>See exactly which claims have zero backing</strong></li>
+          <li>Red flags explained in plain language</li>
+          <li>Score change alerts when a brand quietly updates its claims</li>
+          <li>Evidence sources — what the brand cited and whether it holds up</li>
+          <li>Brand &amp; category watchlists</li>
+          <li>Full history of every brand you've checked</li>
         </ul>
         <p style="font-size:11px;color:var(--t3);margin-bottom:16px;line-height:1.6">Exact claim text and source page URLs are Brand Pro only.</p>
         <button id="pro-btn" class="plan-btn plan-btn-p" onclick="startCheckout()">Get Pro — $9/mo</button>
         <div id="consumer-pro-ok" class="plan-success"></div>
-        <p style="font-size:11px;color:var(--t3);margin-top:14px;line-height:1.6;font-family:var(--mono)">Consumer Pro does not change scores — it gives you deeper visibility.</p>
-        <p style="font-size:11px;color:var(--t3);margin-top:8px;line-height:1.6">Most users never see when a brand quietly changes its claims. You will.</p>
+        <p style="font-size:11px;color:var(--t3);margin-top:14px;line-height:1.6">Most users never see when a brand quietly changes its claims. You will.</p>
       </div>
 
     </div>
@@ -295,7 +290,7 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
         </div>
         <div class="never-item">
           <div style="width:20px;height:20px;border-radius:5px;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--grn);font-family:var(--mono);margin-top:1px">✓</div>
-          <div><h4>Signal &amp; verdict summary</h4><p>Signal verdict, score, confidence level, and why-this-verdict summary — free for every brand, no account required.</p></div>
+          <div><h4>Score &amp; verdict summary</h4><p>Green / Yellow / Red verdict, score, and the plain-English reason behind it — free for every brand, no account required.</p></div>
         </div>
         <div class="never-item">
           <div style="width:20px;height:20px;border-radius:5px;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--grn);font-family:var(--mono);margin-top:1px">✓</div>
@@ -319,27 +314,24 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
         <div class="plan-period">No card required.</div>
         <div class="plan-desc">Claim your brand profile and engage with your score the same way any consumer can.</div>
         <ul class="plan-features">
-          <li>View your public claim record</li>
-          <li>Claim your brand profile</li>
-          <li>Submit evidence for editorial review</li>
-          <li>Request score correction</li>
           <li>See your overall score &amp; verdict</li>
           <li>Competitor benchmarks (public data)</li>
-          <li class="dim">Claim receipts — exact text + source URLs</li>
+          <li>Submit evidence for editorial review</li>
+          <li>View your full public claim record</li>
+          <li>Request score correction</li>
+          <li>Claim your brand profile</li>
+          <li class="dim">Every flagged claim — exact text + source URLs</li>
           <li class="dim">Evidence gap map per dimension</li>
+          <li class="dim">Daily score movement alerts</li>
+          <li class="dim">Competitor score comparison (up to 5 peers)</li>
           <li class="dim">Private claim audit</li>
-          <li class="dim">Pre-launch copy review</li>
-          <li class="dim">Evidence gap analysis</li>
-          <li class="dim">Monitoring dashboard</li>
-          <li class="dim">Competitor benchmarks</li>
-          <li class="dim">Evidence organization</li>
-          <li class="dim">Score movement alerts</li>
+          <li class="dim">API access to your brand data</li>
         </ul>
-        <a href="/brand-portal" class="plan-btn">Claim your profile →</a>
+        <a href="mailto:support@trynorm.co" class="plan-btn">Contact us →</a>
       </div>
 
       <div class="plan feat">
-        <div class="plan-badge">NOW LIVE</div>
+        <div class="plan-badge">EARLY ACCESS</div>
         <div class="plan-label">Brand Pro</div>
         <div class="plan-price"><sup>$</sup>299</div>
         <div class="plan-period">per month</div>
@@ -347,16 +339,14 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
         <p style="font-size:11px;color:var(--t3);margin-bottom:16px;line-height:1.6;font-family:var(--mono);letter-spacing:.01em">NORM scores cannot be changed, influenced, or prioritized through paid access.</p>
         <ul class="plan-features">
           <li><strong>Every flagged claim — exact text + source page URL</strong></li>
-          <li>Gap analysis per scoring dimension with specific fix path</li>
-          <li>Competitor score comparison (up to 5 peers)</li>
-          <li>Priority rescore request (1 per 7 days)</li>
-          <li>Capture log — which pages were analyzed</li>
-          <li>Private claim audit — review claims against scoring rubric</li>
-          <li>Evidence gap map — which dimensions need evidence and what types are accepted</li>
+          <li>Evidence gap map — exactly what's missing and what types are accepted</li>
           <li>Daily score movement alerts</li>
+          <li>Competitor score comparison (up to 5 peers)</li>
+          <li>Private claim audit — review copy against scoring rubric before publishing</li>
           <li>API access to your own brand data</li>
+          <li>Capture log — which pages were analyzed</li>
         </ul>
-        <button class="plan-btn plan-btn-p" onclick="startBrandCheckout()">Get Brand Pro — $299/mo</button>
+        <a href="mailto:support@trynorm.co" class="plan-btn" style="border-color:var(--acc);color:var(--acc)">Request access →</a>
         <div id="brand-pro-ok" class="plan-success"></div>
         <p style="font-size:12px;color:var(--t3);margin-top:18px;line-height:1.7;padding-top:16px;border-top:1px solid var(--b1)">Brand Tools are workflow tools only. They do not guarantee score changes, favorable review outcomes, or queue priority. Scores are determined by editorial review of public evidence.</p>
       </div>
@@ -404,61 +394,48 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
     <div class="plans-grid plans-grid-3">
 
       <div class="plan">
-        <div class="plan-label">Early Access</div>
-        <div class="plan-price" style="font-size:28px;margin-top:4px">Starting at</div>
-        <div class="plan-period" style="font-size:14px;color:var(--t2);margin-bottom:24px">$499 / month</div>
-        <div class="plan-desc">Structured brand trust data for analysts and product teams querying at moderate volume.</div>
+        <div class="plan-label">Analysts &amp; Investors</div>
+        <div class="plan-price" style="font-size:28px;margin-top:4px">Contact us</div>
+        <div class="plan-period" style="font-size:14px;color:var(--t2);margin-bottom:24px">early access pricing</div>
+        <div class="plan-desc">For due diligence teams, investors, and researchers monitoring brand claims and evidence quality.</div>
         <ul class="plan-features">
-          <li>Trust score endpoint (<code style="font-family:var(--mono);font-size:10px">/api/domain/:domain</code>)</li>
-          <li>Score history — full time series</li>
-          <li>Claim pattern index — what brands are claiming</li>
-          <li>Evidence gap trends by category</li>
-          <li>Bulk domain queries (up to 50/request)</li>
-          <li>Webhook alerts on score changes</li>
-          <li>JSON + CSV export</li>
-          <li class="dim">Category benchmark feeds</li>
-          <li class="dim">Raw claim text access</li>
-          <li class="dim">Custom filtering</li>
+          <li>Brand trust scores via API</li>
+          <li>Score history and change tracking</li>
+          <li>Verdict and signal per domain</li>
+          <li>JSON export</li>
         </ul>
-        <button class="plan-btn plan-btn-p" onclick="openDataCapture('early_access','Early Access',true)">Request data access</button>
+        <button class="plan-btn plan-btn-p" onclick="openDataCapture('early_access','Analysts & Investors',true)">Request access</button>
         <div id="data-starter-ok" class="plan-success">Request received. We'll reach out with access details.</div>
       </div>
 
       <div class="plan feat">
         <div class="plan-badge">EARLY ACCESS</div>
-        <div class="plan-label">Pro Access</div>
+        <div class="plan-label">Retailers</div>
         <div class="plan-price" style="font-size:28px;margin-top:4px">Contact us</div>
-        <div class="plan-period" style="margin-bottom:24px">for volume pricing</div>
-        <div class="plan-desc">For retailers, due diligence teams, and multi-brand portfolio monitoring at scale.</div>
+        <div class="plan-period" style="margin-bottom:24px">early access pricing</div>
+        <div class="plan-desc">For retailers evaluating brands for shelf placement or supplier vetting based on claim transparency.</div>
         <ul class="plan-features">
-          <li>Everything in Early Access</li>
-          <li>Category benchmark feeds — rank and score distributions</li>
-          <li>Raw claim text access</li>
-          <li>Custom domain filtering</li>
-          <li>Priority support</li>
-          <li>Dedicated Slack channel</li>
-          <li>Monthly data briefing</li>
+          <li>Brand trust scores across your supplier list</li>
+          <li>Category signal summaries</li>
+          <li>Score change alerts</li>
+          <li>Dedicated support</li>
         </ul>
-        <button class="plan-btn plan-btn-p" onclick="openDataCapture('pro_access','Pro Access',true)">Request data access</button>
+        <button class="plan-btn plan-btn-p" onclick="openDataCapture('pro_access','Retailers',true)">Request access</button>
         <div id="data-growth-ok" class="plan-success">Request received. We'll reach out with access details.</div>
       </div>
 
       <div class="plan">
         <div class="plan-label">Enterprise</div>
         <div class="plan-price" style="font-size:28px;margin-top:4px">Custom</div>
-        <div class="plan-period" style="margin-bottom:24px">volume pricing · SLA available</div>
-        <div class="plan-desc">For institutional partners with custom data needs, white-label use, or regulatory workflows.</div>
+        <div class="plan-period" style="margin-bottom:24px">contact us</div>
+        <div class="plan-desc">For institutional partners with large brand coverage needs, compliance workflows, or custom data requirements.</div>
         <ul class="plan-features">
-          <li>Unlimited API calls</li>
-          <li>Custom data schema</li>
-          <li>White-label licensing</li>
-          <li>SLA and uptime guarantee</li>
-          <li>Structured delivery with data provenance documentation</li>
-          <li>Historical archive access</li>
-          <li>Dedicated data team contact</li>
-          <li>Custom reporting cadence</li>
+          <li>High-volume brand coverage</li>
+          <li>Historical data access</li>
+          <li>Custom delivery format</li>
+          <li>Dedicated contact</li>
         </ul>
-        <button class="plan-btn plan-btn-p" onclick="openDataCapture('enterprise','Enterprise',true)">Request data access</button>
+        <button class="plan-btn plan-btn-p" onclick="openDataCapture('enterprise','Enterprise',true)">Request access</button>
         <div id="data-ent-ok" class="plan-success">Request received. We'll reach out with access details.</div>
       </div>
 
@@ -474,31 +451,6 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
     <p style="font-size:13px;color:var(--t2);line-height:1.75;max-width:680px">NORM scores are the output of editorial review of publicly available brand marketing claims and visible evidence. Reviewers do not have access to commercial account information when scoring. Brand Pro subscribers receive workflow tools and analytical access to their own data — not editorial access, queue priority, or score modification capabilities. This separation is enforced structurally, not by policy alone.</p>
   </div>
 
-  <!-- VERIFIED ACCESS -->
-  <div class="verified-block" style="margin-bottom:64px">
-    <div class="verified-tag">Verified Access — Transparency Layer</div>
-    <h3 style="font-family:var(--serif);font-size:clamp(22px,2.5vw,32px);font-weight:400;line-height:1.15;letter-spacing:-.015em;margin-bottom:10px">Evidence submission, independently reviewed.</h3>
-    <p style="font-size:14px;color:var(--t2);max-width:600px;line-height:1.75">Brands may submit non-public evidence for NORM's editorial review. Verified Access is a transparency tool — not a marketing channel. A Verified Access badge may appear on a brand page if evidence clears review. The public Evidence Gap Score is never modified by Verified Access.</p>
-    <div class="verified-grid">
-      <div class="verified-item">
-        <div class="verified-dot"></div>
-        <div><h4>Brands submit non-public evidence</h4><p>Studies, certifications, regulatory filings, or internal validation data not publicly indexed.</p></div>
-      </div>
-      <div class="verified-item">
-        <div class="verified-dot"></div>
-        <div><h4>Signal reviews independently</h4><p>Editorial team assesses submitted evidence against the same rubric used for all public scoring.</p></div>
-      </div>
-      <div class="verified-item">
-        <div class="verified-dot"></div>
-        <div><h4>Verified Access badge may be displayed</h4><p>If evidence clears review, a Verified Access indicator appears on the brand page — separate from the score.</p></div>
-      </div>
-      <div class="verified-item">
-        <div class="verified-dot"></div>
-        <div><h4>Public Evidence Gap Score is not modified</h4><p>Verified Access does not raise, lower, or influence the public score. Scores reflect public marketing claims only.</p></div>
-      </div>
-    </div>
-    <a href="mailto:support@trynorm.co?subject=Verified Access inquiry" class="verified-contact">Contact us about Verified Access →</a>
-  </div>
 
   <!-- WHY THIS MODEL -->
   <div style="margin-bottom:64px">
@@ -514,7 +466,7 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
       </div>
       <div class="why-item">
         <div class="why-num">03</div>
-        <div><h4>Evidence can be submitted, not purchased</h4><p>Any brand or consumer can submit evidence at no cost. Verified Access is a review workflow — not score modification.</p></div>
+        <div><h4>Evidence can be submitted, not purchased</h4><p>Any brand or consumer can submit evidence at no cost. Evidence is reviewed on merit — payment is never a factor.</p></div>
       </div>
       <div class="why-item">
         <div class="why-num">04</div>
@@ -562,7 +514,7 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
     </div>
     <div class="footer-col">
       <h5>Industry</h5>
-      <a href="/brand-portal">For brands</a>
+      <a href="mailto:support@trynorm.co">For brands</a>
       <a href="mailto:support@trynorm.co">For retailers</a>
       <a href="mailto:support@trynorm.co">For investors</a>
     </div>
@@ -572,9 +524,14 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
       <a href="/methodology">Methodology</a>
       <a href="mailto:support@trynorm.co">Contact</a>
     </div>
+    <div class="footer-col">
+      <h5>Legal</h5>
+      <a href="/terms">Terms of Service</a>
+      <a href="/privacy">Privacy Policy</a>
+    </div>
   </div>
 </footer>
-<div class="footer-copy">&#169; 2025 NORM &nbsp;&#183;&nbsp; No brand payments &nbsp;&#183;&nbsp; Open methodology &nbsp;&#183;&nbsp; Consumer-first</div>
+<div class="footer-copy">&#169; 2026 NORM Analytics &nbsp;&#183;&nbsp; Payment never influences scores &nbsp;&#183;&nbsp; Open methodology</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
@@ -725,6 +682,14 @@ document.getElementById("capEmail").addEventListener("keydown", function(e) {
 document.addEventListener("keydown", function(e) {
   if (e.key === "Escape") closeCaptureModal();
 });
+</script>
+<script>
+(function() {
+  var tok = localStorage.getItem('bhvd_token');
+  var a = document.getElementById('nav-account-btn');
+  var s = document.getElementById('nav-signin-btn');
+  if (tok && a && s) { a.style.display = ''; s.style.display = 'none'; }
+})();
 </script>
 
 </body>

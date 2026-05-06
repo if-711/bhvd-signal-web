@@ -77,11 +77,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .rh-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:20px}
 .rh-brand{font-family:var(--serif);font-size:clamp(32px,5vw,52px);font-weight:400;line-height:1.05;letter-spacing:-.02em;margin-bottom:6px}
 .rh-domain{font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.04em;margin-bottom:10px}
+.rh-domain-link{color:var(--t3);text-decoration:none;border-bottom:1px solid var(--b1)}
+.rh-domain-link:hover{color:var(--t2);border-bottom-color:var(--t3)}
+.raw-claim-src a{color:var(--t3);text-decoration:underline;text-underline-offset:2px}
+.raw-claim-src a:hover{color:var(--t2)}
+.claim-locked-teaser{display:flex;flex-direction:column;gap:0}
+.claim-locked-row{display:flex;align-items:flex-start;gap:10px;background:var(--bg2);border:1px solid var(--b1);border-radius:8px 8px 0 0;padding:13px 16px}
+.claim-locked-text{flex:1;font-size:13px;color:var(--t1);line-height:1.5;font-style:italic}
+.claim-locked-evidence{display:flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--b1);border-top:none;border-radius:0 0 8px 8px;padding:10px 16px;font-size:12px;color:var(--t3);font-family:var(--mono)}
+.claim-locked-upgrade{color:var(--t3);text-decoration:underline;text-underline-offset:2px}
+.claim-locked-upgrade:hover{color:var(--t2)}
 .rh-category{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase}
 .rh-score-block{flex-shrink:0;text-align:center}
-.rh-score{font-family:var(--serif);font-size:80px;font-weight:400;line-height:1;letter-spacing:-.03em}
-.rh-score-label{font-size:11px;color:var(--t2);font-family:var(--mono);letter-spacing:.06em;margin-top:2px}
-.rh-verdict-badge{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;padding:5px 14px;border-radius:100px;border:1px solid;margin-top:10px;text-transform:uppercase}
+.rh-verdict-badge{display:inline-block;font-family:var(--serif);font-size:clamp(28px,4vw,42px);font-weight:400;letter-spacing:-.01em;padding:0;border:none;background:none;margin-bottom:6px;font-style:italic}
+.rh-score{font-family:var(--mono);font-size:22px;font-weight:500;line-height:1;letter-spacing:-.01em;opacity:.7}
+.rh-score-label{font-size:10px;color:var(--t3);font-family:var(--mono);letter-spacing:.06em;margin-top:2px}
 .rh-sparkline-wrap{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px}
 .rh-sparkline-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--t3)}
 .rh-meta{display:flex;gap:20px;flex-wrap:wrap;padding:16px 0;border-top:1px solid var(--b1);border-bottom:1px solid var(--b1)}
@@ -136,6 +146,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .receipt-badge{flex-shrink:0;margin-top:2px}
 .receipt-evidence{padding:10px 18px 14px;background:var(--bg3);border-top:1px solid var(--b1);font-size:12px;color:var(--t2);line-height:1.65}
 .receipt-evidence-label{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+.receipt-tags{display:flex;flex-wrap:wrap;gap:6px;padding:6px 18px 10px}
+.receipt-tag{font-family:var(--mono);font-size:9px;letter-spacing:.06em;padding:2px 8px;border-radius:4px;border:1px solid;background:rgba(255,255,255,0.03)}
 .receipt-meta{display:flex;gap:16px;padding:8px 18px;border-top:1px solid var(--b1);background:rgba(255,255,255,.01)}
 .receipt-meta-item{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.04em}
 .gap-badge{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.07em;padding:3px 9px;border-radius:100px;text-transform:uppercase;border:1px solid}
@@ -428,6 +440,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .bp-roadmap{display:flex;flex-direction:column;gap:10px}
 .bp-roadmap-item{background:rgba(74,120,240,0.05);border:1px solid rgba(74,120,240,0.15);border-radius:8px;padding:12px 14px;font-size:12px;color:var(--t1);line-height:1.55;display:flex;gap:12px;align-items:flex-start}
 .bp-roadmap-num{font-family:var(--mono);font-size:11px;color:var(--acc);flex-shrink:0;margin-top:1px}
+/* Coming soon */
+.rsec-coming-soon{margin:24px 0;padding:20px 24px;background:var(--bg2);border:1px solid var(--b1);border-radius:12px}
+.csoon-label{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:14px}
+.csoon-items{display:flex;flex-direction:column;gap:12px}
+.csoon-item{display:flex;gap:12px;align-items:flex-start}
+.csoon-icon{font-family:var(--mono);font-size:11px;color:var(--t3);flex-shrink:0;margin-top:2px}
+.csoon-title{font-size:13px;font-weight:500;color:var(--t2);margin-bottom:2px}
+.csoon-sub{font-size:12px;color:var(--t3);line-height:1.55}
 /* Loading/error states */
 .bp-loading{font-family:var(--mono);font-size:11px;color:var(--t3);padding:20px 0}
 .bp-error{font-size:12px;color:var(--t3);background:var(--bg2);border:1px solid var(--b1);border-radius:8px;padding:16px;margin-top:8px}
@@ -468,7 +488,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
       <button class="share-btn" id="shareBtn" onclick="toggleSharePopover()">↑ Share Score</button>
       <div class="share-popover" id="sharePopover"></div>
     </div>
-    <button class="btn btn-sm" onclick="window.print()">Save PDF</button>
+    <a href="/account" class="btn btn-sm" id="nav-account-btn" style="display:none">Account</a>
+    <a href="/account" class="btn btn-sm" id="nav-signin-btn">Sign in</a>
+    <a href="/pricing" class="btn btn-primary btn-sm">Get NORM Pro</a>
     <a class="btn btn-primary btn-sm" href="/leaderboard">← Leaderboard</a>
   </div>
 </nav>
@@ -495,11 +517,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
           <div class="rh-brand" id="rh-brand">—</div>
           <div class="rh-domain" id="rh-domain">—</div>
           <div class="rh-category" id="rh-category">—</div>
+          <div id="user-pro-badge" style="display:none;margin-top:8px;display:inline-flex;align-items:center;gap:6px;background:rgba(74,120,240,0.12);border:1px solid rgba(74,120,240,0.3);border-radius:6px;padding:3px 10px;font-size:11px;font-family:var(--mono);letter-spacing:.06em;color:#4a78f0">◈ PRO — full evidence unlocked</div>
         </div>
         <div class="rh-score-block">
+          <div class="rh-verdict-badge" id="rh-verdict">—</div>
           <div class="rh-score" id="rh-score">—</div>
           <div class="rh-score-label">out of 100</div>
-          <div class="rh-verdict-badge" id="rh-verdict">—</div>
           <div class="rh-sparkline-wrap" id="rh-sparkline-wrap" style="display:none">
             <svg id="rh-sparkline" width="88" height="24" style="overflow:visible"></svg>
             <span class="rh-sparkline-lbl" id="rh-sparkline-lbl"></span>
@@ -538,6 +561,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
         <div class="rh-meta-item">
           <div class="rh-meta-label">Category Standing</div>
           <div class="rh-meta-val" id="meta-standing" style="display:none">—</div>
+        </div>
+        <div class="rh-meta-item">
+          <div class="rh-meta-label">Ads Running</div>
+          <div class="rh-meta-val" id="meta-ads-val"><a id="meta-ads-link" href="#" target="_blank" rel="noopener" style="color:var(--acc);font-size:12px">Check Meta Ad Library →</a></div>
         </div>
       </div>
       <!-- Scope of assessment -->
@@ -614,11 +641,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
       </div>
     </div>
 
-    <!-- Claim Receipts -->
-    <div class="rsec" id="receipts-sec">
-      <div class="rsec-title">Claim Evidence Review</div>
+    <!-- Claim Evidence — locked teaser -->
+    <div class="rsec" id="receipts-sec" style="display:none">
+      <div class="rsec-title">Flagged Claims</div>
       <div class="receipts-list" id="receipts-list"></div>
-      <div style="margin-top:10px;font-size:11px;color:var(--t3);font-family:var(--mono)">Claims extracted from brand marketing pages. Status reflects whether visible evidence on the same page supports the claim.</div>
+      <div class="claim-locked-teaser" id="claim-locked-teaser" style="display:none">
+        <div class="claim-locked-row">
+          <span class="gap-badge" id="claim-teaser-badge">PARTIAL</span>
+          <span class="claim-locked-text" id="claim-teaser-text"></span>
+        </div>
+        <div class="claim-locked-evidence">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;opacity:.5"><rect x="3" y="6" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 6V4.5a2 2 0 1 1 4 0V6" stroke="currentColor" stroke-width="1.3"/></svg>
+          <span>What the evidence shows — </span><a href="/pricing" class="claim-locked-upgrade">unlock with Pro</a>
+        </div>
+      </div>
     </div>
 
     <!-- Raw Claims Captured -->
@@ -683,6 +719,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
       <div class="rsec-title">Evidence Summary</div>
       <div class="score-dims" id="score-dims"></div>
     </div>
+
 
     <!-- Brand Tools: Evidence Gap Trigger -->
     <div class="ct-strip ct-brand" id="ct-gaps" style="display:none">
@@ -880,9 +917,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 
         <!-- Priority Rescore -->
         <div class="bp-section">
-          <div class="bp-section-title">Priority Rescore Request</div>
+          <div class="bp-section-title">Rescore Request</div>
           <div class="bp-rescore-box">
-            <div class="bp-rescore-desc">Request a priority rescore after updating your page or adding evidence. Your brand is queued above standard cron rescores. Limit: 1 per 7 days.</div>
+            <div class="bp-rescore-desc">Request a rescore after updating your page or adding evidence. Rescores are reviewed on the same basis as all other submissions. Limit: 1 per 7 days.</div>
             <div class="bp-rescore-fields">
               <div>
                 <label class="bp-rescore-label">Reason</label>
@@ -926,7 +963,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
         <div class="capture-inline-note">One email when scored. That's it.</div>
       </div>
       <div class="unassessed-portal">
-        Are you this brand? <a href="/brand-portal" onclick="track('brand_claim_profile_click',{domain:domain})">Submit supporting evidence via Brand Portal</a>
+        Are you this brand? <a href="mailto:support@trynorm.co" onclick="track('brand_claim_profile_click',{domain:domain})">Contact us to submit supporting evidence</a>
       </div>
     </div>
   </div><!-- /state-not-assessed -->
@@ -946,6 +983,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 
 <script>
 var API = "https://bhvd-signal-api.fly.dev";
+
+// Nav auth state
+(function() {
+  var tok = localStorage.getItem('bhvd_token');
+  var accountBtn = document.getElementById('nav-account-btn');
+  var signinBtn = document.getElementById('nav-signin-btn');
+  if (tok && accountBtn && signinBtn) {
+    accountBtn.style.display = '';
+    signinBtn.style.display = 'none';
+  }
+})();
 
 // ── Event tracking ─────────────────────────────────────────────
 function ctTrack(eventName, context) {
@@ -1045,7 +1093,7 @@ var DIMS = [
   { label:"Evidence Presence",     key:"evidence_presence",   max:10 },
   { label:"Evidence Strength",     key:"evidence_strength",   max:25 },
   { label:"Effect Reality",        key:"effect_reality",      max:15 },
-  { label:"Claim Proportionality", key:"consumer_distortion", max:20 },
+  { label:"Marketing Honesty", key:"consumer_distortion", max:20 },
 ];
 
 var VERDICT_COLOR = {
@@ -1303,7 +1351,10 @@ function renderVerified(brand, product, ld, dims, demand) {
   // Header
   setText("rh-brand",    brand.brand_name || brand.domain);
   var domEl = document.getElementById("rh-domain");
-  if (domEl) domEl.textContent = brand.domain;
+  if (domEl) {
+    var siteUrl = brand.website_url || ("https://" + brand.domain);
+    domEl.innerHTML = '<a href="' + esc(siteUrl) + '" target="_blank" rel="noopener" class="rh-domain-link">' + esc(brand.domain) + ' ↗</a>';
+  }
   setText("rh-category", (product.category || "").replace(/_/g," "));
 
   var scoreEl = document.getElementById("rh-score");
@@ -1371,6 +1422,13 @@ function renderVerified(brand, product, ld, dims, demand) {
   if (rankForMeta) {
     var standEl = document.getElementById("meta-standing");
     if (standEl) { standEl.textContent = "#" + rankForMeta + " in category"; standEl.style.display = ""; }
+  }
+
+  // Ad Library deep-link (Meta)
+  var adLinkEl = document.getElementById("meta-ads-link");
+  if (adLinkEl && brand.name) {
+    adLinkEl.href = "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=US&q=" +
+      encodeURIComponent(brand.name) + "&search_type=keyword_unordered&media_type=all";
   }
 
   // Category Benchmark card
@@ -1452,24 +1510,56 @@ function renderVerified(brand, product, ld, dims, demand) {
       receiptsEl.innerHTML = receipts.map(function(r) {
         var bClass = BADGE_MAP[r.status]  || "badge-gap";
         var bLabel = BADGE_LABEL[r.status]|| r.status;
+        var ev = (r.evidence || "").toLowerCase();
+        var tags = [];
+        // Use structured evidence_type if available (new pipeline), else parse text
+        var ET = { rct:'RCT', observational:'Observational', peer_reviewed:'Peer-reviewed',
+                   brand_funded:'Brand-funded', animal_lab:'Animal/lab only', none:'No evidence found' };
+        var EC = { rct:'#1e9459', observational:'#8b93b0', peer_reviewed:'#4a78f0',
+                   brand_funded:'#c07718', animal_lab:'#8b93b0', none:'#9e3028' };
+        if (r.evidence_type && ET[r.evidence_type]) {
+          tags.push({t: ET[r.evidence_type], c: EC[r.evidence_type]});
+        } else {
+          if (/\brct\b|randomized.{0,20}trial|placebo.control/.test(ev))          tags.push({t:'RCT', c:'#1e9459'});
+          else if (/peer.reviewed|pubmed|pmid|published/.test(ev))                tags.push({t:'Peer-reviewed', c:'#4a78f0'});
+          if (/brand.run|industry.funded|brand.sponsored|company.funded/.test(ev)) tags.push({t:'Brand-funded', c:'#c07718'});
+          if (/observational|self.report|survey/.test(ev))                         tags.push({t:'Observational', c:'#8b93b0'});
+          if (/animal|in.vitro|in vitro|cell/.test(ev))                            tags.push({t:'Animal/lab only', c:'#8b93b0'});
+          if (/absent|no.published|no.trial|no.study|no.evidence|no.peer/.test(ev) || !r.evidence) tags.push({t:'No evidence found', c:'#9e3028'});
+        }
+        var tagsHtml = tags.length
+          ? '<div class="receipt-tags">' + tags.map(function(tg) {
+              return '<span class="receipt-tag" style="border-color:' + tg.c + ';color:' + tg.c + '">' + tg.t + '</span>';
+            }).join('') + '</div>'
+          : '';
         var evidenceHtml = r.hasEvidence
-          ? '<div class="receipt-evidence"><div class="receipt-evidence-label">Evidence found</div>' + esc(r.evidence) + '</div>'
-          : "";
+          ? '<div class="receipt-evidence"><div class="receipt-evidence-label">What the evidence shows</div>' + esc(r.evidence) + '</div>'
+          : (r.status === 'gap' ? '<div class="receipt-evidence" style="color:var(--t3);font-style:italic">No supporting evidence found for this claim.</div>' : '');
         return '<div class="receipt-row">' +
           '<div class="receipt-header">' +
             '<div class="receipt-claim">' + esc(r.claim) + '</div>' +
             '<div class="receipt-badge"><span class="gap-badge ' + bClass + '">' + bLabel + '</span></div>' +
           '</div>' +
+          tagsHtml +
           evidenceHtml +
           '<div class="receipt-meta">' +
-            '<span class="receipt-meta-item">Source: ' + esc(sourceLabel) + '</span>' +
             '<span class="receipt-meta-item">Captured: ' + esc(capturedDate) + '</span>' +
           '</div>' +
         '</div>';
       }).join("");
       showEl("receipts-sec");
-    } else {
-      hideEl("receipts-sec");
+    } else if (brand.teaser_claim) {
+      // Free tier — show real claim text, lock the evidence verdict
+      var teaserEl   = document.getElementById("claim-locked-teaser");
+      var badgeEl    = document.getElementById("claim-teaser-badge");
+      var textEl     = document.getElementById("claim-teaser-text");
+      var STATUS_BADGE = { gap: "badge-gap", partial: "badge-partial", missing: "badge-gap", aligned: "badge-aligned" };
+      var STATUS_LABEL = { gap: "GAP", partial: "PARTIAL", missing: "GAP", aligned: "ALIGNED" };
+      var st = brand.teaser_claim.status || "partial";
+      if (badgeEl) { badgeEl.textContent = STATUS_LABEL[st] || "FLAGGED"; badgeEl.className = "gap-badge " + (STATUS_BADGE[st] || "badge-partial"); }
+      if (textEl)  { textEl.textContent = "“" + brand.teaser_claim.claim + "”"; }
+      if (teaserEl) teaserEl.style.display = "";
+      showEl("receipts-sec");
     }
   }
 
@@ -1482,12 +1572,13 @@ function renderVerified(brand, product, ld, dims, demand) {
     var tierClass = { 1: "raw-claim-tier-1", 2: "raw-claim-tier-2", 3: "raw-claim-tier-3" };
     rawClaimsList.innerHTML = rawReceipts.map(function(rc) {
       var tier = rc.tier || 2;
-      var srcShort = (rc.source_url || "").replace(/^https?:\/\//, "").split(" ")[0].split("?")[0];
+      var srcFull  = (rc.source_url || "").split(" ")[0];
+      var srcShort = srcFull.replace(/^https?:\/\//, "").split("?")[0];
       return '<div class="raw-claim-row">' +
         '<div class="raw-claim-text">' + esc(rc.text || rc.text_snippet || "") + '</div>' +
         '<div class="raw-claim-meta">' +
           '<span class="raw-claim-tier ' + (tierClass[tier] || "raw-claim-tier-2") + '">' + (tierLabel[tier] || "Claim") + '</span>' +
-          (srcShort ? '<span class="raw-claim-src">' + esc(srcShort) + '</span>' : '') +
+          (srcShort ? '<span class="raw-claim-src"><a href="' + esc(srcFull) + '" target="_blank" rel="noopener">' + esc(srcShort) + '</a></span>' : '') +
         '</div>' +
       '</div>';
     }).join("");
@@ -1553,19 +1644,29 @@ function renderVerified(brand, product, ld, dims, demand) {
     if (capReportSec) capReportSec.style.display = "";
   }
 
-  // Evidence cards
-  if (dims.evidence_presence != null) {
+  // Evidence cards — seeder schema has evidence_presence/evidence_strength directly;
+  // fallback to equivalent dimensions from brand.dimensions (pre-normalized 0-100)
+  var epVal = dims.evidence_presence != null ? dims.evidence_presence : null;
+  var esVal = dims.evidence_strength  != null ? dims.evidence_strength  : null;
+  if ((epVal == null || esVal == null) && brand.dimensions && brand.dimensions.length) {
+    brand.dimensions.forEach(function(d) {
+      var n = d.name;
+      if (epVal == null && (n === "source_transparency" || n === "evidence_alignment")) epVal = Math.round(d.score / 10);
+      if (esVal == null && (n === "evidence_alignment" || n === "mechanism_integrity")) esVal = Math.round(d.score / 4);
+    });
+  }
+  if (epVal != null) {
     var ep = document.getElementById("ev-presence");
     if (ep) {
-      ep.textContent = dims.evidence_presence + " / 10";
-      ep.style.color = dims.evidence_presence >= 7 ? "#27ae60" : dims.evidence_presence >= 4 ? "#f39c12" : "#e74c3c";
+      ep.textContent = epVal + " / 10";
+      ep.style.color = epVal >= 7 ? "#27ae60" : epVal >= 4 ? "#f39c12" : "#e74c3c";
     }
   }
-  if (dims.evidence_strength != null) {
+  if (esVal != null) {
     var es = document.getElementById("ev-strength");
     if (es) {
-      es.textContent = dims.evidence_strength + " / 25";
-      es.style.color = dims.evidence_strength >= 15 ? "#27ae60" : dims.evidence_strength >= 8 ? "#f39c12" : "#e74c3c";
+      es.textContent = esVal + " / 25";
+      es.style.color = esVal >= 15 ? "#27ae60" : esVal >= 8 ? "#f39c12" : "#e74c3c";
     }
   }
   var findingsEl = document.getElementById("findings-list");
@@ -1588,11 +1689,12 @@ function renderVerified(brand, product, ld, dims, demand) {
   // Scoring breakdown
   var dimsEl = document.getElementById("score-dims");
   if (dimsEl) {
-    // Only show full breakdown when we have at least 5 of 6 current-schema keys
+    // Try new seeder schema first (specificity/mechanism/etc.)
     var dimMatches = DIMS.filter(function(d){ return dims[d.key] != null; }).length;
     var hasDims = dimMatches >= 5;
+
     if (hasDims) {
-      // Recompute score from dims (caps each at max) so total matches the bars
+      // Seeder schema: raw sub-scores with known maxes
       var dimTotal = DIMS.reduce(function(acc, d){
         return acc + (dims[d.key] != null ? Math.min(dims[d.key], d.max) : 0);
       }, 0);
@@ -1620,6 +1722,45 @@ function renderVerified(brand, product, ld, dims, demand) {
         '<div class="dim-total-score" style="color:'+color+'">'+score+' / 100</div>' +
       '</div>';
       if (hasGaps) ctShow("ct-gaps", "brand_tools_trigger_view", "evidence_gap");
+
+    } else if (brand.dimensions && brand.dimensions.length >= 4) {
+      // Check if these are old-schema risk-inverted dims (regulatory_risk, claim_specificity, etc.)
+      // Those dims are NOT comparable to the overall score — suppress them to avoid misleading bars
+      var OLD_KEYS = ['regulatory_risk','claim_specificity','evidence_alignment','mechanism_integrity',
+                      'source_transparency','comparative_fairness','trust_signal_integrity'];
+      var isOldSchema = brand.dimensions.some(function(d){ return OLD_KEYS.indexOf(d.name) !== -1; });
+
+      if (isOldSchema) {
+        dimsEl.innerHTML =
+          '<div style="padding:16px 0 8px;color:var(--t3);font-size:12px;font-family:var(--mono);letter-spacing:.03em;line-height:1.6">' +
+            'Dimension breakdown is being refreshed with the updated scoring model.<br>' +
+            '<span style="color:var(--t3);font-size:11px">Overall score below reflects the full assessment.</span>' +
+          '</div>' +
+          '<div class="dim-total-row">' +
+            '<div class="dim-total-label">Total Score</div>' +
+            '<div class="dim-total-score" style="color:'+color+'">'+score+' / 100</div>' +
+          '</div>';
+      } else {
+        // New-style pre-normalized dims (non-old-schema) — render bars
+        var hasGaps2 = false;
+        dimsEl.innerHTML = brand.dimensions.map(function(d){
+          var pct = Math.min(Math.max(Math.round(d.score), 0), 100);
+          var c   = pct >= 65 ? "#3ecf82" : pct >= 40 ? "#e8a840" : "#e05a50";
+          if (pct < 40) hasGaps2 = true;
+          return '<div class="dim-row">' +
+            '<div class="dim-name">'+esc(d.label)+'</div>'+
+            '<div class="dim-bar-wrap"><div class="dim-bar-fill" style="width:'+pct+'%;background:'+c+'"></div></div>'+
+            '<div class="dim-score" style="color:'+c+'">'+pct+'</div>'+
+            '<div class="dim-max">/ 100</div>'+
+          '</div>';
+        }).join("") +
+        '<div class="dim-total-row">' +
+          '<div class="dim-total-label">Total Score</div>' +
+          '<div class="dim-total-score" style="color:'+color+'">'+score+' / 100</div>' +
+        '</div>';
+        if (hasGaps2) ctShow("ct-gaps", "brand_tools_trigger_view", "evidence_gap");
+      }
+
     } else {
       dimsEl.innerHTML =
         '<div style="padding:20px 0;color:var(--t3);font-size:13px;font-family:var(--mono);letter-spacing:.03em">' +
@@ -1633,48 +1774,19 @@ function renderVerified(brand, product, ld, dims, demand) {
   }
 
   // Risk flags
-  var flagsEl  = document.getElementById("flags-list");
+  // Flags, consumer note, limitations, strengths — gated to paid users, never shown here
   var flagsSec = document.getElementById("flags-sec");
-  var flags = Array.isArray(ld.why_flagged_top_reasons) ? ld.why_flagged_top_reasons : [];
-  // Also use product.why_flagged_top_reasons if present
-  if (!flags.length && Array.isArray(product.why_flagged_top_reasons)) flags = product.why_flagged_top_reasons;
-  if (flagsEl && flags.length) {
-    var flagColor = color === "#27ae60" ? "#f39c12" : "#e74c3c";
-    flagsEl.innerHTML = flags.map(function(f){
-      return '<div class="flag-item"><div class="flag-dot" style="background:'+flagColor+'"></div><div class="flag-text">'+esc(f)+'</div></div>';
-    }).join("");
-    if (flagsSec) flagsSec.style.display = "";
-  } else if (flagsSec) {
-    flagsSec.style.display = "none";
-  }
-
-  // Consumer interpretation
-  var consumerSec   = document.getElementById("consumer-sec");
-  var consumerItems = document.getElementById("consumer-items");
-  var note = sanitize(ld.consumer_note || "");
-  if (note && consumerItems) {
-    var sentences = note.replace(/\s+/g," ").split(/\.\s+/).filter(Boolean).slice(0,4);
-    consumerItems.innerHTML = sentences.map(function(s){
-      return '<div class="consumer-item">'+esc(s.replace(/\.$/,""))+'.</div>';
-    }).join("");
-    if (consumerSec) consumerSec.style.display = "";
-  }
-
-  // Limitations
-  var limText = sanitize(ld.limitations || "");
-  if (limText) {
-    setText("limitations-box", limText);
-    showEl("limitations-sec");
-  }
+  if (flagsSec) flagsSec.style.display = "none";
+  var consumerSec = document.getElementById("consumer-sec");
+  if (consumerSec) consumerSec.style.display = "none";
+  hideEl("limitations-sec");
+  hideEl("fv-strengths");
 
   // Final verdict
   var fv = document.getElementById("final-verdict");
   if (fv) { fv.style.color=color; fv.style.borderColor=color+"40"; fv.style.background=color+"06"; }
-  var suffix = score >= 68 ? " — strong evidence alignment" : score >= 55 ? " — with some evidence gaps" : " — claims outrun visible evidence";
-  setText("fv-verdict", verdict + suffix);
+  setText("fv-verdict", verdict);
   setText("fv-note",    ld.why_this_verdict || "");
-  if (ld.strengths) { setText("fv-strengths", ld.strengths); showEl("fv-strengths"); }
-  else hideEl("fv-strengths");
 
   // CTAs — dispute form is inline; no page redirect needed
   var domain = brand.domain || "";
@@ -1941,38 +2053,57 @@ function brandHandle(brandName, domain) {
 
 function generateXShareText(brandName, score, link, domain) {
   var handle = brandHandle(brandName, domain);
+  var sig = score >= 68 ? 'green' : score >= 55 ? 'yellow' : 'red';
+
+  var verdictPhrase = {
+    green:  ['Their claims check out. Rare.', 'Evidence backs it up. Actually.', 'They showed their proof. Not many do.'],
+    yellow: ['Some receipts. Not all of them.', 'Partial evidence. Worth knowing.', 'Claims stretch a bit past what they show.'],
+    red:    ['Claims well ahead of visible evidence.', 'Strong claims. Thin receipts.', 'They\'re asking you to take their word for it.']
+  }[sig];
+
   var hooks = [
-    'Thinking about ' + brandName + '?',
-    'Before you buy ' + brandName + ' —',
-    'If you\'re using ' + brandName + ' —',
-    'Quick check on ' + brandName + ' —'
+    'NORM looked at ' + brandName + '.',
+    brandName + ' met NORM.',
+    'Thinking about ' + brandName + '? So was NORM.',
+    'Before you spend on ' + brandName + ' —',
+    'NORM had ' + brandName + ' for breakfast.',
+    'NORM scored ' + brandName + '. Here\'s what he found.'
   ];
-  var insights = [
-    'Most people never check what this actually means.',
-    'This gets misunderstood a lot.',
-    'Almost no one verifies this.',
-    'Looks simple — it\'s not.'
+
+  var scoreLines = [
+    score + '/100 — ' + verdictPhrase[Math.floor(Math.random() * verdictPhrase.length)],
+    'NORM Score: ' + score + '/100. ' + verdictPhrase[Math.floor(Math.random() * verdictPhrase.length)],
+    score + ' out of 100. ' + verdictPhrase[Math.floor(Math.random() * verdictPhrase.length)]
   ];
-  var features = [
-    'Runs automatically on product pages.',
-    'There\'s an instant check for this.',
-    'No digging. It surfaces instantly.',
-    'Tap. Check. Done.'
+
+  var normLines = [
+    'NORM reads the fine print so you don\'t have to.',
+    'NORM doesn\'t take brands at their word. That\'s the whole point.',
+    'NORM has an appetite for this — every claim, every page, every footnote.',
+    'NORM goes through the hero headlines, the fine print, the stuff behind "clinically proven." All of it.',
+    'NORM\'s job is finding what they\'re not showing you.',
+    'NORM consumed their whole site. Measured every claim against what they actually show to back it up.',
+    'NORM is always hungry. Brands are always marketing. Somebody has to check.'
   ];
-  var scoreLabels = ['NORM Score: ' + score + '/100', 'Rating: ' + score + '/100', 'Score: ' + score + '/100'];
-  var runLines    = ['I ran this through NORM.', 'Checked it on NORM.', 'Pulled the NORM rating.'];
-  var hook        = hooks[Math.floor(Math.random() * hooks.length)];
-  var scoreLabel  = scoreLabels[Math.floor(Math.random() * scoreLabels.length)];
-  var runLine     = runLines[Math.floor(Math.random() * runLines.length)];
-  var insight     = insights[Math.floor(Math.random() * insights.length)];
-  var feature     = features[Math.floor(Math.random() * features.length)];
+
+  var ctaLines = [
+    'Check any brand before you spend. Free. ' + link,
+    'Run your stack at trynorm.co — ' + link,
+    'Full breakdown → ' + link,
+    'NORM will tell you what they won\'t. ' + link,
+    'Free. No account needed. ' + link
+  ];
+
+  var hook      = hooks[Math.floor(Math.random() * hooks.length)];
+  var scoreLine = scoreLines[Math.floor(Math.random() * scoreLines.length)];
+  var normLine  = normLines[Math.floor(Math.random() * normLines.length)];
+  var cta       = ctaLines[Math.floor(Math.random() * ctaLines.length)];
+
   return (
     hook + '\n\n' +
-    scoreLabel + '\n\n' +
-    runLine + '\n\n' +
-    insight + '\n\n' +
-    feature + '\n\n' +
-    handle + ' ' + link + '\n\n' +
+    handle + ' ' + scoreLine + '\n\n' +
+    normLine + '\n\n' +
+    cta + '\n\n' +
     '#normcheck'
   );
 }
@@ -2151,8 +2282,11 @@ function copyEmbedCode() {
     }).catch(function(){});
   }
 
-  // Fire both fetches in parallel
-  var brandPromise  = fetch(API + "/api/domain/" + encodeURIComponent(domain))
+  // Fire both fetches in parallel — send auth token if logged in for Pro data
+  var _authToken = localStorage.getItem('bhvd_token');
+  // Also check Supabase session for token
+  var _fetchHeaders = _authToken ? { 'Authorization': 'Bearer ' + _authToken } : {};
+  var brandPromise  = fetch(API + "/api/domain/" + encodeURIComponent(domain), { headers: _fetchHeaders })
     .then(function(r){
       if (r.status === 404) return { _notFound: true };
       if (!r.ok) return Promise.reject(new Error("HTTP " + r.status));
@@ -2219,6 +2353,18 @@ var _SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 
 function getUserTier() {
   return new Promise(function(resolve) {
+    // Check localStorage token first (set by account page login)
+    var storedToken = localStorage.getItem('bhvd_token');
+    if (storedToken) {
+      fetch(API + '/api/stripe/subscription', {
+        headers: { Authorization: 'Bearer ' + storedToken }
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(d) { resolve((d && d.data && d.data.tier) || 'free'); })
+      .catch(function() { resolve('free'); });
+      return;
+    }
+    // Fallback: Supabase session
     if (typeof window.supabase === 'undefined' || !window.supabase.createClient) {
       resolve('free'); return;
     }
@@ -2253,7 +2399,12 @@ function applyTierRestrictions(tier) {
   ];
 
   if (tier === 'pro' || tier === 'retailer') {
-    // Pro: everything visible
+    // Consumer Pro: show evidence detail but hide brand-operational sections
+    var brandOnlySecs = ['capture-report-sec', 'raw-claims-sec', 'embed-sec', 'bp-dashboard'];
+    brandOnlySecs.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
     return;
   }
 
@@ -2305,20 +2456,10 @@ function applyTierRestrictions(tier) {
       var overlay = document.createElement('div');
       overlay.className = 'tier-lock-overlay';
       wrap.appendChild(overlay);
-
-      var claimsBlock = document.createElement('div');
-      claimsBlock.className = 'tier-upgrade-block';
-      claimsBlock.innerHTML =
-        '<div class="tier-upgrade-icon">🔒</div>' +
-        '<div class="tier-upgrade-title">See evidence detail for all ' + rows.length + ' claims</div>' +
-        '<div class="tier-upgrade-sub">Free access shows 3 claim verdicts. Upgrade to see every evidence match, study link, and scoring breakdown.</div>' +
-        '<a href="/pricing" class="tier-upgrade-btn">Upgrade — $9/month</a>' +
-        '<div class="tier-upgrade-note">Cancel anytime · Instant access</div>';
-      wrap.parentNode.insertBefore(claimsBlock, wrap.nextSibling);
     }
   }
 
-  // 2. Hide pro-gated sections and insert one consolidated upgrade block
+  // 2. Hide pro-gated sections and show single upgrade CTA
   var firstHidden = null;
   for (var j = 0; j < proGatedIds.length; j++) {
     var el = document.getElementById(proGatedIds[j]);
@@ -2334,9 +2475,9 @@ function applyTierRestrictions(tier) {
     fullBlock.style.marginTop = '32px';
     fullBlock.innerHTML =
       '<div class="tier-upgrade-icon">🔒</div>' +
-      '<div class="tier-upgrade-title">Unlock the full report</div>' +
-      '<div class="tier-upgrade-sub">Pro includes: full evidence assessment, signal breakdown, consumer interpretation, assessment limitations, and change history.</div>' +
-      '<a href="/pricing" class="tier-upgrade-btn">Upgrade — $9/month</a>' +
+      '<div class="tier-upgrade-title">See the full evidence picture</div>' +
+      '<div class="tier-upgrade-sub">Pro unlocks: every flagged claim with evidence detail, scoring breakdown by dimension, and alerts when this brand changes its claims.</div>' +
+      '<a href="/pricing" class="tier-upgrade-btn">Unlock for $9/month</a>' +
       '<div class="tier-upgrade-note">Cancel anytime · Instant access</div>';
     firstHidden.parentNode.insertBefore(fullBlock, firstHidden);
   }
@@ -2350,6 +2491,8 @@ function applyTierRestrictions(tier) {
     getUserTier().then(function(tier) {
       applyTierRestrictions(tier);
       if (tier === 'brand') loadBrandDashboard(brand.domain);
+      var badge = document.getElementById('user-pro-badge');
+      if (badge) badge.style.display = (tier === 'pro' || tier === 'brand') ? 'inline-flex' : 'none';
     });
   };
 })();

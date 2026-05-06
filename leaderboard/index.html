@@ -24,7 +24,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .btn:hover{background:var(--bg3);color:var(--t1)}
 .btn-p{background:var(--acc);border-color:var(--acc);color:#fff}
 .btn-p:hover{background:#3d6ae0}
-@media(max-width:760px){.nav-links,.nav-cta{display:none}}
+@media(max-width:760px){
+  nav{padding:0 16px;height:52px}
+  .nav-links{display:none}
+  #nav-signin-btn{display:none!important}
+  .nav-cta{gap:7px}
+  .btn-p{font-size:12px;padding:7px 13px}
+  .alpha-bar{padding:6px 16px;font-size:10px;top:52px}
+  main{padding-top:86px}
+  .lb-header{padding:18px 16px 12px}
+  .stats-strip{overflow-x:auto}
+  .stat-item{padding:10px 14px;min-width:90px}
+  .controls{padding:10px 16px;flex-wrap:wrap;gap:8px}
+}
 
 .alpha-bar{position:fixed;top:56px;left:0;right:0;z-index:99;background:rgba(26,143,255,0.05);border-bottom:1px solid rgba(26,143,255,0.10);padding:6px 48px;font-size:11px;color:#5a7aaa;letter-spacing:.01em}
 
@@ -120,7 +132,9 @@ canvas#scoreChart{display:block;width:100%;height:90px}
     <li><a href="/pricing">Pricing</a></li>
   </ul>
   <div class="nav-cta">
-    <a href="/brand-portal" class="btn btn-p">For brands</a>
+    <a href="/account" class="btn" id="nav-account-btn" style="display:none">Account</a>
+    <a href="/account" class="btn" id="nav-signin-btn">Sign in</a>
+    <a href="/pricing" class="btn btn-p">Get NORM Pro</a>
   </div>
 </nav>
 
@@ -178,7 +192,7 @@ canvas#scoreChart{display:block;width:100%;height:90px}
   </div>
 
   <div style="padding:20px 48px 40px;font-size:11px;color:var(--t3);line-height:1.7;font-family:var(--mono);border-top:1px solid var(--b1);margin-top:8px">
-    Scores reflect publicly visible marketing claims and evidence references at the time of scan. They do not assess product efficacy, safety, ingredient quality, or regulatory compliance. A higher score means stronger evidence alignment — a lower score means claims extend beyond what is visibly supported. Brands can submit supporting evidence via <a href="/brand-portal" style="color:var(--t3);text-decoration:underline">Brand Portal</a>. Methodology published at <a href="/methodology" style="color:var(--t3);text-decoration:underline">/methodology</a>.
+    Scores reflect publicly visible marketing claims and evidence references at the time of scan. They do not assess product efficacy, safety, ingredient quality, or regulatory compliance. A higher score means stronger evidence alignment — a lower score means claims extend beyond what is visibly supported. Brands can submit supporting evidence via <a href="mailto:support@trynorm.co" style="color:var(--t3);text-decoration:underline">support@trynorm.co</a>. Methodology published at <a href="/methodology" style="color:var(--t3);text-decoration:underline">/methodology</a>.
   </div>
 </main>
 
@@ -471,6 +485,14 @@ fetch(API + '/api/leaderboard/all?limit=200&offset=0')
     brandIndex.forEach(function(b){ seen[b.domain] = true; });
     entries.forEach(function(b){ if(!seen[b.domain]){ brandIndex.push(b); seen[b.domain] = true; } });
   }).catch(function(){});
+</script>
+<script>
+(function() {
+  var tok = localStorage.getItem('bhvd_token');
+  var a = document.getElementById('nav-account-btn');
+  var s = document.getElementById('nav-signin-btn');
+  if (tok && a && s) { a.style.display = ''; s.style.display = 'none'; }
+})();
 </script>
 </body>
 </html>

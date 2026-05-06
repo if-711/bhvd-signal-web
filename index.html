@@ -44,23 +44,27 @@ body{background:var(--bg);color:var(--t1);font-family:var(--sans);font-size:16px
 a{color:inherit;text-decoration:none}
 
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:58px;background:rgba(10,12,18,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--b1)}
-.nav-logo{font-family:var(--mono);font-size:12px;font-weight:400;letter-spacing:.28em;color:rgba(255,255,255,.72);display:flex;align-items:center;gap:9px;text-decoration:none}
+.nav-logo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--t1);display:flex;align-items:center;gap:9px;text-decoration:none}
 .nav-byline{font-size:9px;color:var(--t3);letter-spacing:.13em;font-weight:400;text-transform:uppercase;border-left:1px solid var(--b2);padding-left:8px;margin-left:1px}
 .nav-links{display:flex;gap:32px;list-style:none}
 .nav-links a{font-size:13px;color:var(--t2);transition:color .15s;cursor:pointer}
 .nav-links a:hover{color:var(--t1)}
 .nav-cta{display:flex;gap:10px}
-.btn{font-family:var(--sans);font-size:13px;font-weight:500;padding:8px 18px;border-radius:8px;cursor:pointer;border:1px solid var(--b2);background:transparent;color:var(--t2);transition:all .15s;display:inline-flex;align-items:center;gap:7px}
+.btn{font-family:var(--sans);font-size:13px;font-weight:500;padding:8px 18px;border-radius:8px;cursor:pointer;border:1px solid var(--b2);background:transparent;color:var(--t2);transition:all .15s;display:inline-flex;align-items:center;gap:7px;text-decoration:none}
 .btn:hover{color:var(--t1);border-color:var(--t3)}
 .btn-p{background:var(--acc);border-color:var(--acc);color:#fff}
 .btn-p:hover{background:#3d6ae0;border-color:#3d6ae0;color:#fff}
+
+/* NORM wink */
+#norm-wink-eye{transform-box:fill-box;transform-origin:center center;animation:norm-wink 7s ease-in-out 1s infinite both}
+@keyframes norm-wink{0%,13%,100%{transform:scaleY(1)}3%{transform:scaleY(0.06)}9%{transform:scaleY(0.06)}}
 
 /* HERO */
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
 .hero-glow{position:absolute;top:15%;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(79,124,255,0.09) 0%,transparent 65%);pointer-events:none}
 .hero h1{font-family:var(--serif);font-size:clamp(44px,7vw,90px);font-weight:400;line-height:1.04;letter-spacing:-.025em;max-width:860px;margin-bottom:22px}
 .hero h1 em{font-style:italic;color:var(--t2)}
-.hero-sub{font-size:18px;color:var(--t2);max-width:520px;line-height:1.7;margin-bottom:40px;font-weight:300}
+.hero-sub{font-size:18px;color:var(--t2);max-width:520px;line-height:1.7;margin-bottom:10px;font-weight:300}
 .hero-browse{font-size:13px;color:var(--t3);font-family:var(--mono);letter-spacing:.04em;margin-top:14px;transition:color .15s;display:inline-block}
 .hero-browse:hover{color:var(--t2)}
 .hero-proof{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:40px}
@@ -149,9 +153,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .brand-row-item:hover{border-color:var(--b2)}
 .brand-row-left{display:flex;align-items:center;gap:12px}
 .brand-row-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.brand-row-dot.green{background:#1e9459}
-.brand-row-dot.yellow{background:#c07718}
-.brand-row-dot.red{background:#9e3028}
+.brand-row-dot.green{background:var(--grn)}
+.brand-row-dot.yellow{background:var(--yel)}
+.brand-row-dot.red{background:var(--red)}
 .brand-row-dot.pending{background:rgba(255,255,255,0.15)}
 .brand-row-name{font-size:13px;font-weight:500;color:var(--t1)}
 .brand-row-domain{font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:1px}
@@ -201,15 +205,89 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
 .pw-shake{animation:pw-shake .38s ease}
 
 @media(max-width:768px){
-  nav{padding:0 20px}.nav-links{display:none}
+  /* Nav */
+  nav{padding:0 16px;height:52px}
+  .nav-links{display:none}
+  #nav-signin-btn{display:none!important}
+  .nav-cta{gap:7px}
+  .btn-p{font-size:12px;padding:7px 13px}
+
+  /* Hero */
+  .hero{padding:90px 20px 60px}
+  .hero-sub{font-size:16px;margin-bottom:8px}
+  .hero-search-wrap{max-width:100%}
+  .hero-search-input{font-size:14px;padding:13px 18px}
+
+  /* Sections */
+  .section-wrap{padding:56px 20px}
+  .sec-title{font-size:clamp(28px,8vw,44px)}
+  .sec-sub{font-size:15px;margin-bottom:36px}
+
+  /* Grids → single column */
   .steps,.sigs-grid,.integrity-grid{grid-template-columns:1fr}
-  .step:first-child,.step:last-child{border-radius:0}
   .step:first-child{border-radius:12px 12px 0 0}
   .step:last-child{border-radius:0 0 12px 12px}
+  .step:not(:first-child):not(:last-child){border-radius:0}
+
+  /* Brand Pulse header */
+  #brands .section-wrap > div:first-child,
+  #brands > div > div:first-child{flex-direction:column;align-items:flex-start;gap:14px}
+
+  /* Footer */
+  footer{flex-direction:column;gap:24px;padding:40px 20px}
+  .footer-links{flex-direction:column;gap:28px}
+  .footer-col{min-width:0}
+
+  /* CTA band */
+  .cta-band{padding:56px 20px}
+  .cta-band-btns{flex-direction:column;align-items:stretch}
+  .cta-band-btns .btn,.cta-band-btns .btn-p{text-align:center;justify-content:center;font-size:14px;padding:13px 20px}
+
+  /* Password gate */
+  .gate-box{padding:32px 24px}
 }
 </style>
 </head>
 <body>
+
+<div id="pw-gate">
+  <div class="gate-logo">
+    <svg width="20" height="20" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="8.5" r="5.5" stroke="#4a78f0" stroke-width="1.5"/><circle cx="9.2" cy="7.8" r="1" fill="#4a78f0"/><circle cx="12.8" cy="7.8" r="1" fill="#4a78f0"/><path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/><path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/></svg>
+    NORM
+  </div>
+  <div class="gate-box">
+    <h2>Early access</h2>
+    <p>NORM is in private beta. Enter your access code to continue.</p>
+    <input id="pw-input" type="password" placeholder="Access code" autocomplete="off" onkeydown="if(event.key==='Enter')checkPw()">
+    <button id="pw-btn" onclick="checkPw()">Continue →</button>
+    <div id="pw-err"></div>
+  </div>
+  <div class="gate-disc">NORM Analytics · Private Beta</div>
+</div>
+
+<script>
+(function(){
+  var PW = 'norm1';
+  var STORE_KEY = 'norm_access';
+  if(sessionStorage.getItem(STORE_KEY) === PW){ hidePwGate(); return; }
+  function hidePwGate(){ var g = document.getElementById('pw-gate'); if(g) g.style.display='none'; }
+  window.checkPw = function(){
+    var inp = document.getElementById('pw-input');
+    var err = document.getElementById('pw-err');
+    if(!inp) return;
+    var val = inp.value.trim();
+    if(val === PW){
+      sessionStorage.setItem(STORE_KEY, PW);
+      hidePwGate();
+    } else {
+      err.textContent = 'Incorrect access code.';
+      inp.classList.add('wrong');
+      inp.classList.add('pw-shake');
+      setTimeout(function(){ inp.classList.remove('pw-shake'); inp.classList.remove('wrong'); err.textContent=''; }, 1400);
+    }
+  };
+})();
+</script>
 
 <nav>
   <a href="/" class="nav-logo">
@@ -242,13 +320,14 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
     <svg width="80" height="80" viewBox="0 0 22 22" fill="none" aria-hidden="true" style="opacity:.88">
       <circle cx="11" cy="8.5" r="5.5" stroke="#4a78f0" stroke-width="1.5"/>
       <circle cx="9.2" cy="7.8" r="1" fill="#4a78f0"/>
-      <circle cx="12.8" cy="7.8" r="1" fill="#4a78f0"/>
+      <circle id="norm-wink-eye" cx="12.8" cy="7.8" r="1" fill="#4a78f0"/>
       <path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/>
       <path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/>
     </svg>
   </div>
   <h1>Some wellness brands<br><em>have nothing to hide.</em></h1>
   <p class="hero-sub">NORM is built to find out which ones do.</p>
+  <p style="font-size:12px;color:var(--t3);font-family:var(--mono);letter-spacing:.05em;margin-bottom:32px">Some already prove it.</p>
   <div class="hero-search-wrap">
     <input class="hero-search-input" id="heroSearch" type="search" placeholder="Search a brand — e.g. Athletic Greens, Ritual, Thorne…" autocomplete="off" spellcheck="false">
     <div class="hero-search-sugs" id="heroSearchSugs"></div>
@@ -399,6 +478,7 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
         <div>
           <h4>No brand payments influence scores</h4>
           <p>The only path to a better signal is making stronger evidence visible on the actual consumer-facing product page. That creates exactly the market pressure toward transparency that we exist to generate.</p>
+          <p style="font-size:12px;color:var(--t3);margin-top:8px">Some brands are already doing it. Their signal shows.</p>
         </div>
       </div>
       <div class="int-item">
@@ -498,13 +578,14 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
       <h5>Product</h5>
       <a href="/leaderboard">Leaderboard</a>
       <a href="/methodology">Methodology</a>
+      <a href="/whitepaper">Whitepaper</a>
       <a href="#how">How it works</a>
     </div>
     <div class="footer-col">
       <h5>Company</h5>
       <a href="/pricing">Pricing</a>
-      <a href="mailto:support@trynorm.co">Contact</a>
-      <a href="mailto:support@trynorm.co">For brands &amp; retailers</a>
+      <a href="#" onclick="openContactModal('general');return false">Contact</a>
+      <a href="#" onclick="openContactModal('brand');return false">For brands &amp; retailers</a>
     </div>
     <div class="footer-col">
       <h5>Legal</h5>
@@ -756,6 +837,92 @@ loadBrandPulse();
     signinBtn.style.display = 'none';
   }
 })();
+</script>
+
+<!-- CONTACT MODAL -->
+<div id="contactModal" onclick="if(event.target===this)closeContactModal()" style="display:none;position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.72);backdrop-filter:blur(5px);align-items:center;justify-content:center;padding:20px">
+  <div style="background:#111420;border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:32px;max-width:420px;width:100%;position:relative">
+    <button onclick="closeContactModal()" style="position:absolute;right:16px;top:14px;background:none;border:none;color:#4a5070;font-size:22px;cursor:pointer;line-height:1;font-weight:300">&times;</button>
+    <div id="cmLabel" style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;color:#4a5070;text-transform:uppercase;margin-bottom:8px">Get in touch</div>
+    <h3 id="cmTitle" style="font-size:17px;font-weight:500;margin-bottom:22px;color:#f2f2f2">Contact NORM</h3>
+    <form id="cmForm" onsubmit="submitContactModal(event)" style="display:flex;flex-direction:column;gap:12px">
+      <input type="hidden" id="cmType" value="general">
+      <input id="cmName" type="text" placeholder="Your name" required style="width:100%;padding:11px 14px;background:#0a0c12;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#f2f2f2;font-size:13px;font-family:'DM Sans',sans-serif;outline:none">
+      <input id="cmEmail" type="email" placeholder="Your email" required style="width:100%;padding:11px 14px;background:#0a0c12;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#f2f2f2;font-size:13px;font-family:'DM Sans',sans-serif;outline:none">
+      <input id="cmCompany" type="text" placeholder="Company or brand name" style="width:100%;padding:11px 14px;background:#0a0c12;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#f2f2f2;font-size:13px;font-family:'DM Sans',sans-serif;outline:none">
+      <textarea id="cmMsg" placeholder="How can we help?" rows="4" required style="width:100%;padding:11px 14px;background:#0a0c12;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#f2f2f2;font-size:13px;font-family:'DM Sans',sans-serif;outline:none;resize:vertical;line-height:1.6"></textarea>
+      <button id="cmBtn" type="submit" style="padding:11px;background:#4a78f0;border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer">Send →</button>
+    </form>
+    <div id="cmOk" style="display:none;text-align:center;padding:16px 0 8px">
+      <div style="font-size:28px;margin-bottom:10px;color:#1e9459">✓</div>
+      <div style="font-size:15px;color:#f2f2f2;margin-bottom:4px">Message received.</div>
+      <div style="font-size:13px;color:#8b93b0">We'll be in touch shortly.</div>
+    </div>
+  </div>
+</div>
+<script>
+var _CM_TYPES = {
+  general:  { label:'Get in touch',       title:'Contact NORM',           api:'general' },
+  brand:    { label:'For brands',          title:'Work with NORM',         api:'brand_transparency' },
+  retailer: { label:'For retailers',       title:'Retailer data inquiry',  api:'retailer' },
+  investor: { label:'For investors',       title:'Investor inquiry',       api:'general' },
+  data_api: { label:'Data API access',     title:'Request API access',     api:'due_diligence' }
+};
+function openContactModal(type) {
+  var cfg = _CM_TYPES[type] || _CM_TYPES.general;
+  document.getElementById('cmLabel').textContent = cfg.label;
+  document.getElementById('cmTitle').textContent = cfg.title;
+  document.getElementById('cmType').value = type;
+  document.getElementById('cmForm').style.display = 'flex';
+  document.getElementById('cmOk').style.display = 'none';
+  document.getElementById('cmBtn').textContent = 'Send →';
+  document.getElementById('cmBtn').disabled = false;
+  document.getElementById('cmName').value = '';
+  document.getElementById('cmEmail').value = '';
+  document.getElementById('cmCompany').value = '';
+  document.getElementById('cmMsg').value = '';
+  var m = document.getElementById('contactModal');
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeContactModal() {
+  document.getElementById('contactModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+function submitContactModal(e) {
+  e.preventDefault();
+  var btn = document.getElementById('cmBtn');
+  btn.disabled = true; btn.textContent = 'Sending…';
+  var type = document.getElementById('cmType').value;
+  var cfg = _CM_TYPES[type] || _CM_TYPES.general;
+  fetch('https://bhvd-signal-api.fly.dev/api/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      contact_name:  document.getElementById('cmName').value.trim(),
+      contact_email: document.getElementById('cmEmail').value.trim(),
+      brand_name:    document.getElementById('cmCompany').value.trim() || 'General Inquiry',
+      request_type:  cfg.api,
+      message:       document.getElementById('cmMsg').value.trim(),
+      page_url:      window.location.href
+    })
+  }).then(function(r){ return r.json(); })
+    .then(function(d) {
+      if (d.success) {
+        document.getElementById('cmForm').style.display = 'none';
+        document.getElementById('cmOk').style.display = 'block';
+        setTimeout(closeContactModal, 2800);
+      } else {
+        btn.disabled = false; btn.textContent = 'Send →';
+        alert(d.error || 'Something went wrong — try again.');
+      }
+    })
+    .catch(function() {
+      btn.disabled = false; btn.textContent = 'Send →';
+      alert('Connection error — try again.');
+    });
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeContactModal(); });
 </script>
 
 </body>

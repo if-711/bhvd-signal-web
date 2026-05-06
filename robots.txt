@@ -3,6 +3,5 @@ Allow: /
 
 Disallow: /account/
 Disallow: /admin/
-Disallow: /demo/
 
-Sitemap: https://bhvdsignal.com/sitemap.xml
+Sitemap: https://trynorm.co/sitemap.xml

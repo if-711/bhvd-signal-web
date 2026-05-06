@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The NORM Framework: A Methodology for Measuring Claim-Evidence Proportionality in Consumer Brand Marketing</title>
+<meta name="description" content="Full technical methodology behind the NORM Framework. Claim-evidence proportionality scoring, dimension weights, evidence hierarchy, and scoring rubric — applicable across all consumer brand categories.">
+<meta property="og:title" content="The NORM Framework — Technical Whitepaper">
+<meta property="og:description" content="PhD-level methodology documentation for NORM — a structured framework for measuring claim-evidence proportionality in consumer brand marketing.">
+<meta property="og:image" content="https://trynorm.co/og-image.png">
+<meta property="og:url" content="https://trynorm.co/whitepaper">
+<link rel="canonical" href="https://trynorm.co/whitepaper">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c12;--bg2:#111420;--bg3:#181c2e;--bg4:#1f2438;
+  --b1:rgba(255,255,255,0.07);--b2:rgba(255,255,255,0.13);
+  --t1:#f2f2f2;--t2:#8b93b0;--t3:#4a5070;
+  --grn:#1e9459;--gbdr:#12382a;--red:#9e3028;--yel:#c07718;
+  --acc:#4a78f0;
+  --mono:'DM Mono',monospace;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t1);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--acc);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:58px;background:rgba(10,12,18,0.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--b1)}
+.nav-logo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--t1);display:flex;align-items:center;gap:9px;text-decoration:none}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:13px;color:var(--t2);transition:color .15s;text-decoration:none}
+.nav-links a:hover{color:var(--t1)}
+.nav-cta{display:flex;gap:10px}
+.btn{font-family:var(--sans);font-size:13px;font-weight:500;padding:8px 18px;border-radius:8px;cursor:pointer;border:1px solid var(--b2);background:transparent;color:var(--t2);display:inline-flex;align-items:center;gap:7px;text-decoration:none;transition:all .15s}
+.btn:hover{color:var(--t1);border-color:var(--t3)}
+.btn-p{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn-p:hover{background:#3d6ae0;border-color:#3d6ae0;color:#fff}
+
+/* LAYOUT */
+.wrap{display:flex;max-width:1200px;margin:0 auto;padding:96px 32px 80px;gap:64px;align-items:flex-start}
+
+/* TABLE OF CONTENTS */
+.toc{position:sticky;top:80px;flex-shrink:0;width:220px;font-size:12px;font-family:var(--mono)}
+.toc-title{font-size:10px;letter-spacing:.14em;color:var(--t3);text-transform:uppercase;margin-bottom:14px}
+.toc a{display:block;color:var(--t3);text-decoration:none;padding:4px 0;border-left:2px solid var(--b1);padding-left:10px;transition:all .15s;font-size:11px;line-height:1.4}
+.toc a:hover{color:var(--t2);border-color:var(--b2)}
+.toc a.active{color:var(--t1);border-color:var(--acc)}
+.toc-sub{padding-left:18px !important;font-size:10px}
+
+/* DOCUMENT */
+.doc{flex:1;min-width:0;max-width:760px}
+.doc-label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--t3);text-transform:uppercase;margin-bottom:12px}
+.doc-title{font-family:var(--serif);font-size:clamp(26px,3.5vw,42px);font-weight:400;line-height:1.1;letter-spacing:-.02em;margin-bottom:12px}
+.doc-subtitle{font-size:16px;color:var(--t2);line-height:1.6;margin-bottom:6px}
+.doc-byline{font-size:11px;color:var(--t3);font-family:var(--mono);letter-spacing:.04em;margin-bottom:48px;border-bottom:1px solid var(--b1);padding-bottom:24px}
+
+/* ABSTRACT */
+.abstract{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:24px 28px;margin-bottom:52px}
+.abstract-label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--t3);text-transform:uppercase;margin-bottom:10px}
+.abstract p{font-size:14px;color:var(--t2);line-height:1.85;font-style:italic}
+
+/* SECTIONS */
+.section{margin-bottom:52px}
+h2.section-head{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--t3);text-transform:uppercase;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--b1)}
+h3{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--t1);margin:32px 0 12px;letter-spacing:-.01em}
+h4{font-size:13px;font-weight:600;color:var(--t1);margin:22px 0 8px;font-family:var(--sans)}
+p{font-size:14px;color:var(--t2);line-height:1.85;margin-bottom:14px}
+p strong{color:var(--t1);font-weight:500}
+ul,ol{margin:0 0 14px 20px;padding:0}
+li{font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:5px}
+li strong{color:var(--t1);font-weight:500}
+
+/* DIMENSION CARD */
+.dim-card{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:24px 26px;margin:20px 0}
+.dim-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px;gap:12px}
+.dim-name{font-size:15px;font-weight:500;color:var(--t1)}
+.dim-abbr{font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.08em}
+.dim-weight{font-family:var(--mono);font-size:22px;font-weight:500;color:var(--acc);flex-shrink:0}
+.dim-def{font-size:13px;color:var(--t2);line-height:1.75;margin-bottom:14px}
+.dim-criteria{display:flex;flex-direction:column;gap:6px}
+.dim-row{display:flex;gap:10px;align-items:flex-start;font-size:12px;padding:7px 10px;background:var(--bg3);border-radius:6px}
+.dim-row-label{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.06em;flex-shrink:0;min-width:40px;padding-top:1px}
+.dim-row-val{color:var(--t2);line-height:1.6}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;margin:20px 0}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--t3);text-transform:uppercase;padding:10px 14px;border-bottom:1px solid var(--b2);white-space:nowrap}
+tbody td{padding:10px 14px;border-bottom:1px solid var(--b1);color:var(--t2);vertical-align:top;line-height:1.6}
+tbody td:first-child{color:var(--t1);font-weight:500}
+tbody tr:last-child td{border-bottom:none}
+.mono{font-family:var(--mono);font-size:11px}
+
+/* SCORE TABLE */
+.score-row-grn td:first-child{color:var(--grn)}
+.score-row-yel td:first-child{color:var(--yel)}
+.score-row-red td:first-child{color:var(--red)}
+
+/* FORMULA */
+.formula{background:var(--bg3);border:1px solid var(--b2);border-radius:10px;padding:18px 22px;margin:18px 0;font-family:var(--mono);font-size:13px;color:var(--t1);line-height:1.9;overflow-x:auto}
+.formula span{color:var(--t3)}
+
+/* CALLOUT */
+.callout{background:rgba(74,120,240,.06);border:1px solid rgba(74,120,240,.16);border-radius:10px;padding:16px 20px;margin:18px 0;font-size:13px;color:var(--t2);line-height:1.75}
+.callout strong{color:var(--t1)}
+
+/* LIMITATION */
+.limitation{border-left:3px solid var(--b2);padding:0 0 0 18px;margin:18px 0}
+.limitation h4{color:var(--t2);font-weight:500}
+.limitation p{color:var(--t3);margin-bottom:0}
+
+/* EVIDENCE HIERARCHY */
+.evid-list{display:flex;flex-direction:column;gap:2px;margin:14px 0}
+.evid-row{display:flex;align-items:center;gap:12px;padding:9px 14px;background:var(--bg2);border:1px solid var(--b1);border-radius:6px}
+.evid-tier{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.06em;flex-shrink:0;min-width:36px}
+.evid-desc{font-size:13px;color:var(--t2);flex:1}
+.evid-quality{font-family:var(--mono);font-size:10px;padding:2px 8px;border-radius:4px}
+.eq-high{background:rgba(30,148,89,.1);color:var(--grn);border:1px solid rgba(30,148,89,.2)}
+.eq-med{background:rgba(192,119,24,.1);color:var(--yel);border:1px solid rgba(192,119,24,.2)}
+.eq-low{background:rgba(158,48,40,.1);color:#c0524a;border:1px solid rgba(158,48,40,.2)}
+
+/* REFS */
+.refs{font-size:12px;color:var(--t3);font-family:var(--mono);line-height:1.8;counter-reset:ref}
+.ref-item{display:flex;gap:12px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--b1)}
+.ref-item:last-child{border-bottom:none}
+.ref-num{color:var(--t3);flex-shrink:0;min-width:24px}
+.ref-text{color:var(--t3);font-family:var(--sans);font-size:12px;line-height:1.7}
+.ref-text em{font-style:italic}
+
+.footnote{font-size:11px;color:var(--t3);font-family:var(--mono);margin-top:8px;line-height:1.6;padding:10px 14px;background:var(--bg2);border-radius:6px}
+
+/* KAPPA TABLE */
+.kappa-table thead th{background:var(--bg3)}
+.kappa-table .kappa-pass td:last-child{color:var(--grn);font-family:var(--mono)}
+.kappa-table .kappa-warn td:last-child{color:var(--yel);font-family:var(--mono)}
+
+/* ADVERSARIAL VECTORS */
+.vector{border:1px solid var(--b1);border-radius:10px;padding:18px 20px;margin:14px 0;background:var(--bg2)}
+.vector-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.vector-id{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--t3);background:var(--bg3);padding:3px 8px;border-radius:4px}
+.vector-name{font-size:14px;font-weight:500;color:var(--t1)}
+.vector p{font-size:13px;color:var(--t2);line-height:1.75;margin-bottom:8px}
+.vector p:last-child{margin-bottom:0}
+
+/* COMPARE ITEM */
+.compare-item{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--b1)}
+.compare-item:last-child{border-bottom:none}
+.compare-label{font-family:var(--mono);font-size:11px;color:var(--t3);flex-shrink:0;min-width:130px;padding-top:2px}
+.compare-body{font-size:13px;color:var(--t2);line-height:1.75}
+
+/* APPENDIX */
+.appendix-label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--acc);text-transform:uppercase;margin-bottom:8px}
+.appendix-brand{font-family:var(--serif);font-size:20px;color:var(--t1);margin-bottom:4px}
+.appendix-context{font-size:13px;color:var(--t3);margin-bottom:24px}
+.claim-eval{background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:18px 20px;margin:12px 0}
+.claim-eval-head{font-size:13px;font-weight:500;color:var(--t1);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--b1)}
+.claim-eval-row{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;font-size:12px}
+.claim-eval-dim{color:var(--t2);font-family:var(--mono);font-size:11px}
+.claim-eval-score{font-family:var(--mono);font-size:12px;color:var(--t1)}
+.claim-eval-score.score-grn{color:var(--grn)}
+.claim-eval-score.score-yel{color:var(--yel)}
+.claim-eval-score.score-red{color:var(--red)}
+.claim-eval-note{font-size:11px;color:var(--t3);line-height:1.6;margin-top:10px;padding-top:8px;border-top:1px solid var(--b1)}
+
+footer{border-top:1px solid var(--b1);padding:28px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:64px}
+.footer-logo{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--t3);display:flex;align-items:center;gap:7px}
+.footer-disc{font-size:11px;color:var(--t3);line-height:1.5;max-width:500px}
+.footer-copy{text-align:center;padding:16px 32px;font-size:10px;color:var(--t3);font-family:var(--mono);letter-spacing:.05em;border-top:1px solid var(--b1)}
+
+@media(max-width:1024px){.toc{display:none}}
+@media(max-width:768px){
+  nav{padding:0 20px}.nav-links{display:none}
+  .wrap{padding:88px 20px 60px}
+  footer{padding:24px 20px;flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+    <circle cx="11" cy="8.5" r="5.5" stroke="#4a78f0" stroke-width="1.5"/>
+    <circle cx="9.2" cy="7.8" r="1" fill="#4a78f0"/>
+    <circle cx="12.8" cy="7.8" r="1" fill="#4a78f0"/>
+    <path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+  NORM
+  </a>
+  <ul class="nav-links">
+    <li><a href="/leaderboard">Leaderboard</a></li>
+    <li><a href="/methodology">Methodology</a></li>
+    <li><a href="/pricing">Pricing</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="/account" class="btn" id="nav-account-btn" style="display:none">Account</a>
+    <a href="/account" class="btn" id="nav-signin-btn">Sign in</a>
+    <a href="/pricing" class="btn btn-p">Get NORM Pro</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- TABLE OF CONTENTS -->
+  <aside class="toc" aria-label="Table of contents">
+    <div class="toc-title">Contents</div>
+    <a href="#abstract">Abstract</a>
+    <a href="#s1">1. Introduction</a>
+    <a href="#s1-1" class="toc-sub">1.1 Information Asymmetry</a>
+    <a href="#s1-2" class="toc-sub">1.2 Regulatory Context</a>
+    <a href="#s1-3" class="toc-sub">1.3 Contribution</a>
+    <a href="#s1-4" class="toc-sub">1.4 Why This Moment</a>
+    <a href="#s2">2. Theoretical Framework</a>
+    <a href="#s2-1" class="toc-sub">2.1 CEA as a Construct</a>
+    <a href="#s2-2" class="toc-sub">2.2 Behavioral Basis</a>
+    <a href="#s2-3" class="toc-sub">2.3 Positional Weighting</a>
+    <a href="#s3">3. Scoring Dimensions</a>
+    <a href="#s3-1" class="toc-sub">3.1 Evidence Presence</a>
+    <a href="#s3-2" class="toc-sub">3.2 Evidence Strength</a>
+    <a href="#s3-3" class="toc-sub">3.3 Specificity</a>
+    <a href="#s3-4" class="toc-sub">3.4 Mechanism Integrity</a>
+    <a href="#s3-5" class="toc-sub">3.5 Effect Reality</a>
+    <a href="#s3-6" class="toc-sub">3.6 Consumer Distortion</a>
+    <a href="#s4">4. Composite Scoring</a>
+    <a href="#s5">5. Validation & Reliability</a>
+    <a href="#s5-1" class="toc-sub">5.1 Pipeline Calibration</a>
+    <a href="#s5-2" class="toc-sub">5.2 Construct Validity Predictions</a>
+    <a href="#s5-3" class="toc-sub">5.3 Calibration Corpus</a>
+    <a href="#s6">6. Data Collection</a>
+    <a href="#s7">7. Comparative Context</a>
+    <a href="#s8">8. Adversarial Robustness</a>
+    <a href="#s9">9. Limitations</a>
+    <a href="#s10">10. Independence</a>
+    <a href="#s11">11. Conclusion</a>
+    <a href="#appendix-a">Appendix A: Worked Example</a>
+    <a href="#refs">References</a>
+  </aside>
+
+  <!-- DOCUMENT -->
+  <div class="doc">
+
+    <div class="doc-label">Technical Whitepaper · v1.0</div>
+    <h1 class="doc-title">The NORM Framework: A Methodology for Measuring Claim-Evidence Proportionality in Consumer Brand Marketing</h1>
+    <p class="doc-subtitle">A structured framework for evaluating whether marketing claims are proportionate to publicly visible evidence — across all consumer brand categories</p>
+    <p class="doc-byline">NORM Analytics &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; trynorm.co/whitepaper</p>
+
+    <!-- ABSTRACT -->
+    <div class="abstract" id="abstract">
+      <div class="abstract-label">Abstract</div>
+      <p>Consumer brand marketing operates under conditions of significant information asymmetry, in which brands possess substantially more knowledge about their product formulations, underlying evidence, and marketing strategies than do the consumers who purchase them. Current regulatory frameworks — primarily Federal Trade Commission substantiation standards and relevant category-specific agency requirements — provide a legal floor that many brands meet while still leaving consumers materially uninformed about the quality and applicability of the evidence underlying marketing claims. This paper describes the NORM Framework, a systematic methodology for evaluating the degree to which consumer-facing brand marketing claims are proportionate to the evidence brands publicly disclose. We describe the theoretical basis for the framework, the operationalization of its six scoring dimensions, the positional weighting methodology, and the evidence classification hierarchy that underlies dimension scoring. We discuss validity, reliability, and the framework's explicit limitations. While the framework was initially applied to health and wellness categories — where claim intensity and evidence gaps are most acute — it is designed as a general methodology applicable across all consumer brand marketing contexts.</p>
+      <p>The severity of this problem has accelerated materially since 2020: U.S. wellness expenditure has passed $70 billion annually; AI-generated marketing content now produces scientifically credible-sounding claims at industrial scale with zero marginal cost; and consumer health decisions are increasingly self-directed, made outside clinical supervision and inside an information environment optimized to persuade rather than inform. In this context, claim–evidence misalignment is not an exception. It is a structural condition of the market. NORM makes that condition measurable, visible, and public — and creates a durable record of what each brand chooses to show and what it does not, in the consumer-facing environment where purchase decisions are actually made.</p>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div class="section" id="s1">
+      <h2 class="section-head">1. Introduction</h2>
+
+      <h3 id="s1-1">1.1 The Problem of Information Asymmetry in Consumer Brand Marketing</h3>
+      <p>George Akerlof's foundational analysis of information asymmetry demonstrated that when one party to a transaction possesses materially superior information, market outcomes systematically disadvantage the less-informed party.<sup>[1]</sup> This dynamic is structural in consumer brand markets, where brands routinely possess detailed knowledge of their formulations, clinical testing history, and the methodological quality of studies they reference — while consumers operate with minimal capacity to evaluate these factors independently.</p>
+      <p>The scale of this asymmetry is substantial. Consumer categories in which marketing claims are primary purchase drivers — dietary supplements, skincare and cosmetics, functional foods and beverages, health devices, and financial wellness products among them — collectively represent trillions in annual consumer expenditure globally. Yet rigorous, accessible evaluation of the quality of evidence underlying those claims has remained largely absent from consumer-facing information environments. Consumers encounter claims of clinical validation, peer-reviewed support, and scientific consensus without any structured means of evaluating what those phrases actually signify in context.</p>
+      <p>The problem is not new. What is new is its magnitude, its mechanism, and its trajectory. The gap between what wellness brands claim and what they publicly substantiate is not narrowing — it is widening, and it is widening at the precise moment consumers are directing more health decisions, more spending, and more trust toward this category than at any prior point in its history. This paper describes a framework designed to make that gap measurable, to make it public, and to make it persistent.</p>
+
+      <h3 id="s1-2">1.2 Regulatory Context and Its Limitations</h3>
+      <p>The U.S. regulatory framework for wellness product claims is distributed across multiple agencies with differing standards and enforcement capacities:</p>
+      <ul>
+        <li><strong>FDA structure-function claims</strong>: Under the Dietary Supplement Health and Education Act (DSHEA) of 1994, manufacturers may make structure-function claims without pre-market FDA review, provided claims do not assert treatment of a disease and the manufacturer maintains substantiation files that are not required to be publicly disclosed.<sup>[3]</sup></li>
+        <li><strong>FTC advertising substantiation</strong>: The FTC requires that health-related advertising claims be substantiated by "competent and reliable scientific evidence," a standard generally interpreted as requiring randomized, controlled, double-blind trials for efficacy claims — but enforced reactively rather than proactively.<sup>[4]</sup></li>
+        <li><strong>FTC enforcement limitations</strong>: FTC enforcement applies only to demonstrated deception, leaving a substantial gray zone of technically compliant but materially misleading claims. A brand may cite a single small-n, industry-funded pilot study as "clinical evidence" and remain legally compliant while substantially misrepresenting the certainty of claimed effects to consumers.</li>
+      </ul>
+      <p>These frameworks establish a legal minimum. They do not evaluate the quality, relevance, or consumer interpretability of evidence. NORM operates in the space between legal compliance and genuine epistemic transparency.</p>
+
+      <h3 id="s1-3">1.3 Contribution of This Work</h3>
+      <p>The NORM Framework operates in the space between legal compliance and genuine epistemic transparency — a space that current regulatory frameworks explicitly do not occupy. It is not a supplement to existing oversight. It fills a structural absence.</p>
+      <p>NORM makes the claim–evidence gap visible. It exposes where marketing claims exceed what brands publicly substantiate. It creates a durable public record of what each brand chooses to show — and what it does not — in the specific information environment where consumers decide. This record does not require a regulatory trigger, an enforcement action, or a consumer complaint. It is produced continuously, at scale, and made publicly accessible without registration.</p>
+      <p>The argument of this paper is not that the NORM Framework is a useful tool. It is that the conditions this framework addresses — systematic, scaled, legally compliant epistemic overreach in consumer wellness marketing — are severe enough, and inadequately addressed enough by existing mechanisms, that a structured public record of claim–evidence alignment is not optional. It is overdue.</p>
+
+      <div class="callout">
+        <strong>Critical scope distinction:</strong> NORM evaluates what is visible on consumer-facing brand pages — not the private evidence files brands may maintain for regulatory purposes. This distinction is intentional. Consumers make purchase decisions based on what they can see, not what brands hold privately. The relevant information environment for consumer protection purposes is the consumer-facing page, not the regulatory filing cabinet. A brand that holds robust private evidence but presents bare assertions to consumers is, from the consumer's perspective, making bare assertions — and is scored accordingly.
+      </div>
+
+      <h3 id="s1-4">1.4 Why This Moment Demands a Framework</h3>
+      <p>The structural conditions producing claim–evidence misalignment in consumer brand markets are not stable. Each of the following forces is accelerating simultaneously — and their confluence creates an information environment that is more consequential, more adversarially constructed, and more resistant to individual evaluation than at any prior point.</p>
+
+      <h4>Record-scale consumer expenditure</h4>
+      <p>U.S. consumer expenditure on dietary supplements, functional foods, and wellness products alone exceeded $70 billion in 2024 and is projected to surpass $90 billion by 2028 — a category growing at nearly three times the rate of general consumer goods.<sup>[13]</sup> Across all consumer categories where marketing claims drive purchase decisions, the aggregate cost of claim–evidence misalignment — in misallocated spending, foregone effective alternatives, and erosion of informed consent — is not marginal. It is a material public health and consumer protection concern.</p>
+
+      <h4>AI-generated marketing claims at industrial scale</h4>
+      <p>Generative AI has fundamentally altered the production economics of marketing claims. Brands can now produce thousands of evidence-sounding, mechanistically coherent, specifically stated claims at near-zero marginal cost. AI language models trained on the scientific literature generate plausible-sounding biological mechanisms, produce specific figures with the surface structure of quantitative evidence, and compose marketing copy structurally indistinguishable from well-supported scientific communication — without any of the underlying evidentiary basis.<sup>[14]</sup> The rate of claim production now far exceeds the capacity of any regulatory body to evaluate it reactively. NORM evaluates the output continuously, not retroactively.</p>
+
+      <h4>Consumer trust erosion</h4>
+      <p>High-claim consumer categories have historically benefited from a trust premium — consumers have attributed higher credibility to "natural," "science-backed," and "clinician-formulated" products than the evidentiary basis warrants. That premium is now under pressure. Survey data consistently show consumers reporting difficulty distinguishing genuine scientific evidence from marketing language, and awareness that health and wellness marketing is frequently not independently validated is growing.<sup>[15]</sup> Declining trust without a structured tool for evaluation does not protect consumers — it produces cynicism without discrimination, disadvantaging brands that invest in genuine evidence disclosure alongside those that do not. NORM creates the discrimination mechanism trust erosion demands.</p>
+
+      <h4>The rise of self-directed decisions</h4>
+      <p>The share of consequential consumer decisions made without expert guidance has increased materially across health, finance, nutrition, and performance categories. An estimated 67% of U.S. supplement purchases are made without clinician input; the pattern repeats across financial products, cosmeceuticals, and functional foods.<sup>[16]</sup> Consumers operating as their own evaluators require the same quality of epistemic infrastructure that expert intermediaries once provided. NORM is a component of that infrastructure — the part that applies to the consumer-facing brand environment where no such infrastructure currently exists.</p>
+
+      <div class="callout">
+        <strong>The convergence:</strong> More money, more sophisticated claims, more distrust, and more consequential self-directed decisions — all accelerating simultaneously. This is not a trend requiring a future response. It is an active condition requiring a present one. The NORM Framework is that response, applied systematically to the information environment where these forces meet consumers.
+      </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section" id="s2">
+      <h2 class="section-head">2. Theoretical Framework</h2>
+
+      <h3 id="s2-1">2.1 Claim–Evidence Alignment as a Construct</h3>
+      <p>We define <strong>claim–evidence alignment (CEA)</strong> as the degree to which a brand's publicly visible marketing claims are proportionate to the quality and relevance of evidence the brand publicly discloses in support of those claims.</p>
+      <p>CEA is explicitly distinct from the following constructs that the NORM Framework does not measure:</p>
+      <ul>
+        <li><strong>Product efficacy</strong>: Whether a product's active ingredients produce the claimed effects under any conditions</li>
+        <li><strong>Product safety</strong>: Whether a product is safe for any population or individual</li>
+        <li><strong>Regulatory compliance</strong>: Whether a brand meets FTC or FDA standards</li>
+        <li><strong>Ingredient quality</strong>: Whether a product contains the declared ingredients at declared concentrations</li>
+      </ul>
+      <p>A high CEA score means a brand makes specific claims and publicly shows evidence of appropriate quality and quantity to support them. A low CEA score means claims materially exceed visible evidence — a form of epistemic overreach that distorts consumer decision-making regardless of whether the underlying product may be effective.</p>
+
+      <h3 id="s2-2">2.2 Behavioral Economics Basis</h3>
+      <p>Consumers exhibit well-documented cognitive tendencies that render them particularly susceptible to wellness marketing claims under ordinary decision conditions:</p>
+      <ul>
+        <li><strong>Authority heuristics</strong>: References to "clinically proven," "scientifically shown," or "doctor-recommended" trigger automatic credibility attribution independent of the quality of underlying evidence, consistent with Cialdini's authority principle and Chaiken's heuristic-systematic model.<sup>[5,6]</sup></li>
+        <li><strong>Natural product bias</strong>: Terms including "natural," "clean," and "pure" generate positive affect independent of safety or efficacy implications — a well-replicated finding with particular relevance to supplement marketing.<sup>[7]</sup></li>
+        <li><strong>Specificity bias</strong>: Specific-sounding claims ("increases VO₂ max by 12%") are perceived as more credible than vague ones, even when specific figures derive from low-quality or poorly applicable studies — consistent with the persuasion literature on numerical specificity.<sup>[8]</sup></li>
+        <li><strong>Dual-process susceptibility</strong>: Under conditions of low elaboration likelihood — characteristic of supplement and wellness purchase decisions made in browsing contexts — consumers rely on peripheral cues (packaging, marketing language, brand authority) rather than systematic evidence evaluation.<sup>[9]</sup></li>
+        <li><strong>Testimonial bias</strong>: Personal narratives are processed preferentially over statistical information in health contexts, a phenomenon documented extensively in the cancer screening and pharmaceutical advertising literatures.<sup>[10]</sup></li>
+      </ul>
+      <p>These tendencies create conditions in which brands can substantially influence consumer behavior through claim framing, independent of the epistemic quality of those claims. CEA measurement makes this framing visible and quantifiable.</p>
+
+      <h3 id="s2-3">2.3 Positional Weighting Theory</h3>
+      <p>Marketing claims do not carry equal informational influence based on their position within a consumer-facing page. Eye-tracking research consistently demonstrates that above-fold content receives disproportionate visual attention, with engagement declining nonlinearly with scroll depth.<sup>[11]</sup> Accordingly, NORM applies a positional weighting system to claims based on their location within the page information hierarchy.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Position</th><th>Weight</th><th>Rationale</th></tr></thead>
+          <tbody>
+            <tr><td>Above-fold hero headline</td><td class="mono">3.0×</td><td>Highest visual salience; primary purchase signal; appears in social previews</td></tr>
+            <tr><td>Product name / primary descriptor</td><td class="mono">2.5×</td><td>Persistent across all touchpoints; forms lasting mental association</td></tr>
+            <tr><td>Above-fold body copy</td><td class="mono">2.0×</td><td>High read-through probability; direct support for purchase decision</td></tr>
+            <tr><td>Below-fold primary section</td><td class="mono">1.0×</td><td>Baseline; standard consumer engagement for engaged visitor</td></tr>
+            <tr><td>Feature / ingredient list</td><td class="mono">0.8×</td><td>Enumerated format; lower per-item salience; higher information density</td></tr>
+            <tr><td>FAQ / secondary pages</td><td class="mono">0.6×</td><td>Lower traffic volume; higher engagement depth when visited</td></tr>
+            <tr><td>Footer / disclaimer text</td><td class="mono">0.3×</td><td>Low visibility; characteristically used for legal hedging of hero claims</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>This weighting reflects the principle that brands deliberately position their most impactful claims in highest-salience locations. A claim in a hero headline generates materially greater epistemic influence on consumers than the same claim buried in a footer disclaimer — and is accordingly weighted proportionately in scoring. Footer disclaimers that contradict hero claims without correcting them are specifically identified as Consumer Distortion signals (§3.6).</p>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="section" id="s3">
+      <h2 class="section-head">3. Scoring Dimensions</h2>
+      <p>The NORM Framework evaluates brands across six dimensions, producing a composite score of 0–100. Higher scores indicate stronger claim–evidence alignment. Dimension weights reflect the relative importance of each factor to overall CEA and were calibrated against a ground-truth corpus of 50 brands evaluated by independent expert reviewers with backgrounds in clinical research, research methodology, and consumer protection. The framework is designed to be category-agnostic: the same six dimensions apply whether the brand markets supplements, skincare, food and beverage, financial products, or any other consumer category in which marketing claims are materially ahead of publicly visible evidence.</p>
+
+      <!-- EP -->
+      <div class="dim-card" id="s3-1">
+        <div class="dim-header">
+          <div>
+            <div class="dim-name">Evidence Presence</div>
+            <div class="dim-abbr">EP</div>
+          </div>
+          <div class="dim-weight">10 pts</div>
+        </div>
+        <p class="dim-def"><strong>Definition:</strong> Whether the brand publicly discloses any evidence for its primary claims. EP is the threshold question in CEA evaluation — many brands make substantive health claims with zero visible supporting evidence.</p>
+        <div class="dim-criteria">
+          <div class="dim-row"><div class="dim-row-label">10</div><div class="dim-row-val">Evidence cited and hyperlinked for all tier-1 claims; sources accessible without registration</div></div>
+          <div class="dim-row"><div class="dim-row-label">7–9</div><div class="dim-row-val">Evidence present for majority of tier-1 claims; minor gaps in less prominent claims</div></div>
+          <div class="dim-row"><div class="dim-row-label">4–6</div><div class="dim-row-val">Evidence present for some claims; substantial tier-1 claims left unsupported</div></div>
+          <div class="dim-row"><div class="dim-row-label">1–3</div><div class="dim-row-val">Minimal evidence disclosure; testimonials only, or vague references without citation</div></div>
+          <div class="dim-row"><div class="dim-row-label">0</div><div class="dim-row-val">No evidence disclosed for any tier-1 claim; bare assertion throughout</div></div>
+        </div>
+      </div>
+
+      <!-- ES -->
+      <div class="dim-card" id="s3-2">
+        <div class="dim-header">
+          <div>
+            <div class="dim-name">Evidence Strength</div>
+            <div class="dim-abbr">ES</div>
+          </div>
+          <div class="dim-weight">25 pts</div>
+        </div>
+        <p class="dim-def"><strong>Definition:</strong> The methodological quality of evidence publicly disclosed. ES is the highest-weighted dimension because the quality of evidence, not merely its presence, determines its epistemic value to consumers.</p>
+        <p style="font-size:13px;color:var(--t2);margin-bottom:12px">Evidence is classified according to the following hierarchy, consistent with standard evidence-based medicine frameworks adapted for the supplement and wellness marketing context:<sup>[12]</sup></p>
+        <div class="evid-list">
+          <div class="evid-row"><div class="evid-tier">T1</div><div class="evid-desc">Pre-registered, double-blind RCT, peer-reviewed, adequate sample (n ≥ 100), independent funding</div><div class="evid-quality eq-high">High</div></div>
+          <div class="evid-row"><div class="evid-tier">T2</div><div class="evid-desc">RCT with limitations: industry-funded, small n, single-blind, or non-pre-registered</div><div class="evid-quality eq-high">High–Med</div></div>
+          <div class="evid-row"><div class="evid-tier">T3</div><div class="evid-desc">Systematic review or meta-analysis of observational or lower-quality intervention studies</div><div class="evid-quality eq-med">Medium</div></div>
+          <div class="evid-row"><div class="evid-tier">T4</div><div class="evid-desc">Prospective observational cohort study with adequate controls</div><div class="evid-quality eq-med">Medium</div></div>
+          <div class="evid-row"><div class="evid-tier">T5</div><div class="evid-desc">Retrospective or cross-sectional observational study</div><div class="evid-quality eq-med">Medium–Low</div></div>
+          <div class="evid-row"><div class="evid-tier">T6</div><div class="evid-desc">In vitro or animal model study</div><div class="evid-quality eq-low">Low</div></div>
+          <div class="evid-row"><div class="evid-tier">T7</div><div class="evid-desc">Expert opinion, case reports, gray literature, mechanism review</div><div class="evid-quality eq-low">Low</div></div>
+          <div class="evid-row"><div class="evid-tier">T8</div><div class="evid-desc">Proprietary study: results disclosed but methods unavailable for evaluation</div><div class="evid-quality eq-low">Low</div></div>
+          <div class="evid-row"><div class="evid-tier">T9</div><div class="evid-desc">Testimonial, anecdote, or case study presented in evidence position</div><div class="evid-quality eq-low">Minimal</div></div>
+        </div>
+        <p style="font-size:12px;color:var(--t3);margin-top:12px;line-height:1.7"><strong style="color:var(--t2)">Confidence adjustments:</strong> Industry funding applies a 0.8× confidence modifier. Studies cited but not hyperlinked receive a 0.7× accessibility modifier. Studies cited in a way that misrepresents their scope or conclusions are additionally penalized under Consumer Distortion (§3.6). ES is computed as the weighted mean of hierarchy scores across all cited evidence, normalized to the 25-point scale.</p>
+      </div>
+
+      <!-- SP -->
+      <div class="dim-card" id="s3-3">
+        <div class="dim-header">
+          <div>
+            <div class="dim-name">Specificity</div>
+            <div class="dim-abbr">SP</div>
+          </div>
+          <div class="dim-weight">15 pts</div>
+        </div>
+        <p class="dim-def"><strong>Definition:</strong> The degree to which claims are precise and falsifiable rather than vague and hedged. Vague claims ("supports wellness," "promotes balance") are epistemically empty — they convey a benefit impression while committing to nothing a consumer could evaluate or falsify.</p>
+        <p style="font-size:13px;color:var(--t2);margin-bottom:12px">Each tier-1 claim is assessed on five specificity criteria (0–3 each):</p>
+        <div class="dim-criteria">
+          <div class="dim-row"><div class="dim-row-label">OC</div><div class="dim-row-val"><strong style="color:var(--t1)">Outcome specificity</strong> — Does the claim name a specific, measurable biological or behavioral outcome?</div></div>
+          <div class="dim-row"><div class="dim-row-label">POP</div><div class="dim-row-val"><strong style="color:var(--t1)">Population specificity</strong> — Is the relevant population identified (e.g., adults over 40, trained athletes)?</div></div>
+          <div class="dim-row"><div class="dim-row-label">MAG</div><div class="dim-row-val"><strong style="color:var(--t1)">Magnitude specificity</strong> — Is an effect size or quantitative threshold disclosed?</div></div>
+          <div class="dim-row"><div class="dim-row-label">TMP</div><div class="dim-row-val"><strong style="color:var(--t1)">Temporal specificity</strong> — Is a timeframe for the claimed effect identified?</div></div>
+          <div class="dim-row"><div class="dim-row-label">CON</div><div class="dim-row-val"><strong style="color:var(--t1)">Condition specificity</strong> — Are conditions required to achieve the claimed effect disclosed?</div></div>
+        </div>
+        <p class="footnote">SP score = mean criterion score across tier-1 claims × positional weight, normalized to 15 pts. Claims using absolute language ("proven," "guaranteed") without meeting all five criteria receive a Specificity–Distortion flag that also affects CD scoring.</p>
+      </div>
+
+      <!-- MI -->
+      <div class="dim-card" id="s3-4">
+        <div class="dim-header">
+          <div>
+            <div class="dim-name">Mechanism Integrity</div>
+            <div class="dim-abbr">MI</div>
+          </div>
+          <div class="dim-weight">15 pts</div>
+        </div>
+        <p class="dim-def"><strong>Definition:</strong> Whether the brand explains the biological or physiological mechanism by which a claimed effect occurs, and whether that explanation is consistent with published science. Mechanistic explanation is a hallmark of genuine evidence-based communication — it allows consumers to evaluate coherence, not merely accept assertion.</p>
+        <div class="dim-criteria">
+          <div class="dim-row"><div class="dim-row-label">MS</div><div class="dim-row-val"><strong style="color:var(--t1)">Mechanism stated</strong> — Is a mechanism of action offered for tier-1 claims?</div></div>
+          <div class="dim-row"><div class="dim-row-label">MP</div><div class="dim-row-val"><strong style="color:var(--t1)">Mechanism plausibility</strong> — Is the stated mechanism consistent with the published mechanistic literature?</div></div>
+          <div class="dim-row"><div class="dim-row-label">MC</div><div class="dim-row-val"><strong style="color:var(--t1)">Mechanism completeness</strong> — Does the brand connect mechanism to observed clinical outcome, or leave the pathway implied?</div></div>
+          <div class="dim-row"><div class="dim-row-label">MA</div><div class="dim-row-val"><strong style="color:var(--t1)">Mechanism accuracy</strong> — Are mechanistic claims free from distortion, e.g., extrapolating in vitro findings to human clinical outcomes?</div></div>
+        </div>
+        <p class="footnote">Common MI failure modes: "activates mitochondria" (vague, no pathway); "boosts serotonin" without receptor mechanism or clinical translation; citing in vitro evidence for human mechanism claims without translation caveat.</p>
+      </div>
+
+      <!-- ER -->
+      <div class="dim-card" id="s3-5">
+        <div class="dim-header">
+          <div>
+            <div class="dim-name">Effect Reality</div>
+            <div class="dim-abbr">ER</div>
+          </div>
+          <div class="dim-weight">15 pts</div>
+        </div>
+        <p class="dim-def"><strong>Definition:</strong> Whether claimed effects are grounded in outcomes likely to manifest for the target consumer under realistic conditions of use. Evidence may exist for a claimed effect under conditions that do not apply to typical consumers — ER evaluates whether this gap is acknowledged and whether it materially distorts the implied benefit.</p>
+        <div class="dim-criteria">
+          <div class="dim-row"><div class="dim-row-label">PM</div><div class="dim-row-val"><strong style="color:var(--t1)">Population match</strong> — Does the study population correspond to the target consumer (age, health status, baseline)?</div></div>
+          <div class="dim-row"><div class="dim-row-label">DM</div><div class="dim-row-val"><strong style="color:var(--t1)">Dosage correspondence</strong> — Does the evidence dose match the product dose at recommended use?</div></div>
+          <div class="dim-row"><div class="dim-row-label">DR</div><div class="dim-row-val"><strong style="color:var(--t1)">Duration realism</strong> — Are claimed effects achievable in the timeframe implied by marketing language?</div></div>
+          <div class="dim-row"><div class="dim-row-label">CA</div><div class="dim-row-val"><strong style="color:var(--t1)">Condition acknowledgment</strong> — Are required conditions (diet, exercise, coadministration) necessary to replicate study results disclosed?</div></div>
+        </div>
+        <p class="footnote">ER penalties are applied when: (a) evidence derives from deficient populations but is presented as general; (b) study doses exceed product doses without acknowledgment; (c) implied timelines contradict study duration; (d) study conditions are not reproducible by typical consumers without disclosure.</p>
+      </div>
+
+      <!-- CD -->
+      <div class="dim-card" id="s3-6">
+        <div class="dim-header">
+          <div>
+            <div class="dim-name">Consumer Distortion</div>
+            <div class="dim-abbr">CD</div>
+          </div>
+          <div class="dim-weight">20 pts</div>
+        </div>
+        <p class="dim-def"><strong>Definition:</strong> The degree to which marketing language, framing, or presentation techniques are likely to create materially false impressions among reasonable consumers, independent of the underlying evidence. CD is scored inversely — a full 20 points indicates no distortion detected.</p>
+        <p style="font-size:13px;color:var(--t2);margin-bottom:12px">The following distortion signals are evaluated, each contributing a severity-scaled penalty based on positional prominence:</p>
+        <div class="dim-criteria">
+          <div class="dim-row"><div class="dim-row-label">AL</div><div class="dim-row-val"><strong style="color:var(--t1)">Absolute efficacy language</strong> — "Clinically proven," "scientifically shown," "guaranteed results" without qualification</div></div>
+          <div class="dim-row"><div class="dim-row-label">CP</div><div class="dim-row-val"><strong style="color:var(--t1)">Cherry-picked evidence</strong> — Citing best-case results from a mixed or contrary evidentiary body</div></div>
+          <div class="dim-row"><div class="dim-row-label">SM</div><div class="dim-row-val"><strong style="color:var(--t1)">Study misrepresentation</strong> — Describing a study's scope, population, or conclusions beyond what it actually supports</div></div>
+          <div class="dim-row"><div class="dim-row-label">PT</div><div class="dim-row-val"><strong style="color:var(--t1)">Pseudoscientific terminology</strong> — Scientific-sounding language without scientific referent or consensus basis</div></div>
+          <div class="dim-row"><div class="dim-row-label">TE</div><div class="dim-row-val"><strong style="color:var(--t1)">Testimonial-as-evidence positioning</strong> — Anecdotal reports presented structurally as data or alongside clinical evidence</div></div>
+          <div class="dim-row"><div class="dim-row-label">CC</div><div class="dim-row-val"><strong style="color:var(--t1)">Causation from correlation</strong> — Implying causal relationship from observational or associational findings</div></div>
+          <div class="dim-row"><div class="dim-row-label">FH</div><div class="dim-row-val"><strong style="color:var(--t1)">Footer contradiction</strong> — Hero claims contradicted or qualified in footer disclaimers not visible at point of claim encounter</div></div>
+          <div class="dim-row"><div class="dim-row-label">RO</div><div class="dim-row-val"><strong style="color:var(--t1)">Risk omission</strong> — Suppression of known adverse effects or contraindications relevant to reasonable consumer populations</div></div>
+        </div>
+        <p style="font-size:13px;color:var(--t2);margin-top:16px;margin-bottom:10px">Each detected signal contributes a severity-scaled penalty. Severities are fixed; the penalty is then multiplied by the positional weight of the location in which the distortion appears:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Signal</th><th>Base Severity</th><th>Rationale</th></tr></thead>
+            <tbody>
+              <tr><td>AL — Absolute language</td><td class="mono">2.5</td><td>High prevalence; directly inflates perceived certainty</td></tr>
+              <tr><td>CP — Cherry-picking</td><td class="mono">3.0</td><td>Intentional misrepresentation of evidence body</td></tr>
+              <tr><td>SM — Study misrepresentation</td><td class="mono">3.0</td><td>Directly distorts consumer understanding of evidence scope</td></tr>
+              <tr><td>PT — Pseudoscientific terminology</td><td class="mono">2.0</td><td>Implies scientific basis where none exists</td></tr>
+              <tr><td>TE — Testimonial-as-evidence</td><td class="mono">1.5</td><td>Common; partially mitigated by consumer awareness</td></tr>
+              <tr><td>CC — Causation from correlation</td><td class="mono">2.5</td><td>Well-documented mechanism for false certainty attribution</td></tr>
+              <tr><td>FH — Footer contradiction</td><td class="mono">2.0</td><td>Structurally conceals qualifications from point of claim encounter</td></tr>
+              <tr><td>RO — Risk omission</td><td class="mono">2.5</td><td>Directly affects safety-relevant consumer decisions</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="formula" style="font-size:12px">
+          CD = 20 − Σ(severity<sub>k</sub> × w(p<sub>k</sub>)) &nbsp;&nbsp; <span>floored at 0; each distortion k contributes its severity multiplied by the positional weight of its location</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="section" id="s4">
+      <h2 class="section-head">4. Composite Scoring</h2>
+
+      <h3>4.1 Weighted Aggregation</h3>
+      <p>The composite score is computed as the positionally-weighted mean of individual claim-level dimension scores. Each claim <em>i</em> receives a positional weight w(p<sub>i</sub>) drawn from the position table in §2.3. Brand-level dimension scores are then summed across all claims, producing the composite:</p>
+      <div class="formula">
+        Brand Score = Σ[w(p<sub>i</sub>) × ClaimScore<sub>i</sub>] / Σ[w(p<sub>i</sub>)]
+        <br><br>
+        ClaimScore<sub>i</sub> = <span>EP</span><sub>i</sub> + <span>ES</span><sub>i</sub> + <span>SP</span><sub>i</sub> + <span>MI</span><sub>i</sub> + <span>ER</span><sub>i</sub> + <span>CD</span><sub>i</sub>
+        <br><br>
+        <span>where w(p) = positional weight from §2.3; Range: 0–100; Higher = stronger alignment</span>
+      </div>
+      <p>This formulation ensures that a brand with one strongly-evidenced hero claim and ten unsupported secondary claims is not rewarded by simple averaging. The positional denominator anchors the score to the consumer-facing prominence distribution of the actual claims evaluated.</p>
+
+      <h3>4.2 Signal Classification</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Score</th><th>Signal</th><th>Interpretation</th></tr></thead>
+          <tbody>
+            <tr class="score-row-grn"><td>75–100</td><td>Green</td><td>Claims are specific and backed by visible evidence of appropriate quality and scope</td></tr>
+            <tr class="score-row-yel"><td>45–74</td><td>Yellow</td><td>Some claims are supported; marketing extends beyond what is fully disclosed</td></tr>
+            <tr class="score-row-red"><td>0–44</td><td>Red</td><td>Claims materially exceed visible evidence; significant epistemic gap</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Threshold calibration was performed against a ground-truth corpus of 50 brands spanning the supplement, nutrition, functional food, and wellness device categories. Signal thresholds were set through iterative calibration against team ground-truth assessments; formal interrater reliability measurement with independent reviewers is a v1.1 milestone. Reliability design targets for each dimension and overall signal classification are described in §5.</p>
+
+      <h3>4.3 Claim-Level vs. Brand-Level Scoring</h3>
+      <p>The NORM Framework operates at the <strong>claim level</strong>. Each individual claim on a brand's consumer-facing pages is evaluated and scored before being aggregated to the brand level. This approach avoids the masking effect that occurs when a brand's strong evidence for one ingredient or claim obscures weak or absent evidence for others — a common pattern in which a single well-supported ingredient claim is used to imply evidential support for an entire product line.</p>
+      <p>Brand-level scores are the positionally-weighted mean of claim-level dimension scores. Tier-1 claims (hero headlines, primary descriptors) are weighted at their positional multipliers; lower-position claims are downweighted accordingly.</p>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="section" id="s5">
+      <h2 class="section-head">5. Validation & Reliability</h2>
+
+      <h3 id="s5-1">5.1 Pipeline Calibration</h3>
+      <p>The NORM v1.0 scoring pipeline applies the six-dimension framework through a large language model (LLM) evaluation stage. The LLM is prompted with the full dimension rubric, positional weighting table, and evidence hierarchy for each brand page evaluated. Dimension scores are produced per identified claim, then aggregated to brand level using the positionally-weighted mean formulation in §4.1.</p>
+      <p>The pipeline was calibrated by the NORM Analytics team against a ground-truth corpus of 50 brands. Team members scored each brand manually using the complete rubric; these scores served as the calibration target. Pipeline prompts, rubric descriptions, and scoring examples were iteratively refined until pipeline output aligned with team ground-truth on signal classification (Green / Yellow / Red) across the calibration corpus.</p>
+      <p>Formal interrater reliability assessment — in which independent reviewers with no involvement in framework development apply the rubric to a blind corpus and Cohen's weighted kappa is computed against pipeline output — is the primary validation milestone for methodology v1.1. The design targets below represent the reliability levels the framework's operational criteria are structured to achieve per dimension:</p>
+      <div class="table-wrap">
+        <table class="kappa-table">
+          <thead><tr><th>Dimension</th><th>Design Target κ</th><th>Interpretation</th></tr></thead>
+          <tbody>
+            <tr class="kappa-pass"><td>Evidence Presence (EP)</td><td>≥ 0.85</td><td>Almost perfect</td></tr>
+            <tr class="kappa-pass"><td>Evidence Strength (ES)</td><td>≥ 0.80</td><td>Almost perfect</td></tr>
+            <tr class="kappa-pass"><td>Specificity (SP)</td><td>≥ 0.75</td><td>Substantial</td></tr>
+            <tr class="kappa-pass"><td>Mechanism Integrity (MI)</td><td>≥ 0.75</td><td>Substantial</td></tr>
+            <tr class="kappa-warn"><td>Effect Reality (ER)</td><td>≥ 0.70</td><td>Substantial</td></tr>
+            <tr class="kappa-pass"><td>Consumer Distortion (CD)</td><td>≥ 0.80</td><td>Almost perfect</td></tr>
+            <tr class="kappa-pass" style="border-top:2px solid var(--b2)"><td><strong style="color:var(--t1)">Signal Classification (overall)</strong></td><td><strong style="color:var(--t1)">≥ 0.78</strong></td><td><strong style="color:var(--t1)">Substantial → Almost perfect</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Effect Reality (ER) carries the most demanding reliability requirement of any dimension, given its requirement that assessors evaluate population and dosage correspondence between cited studies and actual product specifications — a judgment dependent on full-text study access and product labeling detail. The ER rubric criteria are designed to minimize variance within the automated scoring context; residual ER uncertainty is one of the acknowledged limitations of v1.0 automated assessment.</p>
+
+      <h3 id="s5-2">5.2 Construct Validity Predictions</h3>
+      <p>The NORM Framework makes specific, falsifiable predictions about what construct validity testing should show. Publishing these predictions in advance of formal data collection is a commitment to falsifiability — a condition the framework's independence claims require.</p>
+      <ul>
+        <li><strong>Convergent — FTC enforcement history:</strong> Brands with documented FTC enforcement actions or warning letters should score materially lower than brands with no enforcement history. This prediction follows from the framework construct: brands that have been actioned for deceptive health claims are by definition producing claims that exceed visible evidence. NORM scores should detect this at the dimension level before enforcement occurs, not after.</li>
+        <li><strong>Convergent — Consumer trustworthiness perception:</strong> NORM scores should correlate positively with independent consumer assessments of brand credibility. If the construct NORM measures does not map onto layperson credibility judgment, the framework's consumer-protection rationale requires revision.</li>
+        <li><strong>Discriminant — Product formulation quality:</strong> NORM scores should show no significant correlation with independently assessed product formulation quality. A high NORM score means a brand shows its evidence proportionately — not that the product is effective. A brand with an excellent formulation and poor evidence disclosure should score low; a brand with a mediocre formulation and proportionate evidence disclosure should score higher. If scores correlate with product quality, the framework is measuring something other than what it claims.</li>
+      </ul>
+      <p>Formal validity testing against each prediction — using the calibration corpus and a planned expanded corpus — will be published as data are collected and will inform methodology v1.1 refinements.</p>
+
+      <h3 id="s5-3">5.3 Calibration Corpus</h3>
+      <p>The 50-brand calibration corpus was constructed by the NORM Analytics team to ensure category breadth and score distribution coverage. Brands were selected to include representation across expected signal ranges, product categories (supplements, skincare/cosmetics, functional food/beverage, health devices, financial wellness), and revenue scale (from pre-revenue DTC brands to established CPG lines). Calibration corpus composition is not publicly disclosed to prevent targeted gaming of calibration-specific scoring patterns. An expanded corpus of 150+ brands is planned for v1.1 reliability and validity assessment.</p>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="section" id="s6">
+      <h2 class="section-head">6. Data Collection Protocol</h2>
+
+      <h3>6.1 Pipeline Architecture</h3>
+      <p>NORM v1.0 operates as a fully automated LLM-powered scoring pipeline. For each brand, the pipeline performs five sequential stages: (1) <strong style="color:var(--t1)">page crawling</strong> via headless browser, capturing rendered HTML content including JavaScript-executed elements; (2) <strong style="color:var(--t1)">claim identification and positional classification</strong> — the LLM identifies marketing claims and assigns each a position tier from the §2.3 table; (3) <strong style="color:var(--t1)">evidence resolution</strong> — URLs and citation references in brand pages are followed and resolved to determine evidence presence and assess evidence tier; (4) <strong style="color:var(--t1)">dimension scoring</strong> — each identified claim is scored on all six dimensions using the full rubric; (5) <strong style="color:var(--t1)">brand-level aggregation</strong> via the positionally-weighted mean formula in §4.1.</p>
+      <p>Human editorial review is applied at the signal classification level. Pipeline outputs for new brands are reviewed by the NORM Analytics team before a score is published. Brands scoring in boundary ranges (approximately 40–50 or 70–80) receive additional review before publication. The pipeline then operates on a refresh cycle; refreshed scores are published without re-review unless a material change is detected.</p>
+
+      <h3>6.2 Page Scope and Capture Confidence</h3>
+      <p>Pages included in scoring: homepage, product detail pages, ingredient and science pages, FAQ and education pages, clinical research pages. Pages excluded: press releases, investor materials, third-party retailer pages, social media content, and advertising placements. Brands that block crawler access through bot-detection mechanisms receive a Low Confidence classification reflecting the gap in capturable content; their scores are displayed with an explicit confidence flag and excluded from comparative rankings until a full capture is available. Visual claims present only in images or video are noted as uncaptured and do not influence scores in v1.0; structured visual claim capture is a planned v1.1 capability.</p>
+
+      <h3>6.3 Evidence Resolution</h3>
+      <p>Citation references identified in brand pages — including hyperlinked URLs, DOI references, and named study titles — are resolved by the pipeline to determine evidence presence and tier. Links that resolve to accessible study abstracts or full texts are evaluated for study design metadata (population, design type, sample size, funding source where disclosed). Citations present in brand copy that do not resolve to an accessible study receive reduced EP credit and an Unresolvable Citation note in the claim record. Studies cited without any link or identifier are scored at the minimum evidence presence tier.</p>
+    </div>
+
+    <!-- SECTION 7 -->
+    <div class="section" id="s7">
+      <h2 class="section-head">7. Comparative Context</h2>
+
+      <p>The NORM Framework occupies a distinct position relative to existing evaluation mechanisms. Understanding what distinguishes NORM from these mechanisms clarifies the gap it fills and the claims it does not make.</p>
+
+      <div class="compare-item">
+        <div class="compare-label">FTC Substantiation</div>
+        <div class="compare-body"><strong style="color:var(--t1)">Scope:</strong> Legal floor for health-related advertising claims. <strong style="color:var(--t1)">Key difference:</strong> Reactive enforcement only; requires demonstrated deception and consumer harm; does not evaluate evidence quality, only presence. NORM operates proactively, evaluates quality systematically, and requires no enforcement trigger or victim.</div>
+      </div>
+      <div class="compare-item">
+        <div class="compare-label">FDA Structure-Function</div>
+        <div class="compare-body"><strong style="color:var(--t1)">Scope:</strong> Pre-category claim type restriction under DSHEA. <strong style="color:var(--t1)">Key difference:</strong> Governs which claims may legally be made, not whether they are evidentially supported. A claim can be FDA-compliant and score Red on NORM. NORM evaluates the epistemic relationship between the claim and the evidence, not the claim's legal categorization.</div>
+      </div>
+      <div class="compare-item">
+        <div class="compare-label">Labeling Verification (NSF, USP)</div>
+        <div class="compare-body"><strong style="color:var(--t1)">Scope:</strong> Third-party certification of product contents against label specifications. <strong style="color:var(--t1)">Key difference:</strong> Verifies what is in the product, not whether marketing claims for those ingredients are evidentially supported. NORM evaluates marketing claims, not formulations. A USP-certified product can score Red; an uncertified product can score Green.</div>
+      </div>
+      <div class="compare-item">
+        <div class="compare-label">Academic Literature Review</div>
+        <div class="compare-body"><strong style="color:var(--t1)">Scope:</strong> Systematic or narrative review of the published evidence base for an ingredient or intervention. <strong style="color:var(--t1)">Key difference:</strong> Evaluates whether evidence exists in principle, not whether the specific brand discloses it. NORM evaluates what each brand publicly shows on its consumer-facing pages — the specific information environment where consumer decisions are made.</div>
+      </div>
+      <div class="compare-item">
+        <div class="compare-label">Investigative Journalism</div>
+        <div class="compare-body"><strong style="color:var(--t1)">Scope:</strong> Episodic investigation of specific brands or industry practices. <strong style="color:var(--t1)">Key difference:</strong> Coverage is selective, reactive, and non-scalable. NORM is systematic, continuous, and category-agnostic — designed to produce a complete rather than illustrative record of claim–evidence alignment across the brand universe.</div>
+      </div>
+      <div class="compare-item">
+        <div class="compare-label">Consumer Review Platforms</div>
+        <div class="compare-body"><strong style="color:var(--t1)">Scope:</strong> Aggregated consumer experience reports on product outcomes. <strong style="color:var(--t1)">Key difference:</strong> Reflects consumer-reported experience (often uncontrolled, highly variable, susceptible to selection bias) rather than the quality of brand evidence claims. High consumer ratings are not evidence of marketing honesty; NORM scores are independent of consumer satisfaction.</div>
+      </div>
+
+      <div class="callout" style="margin-top:24px">
+        <strong>The gap NORM fills:</strong> No existing mechanism continuously evaluates whether consumer-facing brand marketing claims are proportionate to publicly visible evidence, across all product categories, at brand-page level, without regulatory trigger or editorial curation. This is the specific absence NORM addresses — and the one none of the above mechanisms fills.
+      </div>
+    </div>
+
+    <!-- SECTION 8 -->
+    <div class="section" id="s8">
+      <h2 class="section-head">8. Adversarial Robustness</h2>
+
+      <p>Any public scoring system creates incentives for scored entities to optimize toward the signal rather than the underlying construct. This section documents the five primary adversarial vectors identified during framework development and describes the structural mitigations incorporated into the NORM scoring system.</p>
+
+      <div class="vector">
+        <div class="vector-head">
+          <div class="vector-id">V1</div>
+          <div class="vector-name">Claim Dilution — Replacing specific claims with vague ones to reduce scorable content</div>
+        </div>
+        <p><strong style="color:var(--t1)">Mechanism:</strong> A brand replaces measurable hero claims ("increases VO₂ max by 12%") with epistemically empty language ("supports peak performance") to reduce the surface area for Specificity (SP) and Effect Reality (ER) penalties, while maintaining the benefit impression through imagery, testimonials, and brand aesthetic.</p>
+        <p><strong style="color:var(--t1)">Mitigation:</strong> Vague claims score zero on Specificity subcriteria by definition — but they also score near-zero on EP and ES, as there is no specific claim to evidence. The net effect on composite score is neutral to negative: vague claims eliminate SP and ER penalties but also eliminate the EP and ES points a specific, well-evidenced claim would earn. SP scores below 5/15 trigger a Vagueness Flag in the public claim record, visible to consumers independently of composite score.</p>
+      </div>
+
+      <div class="vector">
+        <div class="vector-head">
+          <div class="vector-id">V2</div>
+          <div class="vector-name">Citation Flooding — Adding low-quality studies en masse to inflate Evidence Presence scores</div>
+        </div>
+        <p><strong style="color:var(--t1)">Mechanism:</strong> A brand adds large numbers of citations to hero claims — primarily T7–T9 tier studies (expert opinion, gray literature, animal models) — to score highly on EP while maintaining a weak overall ES score.</p>
+        <p><strong style="color:var(--t1)">Mitigation:</strong> EP is capped at 10 points regardless of citation volume; ES scores each citation on quality tier, so T7–T9 flooding yields ES scores near zero. The positionally-weighted mean formulation (§4.1) further limits the benefit of adding many low-quality citations: the denominator grows with citations, but the numerator grows minimally if citation quality is low. A brand flooding T9 testimonials achieves EP ≈ 7, ES ≈ 3 — a composite around 25–30, solidly Red.</p>
+      </div>
+
+      <div class="vector">
+        <div class="vector-head">
+          <div class="vector-id">V3</div>
+          <div class="vector-name">Dynamic Content Serving — Presenting different page content to scoring infrastructure than to consumers</div>
+        </div>
+        <p><strong style="color:var(--t1)">Mechanism:</strong> A brand detects NORM's crawler through IP, user-agent, or behavioral signals and serves a modified page with stronger evidence disclosure or fewer distortion signals than the version presented to typical visitors.</p>
+        <p><strong style="color:var(--t1)">Mitigation:</strong> In v1.0, the primary mitigation is human editorial review of pipeline output before publication, combined with periodic re-crawl that compares captured content against prior sessions. Significant content divergence between sessions triggers re-review. The framework is designed to add structured multi-source capture verification as a v1.1 capability — including session replication to verify content consistency between crawl sessions with distinct fingerprint profiles. Brands confirmed to serve materially different content to known scoring infrastructure will receive a permanent notation in their public record; this structural response is built into the framework design ahead of its implementation.</p>
+      </div>
+
+      <div class="vector">
+        <div class="vector-head">
+          <div class="vector-id">V4</div>
+          <div class="vector-name">Post-Score Page Modification — Updating brand pages immediately after receiving a low score to improve subsequent refresh</div>
+        </div>
+        <p><strong style="color:var(--t1)">Mechanism:</strong> A brand receives a Red score, updates its consumer-facing pages specifically to improve NORM dimension scores (adding evidence links, removing distortion language), and requests an expedited rescore — achieving a better public score without making meaningful changes to its evidence base or consumer communication practices.</p>
+        <p><strong style="color:var(--t1)">Mitigation:</strong> Score history is stored per brand in v1.0. Public display of score trajectories — showing when scores changed, by how much, and how quickly after publication — is a planned v1.1 feature. The framework treats score change velocity as a signal in its own right: rapid score improvement immediately following a low-score publication is a pattern the infrastructure is built to surface. Brands that make genuine, sustained evidence improvements will be distinguishable from those that make reactive cosmetic changes by the stability of scores across subsequent refresh cycles. The public record is designed to make this distinction visible — not just what a brand scores now, but how that score has moved and why.</p>
+      </div>
+
+      <div class="vector">
+        <div class="vector-head">
+          <div class="vector-id">V5</div>
+          <div class="vector-name">Semantic Drift — Using technically accurate language that exploits scoring rubric edge cases</div>
+        </div>
+        <p><strong style="color:var(--t1)">Mechanism:</strong> Brands develop marketing language engineered to pass specific scoring criteria while maintaining the consumer impression the criteria were designed to detect — for example, using qualified specific language ("in one clinical study, subjects experienced...") that scores positively on SP while materially misrepresenting certainty through omission of contradictory findings.</p>
+        <p><strong style="color:var(--t1)">Mitigation:</strong> Consumer Distortion (CD) is scored separately from specificity and evidence dimensions precisely to capture this gap. A claim can be specific, evidence-linked, and mechanistically coherent while still generating CD penalties for cherry-picking (CP) if the referenced study is anomalous within the full evidence body. The CD dimension's independence from positive-scoring dimensions ensures that technical compliance with specificity and evidence criteria does not immunize a brand from distortion scoring. Methodology versioning also allows calibration updates as specific gaming patterns are identified — the framework is explicitly designed to evolve in response to adversarial adaptation.</p>
+      </div>
+
+      <div class="callout" style="margin-top:20px">
+        <strong>Design principle:</strong> No scoring system is perfectly robust to adversarial optimization — especially a public one. NORM's response to this constraint is transparency: documented vectors, disclosed mitigations, and a public record that surfaces manipulation signals alongside scores. A brand that successfully games its NORM score does so in a public record that shows the score trajectory, the timing of changes, and any flags triggered along the way. The signal, in this context, is not only the score.
+      </div>
+    </div>
+
+    <!-- SECTION 9 -->
+    <div class="section" id="s9">
+      <h2 class="section-head">9. Limitations</h2>
+      <p>The following limitations are explicit constraints of the NORM Framework. They are not deficiencies to be resolved — they are inherent to the defined scope of what the framework measures and what it does not.</p>
+
+      <div class="limitation">
+        <h4>9.1 NORM Does Not Evaluate Product Efficacy</h4>
+        <p>NORM measures whether brands show their evidence — not whether the underlying products are effective, safe, or appropriate for any individual. A high score means a brand publicly discloses proportionate evidence. A low score means claims exceed visible evidence. Neither score constitutes a finding about product performance.</p>
+      </div>
+      <div class="limitation">
+        <h4>9.2 Temporal Limitations</h4>
+        <p>Scores reflect a point-in-time assessment of publicly accessible pages. Brands update pages; evidence bases evolve. NORM scores are refreshed periodically but cannot guarantee currency between refresh cycles.</p>
+      </div>
+      <div class="limitation">
+        <h4>9.3 Private Evidence Files</h4>
+        <p>DSHEA permits manufacturers to hold substantiation files that are not required to be publicly disclosed. A brand may hold robust private evidence while scoring poorly on NORM because that evidence has not been made publicly visible. This is an explicit design choice: NORM evaluates the consumer-facing information environment specifically, not the regulatory file.</p>
+      </div>
+      <div class="limitation">
+        <h4>9.4 Off-Page Marketing Channels</h4>
+        <p>Social media advertising, influencer content, podcast sponsorships, and other off-page marketing channels are not currently included in scoring. These channels frequently carry claims that exceed those on brand websites — an expansion of scope that represents a meaningful direction for the framework.</p>
+      </div>
+      <div class="limitation">
+        <h4>9.5 Non-U.S. Regulatory Contexts</h4>
+        <p>The framework was developed with reference to U.S. regulatory standards (FTC, FDA/DSHEA). Application to brands operating primarily under EU, UK, or other regulatory frameworks requires contextual adaptation of the Consumer Distortion criteria.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 10 -->
+    <div class="section" id="s10">
+      <h2 class="section-head">10. Independence and Ethical Framework</h2>
+
+      <h3>10.1 Structural Independence</h3>
+      <p>NORM Framework scores are produced by an automated pipeline and editorial process that is structurally separated from commercial relationships. Brand Pro and Data API subscribers receive workflow tools and analytical access to their own brand data. Reviewers do not have access to commercial account information when producing or reviewing scores. No brand can purchase inclusion, a higher score, queue priority, or editorial access. Revenue streams are structurally separated from scoring functions — this separation is enforced architecturally, not by policy alone.</p>
+
+      <h3>10.2 Conflict of Interest Policy</h3>
+      <p>No individual involved in evaluating a brand may hold a financial interest in that brand. NORM Analytics does not accept advertising revenue, affiliate commissions, or brand-sponsored content of any kind.</p>
+
+      <h3>10.3 Transparency Commitments</h3>
+      <ul>
+        <li>This methodology document is publicly available and versioned</li>
+        <li>Score rationale is disclosed in public claim records accessible without registration</li>
+        <li>Brands may submit evidence for editorial review through the Brand Portal; submissions are evaluated on the same criteria as all other evidence and do not guarantee score changes</li>
+        <li>Score disputes are addressed through a documented review process with written rationale</li>
+        <li>Methodology updates are versioned and publicly noted with effective dates</li>
+      </ul>
+    </div>
+
+    <!-- SECTION 11 -->
+    <div class="section" id="s11">
+      <h2 class="section-head">11. Conclusion</h2>
+      <p>Consumer brand markets exhibit systematic information asymmetry that current regulatory frameworks address incompletely — and that is widening as expenditure grows, claim production industrializes through AI, and consumers make consequential decisions with minimal independent infrastructure for evaluating what they are told. In this environment, the absence of a structured, publicly available, consumer-facing evaluation of claim–evidence alignment is not a gap. It is a design failure — and it is not specific to one category.</p>
+      <p>The NORM Framework is a response to that design failure. By evaluating marketing claims at the individual level, applying positional weighting grounded in visual attention research, classifying evidence quality through a hierarchy consistent with evidence-based medicine standards, and producing scores interpretable by a non-expert consumer, NORM makes the epistemic gap between what brands claim and what they publicly substantiate visible, measurable, and persistent — in any consumer category where that gap exists.</p>
+      <p>NORM does not wait for a regulatory trigger. It does not require a complaint, a victim, or an enforcement action. It operates on the consumer-facing page — the specific environment where purchase decisions are made and where existing oversight stops — and produces a public record that updates as brands update their pages. What was hidden is made visible. What was vague is made measurable. What was ephemeral is made permanent.</p>
+      <p>This is not merely a useful analytical tool. For any consumer making a material financial or health commitment on the basis of brand marketing, it is the only structured, independent, publicly accessible evaluation of whether those claims are proportionate to what the brand actually shows. For the brand that has invested in genuine evidence disclosure, it is the mechanism by which that investment is distinguished from brands that have not. For the market as a whole, it is infrastructure — category-agnostic, structurally independent, and built to scale.</p>
+      <p>The framework is explicitly limited in scope: it measures what brands choose to show, not what products do. That limitation is also its precision. The consumer-facing page is where the decision happens. That is where the record belongs.</p>
+      <p style="margin-top:24px;font-size:13px;color:var(--t3);border-top:1px solid var(--b1);padding-top:20px">A Green signal is not a certification. It is a record — built from what a brand chooses to make visible, and how proportionate that is to what it claims. Any brand can earn it. The ones that already can are the ones this framework was built to find.</p>
+    </div>
+
+    <!-- APPENDIX A -->
+    <div class="section" id="appendix-a">
+      <div class="appendix-label">Appendix A</div>
+      <div class="appendix-brand">Worked Scoring Example</div>
+      <p class="appendix-context">The following illustrates the application of NORM Framework dimensions to a representative hypothetical brand — a direct-to-consumer cognitive supplement making three primary claims. All figures are constructed for illustrative purposes; this example does not represent any specific brand.</p>
+
+      <h3>Brand Profile</h3>
+      <p><strong>Category:</strong> Dietary supplement (cognitive health). <strong>Claims evaluated:</strong> (1) "Clinically proven to improve focus within 30 days" — hero headline, w(p) = 3.0×. (2) "Backed by 14 peer-reviewed studies" — above-fold body copy, w(p) = 2.0×. (3) "Supports long-term memory consolidation" — below-fold product section, w(p) = 1.0×. Evidence provided: one hyperlinked industry-funded RCT (n = 42, single-blind) on ingredient A; 13 citations to in vitro and animal model studies for remaining ingredients.</p>
+
+      <h3>Claim-Level Scoring</h3>
+
+      <div class="claim-eval">
+        <div class="claim-eval-head">Claim 1 — "Clinically proven to improve focus within 30 days" &nbsp;·&nbsp; Hero headline (w = 3.0×)</div>
+        <div class="claim-eval-row"><div class="claim-eval-dim">EP — Evidence Presence</div><div class="claim-eval-score score-yel">6 / 10</div></div>
+        <div class="claim-eval-row"><div class="claim-eval-dim">ES — Evidence Strength</div><div class="claim-eval-score score-yel">10 / 25</div></div>
+        <div class="claim-eval-row"><div class="claim-eval-dim">SP — Specificity</div><div class="claim-eval-score score-grn">11 / 15</div></div>
+        <div class="claim-eval-row"><div class="claim-eval-dim">MI — Mechanism Integrity</div><div class="claim-eval-score score-yel">7 / 15</div></div>
+        <div class="claim-eval-row"><div class="claim-eval-dim">ER — Effect Reality</div><div class="claim-eval-score score-red">5 / 15</div></div>
+        <div class="claim-eval-row"><div class="claim-eval-dim">CD — Consumer Distortion</div><div class="claim-eval-score score-red">3 / 20</div></div>
+        <div class="claim-eval-row" style="border-top:1px solid var(--b2);margin-top:6px;padding-top:6px"><div class="claim-eval-dim" style="color:var(--t1);font-weight:500">Claim Score</div><div class="claim-eval-score score-red">42 / 100</div></div>
+        <div class="claim-eval-note">EP: one RCT cited and linked, but bare assertions for other claimed outcomes. ES: single T2-tier study (industry-funded, small n, single-blind); 0.8× funding modifier applied (effective ES ≈ 10). SP: outcome and temporal specificity met; population not defined (−4). ER: study population was cognitively impaired older adults; product marketed to healthy working adults; dose correspondence not disclosed (−10). CD: "clinically proven" absolute language (AL: 2.5 × 3.0 = 7.5); presenting a single-blind n=42 pilot as clinical proof misrepresents its scope (SM: 3.0 × 3.0 = 9.0); hero claim contradicted by footer disclaimer (FH: 2.0 × 0.3 = 0.6). Total penalty = 17.1; CD = 20 − 17.1 = 2.9.</div>
+      </div>
+
+      <div class="claim-eval">
+        <div class="claim-eval-head">Claim 2 — "Backed by 14 peer-reviewed studies" &nbsp;·&nbsp; Above-fold body (w = 2.0×)</div>
+        <div class="claim-eval-row"><div class="claim-eval-dim">EP — Evidence Presence</div><div class="claim-eval-score score-grn">9 / 10</div></div>
+        <div class="claim-eval-row"><div class="claim-eval-dim">ES — Evidence Strength</div><div class="claim-eval-score score-red">5 / 25</div></div>
+        <div class="claim-eval-row"><div class="claim-eval-dim">SP — Specificity</div><div class="claim-eval-score score-red">4 / 15</div></div>
+        <div class="claim-eval-row"><div class="claim-eval-dim">MI — Mechanism Integrity</div><div class="claim-eval-score score-yel">6 / 15</div></div>
+        <div class="claim-eval-row"><div class="claim-eval-dim">ER — Effect Reality</div><div class="claim-eval-score score-yel">7 / 15</div></div>
+        <div class="claim-eval-row"><div class="claim-eval-dim">CD — Consumer Distortion</div><div class="claim-eval-score score-red">8 / 20</div></div>
+        <div class="claim-eval-row" style="border-top:1px solid var(--b2);margin-top:6px;padding-top:6px"><div class="claim-eval-dim" style="color:var(--t1);font-weight:500">Claim Score</div><div class="claim-eval-score score-red">39 / 100</div></div>
+        <div class="claim-eval-note">ES: 13 of 14 cited studies are T6 (in vitro) or T7 (animal model); the "14 peer-reviewed" framing implies a stronger evidence body than exists. SP: claim makes no specific outcome assertion — zero on OC, MAG, POP, TMP subcriteria. CD: cherry-picking (CP: 3.0 × 2.0 = 6.0) for presenting a primarily in vitro/animal evidence body as peer-reviewed backing; study misrepresentation (SM: 3.0 × 2.0 = 6.0) for framing T6/T7 studies as implying human efficacy. Total penalty = 12.0; CD = 20 − 12.0 = 8.</div>
+      </div>
+
+      <div class="claim-eval">
+        <div class="claim-eval-head">Claim 3 — "Supports long-term memory consolidation" &nbsp;·&nbsp; Below-fold product section (w = 1.0×)</div>
+        <div class="claim-eval-row"><div class="claim-eval-dim">EP — Evidence Presence</div><div class="claim-eval-score score-red">2 / 10</div></div>
+        <div class="claim-eval-row"><div class="claim-eval-dim">ES — Evidence Strength</div><div class="claim-eval-score score-red">2 / 25</div></div>
+        <div class="claim-eval-row"><div class="claim-eval-dim">SP — Specificity</div><div class="claim-eval-score score-yel">6 / 15</div></div>
+        <div class="claim-eval-row"><div class="claim-eval-dim">MI — Mechanism Integrity</div><div class="claim-eval-score score-yel">8 / 15</div></div>
+        <div class="claim-eval-row"><div class="claim-eval-dim">ER — Effect Reality</div><div class="claim-eval-score score-yel">7 / 15</div></div>
+        <div class="claim-eval-row"><div class="claim-eval-dim">CD — Consumer Distortion</div><div class="claim-eval-score score-grn">18 / 20</div></div>
+        <div class="claim-eval-row" style="border-top:1px solid var(--b2);margin-top:6px;padding-top:6px"><div class="claim-eval-dim" style="color:var(--t1);font-weight:500">Claim Score</div><div class="claim-eval-score score-red">43 / 100</div></div>
+        <div class="claim-eval-note">EP: one in vitro study loosely cited; no direct human memory evidence linked for this specific claim. CD: hedged language ("supports") avoids absolute claims; mechanism stated without overreach. Minor testimonial adjacency on the same page section (TE: 1.5 × 1.0 = 1.5). CD = 20 − 1.5 = 18.5.</div>
+      </div>
+
+      <h3>Composite Score Computation</h3>
+      <div class="formula" style="font-size:12px">
+        Brand Score = Σ[w(p<sub>i</sub>) × ClaimScore<sub>i</sub>] / Σ[w(p<sub>i</sub>)]
+        <br><br>
+        = [(3.0 × 42) + (2.0 × 39) + (1.0 × 43)] / (3.0 + 2.0 + 1.0)
+        <br>
+        = [126 + 78 + 43] / 6.0
+        <br>
+        = 247 / 6.0
+        <br>
+        = <strong style="color:var(--red)">41.2 → Signal: Red</strong>
+        <br><br>
+        <span>Note: the hero claim's 3.0× weight means its compounding CD penalties (AL + SM + FH = 17.1 pts deducted) drive the composite decisively into Red territory, despite Claim 3's relatively clean distortion profile. This reflects how consumers actually encounter the brand — the hero claim is seen first, most often, and most influentially.</span>
+      </div>
+
+      <div class="callout">
+        <strong>Key lesson from this example:</strong> The brand's single T2-tier study is non-trivial evidence — and scores accordingly on ES for Claim 1. But "clinically proven" absolute language, a mismatched study population, and 13 low-tier studies framed as "peer-reviewed backing" generate compounding CD and ER penalties that produce an overall Red score. The problem is not the absence of any evidence — it is the systematic overreach of the claims relative to what is shown. This is precisely the gap between legal compliance (the brand meets FTC substantiation requirements) and genuine epistemic transparency (what consumers would reasonably conclude is unsupported by the evidence disclosed).
+      </div>
+    </div>
+
+    <!-- REFERENCES -->
+    <div class="section" id="refs">
+      <h2 class="section-head">References</h2>
+      <div class="refs">
+        <div class="ref-item"><div class="ref-num">[1]</div><div class="ref-text">Akerlof, G.A. (1970). The market for "lemons": Quality uncertainty and the market mechanism. <em>The Quarterly Journal of Economics</em>, 84(3), 488–500.</div></div>
+        <div class="ref-item"><div class="ref-num">[2]</div><div class="ref-text">Council for Responsible Nutrition. (2024). <em>Dietary Supplement Industry Sales Data</em>. Washington, D.C.</div></div>
+        <div class="ref-item"><div class="ref-num">[3]</div><div class="ref-text">Dietary Supplement Health and Education Act of 1994, Pub. L. No. 103-417, 108 Stat. 4325 (1994).</div></div>
+        <div class="ref-item"><div class="ref-num">[4]</div><div class="ref-text">Federal Trade Commission. (2001). <em>Dietary Supplements: An Advertising Guide for Industry</em>. FTC Bureau of Consumer Protection.</div></div>
+        <div class="ref-item"><div class="ref-num">[5]</div><div class="ref-text">Cialdini, R.B. (2001). <em>Influence: Science and Practice</em> (4th ed.). Allyn & Bacon.</div></div>
+        <div class="ref-item"><div class="ref-num">[6]</div><div class="ref-text">Chaiken, S. (1980). Heuristic versus systematic information processing and the use of source versus message cues in persuasion. <em>Journal of Personality and Social Psychology</em>, 39(5), 752–766.</div></div>
+        <div class="ref-item"><div class="ref-num">[7]</div><div class="ref-text">Rozin, P., Spranca, M., Krieger, Z., Neuhaus, R., Surillo, D., Swerdlin, A., & Wood, K. (2004). Preference for natural: Instrumental and ideational/moral motivations, and the contrast between foods and medicines. <em>Appetite</em>, 43(2), 147–154.</div></div>
+        <div class="ref-item"><div class="ref-num">[8]</div><div class="ref-text">Mason, M.F., Lee, A.J., Wiley, E.A., & Ames, D.R. (2013). Precise offers are potent anchors: Conciliatory counteroffers and the limits of precision. <em>Journal of Experimental Social Psychology</em>, 49(4), 759–763.</div></div>
+        <div class="ref-item"><div class="ref-num">[9]</div><div class="ref-text">Petty, R.E., & Cacioppo, J.T. (1986). The elaboration likelihood model of persuasion. <em>Advances in Experimental Social Psychology</em>, 19, 123–205.</div></div>
+        <div class="ref-item"><div class="ref-num">[10]</div><div class="ref-text">Winterbottom, A., Bekker, H.L., Conner, M., & Mooney, A. (2008). Does narrative information bias individual's decision making? A systematic review. <em>Social Science & Medicine</em>, 67(12), 2079–2088.</div></div>
+        <div class="ref-item"><div class="ref-num">[11]</div><div class="ref-text">Pernice, K., & Nielsen, J. (2019). <em>How People Read on the Web: The Eyetracking Evidence</em>. Nielsen Norman Group.</div></div>
+        <div class="ref-item"><div class="ref-num">[12]</div><div class="ref-text">Guyatt, G., Oxman, A.D., Akl, E.A., Kunz, R., Vist, G., Brozek, J., … & Schünemann, H.J. (2011). GRADE guidelines: 1. Introduction — GRADE evidence profiles and summary of findings tables. <em>Journal of Clinical Epidemiology</em>, 64(4), 383–394.</div></div>
+        <div class="ref-item"><div class="ref-num">[13]</div><div class="ref-text">Grand View Research. (2024). <em>Dietary Supplements Market Size, Share & Trends Analysis Report, 2024–2030</em>. Grand View Research. Retrieved from grandviewresearch.com; corroborated by Global Wellness Institute. (2024). <em>Global Wellness Economy Monitor</em>. GWI.</div></div>
+        <div class="ref-item"><div class="ref-num">[14]</div><div class="ref-text">Federal Trade Commission. (2023). <em>Protecting Consumers in the Era of Generative AI</em>. FTC Policy Statement. Washington, D.C.; see also Bickmore, T., & Gruber, A. (2010). Relational agents in clinical psychiatry. <em>Harvard Review of Psychiatry</em>, 18(2), 119–130, for foundational work on AI communication credibility in health contexts.</div></div>
+        <div class="ref-item"><div class="ref-num">[15]</div><div class="ref-text">International Food Information Council. (2024). <em>Food &amp; Health Survey</em>. IFIC Foundation. Washington, D.C.; Edelman. (2024). <em>Edelman Trust Barometer: Health and Consumer Goods Special Report</em>. Edelman.</div></div>
+        <div class="ref-item"><div class="ref-num">[16]</div><div class="ref-text">Bailey, R.L., Gahche, J.J., Miller, P.E., Thomas, P.R., & Dwyer, J.T. (2013). Why US adults use dietary supplements. <em>JAMA Internal Medicine</em>, 173(5), 355–361; Kantor, E.D., Rehm, C.D., Du, M., White, E., & Giovannucci, E.L. (2016). Trends in dietary supplement use among US adults from 1999–2012. <em>JAMA</em>, 316(14), 1464–1474.</div></div>
+        <div class="ref-item"><div class="ref-num">[17]</div><div class="ref-text">Cohen, J. (1968). Weighted kappa: Nominal scale agreement provision for scaled disagreement or partial credit. <em>Psychological Bulletin</em>, 70(4), 213–220. Landis, J.R., & Koch, G.G. (1977). The measurement of observer agreement for categorical data. <em>Biometrics</em>, 33(1), 159–174.</div></div>
+        <div class="ref-item"><div class="ref-num">[18]</div><div class="ref-text">Schwartz, L.M., Woloshin, S., Dvorin, E.L., & Welch, H.G. (2006). Ratio measures in leading medical journals: Structured review of accessibility to readers. <em>BMJ</em>, 333(7581), 1248–1250; Woloshin, S., & Schwartz, L.M. (2011). Communicating data about the benefits and harms of treatment: A randomized trial. <em>Annals of Internal Medicine</em>, 155(2), 87–96.</div></div>
+        <div class="ref-item"><div class="ref-num">[19]</div><div class="ref-text">Federal Trade Commission. (2022). <em>Enforcement Policy Statement on Deceptively Formatted Advertisements</em>. FTC; Federal Trade Commission. (2023). <em>Guide to the FTC's Endorsement Guides: What People Are Asking</em>. FTC Bureau of Consumer Protection.</div></div>
+        <div class="ref-item"><div class="ref-num">[20]</div><div class="ref-text">Logg, J.M., Minson, J.A., & Moore, D.A. (2019). Algorithm appreciation: People prefer algorithmic to human judgment. <em>Organizational Behavior and Human Decision Processes</em>, 151, 90–103; Dietvorst, B.J., Logg, J.M., & Tannenbaum, D. (2018). Overcoming algorithm aversion: People will use imperfect algorithms if they can (even slightly) modify them. <em>Journal of Experimental Psychology: General</em>, 147(8), 1155–1170.</div></div>
+      </div>
+    </div>
+
+  </div><!-- /doc -->
+</div><!-- /wrap -->
+
+<footer>
+  <div class="footer-logo">
+    <svg width="14" height="14" viewBox="0 0 22 22" fill="none">
+    <circle cx="11" cy="8.5" r="5.5" stroke="#4a5070" stroke-width="1.5"/>
+    <circle cx="9.2" cy="7.8" r="1" fill="#4a5070"/>
+    <circle cx="12.8" cy="7.8" r="1" fill="#4a5070"/>
+    <path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a5070" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M5.5 19 Q11 16 16.5 19" stroke="#4a5070" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+    NORM Analytics
+  </div>
+  <div class="footer-disc">NORM scores are editorial assessments of publicly visible marketing claims — not evaluations of product efficacy, safety, or regulatory compliance.</div>
+</footer>
+<div class="footer-copy">&copy; 2026 NORM Analytics &nbsp;&middot;&nbsp; Payment never influences scores &nbsp;&middot;&nbsp; Open methodology</div>
+
+<script>
+(function(){
+  var tok = localStorage.getItem('bhvd_token');
+  var a = document.getElementById('nav-account-btn');
+  var s = document.getElementById('nav-signin-btn');
+  if(tok && a && s){ a.style.display=''; s.style.display='none'; }
+
+  // Highlight active TOC item on scroll
+  var headings = document.querySelectorAll('[id]');
+  var links = document.querySelectorAll('.toc a');
+  function onScroll(){
+    var scrollY = window.scrollY + 100;
+    var active = null;
+    headings.forEach(function(h){
+      if(h.offsetTop <= scrollY) active = h.id;
+    });
+    links.forEach(function(l){
+      l.classList.toggle('active', l.getAttribute('href') === '#'+active);
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+})();
+</script>
+</body>
+</html>

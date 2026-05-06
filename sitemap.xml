@@ -1,43 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://bhvdsignal.com/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://bhvdsignal.com/leaderboard</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://bhvdsignal.com/methodology</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://bhvdsignal.com/extension</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://bhvdsignal.com/pricing</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://bhvdsignal.com/compare</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://bhvdsignal.com/request</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://bhvdsignal.com/brand-portal</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
+
+  <!-- Core pages -->
+  <url><loc>https://trynorm.co/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://trynorm.co/leaderboard</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://trynorm.co/whitepaper</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://trynorm.co/methodology</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://trynorm.co/pricing</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/compare</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/request</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://trynorm.co/brand-portal</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+
+  <!-- Brand pages — supplements -->
+  <url><loc>https://trynorm.co/brand?d=naturemade.com</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://trynorm.co/brand?d=thorne.com</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://trynorm.co/brand?d=ritual.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=moonjuice.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=nutrafol.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=drinkag1.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=cymbiotika.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=onnit.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=kleanathlete.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=lifeextension.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=jarrow.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=pureencapsulations.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=momentouslabs.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=pureforyou.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=foursigmatic.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=bulletproof.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=nowfoods.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=solgar.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=megafood.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=naturesway.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=nordic-naturals.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=carlsonlabs.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=gnc.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=gaia-herbs.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=transparentlabs.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=legion.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=vitalproteins.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=myprotein.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=optimumnutrition.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=gainful.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=seed.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=culturelle.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=neurohacker.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=mindlabpro.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Brand pages — skincare -->
+  <url><loc>https://trynorm.co/brand?d=paulaschoice.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=blueprint.bryanjohnson.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=cetaphil.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=tatcha.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=cerave.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=theordinary.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=drunk-elephant.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=neutrogena.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=skinceuticals.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=murad.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Brand pages — functional food / drinks -->
+  <url><loc>https://trynorm.co/brand?d=huel.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=drinklmnt.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=liquid-iv.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=kachava.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=olipop.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=poppi.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=rxbar.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Brand pages — wearables / devices -->
+  <url><loc>https://trynorm.co/brand?d=ouraring.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=eightsleep.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=whoop.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=garmin.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=apolloneuro.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=therabody.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=hyperice.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=joovv.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=higherdose.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=plunge.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=elemindtech.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Brand pages — mental wellness -->
+  <url><loc>https://trynorm.co/brand?d=headspace.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=calm.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=betterhelp.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=getsensate.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=wakingup.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Brand pages — sleep -->
+  <url><loc>https://trynorm.co/brand?d=sleepnumber.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=casper.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=hatch.co</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Brand pages — weight / metabolism -->
+  <url><loc>https://trynorm.co/brand?d=noom.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=joinzoe.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=levels.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=nutrisense.io</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Brand pages — health / hormones -->
+  <url><loc>https://trynorm.co/brand?d=forhims.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=forhers.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=ro.co</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trynorm.co/brand?d=modernfertility.com</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
 </urlset>

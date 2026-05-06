@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NORM Badge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:280px;height:80px;overflow:hidden;background:#0a0c12;font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+
+a.badge{
+  display:flex;width:280px;height:80px;align-items:center;gap:12px;padding:0 16px;
+  background:#111420;border:1px solid rgba(255,255,255,0.09);border-radius:10px;
+  text-decoration:none;cursor:pointer;transition:border-color .15s,background .15s;overflow:hidden
+}
+a.badge:hover{border-color:rgba(255,255,255,0.18);background:#141828}
+
+.badge-logo{flex-shrink:0;display:flex;align-items:center}
+.badge-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-left:auto}
+.badge-dot-grn{background:#1e9459;box-shadow:0 0 6px rgba(30,148,89,.5)}
+.badge-dot-yel{background:#c07718;box-shadow:0 0 6px rgba(192,119,24,.4)}
+.badge-dot-red{background:#9e3028}
+
+.badge-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.badge-brand{font-size:13px;font-weight:500;color:#f2f2f2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2}
+.badge-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;color:#4a5070;text-transform:uppercase;line-height:1}
+
+.badge-score-block{flex-shrink:0;text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.badge-score{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:#f2f2f2;line-height:1}
+.badge-score-sub{font-family:'DM Mono',monospace;font-size:9px;color:#4a5070;letter-spacing:.04em}
+
+#empty{display:none;width:280px;height:80px;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;font-size:10px;color:#4a5070;letter-spacing:.08em;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<div id="empty">Not rated by NORM</div>
+
+<a id="badge" class="badge" href="#" target="_blank" rel="noopener" style="display:none">
+  <div class="badge-logo">
+    <svg width="24" height="24" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+      <circle cx="11" cy="8.5" r="5.5" stroke="#4a78f0" stroke-width="1.5"/>
+      <circle cx="9.2" cy="7.8" r="1" fill="#4a78f0"/>
+      <circle cx="12.8" cy="7.8" r="1" fill="#4a78f0"/>
+      <path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="badge-info">
+    <div class="badge-brand" id="b-name">—</div>
+    <div class="badge-label">Verified by NORM</div>
+  </div>
+  <div class="badge-score-block">
+    <div class="badge-score" id="b-score">—</div>
+    <div class="badge-score-sub">/ 100</div>
+  </div>
+  <div class="badge-dot" id="b-dot"></div>
+</a>
+
+<script>
+(function(){
+  var API = 'https://bhvd-signal-api.fly.dev';
+  var params = new URLSearchParams(window.location.search);
+  var domain = (params.get('d') || '').trim().toLowerCase().replace(/^https?:\/\//,'').replace(/\/.*$/,'');
+  var emptyEl = document.getElementById('empty');
+  var badgeEl = document.getElementById('badge');
+
+  if (!domain) { emptyEl.style.display = 'flex'; return; }
+
+  // Referrer check — prevent other sites embedding a different brand's badge
+  var ref = document.referrer;
+  if (ref) {
+    try {
+      var refHost = new URL(ref).hostname.replace(/^www\./, '').toLowerCase();
+      var badgeDomain = domain.replace(/^www\./, '').toLowerCase();
+      var allowed = ['trynorm.co'];
+      if (allowed.indexOf(refHost) === -1 && refHost !== badgeDomain) {
+        emptyEl.textContent = 'Badge not verified';
+        emptyEl.style.display = 'flex';
+        return;
+      }
+    } catch(e) {}
+  }
+
+  fetch(API + '/api/domain/' + encodeURIComponent(domain))
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      var data = (res && res.data) || {};
+      var sig   = (data.signal || '').toLowerCase();
+      var score = data.score != null ? Math.round(data.score) : null;
+      var name  = data.brand_name || domain;
+
+      if (sig !== 'green' && sig !== 'yellow') {
+        emptyEl.style.display = 'flex';
+        return;
+      }
+
+      document.getElementById('b-name').textContent  = name;
+      document.getElementById('b-score').textContent = score !== null ? score : '—';
+
+      var dot = document.getElementById('b-dot');
+      dot.className = 'badge-dot ' + (sig === 'green' ? 'badge-dot-grn' : 'badge-dot-yel');
+
+      badgeEl.href = 'https://trynorm.co/brand?d=' + encodeURIComponent(domain) + '&ref=badge';
+      badgeEl.style.display = 'flex';
+    })
+    .catch(function(){
+      emptyEl.style.display = 'flex';
+    });
+})();
+</script>
+</body>
+</html>

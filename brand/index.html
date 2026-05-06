@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Public Claim Record · NORM</title>
 
+<meta id="meta-desc" name="description" content="Independent claim-evidence alignment scoring by NORM. See how this brand's marketing holds up against its publicly visible evidence.">
 <meta property="og:type"        content="website">
 <meta property="og:site_name"   content="NORM">
 <meta id="og-title" property="og:title"       content="Public Claim Record · NORM">
@@ -207,6 +208,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .flags-list{display:flex;flex-direction:column;gap:8px}
 .flag-item{display:flex;align-items:flex-start;gap:12px;background:var(--bg2);border:1px solid var(--b1);border-radius:8px;padding:12px 16px}
 .flag-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.flag-icon{font-size:10px;color:var(--yel);flex-shrink:0;margin-top:3px}
 .flag-text{font-size:13px;color:var(--t2);line-height:1.6}
 
 /* CONSUMER INTERPRETATION */
@@ -763,7 +765,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
       </div>
     </div>
 
-    <!-- Embed NORM Rating -->
+    <!-- Green Public Embed (visible to any green-scored brand, no auth required) -->
+    <div class="rsec" id="embed-green-sec" style="display:none">
+      <div class="rsec-title">Earned a Green? Show it.</div>
+      <div class="embed-section">
+        <div class="embed-head-title">Embed your NORM score</div>
+        <div class="embed-head-sub">Green-scored brands can display their NORM badge. It links to your public claim record and updates automatically when your score refreshes. No account required.</div>
+        <div id="embed-green-content"></div>
+      </div>
+    </div>
+
+    <!-- Embed NORM Rating (brand-tier full version) -->
     <div class="rsec" id="embed-sec" style="display:none">
       <div class="rsec-title">Embed NORM Rating</div>
       <div class="embed-section">
@@ -1474,8 +1486,8 @@ function renderVerified(brand, product, ld, dims, demand) {
   // Demand bar
   renderDemand(demand, brand.domain || "");
 
-  // Executive summary
-  var summary = sanitize(ld.why_this_verdict || ld.consumer_note || brand.summary || "");
+  // Executive summary — prefer clean consumer_summary over internal why_this_verdict
+  var summary = sanitize(product.consumer_summary || ld.consumer_note || brand.summary || ld.why_this_verdict || "");
   setText("exec-verdict", summary || verdict);
   var consumerNote = sanitize(ld.consumer_note || brand.summary || "");
   if (consumerNote && !summary) {
@@ -1731,15 +1743,32 @@ function renderVerified(brand, product, ld, dims, demand) {
       var isOldSchema = brand.dimensions.some(function(d){ return OLD_KEYS.indexOf(d.name) !== -1; });
 
       if (isOldSchema) {
-        dimsEl.innerHTML =
-          '<div style="padding:16px 0 8px;color:var(--t3);font-size:12px;font-family:var(--mono);letter-spacing:.03em;line-height:1.6">' +
-            'Dimension breakdown is being refreshed with the updated scoring model.<br>' +
-            '<span style="color:var(--t3);font-size:11px">Overall score below reflects the full assessment.</span>' +
-          '</div>' +
+        // Render old-schema dims using top-level brand.dimensions (quality-inverted 0-100 scores)
+        var OLD_LABEL = {
+          regulatory_risk: 'Regulatory Risk', claim_specificity: 'Claim Specificity',
+          evidence_alignment: 'Evidence Alignment', mechanism_integrity: 'Mechanism Integrity',
+          source_transparency: 'Transparency', comparative_fairness: 'Comparative Fairness',
+          trust_signal_integrity: 'Trust Signal Integrity'
+        };
+        var hasOldGaps = false;
+        var oldBars = brand.dimensions.map(function(d) {
+          var pct = Math.min(Math.max(Math.round(d.score), 0), 100);
+          var c   = pct >= 65 ? "#3ecf82" : pct >= 40 ? "#e8a840" : "#e05a50";
+          if (pct < 40) hasOldGaps = true;
+          var lbl = OLD_LABEL[d.name] || d.label || d.name;
+          return '<div class="dim-row">' +
+            '<div class="dim-name">'+esc(lbl)+'</div>'+
+            '<div class="dim-bar-wrap"><div class="dim-bar-fill" style="width:'+pct+'%;background:'+c+'"></div></div>'+
+            '<div class="dim-score" style="color:'+c+'">'+pct+'</div>'+
+            '<div class="dim-max">/ 100</div>'+
+          '</div>';
+        }).join("");
+        dimsEl.innerHTML = oldBars +
           '<div class="dim-total-row">' +
             '<div class="dim-total-label">Total Score</div>' +
             '<div class="dim-total-score" style="color:'+color+'">'+score+' / 100</div>' +
           '</div>';
+        if (hasOldGaps) ctShow("ct-gaps", "brand_tools_trigger_view", "evidence_gap");
       } else {
         // New-style pre-normalized dims (non-old-schema) — render bars
         var hasGaps2 = false;
@@ -1773,10 +1802,21 @@ function renderVerified(brand, product, ld, dims, demand) {
     }
   }
 
-  // Risk flags
-  // Flags, consumer note, limitations, strengths — gated to paid users, never shown here
-  var flagsSec = document.getElementById("flags-sec");
-  if (flagsSec) flagsSec.style.display = "none";
+  // Evidence gaps — show flagged reasons from product or brand level
+  var flagsSec  = document.getElementById("flags-sec");
+  var flagsList = document.getElementById("flags-list");
+  var flagReasons = (product.why_flagged_top_reasons && product.why_flagged_top_reasons.length)
+    ? product.why_flagged_top_reasons
+    : (brand.why_flagged_top_reasons && brand.why_flagged_top_reasons.length)
+    ? brand.why_flagged_top_reasons : [];
+  if (flagsList && flagReasons.length) {
+    flagsList.innerHTML = flagReasons.map(function(r) {
+      return '<div class="flag-item"><span class="flag-icon">▲</span><span class="flag-text">' + esc(r) + '</span></div>';
+    }).join("");
+    if (flagsSec) flagsSec.style.display = "";
+  } else {
+    if (flagsSec) flagsSec.style.display = "none";
+  }
   var consumerSec = document.getElementById("consumer-sec");
   if (consumerSec) consumerSec.style.display = "none";
   hideEl("limitations-sec");
@@ -1786,14 +1826,14 @@ function renderVerified(brand, product, ld, dims, demand) {
   var fv = document.getElementById("final-verdict");
   if (fv) { fv.style.color=color; fv.style.borderColor=color+"40"; fv.style.background=color+"06"; }
   setText("fv-verdict", verdict);
-  setText("fv-note",    ld.why_this_verdict || "");
+  setText("fv-note",    product.consumer_summary || ld.why_this_verdict || "");
 
   // CTAs — dispute form is inline; no page redirect needed
   var domain = brand.domain || "";
 
   // Share card + embed (requires domain, score, sig, verdict, expired — all computed above)
   initShareCard(sanitize(brand.brand_name || brand.domain), score, domain, sig, verdict);
-  initEmbedSection(domain, expired);
+  initEmbedSection(domain, expired, sig);
   loadClaimDiff(domain);
 
   showState("verified");
@@ -2117,8 +2157,47 @@ function initShareCard(brandName, score, domain, sig, verdict, topClaim) {
   var title = brandName + ' — ' + score + '/100 · NORM';
   var descr = brandName + ' scored ' + score + '/100 on NORM. Verdict: ' + verdict + '. Independent claim alignment analysis.';
   ['og-title','tw-title'].forEach(function(id){ var el=document.getElementById(id); if(el) el.content=title; });
-  ['og-desc', 'tw-desc' ].forEach(function(id){ var el=document.getElementById(id); if(el) el.content=descr; });
+  ['og-desc', 'tw-desc', 'meta-desc'].forEach(function(id){ var el=document.getElementById(id); if(el) el.content=descr; });
   var ogUrl = document.getElementById('og-url'); if(ogUrl) ogUrl.content = xUrl;
+
+  // Update canonical URL
+  var canonEl = document.querySelector('link[rel="canonical"]');
+  if (canonEl) canonEl.href = xUrl;
+
+  // Inject JSON-LD structured data
+  var existingLd = document.getElementById('brand-jsonld');
+  if (existingLd) existingLd.remove();
+  var ldScript = document.createElement('script');
+  ldScript.id = 'brand-jsonld';
+  ldScript.type = 'application/ld+json';
+  ldScript.text = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Review",
+    "itemReviewed": {
+      "@type": "Brand",
+      "name": brandName,
+      "url": "https://" + domain
+    },
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": String(score),
+      "bestRating": "100",
+      "worstRating": "0",
+      "description": verdict
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "NORM Analytics",
+      "url": "https://trynorm.co"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "NORM Analytics"
+    },
+    "url": xUrl,
+    "description": "NORM evaluated " + brandName + "'s consumer-facing marketing claims against publicly visible evidence. Score: " + score + "/100. Signal: " + verdict + "."
+  });
+  document.head.appendChild(ldScript);
 
   var pop = document.getElementById('sharePopover');
   if (!pop) return;
@@ -2184,8 +2263,33 @@ function _fallbackCopy(text) {
 var _embedDomain  = '';
 var _EMBED_API    = 'https://bhvd-signal-api.fly.dev';
 
-function initEmbedSection(domain, isExpired) {
+function initEmbedSection(domain, isExpired, sig) {
   _embedDomain = domain;
+  var badgeUrl = 'https://trynorm.co/badge?d=' + encodeURIComponent(domain);
+
+  // Green public embed — no auth gate, shown for any green-scored brand
+  var greenSec = document.getElementById('embed-green-sec');
+  var greenContent = document.getElementById('embed-green-content');
+  if (greenSec && greenContent && sig === 'green') {
+    var iframeCode = '<iframe src="' + badgeUrl + '" width="280" height="80" frameborder="0" scrolling="no" style="border:none"></iframe>';
+    var linkCode   = '<a href="https://trynorm.co/brand?d=' + domain + '&ref=badge" target="_blank">Verified by NORM →</a>';
+    greenContent.innerHTML =
+      '<div class="embed-preview-wrap" id="greenPreviewWrap">' +
+        '<iframe src="' + badgeUrl + '" width="280" height="80" frameborder="0" scrolling="no" style="display:block;border:none"></iframe>' +
+      '</div>' +
+      '<div class="embed-tabs" style="margin-bottom:8px">' +
+        '<button class="embed-tab on" id="getabBadge" onclick="switchGreenEmbed(\'badge\')">Badge</button>' +
+        '<button class="embed-tab"    id="getabLink"  onclick="switchGreenEmbed(\'link\')" >Link only</button>' +
+      '</div>' +
+      '<div class="embed-code-wrap">' +
+        '<div class="embed-code" id="greenEmbedCode">' + esc(iframeCode) + '</div>' +
+        '<button class="embed-copy-btn" id="greenCopyBtn" onclick="copyGreenCode()">Copy</button>' +
+      '</div>' +
+      '<div class="embed-update-note">Badge updates automatically. No account required.</div>';
+    greenSec.style.display = '';
+  }
+
+  // Brand-tier full embed section
   var sec     = document.getElementById('embed-sec');
   var content = document.getElementById('embed-content');
   if (!sec || !content) return;
@@ -2198,26 +2302,57 @@ function initEmbedSection(domain, isExpired) {
     return;
   }
 
-  var fullUrl    = _EMBED_API + '/api/embed/' + domain + '?format=html';
-  var minimalUrl = _EMBED_API + '/api/embed/' + domain + '?format=html&variant=minimal';
-
   content.innerHTML =
     '<div class="embed-tabs">' +
-      '<button class="embed-tab on" id="etabFull"    onclick="switchEmbed(\'full\')"   >Full</button>' +
+      '<button class="embed-tab on" id="etabFull"    onclick="switchEmbed(\'full\')"   >Badge</button>' +
       '<button class="embed-tab"    id="etabMinimal" onclick="switchEmbed(\'minimal\')">Minimal</button>' +
     '</div>' +
     '<div class="embed-preview-wrap">' +
-      '<iframe id="embedPreview" src="' + fullUrl + '" width="280" height="72" frameborder="0" scrolling="no" style="display:block"></iframe>' +
+      '<iframe id="embedPreview" src="' + badgeUrl + '" width="280" height="80" frameborder="0" scrolling="no" style="display:block;border:none"></iframe>' +
     '</div>' +
     '<div class="embed-code-wrap">' +
       '<div class="embed-code" id="embedCode">' +
-        esc('<iframe src="' + fullUrl + '" width="280" height="72" frameborder="0" scrolling="no"></iframe>') +
+        esc('<iframe src="' + badgeUrl + '" width="280" height="80" frameborder="0" scrolling="no" style="border:none"></iframe>') +
       '</div>' +
       '<button class="embed-copy-btn" id="embedCopyBtn" onclick="copyEmbedCode()">Copy</button>' +
     '</div>' +
-    '<div class="embed-update-note">This score updates as claims change.</div>';
+    '<div class="embed-update-note">Badge updates automatically when your score refreshes.</div>';
 
   sec.style.display = '';
+}
+
+function switchGreenEmbed(variant) {
+  var isBadge  = variant === 'badge';
+  var domain   = _embedDomain;
+  var badgeUrl = 'https://trynorm.co/badge?d=' + encodeURIComponent(domain);
+  var linkUrl  = 'https://trynorm.co/brand?d=' + encodeURIComponent(domain) + '&ref=badge';
+  var tabB     = document.getElementById('getabBadge');
+  var tabL     = document.getElementById('getabLink');
+  var codeEl   = document.getElementById('greenEmbedCode');
+  var copyBtn  = document.getElementById('greenCopyBtn');
+  var prevWrap = document.getElementById('greenPreviewWrap');
+  if (tabB) tabB.classList.toggle('on', isBadge);
+  if (tabL) tabL.classList.toggle('on', !isBadge);
+  if (codeEl) codeEl.textContent = isBadge
+    ? '<iframe src="' + badgeUrl + '" width="280" height="80" frameborder="0" scrolling="no" style="border:none"></iframe>'
+    : '<a href="' + linkUrl + '" target="_blank" style="color:#4a78f0;font-family:system-ui;font-size:14px">Verified by NORM →</a>';
+  if (prevWrap) prevWrap.innerHTML = isBadge
+    ? '<iframe src="' + badgeUrl + '" width="280" height="80" frameborder="0" scrolling="no" style="display:block;border:none"></iframe>'
+    : '<a href="' + linkUrl + '" target="_blank" rel="noopener" style="color:#4a78f0;font-family:system-ui,sans-serif;font-size:14px;text-decoration:none">Verified by NORM →</a>';
+  if (copyBtn) { copyBtn.textContent = 'Copy'; copyBtn.classList.remove('copied'); }
+}
+
+function copyGreenCode() {
+  var codeEl = document.getElementById('greenEmbedCode');
+  var btn    = document.getElementById('greenCopyBtn');
+  if (!codeEl || !btn) return;
+  var text = codeEl.textContent;
+  var done = function() {
+    btn.textContent = 'Copied!'; btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  };
+  if (navigator.clipboard) { navigator.clipboard.writeText(text).then(done).catch(function(){ _fallbackCopy(text); done(); }); }
+  else { _fallbackCopy(text); done(); }
 }
 
 function switchEmbed(variant) {
@@ -2228,9 +2363,11 @@ function switchEmbed(variant) {
   if (tabM) tabM.classList.toggle('on',  isMin);
 
   var w   = isMin ? '200' : '280';
-  var h   = isMin ? '48'  : '72';
-  var url = _EMBED_API + '/api/embed/' + _embedDomain + '?format=html' + (isMin ? '&variant=minimal' : '');
-  var code = '<iframe src="' + url + '" width="' + w + '" height="' + h + '" frameborder="0" scrolling="no"></iframe>';
+  var h   = isMin ? '48'  : '80';
+  var url = isMin
+    ? 'https://trynorm.co/badge?d=' + encodeURIComponent(_embedDomain) + '&variant=minimal'
+    : 'https://trynorm.co/badge?d=' + encodeURIComponent(_embedDomain);
+  var code = '<iframe src="' + url + '" width="' + w + '" height="' + h + '" frameborder="0" scrolling="no" style="border:none"></iframe>';
 
   var preview = document.getElementById('embedPreview');
   var codeEl  = document.getElementById('embedCode');

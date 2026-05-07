@@ -564,10 +564,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
           <div class="rh-meta-label">Category Standing</div>
           <div class="rh-meta-val" id="meta-standing" style="display:none">—</div>
         </div>
-        <div class="rh-meta-item">
-          <div class="rh-meta-label">Ads Running</div>
-          <div class="rh-meta-val" id="meta-ads-val"><a id="meta-ads-link" href="#" target="_blank" rel="noopener" style="color:var(--acc);font-size:12px">Check Meta Ad Library →</a></div>
-        </div>
       </div>
       <!-- Scope of assessment -->
       <div class="scope-callout" id="scope-callout" style="margin-top:16px">
@@ -1441,12 +1437,6 @@ function renderVerified(brand, product, ld, dims, demand) {
   }
 
   // Ad Library deep-link (Meta)
-  var adLinkEl = document.getElementById("meta-ads-link");
-  if (adLinkEl && brand.name) {
-    adLinkEl.href = "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=US&q=" +
-      encodeURIComponent(brand.name) + "&search_type=keyword_unordered&media_type=all";
-  }
-
   // Category Benchmark card
   var cb = brand.category_benchmark;
   if (cb) {

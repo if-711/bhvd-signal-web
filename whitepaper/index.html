@@ -246,8 +246,8 @@ footer{border-top:1px solid var(--b1);padding:28px 48px;display:flex;justify-con
   <div class="doc">
 
     <div class="doc-label">Technical Whitepaper · v1.0</div>
-    <h1 class="doc-title">The NORM Framework: A Methodology for Measuring Claim-Evidence Proportionality in Consumer Brand Marketing</h1>
-    <p class="doc-subtitle">A structured framework for evaluating whether marketing claims are proportionate to publicly visible evidence — across all consumer brand categories</p>
+    <h1 class="doc-title">The NORM Framework: A Methodology for Measuring Claim–Evidence Proportionality in Consumer Wellness and High-Claim Brand Marketing</h1>
+    <p class="doc-subtitle">A structured framework for evaluating whether marketing claims are proportionate to publicly visible evidence — with primary application to consumer wellness, nutrition, and high-claim brand categories</p>
     <p class="doc-byline">NORM Analytics &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; trynorm.co/whitepaper</p>
 
     <!-- ABSTRACT -->
@@ -510,6 +510,74 @@ footer{border-top:1px solid var(--b1);padding:28px 48px;display:flex;justify-con
         <strong>Scope of scores:</strong> NORM scores represent methodology-based assessments derived from publicly available information and do not constitute legal, medical, or regulatory determinations. Scores reflect the degree of claim–evidence proportionality observable on consumer-facing brand pages at the time of evaluation.
       </div>
 
+      <!-- SCORING PIPELINE DIAGRAM -->
+      <div style="margin:32px 0 8px;background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:28px 24px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--t3);text-transform:uppercase;margin-bottom:24px">Scoring Pipeline — Overview</div>
+        <svg viewBox="0 0 680 220" width="100%" style="display:block;max-width:680px;margin:0 auto" aria-label="NORM scoring pipeline diagram">
+
+          <!-- Step boxes -->
+          <!-- 1: Brand Page -->
+          <rect x="0" y="80" width="100" height="60" rx="8" fill="#181c2e" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+          <text x="50" y="106" font-family="DM Mono,monospace" font-size="9" fill="#4a5070" text-anchor="middle" letter-spacing="1">STEP 1</text>
+          <text x="50" y="122" font-family="DM Sans,system-ui,sans-serif" font-size="11" fill="#f2f2f2" text-anchor="middle" font-weight="500">Brand Page</text>
+          <text x="50" y="136" font-family="DM Mono,monospace" font-size="8" fill="#4a5070" text-anchor="middle">crawl + render</text>
+
+          <!-- Arrow 1→2 -->
+          <line x1="101" y1="110" x2="129" y2="110" stroke="rgba(74,120,240,0.35)" stroke-width="1.5"/>
+          <polygon points="129,106 137,110 129,114" fill="rgba(74,120,240,0.5)"/>
+
+          <!-- 2: Claim ID -->
+          <rect x="138" y="80" width="110" height="60" rx="8" fill="#181c2e" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+          <text x="193" y="106" font-family="DM Mono,monospace" font-size="9" fill="#4a5070" text-anchor="middle" letter-spacing="1">STEP 2</text>
+          <text x="193" y="122" font-family="DM Sans,system-ui,sans-serif" font-size="11" fill="#f2f2f2" text-anchor="middle" font-weight="500">Claim + Position</text>
+          <text x="193" y="136" font-family="DM Mono,monospace" font-size="8" fill="#4a5070" text-anchor="middle">w(p) assigned</text>
+
+          <!-- Arrow 2→3 -->
+          <line x1="249" y1="110" x2="277" y2="110" stroke="rgba(74,120,240,0.35)" stroke-width="1.5"/>
+          <polygon points="277,106 285,110 277,114" fill="rgba(74,120,240,0.5)"/>
+
+          <!-- 3: 6 Dimensions -->
+          <rect x="286" y="65" width="124" height="90" rx="8" fill="#111420" stroke="rgba(74,120,240,0.2)" stroke-width="1"/>
+          <text x="348" y="85" font-family="DM Mono,monospace" font-size="9" fill="#4a5070" text-anchor="middle" letter-spacing="1">STEP 3</text>
+          <text x="348" y="101" font-family="DM Sans,system-ui,sans-serif" font-size="11" fill="#f2f2f2" text-anchor="middle" font-weight="500">6 Dimensions</text>
+          <!-- dimension pills -->
+          <text x="302" y="117" font-family="DM Mono,monospace" font-size="8.5" fill="#4a78f0">EP</text>
+          <text x="321" y="117" font-family="DM Mono,monospace" font-size="8.5" fill="#4a78f0">ES</text>
+          <text x="340" y="117" font-family="DM Mono,monospace" font-size="8.5" fill="#4a78f0">SP</text>
+          <text x="359" y="117" font-family="DM Mono,monospace" font-size="8.5" fill="#4a78f0">MI</text>
+          <text x="378" y="117" font-family="DM Mono,monospace" font-size="8.5" fill="#4a78f0">ER</text>
+          <text x="397" y="117" font-family="DM Mono,monospace" font-size="8.5" fill="#4a78f0">CD</text>
+          <text x="348" y="145" font-family="DM Mono,monospace" font-size="8" fill="#4a5070" text-anchor="middle">scored per claim</text>
+
+          <!-- Arrow 3→4 -->
+          <line x1="411" y1="110" x2="439" y2="110" stroke="rgba(74,120,240,0.35)" stroke-width="1.5"/>
+          <polygon points="439,106 447,110 439,114" fill="rgba(74,120,240,0.5)"/>
+
+          <!-- 4: Weighted Mean -->
+          <rect x="448" y="80" width="110" height="60" rx="8" fill="#181c2e" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+          <text x="503" y="106" font-family="DM Mono,monospace" font-size="9" fill="#4a5070" text-anchor="middle" letter-spacing="1">STEP 4</text>
+          <text x="503" y="120" font-family="DM Sans,system-ui,sans-serif" font-size="11" fill="#f2f2f2" text-anchor="middle" font-weight="500">Composite Score</text>
+          <text x="503" y="134" font-family="DM Mono,monospace" font-size="8" fill="#4a5070" text-anchor="middle">weighted mean · 0–100</text>
+
+          <!-- Arrow 4→5 -->
+          <line x1="559" y1="110" x2="587" y2="110" stroke="rgba(74,120,240,0.35)" stroke-width="1.5"/>
+          <polygon points="587,106 595,110 587,114" fill="rgba(74,120,240,0.5)"/>
+
+          <!-- 5: Signal -->
+          <rect x="596" y="72" width="84" height="76" rx="8" fill="#181c2e" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+          <text x="638" y="91" font-family="DM Mono,monospace" font-size="9" fill="#4a5070" text-anchor="middle" letter-spacing="1">STEP 5</text>
+          <text x="638" y="107" font-family="DM Sans,system-ui,sans-serif" font-size="11" fill="#f2f2f2" text-anchor="middle" font-weight="500">Signal</text>
+          <!-- dots -->
+          <circle cx="620" cy="122" r="5" fill="#1e9459"/>
+          <circle cx="638" cy="122" r="5" fill="#c07718"/>
+          <circle cx="656" cy="122" r="5" fill="#9e3028"/>
+          <text x="638" y="140" font-family="DM Mono,monospace" font-size="7.5" fill="#4a5070" text-anchor="middle">G · Y · R</text>
+
+          <!-- Score threshold note below step 4 -->
+          <text x="503" y="172" font-family="DM Mono,monospace" font-size="8" fill="#2e3450" text-anchor="middle">≥65 Green · 40–64 Yellow · &lt;40 Red</text>
+        </svg>
+      </div>
+
       <h3>4.1 Weighted Aggregation</h3>
       <p>The composite score is computed as the positionally-weighted mean of individual claim-level dimension scores. Each claim <em>i</em> receives a positional weight w(p<sub>i</sub>) drawn from the position table in §2.3. Brand-level dimension scores are then summed across all claims, producing the composite:</p>
       <div class="formula">
@@ -735,7 +803,7 @@ footer{border-top:1px solid var(--b1);padding:28px 48px;display:flex;justify-con
       <h2 class="section-head">11. Conclusion</h2>
       <p>Consumer brand markets exhibit systematic information asymmetry that current regulatory frameworks address incompletely — and that is widening as expenditure grows, claim production industrializes through AI, and consumers make consequential decisions with minimal independent infrastructure for evaluating what they are told. In this environment, the absence of a structured, publicly available, consumer-facing evaluation of claim–evidence alignment is not a gap. It is a design failure — and it is not specific to one category.</p>
       <p>The NORM Framework is a response to that design failure. By evaluating marketing claims at the individual level, applying positional weighting grounded in visual attention research, classifying evidence quality through a hierarchy consistent with evidence-based medicine standards, and producing scores interpretable by a non-expert consumer, NORM makes the epistemic gap between what brands claim and what they publicly substantiate visible, measurable, and persistent — in any consumer category where that gap exists.</p>
-      <p>NORM does not wait for a regulatory trigger. It does not require a complaint, a victim, or an enforcement action. It operates on the consumer-facing page — the specific environment where purchase decisions are made and where existing oversight stops — and produces a public record that updates as brands update their pages. What was hidden is made visible. What was vague is made measurable. What was ephemeral is made permanent.</p>
+      <p>NORM does not determine truth; it measures proportionality between what is claimed and what is shown. It does not require a regulatory trigger, a complaint, or an enforcement action. It operates on the consumer-facing page — the specific environment where purchase decisions are made — and produces a structured public record that updates as brands update their pages.</p>
       <p>NORM is designed to provide a structured, independent, publicly accessible record of whether brand claims are proportionate to what the brand actually shows. For consumers making health or financial commitments based on brand marketing, this record makes the claim–evidence gap legible. For brands that have invested in genuine evidence disclosure, it creates a durable basis for differentiation. For the market as a whole, it is offered as scalable infrastructure — focused on consumer wellness and high-claim brand marketing, with an evidence framework grounded in that domain.</p>
       <p>The framework is explicitly limited in scope: it measures what brands choose to show, not what products do. That limitation is also its precision. The consumer-facing page is where the decision happens. That is where the record belongs.</p>
       <p style="margin-top:24px;font-size:13px;color:var(--t3);border-top:1px solid var(--b1);padding-top:20px">A Green signal is not a certification. It is a record — built from what a brand chooses to make visible, and how proportionate that is to what it claims. Any brand can earn it. The ones that already can are the ones this framework was built to find.</p>

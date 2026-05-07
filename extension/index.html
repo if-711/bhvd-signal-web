@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NORM Browser Extension — Coming Soon</title>
-<meta name="description" content="The NORM browser extension brings claim scores directly to wellness brand product pages. Coming soon to Chrome and Firefox.">
-<meta property="og:title" content="NORM Browser Extension — Coming Soon">
-<meta property="og:description" content="See a brand's evidence alignment score on any product page. Get notified when we launch.">
+<title>NORM Browser Extension — Free Evidence Scores While You Shop</title>
+<meta name="description" content="Install the NORM extension and see evidence alignment scores on any health brand's product page. Free. No account needed.">
+<meta property="og:title" content="NORM — Free Evidence Scores While You Shop">
+<meta property="og:description" content="Install the free NORM extension and know before you buy. Evidence scores on any wellness brand, directly on the product page.">
 <meta property="og:image" content="https://trynorm.co/og-image.png">
 <meta property="og:url" content="https://trynorm.co/extension">
 <link rel="canonical" href="https://trynorm.co/extension">
@@ -18,7 +18,7 @@
   --bg:#0a0c12;--bg2:#111420;--bg3:#181c2e;--bg4:#1f2438;
   --b1:rgba(255,255,255,0.07);--b2:rgba(255,255,255,0.13);
   --t1:#f2f2f2;--t2:#8b93b0;--t3:#4a5070;
-  --acc:#4a78f0;
+  --acc:#4a78f0;--green:#1e9459;--yellow:#d4a017;--red:#c0392b;
   --mono:'DM Mono',monospace;
   --serif:'Instrument Serif',Georgia,serif;
   --sans:'DM Sans',system-ui,sans-serif;
@@ -39,33 +39,60 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .btn-p{background:var(--acc);border-color:var(--acc);color:#fff}
 .btn-p:hover{background:#3d6ae0;color:#fff}
 
-.page{max-width:580px;margin:0 auto;padding:120px 32px 96px;text-align:center}
+/* Hero */
+.page{max-width:620px;margin:0 auto;padding:110px 32px 96px;text-align:center}
 
-.coming-chip{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);border:1px solid rgba(74,120,240,.3);background:rgba(74,120,240,.08);padding:5px 14px;border-radius:100px;margin-bottom:32px}
+.pre-chip{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);border:1px solid rgba(30,148,89,.3);background:rgba(30,148,89,.08);padding:5px 14px;border-radius:100px;margin-bottom:28px}
 
-h1{font-family:var(--serif);font-size:clamp(36px,6vw,58px);font-weight:400;line-height:1.1;letter-spacing:-.02em;margin-bottom:18px}
+h1{font-family:var(--serif);font-size:clamp(34px,5.5vw,54px);font-weight:400;line-height:1.12;letter-spacing:-.02em;margin-bottom:16px}
 h1 em{font-style:italic;color:var(--t2)}
 
-.sub{font-size:16px;color:var(--t2);line-height:1.7;max-width:460px;margin:0 auto 48px}
+.sub{font-size:16px;color:var(--t2);line-height:1.7;max-width:480px;margin:0 auto 40px}
 
-.feature-list{display:flex;flex-direction:column;gap:16px;margin-bottom:52px;text-align:left}
+/* Mock extension popup */
+.ext-preview{background:var(--bg2);border:1px solid var(--b2);border-radius:14px;padding:24px;margin:0 auto 44px;max-width:320px;text-align:left}
+.ext-brand-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.ext-brand-name{font-size:14px;font-weight:600;color:var(--t1)}
+.ext-brand-site{font-size:11px;color:var(--t3);font-family:var(--mono)}
+.signal-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:5px 12px;border-radius:100px}
+.signal-green{background:rgba(30,148,89,.15);color:#23b96a;border:1px solid rgba(30,148,89,.25)}
+.signal-yellow{background:rgba(212,160,23,.12);color:#e6b730;border:1px solid rgba(212,160,23,.25)}
+.signal-red{background:rgba(192,57,43,.12);color:#e05c4b;border:1px solid rgba(192,57,43,.25)}
+.ext-score{font-family:var(--mono);font-size:32px;font-weight:500;color:var(--t1);margin-bottom:4px}
+.ext-score-label{font-size:11px;color:var(--t3);margin-bottom:16px}
+.ext-verdict{font-size:12px;color:var(--t2);background:var(--bg3);border-radius:8px;padding:10px 12px;line-height:1.5;font-style:italic}
+.ext-dots{display:flex;gap:6px;margin-top:16px}
+.ext-dot{height:3px;flex:1;border-radius:2px;background:var(--b2)}
+.ext-dot.active{background:var(--acc)}
+
+/* Features */
+.feature-list{display:flex;flex-direction:column;gap:14px;margin-bottom:44px;text-align:left}
 .feature-item{display:flex;align-items:flex-start;gap:14px;background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:16px 20px}
-.feature-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.feature-icon{font-family:var(--mono);font-size:11px;color:var(--acc);flex-shrink:0;margin-top:2px;letter-spacing:.06em;background:rgba(74,120,240,.1);border:1px solid rgba(74,120,240,.2);padding:3px 8px;border-radius:4px}
 .feature-text strong{display:block;font-size:13px;font-weight:600;color:var(--t1);margin-bottom:3px}
 .feature-text span{font-size:12px;color:var(--t2);line-height:1.5}
 
-.notify-form{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:32px}
-.notify-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:14px}
-.notify-input-row{display:flex;gap:10px}
-.notify-input{flex:1;background:var(--bg3);border:1px solid var(--b1);border-radius:8px;padding:11px 14px;font-size:13px;color:var(--t1);font-family:var(--sans);outline:none;transition:border-color .15s}
-.notify-input:focus{border-color:rgba(74,120,240,.5)}
-.notify-btn{flex-shrink:0;padding:11px 22px;background:var(--acc);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:background .15s;white-space:nowrap}
-.notify-btn:hover{background:#3d6ae0}
-.notify-btn:disabled{opacity:.5;cursor:default}
-.notify-note{font-size:11px;color:var(--t3);margin-top:12px;font-family:var(--mono)}
-.notify-success{font-size:14px;color:#1e9459;font-weight:500;padding:12px 0;display:none}
+/* Waitlist form */
+.waitlist{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:32px}
+.wl-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:14px}
+.wl-row{display:flex;gap:10px}
+.wl-input{flex:1;background:var(--bg3);border:1px solid var(--b1);border-radius:8px;padding:11px 14px;font-size:13px;color:var(--t1);font-family:var(--sans);outline:none;transition:border-color .15s}
+.wl-input:focus{border-color:rgba(74,120,240,.5)}
+.wl-input::placeholder{color:var(--t3)}
+.wl-btn{flex-shrink:0;padding:11px 22px;background:var(--acc);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:background .15s;white-space:nowrap}
+.wl-btn:hover{background:#3d6ae0}
+.wl-btn:disabled{opacity:.5;cursor:default}
+.wl-note{font-size:11px;color:var(--t3);margin-top:12px;font-family:var(--mono)}
+.wl-success{font-size:14px;color:var(--green);font-weight:500;padding:14px 0;display:none;text-align:center}
+.wl-count{font-size:11px;color:var(--t3);margin-top:8px;font-family:var(--mono);text-align:center}
 
-@media(max-width:480px){.notify-input-row{flex-direction:column}.page{padding:100px 20px 60px}}
+/* Brand count */
+.stat-row{display:flex;gap:32px;justify-content:center;margin-bottom:48px}
+.stat{text-align:center}
+.stat-n{font-family:var(--mono);font-size:22px;font-weight:500;color:var(--t1)}
+.stat-l{font-size:11px;color:var(--t3);margin-top:2px}
+
+@media(max-width:480px){.wl-row{flex-direction:column}.page{padding:96px 20px 60px}.stat-row{gap:20px}}
 </style>
 </head>
 <body>
@@ -82,54 +109,96 @@ h1 em{font-style:italic;color:var(--t2)}
   </a>
   <ul class="nav-links">
     <li><a href="/leaderboard">Leaderboard</a></li>
-    <li><a href="/stack">Score Your Stack</a></li>
     <li><a href="/methodology">Methodology</a></li>
     <li><a href="/pricing">Pricing</a></li>
   </ul>
   <div class="nav-actions">
-    <a href="/pricing" class="btn btn-p">Get NORM Pro</a>
+    <a href="/extension" class="btn btn-p" onclick="track('nav_extension_click')">Install Free Extension</a>
   </div>
 </nav>
 
 <div class="page">
-  <div class="coming-chip">Coming Soon</div>
+  <div class="pre-chip">Early Access</div>
 
-  <h1>Evidence scores,<br><em>while you browse.</em></h1>
+  <h1>Know before you buy,<br><em>on every product page.</em></h1>
 
-  <p class="sub">The NORM extension brings claim alignment scores directly to wellness product pages — so you know before you buy, not after.</p>
+  <p class="sub">NORM scores health and wellness brands on the evidence behind their claims. The free extension brings those scores directly to the sites you shop — no searching, no friction.</p>
+
+  <!-- Live preview mock -->
+  <div class="ext-preview">
+    <div class="ext-brand-row">
+      <div>
+        <div class="ext-brand-name" id="mock-brand">Thorne</div>
+        <div class="ext-brand-site" id="mock-site">thorne.com</div>
+      </div>
+      <div class="signal-badge signal-green" id="mock-badge">● Green</div>
+    </div>
+    <div class="ext-score" id="mock-score">82</div>
+    <div class="ext-score-label">Evidence score</div>
+    <div class="ext-verdict" id="mock-verdict">"Third-party testing on every product. Ingredient doses are cited and traceable."</div>
+    <div class="ext-dots">
+      <div class="ext-dot active"></div>
+      <div class="ext-dot active"></div>
+      <div class="ext-dot active"></div>
+      <div class="ext-dot"></div>
+      <div class="ext-dot"></div>
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat">
+      <div class="stat-n">50+</div>
+      <div class="stat-l">brands scored</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">6</div>
+      <div class="stat-l">evidence dimensions</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">Free</div>
+      <div class="stat-l">always</div>
+    </div>
+  </div>
 
   <div class="feature-list">
     <div class="feature-item">
-      <div class="feature-icon">◉</div>
+      <div class="feature-icon">SCORE</div>
       <div class="feature-text">
         <strong>Score on any product page</strong>
-        <span>See red, yellow, or green signal the moment you land on a brand's site. No searching required.</span>
+        <span>See red, yellow, or green the moment you land on a brand's site — without opening a new tab.</span>
       </div>
     </div>
     <div class="feature-item">
-      <div class="feature-icon">◎</div>
+      <div class="feature-icon">DRILL</div>
       <div class="feature-text">
         <strong>Claim-by-claim breakdown</strong>
-        <span>Tap into the full evidence report for any brand — directly from the product page you're already on.</span>
+        <span>Tap into the full evidence report: which claims have citations, which are vague, what the third-party testing covers.</span>
       </div>
     </div>
     <div class="feature-item">
-      <div class="feature-icon">⊕</div>
+      <div class="feature-icon">FLAG</div>
       <div class="feature-text">
-        <strong>Request unscored brands</strong>
-        <span>Found a brand we haven't reviewed yet? Flag it and we'll prioritize it for scoring.</span>
+        <strong>Flag unscored brands</strong>
+        <span>Found a brand we haven't reviewed yet? Flag it and we'll prioritize it for scoring in the next pipeline run.</span>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">FREE</div>
+      <div class="feature-text">
+        <strong>Free — no account required</strong>
+        <span>Core scores are always free. Evidence detail unlocks with Pro, but you never need to sign up just to see if a brand is worth your time.</span>
       </div>
     </div>
   </div>
 
-  <div class="notify-form">
-    <div class="notify-label">Get notified at launch</div>
-    <div class="notify-input-row">
-      <input class="notify-input" type="email" id="notify-email" placeholder="your@email.com" autocomplete="email">
-      <button class="notify-btn" id="notify-btn" onclick="submitNotify()">Notify me</button>
+  <div class="waitlist">
+    <div class="wl-label">Get notified when the Chrome extension is ready</div>
+    <div class="wl-row" id="wl-form-row">
+      <input class="wl-input" type="email" id="wl-email" placeholder="your@email.com" autocomplete="email">
+      <button class="wl-btn" id="wl-btn" onclick="submitWaitlist()">Notify me</button>
     </div>
-    <div class="notify-success" id="notify-success">You're on the list — we'll email you when the extension is ready.</div>
-    <div class="notify-note" id="notify-note">Chrome + Firefox · Free · No account required</div>
+    <div class="wl-success" id="wl-success">You're on the list. We'll email you the day it goes live.</div>
+    <div class="wl-note" id="wl-note">Chrome first · Firefox next · Free · No account required</div>
   </div>
 </div>
 
@@ -144,9 +213,39 @@ function track(event, props) {
   }).catch(function(){});
 }
 
-function submitNotify() {
-  var email = (document.getElementById("notify-email").value || "").trim();
-  var btn   = document.getElementById("notify-btn");
+// Rotating mock preview
+var brands = [
+  { name: "Thorne",          site: "thorne.com",        score: 82, color: "green",  verdict: "Third-party testing on every product. Ingredient doses are cited and traceable." },
+  { name: "Blueprint",       site: "blueprint.bryanjohnson.com", score: 70, color: "yellow", verdict: "HPLC/ICP-MS CoAs available. Some claims lack peer-reviewed citations." },
+  { name: "Ritual",          site: "ritual.com",        score: 71, color: "yellow", verdict: "Traceable ingredient sourcing. Clinical study cited but funded by the brand." },
+  { name: "Bloom Nutrition",  site: "bloomnutrition.com", score: 38, color: "red",  verdict: "Heavy influencer marketing. Specific clinical evidence for claimed benefits not cited." },
+];
+var bi = 0;
+var colorMap = { green: "signal-green", yellow: "signal-yellow", red: "signal-red" };
+var labelMap = { green: "● Green", yellow: "● Yellow", red: "● Red" };
+
+function rotateBrand() {
+  bi = (bi + 1) % brands.length;
+  var b = brands[bi];
+  document.getElementById("mock-brand").textContent  = b.name;
+  document.getElementById("mock-site").textContent   = b.site;
+  document.getElementById("mock-score").textContent  = b.score;
+  document.getElementById("mock-verdict").textContent = '"' + b.verdict + '"';
+  var badge = document.getElementById("mock-badge");
+  badge.className = "signal-badge " + colorMap[b.color];
+  badge.textContent = labelMap[b.color];
+
+  // Update dots
+  var dots = document.querySelectorAll(".ext-dot");
+  dots.forEach(function(d, i) {
+    d.classList.toggle("active", i <= bi);
+  });
+}
+setInterval(rotateBrand, 3200);
+
+function submitWaitlist() {
+  var email = (document.getElementById("wl-email").value || "").trim();
+  var btn   = document.getElementById("wl-btn");
   if (!email || !email.includes("@")) return;
 
   btn.disabled = true;
@@ -158,10 +257,9 @@ function submitNotify() {
     body: JSON.stringify({ email: email, source: "extension_waitlist" }),
   })
   .then(function() {
-    document.getElementById("notify-success").style.display = "block";
-    document.getElementById("notify-note").style.display = "none";
-    document.getElementById("notify-input-row") && (document.getElementById("notify-input-row").style.display = "none");
-    document.querySelector(".notify-input-row").style.display = "none";
+    document.getElementById("wl-form-row").style.display = "none";
+    document.getElementById("wl-note").style.display = "none";
+    document.getElementById("wl-success").style.display = "block";
     track("extension_waitlist_signup");
   })
   .catch(function() {
@@ -170,9 +268,11 @@ function submitNotify() {
   });
 }
 
-document.getElementById("notify-email").addEventListener("keydown", function(e) {
-  if (e.key === "Enter") submitNotify();
+document.getElementById("wl-email").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") submitWaitlist();
 });
+
+track("extension_page_view");
 </script>
 </body>
 </html>

@@ -734,7 +734,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
       <div class="flags-list" id="flags-list"></div>
       <div class="claim-locked-evidence" id="flags-locked" style="display:none;margin-top:6px">
         <svg width="12" height="12" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;opacity:.5"><rect x="3" y="6" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 6V4.5a2 2 0 1 1 4 0V6" stroke="currentColor" stroke-width="1.3"/></svg>
-        <span id="flags-locked-count"></span> more gaps identified — <a href="/pricing" class="claim-locked-upgrade">unlock with Pro</a>
+        Full gap analysis — <a href="/pricing" class="claim-locked-upgrade">unlock with Pro</a>
       </div>
     </div>
 
@@ -1816,12 +1816,8 @@ function renderVerified(brand, product, ld, dims, demand) {
     flagsList.innerHTML = visibleFlags.map(function(r) {
       return '<div class="flag-item"><span class="flag-icon">▲</span><span class="flag-text">' + esc(r) + '</span></div>';
     }).join("");
-    if (lockedCount > 0) {
-      var lockedEl = document.getElementById("flags-locked");
-      var lockedCountEl = document.getElementById("flags-locked-count");
-      if (lockedEl) lockedEl.style.display = "";
-      if (lockedCountEl) lockedCountEl.textContent = lockedCount;
-    }
+    var lockedEl = document.getElementById("flags-locked");
+    if (lockedEl) lockedEl.style.display = "";
     if (flagsSec) flagsSec.style.display = "";
   } else {
     if (flagsSec) flagsSec.style.display = "none";

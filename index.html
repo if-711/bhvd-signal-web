@@ -270,7 +270,8 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
   var PW = 'norm1';
   var STORE_KEY = 'norm_access';
   if(sessionStorage.getItem(STORE_KEY) === PW){ hidePwGate(); return; }
-  function hidePwGate(){ var g = document.getElementById('pw-gate'); if(g) g.style.display='none'; }
+  document.body.style.overflow = 'hidden';
+  function hidePwGate(){ var g = document.getElementById('pw-gate'); if(g) g.style.display='none'; window.scrollTo(0,0); document.body.style.overflow=''; }
   window.checkPw = function(){
     var inp = document.getElementById('pw-input');
     var err = document.getElementById('pw-err');

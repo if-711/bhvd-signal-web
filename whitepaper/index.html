@@ -226,7 +226,7 @@ footer{border-top:1px solid var(--b1);padding:28px 48px;display:flex;justify-con
     <a href="#s3-3" class="toc-sub">3.3 Specificity</a>
     <a href="#s3-4" class="toc-sub">3.4 Mechanism Integrity</a>
     <a href="#s3-5" class="toc-sub">3.5 Effect Reality</a>
-    <a href="#s3-6" class="toc-sub">3.6 Consumer Distortion</a>
+    <a href="#s3-6" class="toc-sub">3.6 Consumer Distortion (incl. IE)</a>
     <a href="#s4">4. Composite Scoring</a>
     <a href="#s5">5. Validation & Reliability</a>
     <a href="#s5-1" class="toc-sub">5.1 Pipeline Calibration</a>
@@ -437,7 +437,7 @@ footer{border-top:1px solid var(--b1);padding:28px 48px;display:flex;justify-con
           <div class="dim-row"><div class="dim-row-label">MC</div><div class="dim-row-val"><strong style="color:var(--t1)">Mechanism completeness</strong> — Does the brand connect mechanism to observed clinical outcome, or leave the pathway implied?</div></div>
           <div class="dim-row"><div class="dim-row-label">MA</div><div class="dim-row-val"><strong style="color:var(--t1)">Mechanism accuracy</strong> — Are mechanistic claims free from distortion, e.g., extrapolating in vitro findings to human clinical outcomes?</div></div>
         </div>
-        <p class="footnote">Common MI failure modes: "activates mitochondria" (vague, no pathway); "boosts serotonin" without receptor mechanism or clinical translation; citing in vitro evidence for human mechanism claims without translation caveat.</p>
+        <p class="footnote">Common MI failure modes: "activates mitochondria" (vague, no pathway); "boosts serotonin" without receptor mechanism or clinical translation; citing in vitro evidence for human mechanism claims without translation caveat. Regulatory enforcement history — documented FDA recalls, warning letters, or FTC enforcement actions against the brand — is treated as a strong negative MI signal, as such actions directly evidence a pattern of claims that have been found to exceed their supporting evidence base under independent regulatory review.</p>
       </div>
 
       <!-- ER -->
@@ -479,6 +479,7 @@ footer{border-top:1px solid var(--b1);padding:28px 48px;display:flex;justify-con
           <div class="dim-row"><div class="dim-row-label">CC</div><div class="dim-row-val"><strong style="color:var(--t1)">Causation from correlation</strong> — Implying causal relationship from observational or associational findings</div></div>
           <div class="dim-row"><div class="dim-row-label">FH</div><div class="dim-row-val"><strong style="color:var(--t1)">Footer contradiction</strong> — Hero claims contradicted or qualified in footer disclaimers not visible at point of claim encounter</div></div>
           <div class="dim-row"><div class="dim-row-label">RO</div><div class="dim-row-val"><strong style="color:var(--t1)">Risk omission</strong> — Suppression of known adverse effects or contraindications relevant to reasonable consumer populations</div></div>
+          <div class="dim-row"><div class="dim-row-label">IE</div><div class="dim-row-val"><strong style="color:var(--t1)">Influencer echo amplification</strong> — Brand-page evidence of systematic paid influencer or ambassador deployment as surrogate social proof, where influencer reach or testimonial volume is structurally disproportionate to the brand's publicly disclosed evidence base. Scored when the brand's own pages feature large-scale influencer endorsement infrastructure (ambassador networks, affiliate landing pages, creator program disclosures) without commensurate evidence disclosure — indicating deliberate substitution of perceived social consensus for verifiable evidence. Distinguished from organic testimonials (scored under TE) by scale, structural coordination, and the specific bypassing of evidence-evaluation heuristics documented in the parasocial persuasion literature [21,22]. FTC disclosure non-compliance, where identifiable, compounds the severity rating [23].</div></div>
         </div>
         <p style="font-size:13px;color:var(--t2);margin-top:16px;margin-bottom:10px">Each detected signal contributes a severity-scaled penalty. Severities are fixed; the penalty is then multiplied by the positional weight of the location in which the distortion appears:</p>
         <div class="table-wrap">
@@ -493,6 +494,7 @@ footer{border-top:1px solid var(--b1);padding:28px 48px;display:flex;justify-con
               <tr><td>CC — Causation from correlation</td><td class="mono">2.5</td><td>Well-documented mechanism for false certainty attribution</td></tr>
               <tr><td>FH — Footer contradiction</td><td class="mono">2.0</td><td>Structurally conceals qualifications from point of claim encounter</td></tr>
               <tr><td>RO — Risk omission</td><td class="mono">2.5</td><td>Directly affects safety-relevant consumer decisions</td></tr>
+              <tr><td>IE — Influencer echo amplification</td><td class="mono">2.0</td><td>Exploits parasocial trust and bypasses evidence-evaluation heuristics at scale; severity increases to 3.0 when FTC disclosure non-compliance is identified [21,22,23]</td></tr>
             </tbody>
           </table>
         </div>
@@ -770,7 +772,7 @@ footer{border-top:1px solid var(--b1);padding:28px 48px;display:flex;justify-con
       </div>
       <div class="limitation">
         <h4>9.4 Off-Page Marketing Channels</h4>
-        <p>Social media advertising, influencer content, podcast sponsorships, and other off-page marketing channels are not currently included in scoring. These channels frequently carry claims that exceed those on brand websites — an expansion of scope that represents a meaningful direction for the framework.</p>
+        <p>Paid social advertising, podcast sponsorships, and individual influencer posts are not directly scored — NORM does not crawl off-domain channels. However, the <strong style="color:var(--t2)">structural footprint of influencer programs is partially captured</strong> when brands surface it on their own pages: ambassador network landing pages, affiliate program infrastructure, and creator program disclosures are scored under the IE (Influencer Echo Amplification) signal within Consumer Distortion (§3.6). This captures the category of brands that deploy influencer reach at a scale materially disproportionate to their evidence disclosure — the pattern where paid social consensus substitutes for verifiable evidence — without requiring off-page crawling. Full off-page channel coverage remains a meaningful v2.0 expansion direction.</p>
       </div>
       <div class="limitation">
         <h4>9.5 Non-U.S. Regulatory Contexts</h4>
@@ -944,6 +946,9 @@ footer{border-top:1px solid var(--b1);padding:28px 48px;display:flex;justify-con
         <div class="ref-item"><div class="ref-num">[18]</div><div class="ref-text">Schwartz, L.M., Woloshin, S., Dvorin, E.L., & Welch, H.G. (2006). Ratio measures in leading medical journals: Structured review of accessibility to readers. <em>BMJ</em>, 333(7581), 1248–1250; Woloshin, S., & Schwartz, L.M. (2011). Communicating data about the benefits and harms of treatment: A randomized trial. <em>Annals of Internal Medicine</em>, 155(2), 87–96.</div></div>
         <div class="ref-item"><div class="ref-num">[19]</div><div class="ref-text">Federal Trade Commission. (2022). <em>Enforcement Policy Statement on Deceptively Formatted Advertisements</em>. FTC; Federal Trade Commission. (2023). <em>Guide to the FTC's Endorsement Guides: What People Are Asking</em>. FTC Bureau of Consumer Protection.</div></div>
         <div class="ref-item"><div class="ref-num">[20]</div><div class="ref-text">Logg, J.M., Minson, J.A., & Moore, D.A. (2019). Algorithm appreciation: People prefer algorithmic to human judgment. <em>Organizational Behavior and Human Decision Processes</em>, 151, 90–103; Dietvorst, B.J., Logg, J.M., & Tannenbaum, D. (2018). Overcoming algorithm aversion: People will use imperfect algorithms if they can (even slightly) modify them. <em>Journal of Experimental Psychology: General</em>, 147(8), 1155–1170.</div></div>
+        <div class="ref-item"><div class="ref-num">[21]</div><div class="ref-text">Boerman, S.C. (2020). The effects of the standardized Instagram disclosure for micro- and meso-influencers. <em>Computers in Human Behavior</em>, 103, 199–207. Demonstrates that even fully disclosed influencer sponsorships do not restore consumer skepticism to the baseline observed for traditional advertising — a key empirical basis for treating coordinated influencer programs as a distinct distortion mechanism rather than a variant of standard testimonial advertising.</div></div>
+        <div class="ref-item"><div class="ref-num">[22]</div><div class="ref-text">Audrezet, A., de Kerviler, G., & Guidry Moulard, J. (2020). Authenticity under threat: When social media influencers need to go beyond self-presentation. <em>Journal of Business Research</em>, 117, 557–569. Documents the mechanism by which influencer perceived authenticity — independent of evidence quality — drives purchase intent in health and wellness categories, providing the theoretical basis for classifying influencer echo amplification as a consumer distortion vector distinct from the underlying evidence signal.</div></div>
+        <div class="ref-item"><div class="ref-num">[23]</div><div class="ref-text">Evans, N.J., Phua, J., Lim, J., & Jun, H. (2017). Disclosing Instagram influencer advertising: The effects of disclosure language on advertising recognition, attitudes, and behavioral intent. <em>Journal of Interactive Advertising</em>, 17(2), 138–149. FTC Endorsement Guides (16 C.F.R. Part 255, revised 2023) require clear and conspicuous disclosure of material connections between brands and endorsers. Non-compliance — measurable through the absence of disclosure language on brand-hosted ambassador and creator program pages — constitutes a regulatory integrity failure captured as a severity-compounding factor under the IE signal.</div></div>
       </div>
     </div>
 

@@ -213,7 +213,7 @@ function sigText(s){ return s==='green'?'#3ecf82':s==='yellow'?'#e8a840':'#e05a5
 function sigCls(s){ return s==='green'?'grn':s==='yellow'?'yel':'red'; }
 function riskLabel(r){ return r<30?['Conservative','grn']:r<60?['Moderate','yel']:['Aggressive','red']; }
 
-function scoreToSig(sc){ return sc >= 68 ? 'green' : sc >= 55 ? 'yellow' : 'red'; }
+function scoreToSig(sc){ return sc >= 75 ? 'green' : sc >= 45 ? 'yellow' : 'red'; }
 
 function row(b, i) {
   var score = b.leaderboard_data && b.leaderboard_data.total_score != null
@@ -229,7 +229,7 @@ function row(b, i) {
     + '<td><div class="sig-cell">'
     +   '<span class="dot" style="background:' + sigColor(s) + '"></span>'
     +   '<div>'
-    +     '<a class="bname" href="/brand?d=' + (b.domain||'') + '" onclick="event.stopPropagation()">' + (b.brand_name||'—') + '</a>'
+    +     '<a class="bname" href="/brand/' + (b.domain||'') + '" onclick="event.stopPropagation()">' + (b.brand_name||'—') + '</a>'
     +     '<span class="bdomain">' + (b.domain||'') + '</span>'
     +   '</div>'
     + '</div></td>'
@@ -441,7 +441,7 @@ function renderSearchSugs(brands){
 }
 
 function goToBrand(domain){
-  window.location.href = '/brand?d=' + encodeURIComponent(domain);
+  window.location.href = '/brand/' + encodeURIComponent(domain);
 }
 
 document.getElementById('loadMoreBtn').addEventListener('click', function(){ load(false); });
@@ -494,5 +494,93 @@ fetch(API + '/api/leaderboard/all?limit=200&offset=0')
   if (tok && a && s) { a.style.display = ''; s.style.display = 'none'; }
 })();
 </script>
+
+<!-- Static brand index for search engine crawlers — hidden from users by JS -->
+<div id="seo-brand-index" style="padding:32px;max-width:900px;margin:0 auto">
+  <h2 style="font-size:15px;color:#8b93b0;margin-bottom:16px;font-family:monospace">All Scored Brands</h2>
+  <ul style="list-style:none;padding:0;margin:0;columns:3;column-gap:24px">
+    <li><a href="/brand/apolloneuro.com" style="color:#4a78f0;font-size:13px;line-height:2">Apollo Neuro — 36/100</a></li>
+    <li><a href="/brand/betterhelp.com" style="color:#4a78f0;font-size:13px;line-height:2">BetterHelp — 37/100</a></li>
+    <li><a href="/brand/blueprint.bryanjohnson.com" style="color:#4a78f0;font-size:13px;line-height:2">Blueprint by Bryan Johnson — 62/100</a></li>
+    <li><a href="/brand/bulletproof.com" style="color:#4a78f0;font-size:13px;line-height:2">Bulletproof — 42/100</a></li>
+    <li><a href="/brand/calm.com" style="color:#4a78f0;font-size:13px;line-height:2">Calm — 37/100</a></li>
+    <li><a href="/brand/cetaphil.com" style="color:#4a78f0;font-size:13px;line-height:2">Cetaphil — 37/100</a></li>
+    <li><a href="/brand/cymbiotika.com" style="color:#4a78f0;font-size:13px;line-height:2">Cymbiotika — 47/100</a></li>
+    <li><a href="/brand/drinkag1.com" style="color:#4a78f0;font-size:13px;line-height:2">AG1 by Athletic Greens — 53/100</a></li>
+    <li><a href="/brand/drinklmnt.com" style="color:#4a78f0;font-size:13px;line-height:2">LMNT — 49/100</a></li>
+    <li><a href="/brand/eightsleep.com" style="color:#4a78f0;font-size:13px;line-height:2">Eight Sleep — 50/100</a></li>
+    <li><a href="/brand/elemindtech.com" style="color:#4a78f0;font-size:13px;line-height:2">Elemind — 47/100</a></li>
+    <li><a href="/brand/foursigmatic.com" style="color:#4a78f0;font-size:13px;line-height:2">Four Sigmatic — 28/100</a></li>
+    <li><a href="/brand/garmin.com" style="color:#4a78f0;font-size:13px;line-height:2">Garmin — 31/100</a></li>
+    <li><a href="/brand/getsensate.com" style="color:#4a78f0;font-size:13px;line-height:2">Sensate — 36/100</a></li>
+    <li><a href="/brand/headspace.com" style="color:#4a78f0;font-size:13px;line-height:2">Headspace — 48/100</a></li>
+    <li><a href="/brand/higherdose.com" style="color:#4a78f0;font-size:13px;line-height:2">HigherDOSE — 29/100</a></li>
+    <li><a href="/brand/huel.com" style="color:#4a78f0;font-size:13px;line-height:2">Huel — 51/100</a></li>
+    <li><a href="/brand/hyperice.com" style="color:#4a78f0;font-size:13px;line-height:2">Hyperice — 41/100</a></li>
+    <li><a href="/brand/jarrow.com" style="color:#4a78f0;font-size:13px;line-height:2">Jarrow Formulas — 42/100</a></li>
+    <li><a href="/brand/joovv.com" style="color:#4a78f0;font-size:13px;line-height:2">Joovv — 52/100</a></li>
+    <li><a href="/brand/kleanathlete.com" style="color:#4a78f0;font-size:13px;line-height:2">Klean Athlete — 39/100</a></li>
+    <li><a href="/brand/lifeextension.com" style="color:#4a78f0;font-size:13px;line-height:2">Life Extension — 38/100</a></li>
+    <li><a href="/brand/liquid-iv.com" style="color:#4a78f0;font-size:13px;line-height:2">Liquid I.V. — 32/100</a></li>
+    <li><a href="/brand/momentouslabs.com" style="color:#4a78f0;font-size:13px;line-height:2">Momentous — 10/100</a></li>
+    <li><a href="/brand/moonjuice.com" style="color:#4a78f0;font-size:13px;line-height:2">Moon Juice — 55/100</a></li>
+    <li><a href="/brand/naturemade.com" style="color:#4a78f0;font-size:13px;line-height:2">Nature Made — 71/100</a></li>
+    <li><a href="/brand/nutrafol.com" style="color:#4a78f0;font-size:13px;line-height:2">Nutrafol — 55/100</a></li>
+    <li><a href="/brand/onnit.com" style="color:#4a78f0;font-size:13px;line-height:2">Onnit — 46/100</a></li>
+    <li><a href="/brand/ouraring.com" style="color:#4a78f0;font-size:13px;line-height:2">Oura Ring — 59/100</a></li>
+    <li><a href="/brand/paulaschoice.com" style="color:#4a78f0;font-size:13px;line-height:2">Paula's Choice — 54/100</a></li>
+    <li><a href="/brand/plunge.com" style="color:#4a78f0;font-size:13px;line-height:2">Plunge — 33/100</a></li>
+    <li><a href="/brand/pureencapsulations.com" style="color:#4a78f0;font-size:13px;line-height:2">Pure Encapsulations — 33/100</a></li>
+    <li><a href="/brand/pureforyou.com" style="color:#4a78f0;font-size:13px;line-height:2">Pure For You — 43/100</a></li>
+    <li><a href="/brand/ritual.com" style="color:#4a78f0;font-size:13px;line-height:2">Ritual — 65/100</a></li>
+    <li><a href="/brand/ro.co" style="color:#4a78f0;font-size:13px;line-height:2">Ro — 36/100</a></li>
+    <li><a href="/brand/sleepnumber.com" style="color:#4a78f0;font-size:13px;line-height:2">Sleep Number — 32/100</a></li>
+    <li><a href="/brand/tatcha.com" style="color:#4a78f0;font-size:13px;line-height:2">Tatcha — 32/100</a></li>
+    <li><a href="/brand/therabody.com" style="color:#4a78f0;font-size:13px;line-height:2">Therabody — 48/100</a></li>
+    <li><a href="/brand/thorne.com" style="color:#4a78f0;font-size:13px;line-height:2">Thorne — 70/100</a></li>
+    <li><a href="/brand/whoop.com" style="color:#4a78f0;font-size:13px;line-height:2">WHOOP — 45/100</a></li>
+    <li><a href="/brand/carlsonlabs.com" style="color:#4a78f0;font-size:13px;line-height:2">Carlson Labs</a></li>
+    <li><a href="/brand/casper.com" style="color:#4a78f0;font-size:13px;line-height:2">Casper</a></li>
+    <li><a href="/brand/cerave.com" style="color:#4a78f0;font-size:13px;line-height:2">CeraVe</a></li>
+    <li><a href="/brand/culturelle.com" style="color:#4a78f0;font-size:13px;line-height:2">Culturelle</a></li>
+    <li><a href="/brand/drunk-elephant.com" style="color:#4a78f0;font-size:13px;line-height:2">Drunk Elephant</a></li>
+    <li><a href="/brand/forhers.com" style="color:#4a78f0;font-size:13px;line-height:2">Hers</a></li>
+    <li><a href="/brand/forhims.com" style="color:#4a78f0;font-size:13px;line-height:2">Hims</a></li>
+    <li><a href="/brand/gaia-herbs.com" style="color:#4a78f0;font-size:13px;line-height:2">Gaia Herbs</a></li>
+    <li><a href="/brand/gainful.com" style="color:#4a78f0;font-size:13px;line-height:2">Gainful</a></li>
+    <li><a href="/brand/gnc.com" style="color:#4a78f0;font-size:13px;line-height:2">GNC</a></li>
+    <li><a href="/brand/hatch.co" style="color:#4a78f0;font-size:13px;line-height:2">Hatch</a></li>
+    <li><a href="/brand/jarrow.com" style="color:#4a78f0;font-size:13px;line-height:2">Jarrow</a></li>
+    <li><a href="/brand/joinzoe.com" style="color:#4a78f0;font-size:13px;line-height:2">Zoe</a></li>
+    <li><a href="/brand/kachava.com" style="color:#4a78f0;font-size:13px;line-height:2">Ka'Chava</a></li>
+    <li><a href="/brand/legion.com" style="color:#4a78f0;font-size:13px;line-height:2">Legion Athletics</a></li>
+    <li><a href="/brand/levels.com" style="color:#4a78f0;font-size:13px;line-height:2">Levels Health</a></li>
+    <li><a href="/brand/megafood.com" style="color:#4a78f0;font-size:13px;line-height:2">MegaFood</a></li>
+    <li><a href="/brand/mindlabpro.com" style="color:#4a78f0;font-size:13px;line-height:2">Mind Lab Pro</a></li>
+    <li><a href="/brand/modernfertility.com" style="color:#4a78f0;font-size:13px;line-height:2">Modern Fertility</a></li>
+    <li><a href="/brand/murad.com" style="color:#4a78f0;font-size:13px;line-height:2">Murad</a></li>
+    <li><a href="/brand/myprotein.com" style="color:#4a78f0;font-size:13px;line-height:2">Myprotein</a></li>
+    <li><a href="/brand/naturesway.com" style="color:#4a78f0;font-size:13px;line-height:2">Nature's Way</a></li>
+    <li><a href="/brand/neurohacker.com" style="color:#4a78f0;font-size:13px;line-height:2">Neurohacker Collective</a></li>
+    <li><a href="/brand/neutrogena.com" style="color:#4a78f0;font-size:13px;line-height:2">Neutrogena</a></li>
+    <li><a href="/brand/noom.com" style="color:#4a78f0;font-size:13px;line-height:2">Noom</a></li>
+    <li><a href="/brand/nordic-naturals.com" style="color:#4a78f0;font-size:13px;line-height:2">Nordic Naturals</a></li>
+    <li><a href="/brand/nowfoods.com" style="color:#4a78f0;font-size:13px;line-height:2">NOW Foods</a></li>
+    <li><a href="/brand/nutrisense.io" style="color:#4a78f0;font-size:13px;line-height:2">NutriSense</a></li>
+    <li><a href="/brand/olipop.com" style="color:#4a78f0;font-size:13px;line-height:2">OLIPOP</a></li>
+    <li><a href="/brand/optimumnutrition.com" style="color:#4a78f0;font-size:13px;line-height:2">Optimum Nutrition</a></li>
+    <li><a href="/brand/poppi.com" style="color:#4a78f0;font-size:13px;line-height:2">Poppi</a></li>
+    <li><a href="/brand/rxbar.com" style="color:#4a78f0;font-size:13px;line-height:2">RXBAR</a></li>
+    <li><a href="/brand/seed.com" style="color:#4a78f0;font-size:13px;line-height:2">Seed</a></li>
+    <li><a href="/brand/skinceuticals.com" style="color:#4a78f0;font-size:13px;line-height:2">SkinCeuticals</a></li>
+    <li><a href="/brand/sleepnumber.com" style="color:#4a78f0;font-size:13px;line-height:2">Sleep Number</a></li>
+    <li><a href="/brand/solgar.com" style="color:#4a78f0;font-size:13px;line-height:2">Solgar</a></li>
+    <li><a href="/brand/theordinary.com" style="color:#4a78f0;font-size:13px;line-height:2">The Ordinary</a></li>
+    <li><a href="/brand/transparentlabs.com" style="color:#4a78f0;font-size:13px;line-height:2">Transparent Labs</a></li>
+    <li><a href="/brand/vitalproteins.com" style="color:#4a78f0;font-size:13px;line-height:2">Vital Proteins</a></li>
+    <li><a href="/brand/wakingup.com" style="color:#4a78f0;font-size:13px;line-height:2">Waking Up</a></li>
+  </ul>
+</div>
+<script>var el=document.getElementById('seo-brand-index');if(el)el.style.display='none';</script>
 </body>
 </html>

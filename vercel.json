@@ -2,6 +2,20 @@
   "buildCommand": "",
   "installCommand": "",
   "outputDirectory": ".",
+  "redirects": [
+    {
+      "source": "/brand",
+      "has": [{ "type": "query", "key": "d", "value": "(?<domain>.+)" }],
+      "destination": "/brand/:domain",
+      "permanent": true
+    },
+    {
+      "source": "/brand/",
+      "has": [{ "type": "query", "key": "d", "value": "(?<domain>.+)" }],
+      "destination": "/brand/:domain",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

@@ -164,6 +164,23 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .brand-row-meta{font-family:var(--mono);font-size:9px;color:var(--t3);margin-top:1px}
 .brand-rows-empty{font-size:13px;color:var(--t3);padding:16px 0}
 
+/* INFLUENCER SECTION */
+.inf-table{width:100%;border-collapse:collapse;margin:28px 0 24px}
+.inf-table th{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--t3);text-transform:uppercase;padding:0 0 12px;text-align:left;border-bottom:1px solid var(--b1)}
+.inf-table th:last-child{text-align:right}
+.inf-table td{padding:14px 0;border-bottom:1px solid var(--b1);font-size:13px;color:var(--t2);vertical-align:middle}
+.inf-table tr:last-child td{border-bottom:none}
+.inf-table td:last-child{text-align:right}
+.inf-name{font-weight:500;color:var(--t1)}
+.inf-brand{color:var(--t2)}
+.inf-reach{font-family:var(--mono);font-size:12px;color:var(--t2)}
+.inf-score{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:12px;font-weight:500}
+.inf-score-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.inf-score-dot.yellow{background:var(--yel)}
+.inf-score-dot.red{background:var(--red)}
+.inf-score-dot.green{background:var(--grn)}
+.inf-note{font-size:11px;color:var(--t3);line-height:1.6;font-family:var(--mono)}
+
 /* LIVE DOT */
 .live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#1e9459;margin-right:7px;animation:live-pulse 2s ease-in-out infinite;vertical-align:middle;position:relative;top:-1px}
 @keyframes live-pulse{0%,100%{box-shadow:0 0 0 0 rgba(30,148,89,.6);opacity:1}50%{box-shadow:0 0 0 5px rgba(30,148,89,0);opacity:.8}}
@@ -188,21 +205,6 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
 .hero-mark-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:36px;gap:11px}
 .hero-mark-word{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.26em;color:rgba(74,120,240,.55);text-transform:uppercase}
 
-/* PASSWORD GATE */
-#pw-gate{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--sans)}
-.gate-logo{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.14em;color:var(--t1);display:flex;align-items:center;gap:8px;margin-bottom:44px}
-.gate-box{background:var(--bg2);border:1px solid var(--b2);border-radius:16px;padding:44px 48px;width:100%;max-width:400px;display:flex;flex-direction:column;align-items:center}
-.gate-box h2{font-family:var(--serif);font-size:28px;font-weight:400;color:var(--t1);margin-bottom:9px;letter-spacing:-.01em}
-.gate-box p{font-size:13px;color:var(--t2);margin-bottom:32px;text-align:center;line-height:1.55}
-#pw-input{width:100%;padding:13px 16px;background:var(--bg4);border:1px solid var(--b2);border-radius:9px;color:var(--t1);font-size:15px;font-family:var(--mono);letter-spacing:.12em;outline:none;margin-bottom:12px;text-align:center;transition:border-color .2s;box-sizing:border-box}
-#pw-input:focus{border-color:rgba(79,124,255,.55)}
-#pw-input.wrong{border-color:rgba(231,76,60,.55)}
-#pw-btn{width:100%;padding:13px;background:var(--acc);border:none;border-radius:9px;color:#fff;font-size:14px;font-weight:500;font-family:var(--sans);cursor:pointer;transition:background .15s}
-#pw-btn:hover{background:#3d6ae0}
-#pw-err{font-size:12px;color:var(--red);margin-top:12px;min-height:18px;text-align:center}
-.gate-disc{font-size:10px;color:var(--t3);margin-top:28px;letter-spacing:.04em;font-family:var(--mono)}
-@keyframes pw-shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
-.pw-shake{animation:pw-shake .38s ease}
 
 @media(max-width:768px){
   /* Nav */
@@ -243,52 +245,11 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
   .cta-band-btns{flex-direction:column;align-items:stretch}
   .cta-band-btns .btn,.cta-band-btns .btn-p{text-align:center;justify-content:center;font-size:14px;padding:13px 20px}
 
-  /* Password gate */
-  .gate-box{padding:32px 24px}
 }
 </style>
 </head>
 <body>
 
-<div id="pw-gate">
-  <div class="gate-logo">
-    <svg width="20" height="20" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="8.5" r="5.5" stroke="#4a78f0" stroke-width="1.5"/><circle cx="9.2" cy="7.8" r="1" fill="#4a78f0"/><circle cx="12.8" cy="7.8" r="1" fill="#4a78f0"/><path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/><path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/></svg>
-    NORM
-  </div>
-  <div class="gate-box">
-    <h2>Early access</h2>
-    <p>NORM is in private beta. Enter your access code to continue.</p>
-    <input id="pw-input" type="password" placeholder="Access code" autocomplete="off" onkeydown="if(event.key==='Enter')checkPw()">
-    <button id="pw-btn" onclick="checkPw()">Continue →</button>
-    <div id="pw-err"></div>
-  </div>
-  <div class="gate-disc">NORM Analytics · Private Beta</div>
-</div>
-
-<script>
-(function(){
-  var PW = 'norm1';
-  var STORE_KEY = 'norm_access';
-  if(sessionStorage.getItem(STORE_KEY) === PW){ hidePwGate(); return; }
-  document.body.style.overflow = 'hidden';
-  function hidePwGate(){ var g = document.getElementById('pw-gate'); if(g) g.style.display='none'; window.scrollTo(0,0); document.body.style.overflow=''; }
-  window.checkPw = function(){
-    var inp = document.getElementById('pw-input');
-    var err = document.getElementById('pw-err');
-    if(!inp) return;
-    var val = inp.value.trim();
-    if(val === PW){
-      sessionStorage.setItem(STORE_KEY, PW);
-      hidePwGate();
-    } else {
-      err.textContent = 'Incorrect access code.';
-      inp.classList.add('wrong');
-      inp.classList.add('pw-shake');
-      setTimeout(function(){ inp.classList.remove('pw-shake'); inp.classList.remove('wrong'); err.textContent=''; }, 1400);
-    }
-  };
-})();
-</script>
 
 <nav>
   <a href="/" class="nav-logo">
@@ -528,6 +489,28 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
 
 <div class="divider"></div>
 
+<!-- INFLUENCER TRANSPARENCY -->
+<div class="section-wrap" id="influencers">
+  <div class="sec-tag">Influencer Transparency</div>
+  <h2 class="sec-title">The brands behind<br>your podcast sponsors.</h2>
+  <p class="sec-sub">We track publicly disclosed sponsorships across major wellness creators and run every brand through NORM. Know the score before you trust the recommendation.</p>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 20px">
+    <span class="ie-pill" style="font-size:13px;padding:7px 14px">Joe Rogan</span>
+    <span class="ie-pill" style="font-size:13px;padding:7px 14px">Andrew Huberman</span>
+    <span class="ie-pill" style="font-size:13px;padding:7px 14px">Tim Ferriss</span>
+    <span class="ie-pill" style="font-size:13px;padding:7px 14px">Rhonda Patrick</span>
+    <span class="ie-pill" style="font-size:13px;padding:7px 14px">Max Lugavere</span>
+    <span class="ie-pill" style="font-size:13px;padding:7px 14px">Thomas DeLauer</span>
+    <span class="ie-pill" style="font-size:13px;padding:7px 14px">Peter Attia</span>
+    <span class="ie-pill" style="font-size:13px;padding:7px 14px;color:var(--t3);background:var(--bg3);border-color:var(--b1)">+ more</span>
+  </div>
+  <p class="inf-note">All sponsorships tracked are publicly disclosed. See the full breakdown — which brands each creator promotes and how they score — on any brand's claim report.</p>
+  <div style="margin-top:24px">
+    <a href="/leaderboard" class="btn btn-p" style="font-size:14px;padding:11px 24px;border-radius:9px" onclick="track('inf_leaderboard_click')">Browse scored brands →</a>
+  </div>
+</div>
+
+<div class="divider"></div>
 
 <!-- FAQ -->
 <div class="section-wrap" id="faq">
@@ -539,12 +522,20 @@ footer{max-width:1100px;margin:0 auto;padding:52px 32px;display:flex;justify-con
       <div class="faq-a"><div class="faq-a-inner">No — and this is the most important thing to understand about NORM. A Red signal means a brand made strong claims without showing you the evidence to back them up on their page. The product might work brilliantly. The ingredient might have decades of research behind it. But right now, on this page, they're asking you to take their word for it. That's worth knowing before you spend $80 a month.</div></div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can a brand pay to improve their signal?</div>
-      <div class="faq-a"><div class="faq-a-inner">No. Scores are determined solely by what's visible on the consumer-facing product page at time of scan. The Brand Portal lets brands see what's driving their signal and submit evidence for review — but none of that has any effect on their score. The only path to a better signal is making stronger evidence visible on the actual page consumers visit.</div></div>
-    </div>
-    <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How is the score calculated?</div>
       <div class="faq-a"><div class="faq-a-inner">The NORM score (0–100) runs across six dimensions: Evidence Strength (25 pts), Consumer Distortion (20 pts), Specificity (15 pts), Mechanism Integrity (15 pts), Effect Reality (15 pts), and Evidence Presence (10 pts). Each claim is weighted by where it appears — hero headlines count more than footer disclaimers, because that's where brands put the claims they most want you to believe. The complete methodology is published at trynorm.co/methodology.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How often do scores get updated?</div>
+      <div class="faq-a"><div class="faq-a-inner">Brands in the index are rescored on a rolling basis — typically weekly, or sooner when a brand updates its claims or evidence. If a brand adds third-party test results or removes unsupported claims, that will show in their next score run. You can set a watchlist alert (Pro) to get notified when a brand you follow changes.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can I flag a brand that hasn't been scored yet?</div>
+      <div class="faq-a"><div class="faq-a-inner">Yes — the browser extension has a flag button you can use on any brand's site. Flagged brands get added to the scoring queue and are typically reviewed within a week. You can also submit a brand directly from the leaderboard page.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What counts as evidence?</div>
+      <div class="faq-a"><div class="faq-a-inner">Anything visible on the brand's public domain that connects a claim to external verification: links to peer-reviewed studies, third-party testing certificates (NSF, Informed Sport, USP), dosage panels with sourced ingredient amounts, or independent audit reports. Internal studies and vague references to "clinical-grade" don't count without a traceable source. The full evidence taxonomy is in the methodology.</div></div>
     </div>
   </div>
 </div>
@@ -684,7 +675,7 @@ function loadBrandPulse(isRefresh) {
           var metaHtml = b.verdict
             ? '<div class="brand-row-meta">' + esc(VERDICT_SHORT[b.verdict] || b.verdict) + '</div>'
             : (b.reviewed_at ? '<div class="brand-row-meta">' + timeAgo(b.reviewed_at) + '</div>' : '');
-          return '<a href="/brand/?d=' + encodeURIComponent(b.domain) + '" class="brand-row-item">' +
+          return '<a href="/brand/' + encodeURIComponent(b.domain) + '" class="brand-row-item">' +
             '<div class="brand-row-left">' +
               '<div class="brand-row-dot ' + sig + '"></div>' +
               '<div><div class="brand-row-name">' + esc(b.name || b.domain) + '</div>' +
@@ -788,7 +779,7 @@ loadBrandPulse();
         var sigBadge = sc!=null
           ? '<span class="hero-search-sug-sig" style="background:'+SIG_BG[sig]+';color:'+SIG_COLOR[sig]+';font-family:var(--mono);font-size:9px;letter-spacing:.06em;padding:2px 7px;border-radius:3px">'+SIG_LABEL[sig]+' · '+sc+'</span>'
           : '';
-        return '<div class="hero-search-sug" onclick="location.href=\'/brand/?d=\'+encodeURIComponent(\''+e.domain+'\')">' +
+        return '<div class="hero-search-sug" onclick="location.href=\'/brand/\'+encodeURIComponent(\''+e.domain+'\')">' +
           '<div class="hero-search-sug-name">'+(e.brand_name||e.domain)+'</div>' +
           '<div class="hero-search-sug-meta"><span style="color:var(--t3)">'+(e.domain||'')+'</span>'+sigBadge+'</div>' +
         '</div>';

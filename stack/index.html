@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Score Your Stack — NORM</title>
+<meta name="description" content="Enter the brands in your wellness stack. See how their claims compare to actual evidence.">
+<meta property="og:title" content="Score Your Wellness Stack — NORM">
+<meta property="og:description" content="Find out which brands earn your trust — and which ones are selling narrative.">
+<meta property="og:image" content="https://trynorm.co/og-image.png">
+<meta property="og:url" content="https://trynorm.co/stack">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Score Your Wellness Stack — NORM">
+<meta name="twitter:description" content="Find out which brands earn your trust — and which ones are selling narrative.">
+<meta name="twitter:image" content="https://trynorm.co/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c12;--bg2:#111420;--bg3:#181c2e;--bg4:#1f2438;
+  --b1:rgba(255,255,255,0.07);--b2:rgba(255,255,255,0.13);
+  --t1:#f2f2f2;--t2:#8b93b0;--t3:#4a5070;
+  --red:#e74c3c;--rbg:#2d1212;--rbdr:#5a1a1a;
+  --yel:#f39c12;--ybg:#2d2008;--ybdr:#5a3a0a;
+  --grn:#27ae60;--gbg:#0a2418;--gbdr:#1a4a2a;
+  --acc:#4f7cff;
+  --mono:'DM Mono',monospace;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t1);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:58px;background:rgba(10,12,18,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--b1)}
+.nav-logo{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.14em;color:var(--t1);display:flex;align-items:center;gap:8px;cursor:pointer}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:13px;color:var(--t2);transition:color .15s}
+.nav-links a:hover{color:var(--t1)}
+.nav-links a.active{color:var(--t1)}
+.nav-cta{display:flex;gap:10px}
+.btn{font-family:var(--sans);font-size:13px;font-weight:500;padding:8px 18px;border-radius:8px;cursor:pointer;border:1px solid var(--b2);background:transparent;color:var(--t2);transition:all .15s;display:inline-flex;align-items:center;gap:7px}
+.btn:hover{color:var(--t1);border-color:var(--t3)}
+.btn-p{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn-p:hover{background:#3d6ae0;border-color:#3d6ae0;color:#fff}
+.btn:disabled{opacity:.35;pointer-events:none}
+
+/* APP SHELL */
+#app{padding-top:58px;min-height:100vh}
+
+/* ─── ENTRY STEP ─── */
+.step-entry{min-height:calc(100vh - 58px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px;position:relative;overflow:hidden}
+.entry-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(79,124,255,0.08) 0%,transparent 65%);pointer-events:none}
+.entry-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--acc);text-transform:uppercase;margin-bottom:28px;display:flex;align-items:center;justify-content:center;gap:10px}
+.entry-eyebrow::before,.entry-eyebrow::after{content:'';width:28px;height:1px;background:var(--acc);opacity:.45}
+.entry h1{font-family:var(--serif);font-size:clamp(42px,6.5vw,84px);font-weight:400;line-height:1.05;letter-spacing:-.025em;max-width:860px;margin-bottom:22px}
+.entry h1 em{font-style:italic;color:var(--t2)}
+.entry-sub{font-size:17px;color:var(--t2);max-width:480px;line-height:1.7;margin-bottom:48px;font-weight:300}
+.btn-entry{font-size:16px;padding:16px 36px;border-radius:10px;background:var(--acc);border:none;color:#fff;cursor:pointer;font-family:var(--sans);font-weight:500;transition:all .2s;display:inline-flex;align-items:center;gap:10px}
+.btn-entry:hover{background:#3d6ae0;transform:translateY(-1px)}
+.entry-proof{display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:40px}
+.proof-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--t3);font-family:var(--mono)}
+.proof-dot{width:4px;height:4px;border-radius:50%;background:var(--t3)}
+
+/* ─── INPUT STEP ─── */
+.step-input{max-width:640px;margin:0 auto;padding:80px 24px 120px}
+.step-header{margin-bottom:40px}
+.step-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--acc);text-transform:uppercase;margin-bottom:14px}
+.step-title{font-family:var(--serif);font-size:clamp(30px,4vw,48px);font-weight:400;line-height:1.1;letter-spacing:-.02em;margin-bottom:10px}
+.step-sub{font-size:15px;color:var(--t2);font-weight:300}
+
+.search-wrap{position:relative;margin-bottom:8px}
+.brand-input{width:100%;background:var(--bg2);border:1px solid var(--b2);border-radius:10px;padding:14px 18px;color:var(--t1);font-size:15px;font-family:var(--sans);outline:none;transition:border-color .15s}
+.brand-input:focus{border-color:var(--acc)}
+.brand-input::placeholder{color:var(--t3)}
+.search-hint{font-size:12px;color:var(--t3);font-family:var(--mono);margin-bottom:20px}
+
+.autocomplete{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--bg3);border:1px solid var(--b2);border-radius:10px;z-index:50;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.ac-item{display:flex;align-items:center;gap:12px;padding:11px 16px;cursor:pointer;transition:background .1s;border-bottom:1px solid var(--b1)}
+.ac-item:last-child{border-bottom:none}
+.ac-item:hover,.ac-item.focused{background:var(--bg4)}
+.ac-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.ac-dot.green{background:var(--grn)}
+.ac-dot.yellow{background:var(--yel)}
+.ac-dot.red{background:var(--red)}
+.ac-dot.unknown{background:var(--t3)}
+.ac-name{font-size:14px;font-weight:500;flex:1}
+.ac-score{font-family:var(--mono);font-size:11px;color:var(--t3)}
+.ac-loading,.ac-empty{padding:14px 16px;font-size:13px;color:var(--t3);text-align:center;font-style:italic}
+
+.chips{display:flex;flex-direction:column;gap:8px;margin-bottom:28px;min-height:0}
+.chip{display:flex;align-items:center;gap:12px;background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:12px 16px;transition:all .15s}
+.chip-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.chip-dot.green{background:var(--grn)}
+.chip-dot.yellow{background:var(--yel)}
+.chip-dot.red{background:var(--red)}
+.chip-dot.loading{background:var(--t3);animation:blink .8s ease infinite}
+@keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
+.chip-name{font-size:14px;font-weight:500;flex:1}
+.chip-score{font-family:var(--mono);font-size:12px;color:var(--t2)}
+.chip-remove{width:20px;height:20px;border-radius:50%;border:1px solid var(--b2);background:transparent;color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s;flex-shrink:0}
+.chip-remove:hover{background:var(--rbg);border-color:var(--red);color:var(--red)}
+.chip-count{font-size:12px;color:var(--t3);margin-bottom:12px;font-family:var(--mono)}
+
+.score-btn{width:100%;padding:16px;border-radius:10px;background:var(--acc);border:none;color:#fff;font-size:15px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:all .2s;display:flex;align-items:center;justify-content:center;gap:10px}
+.score-btn:hover:not(:disabled){background:#3d6ae0}
+.score-btn:disabled{opacity:.35;pointer-events:none}
+
+/* ─── SCORING STEP ─── */
+.step-scoring{max-width:640px;margin:0 auto;padding:80px 24px}
+.scoring-header{text-align:center;margin-bottom:48px}
+.scoring-title{font-family:var(--serif);font-size:32px;font-weight:400;margin-bottom:8px}
+.scoring-sub{font-size:14px;color:var(--t2);font-family:var(--mono)}
+
+.scoring-list{display:flex;flex-direction:column;gap:12px}
+.scoring-brand{background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:14px 18px;overflow:hidden;position:relative}
+.sb-row{display:flex;align-items:center;gap:12px}
+.sb-dot{width:10px;height:10px;border-radius:50%;background:var(--t3);flex-shrink:0;transition:background .3s}
+.sb-dot.green{background:var(--grn)}
+.sb-dot.yellow{background:var(--yel)}
+.sb-dot.red{background:var(--red)}
+.sb-name{font-size:14px;font-weight:500;flex:1}
+.sb-status{font-size:12px;color:var(--t3);font-family:var(--mono)}
+.sb-bar{height:2px;background:var(--b1);margin-top:10px;border-radius:1px;overflow:hidden}
+.sb-fill{height:100%;width:0;border-radius:1px;background:var(--acc);transition:width 1.2s ease}
+.sb-fill.done{background:var(--grn)}
+.sb-fill.warn{background:var(--yel)}
+.sb-fill.bad{background:var(--red)}
+
+/* ─── RESULTS STEP ─── */
+.step-results{max-width:680px;margin:0 auto;padding:60px 24px 120px}
+
+.stack-score-block{text-align:center;margin-bottom:48px;padding:40px 24px;background:var(--bg2);border:1px solid var(--b1);border-radius:16px;position:relative;overflow:hidden}
+.ssb-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300px;height:300px;border-radius:50%;pointer-events:none}
+.ssb-glow.green{background:radial-gradient(ellipse,rgba(39,174,96,0.08),transparent 65%)}
+.ssb-glow.yellow{background:radial-gradient(ellipse,rgba(243,156,18,0.08),transparent 65%)}
+.ssb-glow.red{background:radial-gradient(ellipse,rgba(231,76,60,0.08),transparent 65%)}
+.ssb-label{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--t3);text-transform:uppercase;margin-bottom:16px}
+.ssb-score{font-family:var(--serif);font-size:80px;font-weight:400;line-height:1;margin-bottom:4px}
+.ssb-score.green{color:var(--grn)}
+.ssb-score.yellow{color:var(--yel)}
+.ssb-score.red{color:var(--red)}
+.ssb-max{font-family:var(--mono);font-size:14px;color:var(--t3)}
+.ssb-verdict{font-size:16px;font-weight:500;margin-top:14px;color:var(--t1)}
+.ssb-context{font-size:13px;color:var(--t2);margin-top:6px;font-style:italic}
+
+.gap-callout{background:var(--rbg);border:1px solid var(--rbdr);border-radius:12px;padding:18px 20px;margin-bottom:28px;display:flex;gap:14px;align-items:flex-start}
+.gap-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.gap-text{font-size:14px;line-height:1.6;color:var(--t1)}
+.gap-text strong{color:var(--red)}
+
+.brands-section-label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--t3);text-transform:uppercase;margin-bottom:12px}
+.brands-list{display:flex;flex-direction:column;gap:8px;margin-bottom:32px;position:relative}
+.brand-row{display:flex;align-items:center;gap:14px;background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:14px 18px;transition:border-color .15s}
+.brand-row:hover{border-color:var(--b2)}
+.br-signal{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.br-signal.green{background:var(--grn)}
+.br-signal.yellow{background:var(--yel)}
+.br-signal.red{background:var(--red)}
+.br-name{font-size:14px;font-weight:500;flex:1}
+.br-verdict{font-size:11px;color:var(--t3);font-family:var(--mono)}
+.br-score{font-family:var(--mono);font-size:14px;font-weight:500}
+.br-score.green{color:var(--grn)}
+.br-score.yellow{color:var(--yel)}
+.br-score.red{color:var(--red)}
+
+.blur-gate{position:relative}
+.blur-gate .brand-row{filter:blur(5px);user-select:none;pointer-events:none}
+.blur-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:linear-gradient(to bottom,transparent,rgba(10,12,18,.92) 40%)}
+.bo-text{font-size:14px;color:var(--t1);font-weight:500;text-align:center}
+.bo-sub{font-size:12px;color:var(--t2);text-align:center}
+
+.share-section{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:28px 24px;text-align:center}
+.share-title{font-family:var(--serif);font-size:22px;font-weight:400;margin-bottom:6px}
+.share-sub{font-size:14px;color:var(--t2);margin-bottom:24px;line-height:1.6}
+.share-actions{display:flex;flex-direction:column;gap:10px}
+.share-btn{width:100%;padding:14px;border-radius:9px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid}
+.share-btn.primary{background:var(--acc);border-color:var(--acc);color:#fff}
+.share-btn.primary:hover{background:#3d6ae0}
+.share-btn.secondary{background:transparent;border-color:var(--b2);color:var(--t2)}
+.share-btn.secondary:hover{color:var(--t1);border-color:var(--t3)}
+.share-divider{display:flex;align-items:center;gap:12px;color:var(--t3);font-size:12px}
+.share-divider::before,.share-divider::after{content:'';flex:1;height:1px;background:var(--b1)}
+.email-wrap{display:flex;gap:8px}
+.email-input{flex:1;background:var(--bg3);border:1px solid var(--b2);border-radius:8px;padding:12px 14px;color:var(--t1);font-size:14px;font-family:var(--sans);outline:none;transition:border-color .15s}
+.email-input:focus{border-color:var(--acc)}
+.email-input::placeholder{color:var(--t3)}
+.email-submit{padding:12px 20px;border-radius:8px;background:var(--bg3);border:1px solid var(--b2);color:var(--t2);font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans);white-space:nowrap;transition:all .15s}
+.email-submit:hover{color:var(--t1);border-color:var(--t3)}
+.share-fine{font-size:11px;color:var(--t3);margin-top:10px}
+
+/* ─── UNLOCKED STATE ─── */
+.unlocked-badge{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--gbg);border:1px solid var(--gbdr);border-radius:8px;padding:10px 16px;margin-bottom:24px;font-size:13px;color:var(--grn);font-family:var(--mono)}
+
+/* ─── SHARED/VIEW STATE ─── */
+.step-shared{max-width:680px;margin:0 auto;padding:60px 24px 120px}
+.shared-banner{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:20px;margin-bottom:32px;text-align:center}
+.sb-eyebrow{font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.sb-headline{font-size:15px;color:var(--t2);margin-bottom:14px}
+.sb-cta{display:inline-flex;align-items:center;gap:8px;background:var(--acc);border:none;padding:11px 22px;border-radius:8px;color:#fff;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:all .15s}
+.sb-cta:hover{background:#3d6ae0}
+
+/* ─── COPIED TOAST ─── */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg3);border:1px solid var(--b2);border-radius:8px;padding:10px 20px;font-size:13px;color:var(--t1);opacity:0;transition:all .3s;pointer-events:none;z-index:200;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ─── MOBILE ─── */
+@media(max-width:600px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .step-input,.step-scoring,.step-results,.step-shared{padding:60px 16px 80px}
+  .stack-score-block{padding:28px 16px}
+  .ssb-score{font-size:64px}
+  .entry h1{font-size:38px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+    <circle cx="11" cy="8.5" r="5.5" stroke="#4a78f0" stroke-width="1.5"/>
+    <circle cx="9.2" cy="7.8" r="1" fill="#4a78f0"/>
+    <circle cx="12.8" cy="7.8" r="1" fill="#4a78f0"/>
+    <path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+  NORM
+  </a>
+  <ul class="nav-links">
+    <li><a href="/leaderboard/">Leaderboard</a></li>
+    <li><a href="/stack/" class="active">Score Your Stack</a></li>
+    <li><a href="/methodology/">Methodology</a></li>
+    <li><a href="/pricing/">Pricing</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="/extension" class="btn btn-p">Add to Chrome – It's Free</a>
+  </div>
+</nav>
+
+<div id="app"></div>
+<div class="toast" id="toast"></div>
+<canvas id="share-canvas" width="1200" height="630" style="display:none"></canvas>
+
+<script>
+const API = 'https://bhvd-signal-api.fly.dev';
+
+// ─── State ───────────────────────────────────────────────────
+const S = {
+  step: 'entry',       // entry | input | scoring | results | shared
+  brands: [],          // fully resolved brand objects
+  pendingBrands: [],   // from autocomplete (name, domain, score, signal_color)
+  stackScore: 0,
+  stackColor: 'green',
+  worstGap: null,      // { brandName, claimCount, flaggedCount, claim }
+  unlocked: false,
+  shareCode: null,
+  isSharedView: false,
+};
+
+// ─── Helpers ─────────────────────────────────────────────────
+function colorClass(c) { return c === 'green' ? 'green' : c === 'yellow' ? 'yellow' : 'red'; }
+
+function computeStackScore(brands) {
+  if (!brands.length) return 0;
+  const avg = brands.reduce((s, b) => s + (b.score ?? 50), 0) / brands.length;
+  return Math.round(avg);
+}
+
+function stackColorFromScore(score) {
+  if (score >= 65) return 'green';
+  if (score >= 45) return 'yellow';
+  return 'red';
+}
+
+function stackVerdict(score) {
+  if (score >= 75) return 'Well-supported stack';
+  if (score >= 65) return 'Mostly supported';
+  if (score >= 55) return 'Mixed evidence';
+  if (score >= 45) return 'Claims outpace evidence';
+  return 'Significant evidence gaps';
+}
+
+function buildShareCode(brands, score, worstGap) {
+  const compact = {
+    v: 1,
+    brands: brands.map(b => ({
+      n: b.brand_name,
+      d: b.domain,
+      c: b.signal_color,
+      s: b.score,
+      vc: b.extraction_claim_count ?? 0,
+      fc: b.flagged_claim_count ?? 0,
+      wc: b.worst_claim ?? null,
+    })),
+    ss: score,
+    wg: worstGap ? `${worstGap.brandName} makes ${worstGap.claimCount} claims. NORM flagged ${worstGap.flaggedCount}.` : null,
+  };
+  return btoa(unescape(encodeURIComponent(JSON.stringify(compact))));
+}
+
+function decodeShareCode(code) {
+  try {
+    return JSON.parse(decodeURIComponent(escape(atob(code))));
+  } catch { return null; }
+}
+
+function showToast(msg, duration = 2500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+// ─── API ─────────────────────────────────────────────────────
+let searchDebounce;
+async function searchBrands(q) {
+  if (q.length < 2) return [];
+  try {
+    const res = await fetch(`${API}/api/brands/search?q=${encodeURIComponent(q)}&limit=6`);
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.results ?? [];
+  } catch { return []; }
+}
+
+async function fetchBrandDetail(domain) {
+  try {
+    const url = `https://${domain}`;
+    const res = await fetch(`${API}/api/lookup?url=${encodeURIComponent(url)}&slim=true`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!data.data) return null;
+    const d = data.data;
+    const ld = d.leaderboard_data ?? {};
+    return {
+      domain,
+      brand_name:             d.brand_name,
+      signal_color:           d.signal_color,
+      score:                  ld.total_score ?? Math.round(100 - (d.claim_support_risk ?? 50)),
+      verdict:                ld.bhvd_verdict ?? '',
+      extraction_claim_count: ld.extraction_claim_count ?? 0,
+      flagged_claim_count:    ld.flagged_claim_count ?? 0,
+      worst_claim:            (ld.gap_map ?? [])[0]?.claim ?? null,
+      why:                    ld.why_this_verdict ?? '',
+    };
+  } catch { return null; }
+}
+
+// ─── Render helpers ──────────────────────────────────────────
+function brandRowHTML(b, showRemove = false, blurred = false) {
+  const cc = colorClass(b.signal_color ?? 'unknown');
+  const scoreVal = b.score ?? '–';
+  return `
+    <div class="brand-row${blurred ? ' blurred' : ''}">
+      <div class="br-signal ${cc}"></div>
+      <div class="br-name">${b.brand_name}</div>
+      <div class="br-verdict">${(b.verdict ?? '').substring(0, 20)}</div>
+      <div class="br-score ${cc}">${scoreVal}</div>
+      ${showRemove ? `<button class="chip-remove" onclick="removeBrand('${b.domain}')">✕</button>` : ''}
+    </div>`;
+}
+
+// ─── STEP: Entry ─────────────────────────────────────────────
+function renderEntry() {
+  return `
+    <div class="step-entry">
+      <div class="entry-glow"></div>
+      <div class="entry-eyebrow">NORM — Score Your Stack</div>
+      <h1 class="entry">What's your<br><em>Consumer IQ?</em></h1>
+      <p class="entry-sub">Enter the brands you use. See how their claims stack up against actual evidence.</p>
+      <button class="btn-entry" onclick="goTo('input')">
+        Score my stack
+        <span>→</span>
+      </button>
+      <div class="entry-proof">
+        <div class="proof-item">
+          <div class="proof-dot"></div>
+          <span>Supplements</span>
+        </div>
+        <div class="proof-item">
+          <div class="proof-dot"></div>
+          <span>Wearables</span>
+        </div>
+        <div class="proof-item">
+          <div class="proof-dot"></div>
+          <span>Sleep tech</span>
+        </div>
+        <div class="proof-item">
+          <div class="proof-dot"></div>
+          <span>Apps &amp; platforms</span>
+        </div>
+      </div>
+    </div>`;
+}
+
+// ─── STEP: Input ─────────────────────────────────────────────
+function renderInput() {
+  const count = S.pendingBrands.length;
+  const canScore = count >= 2;
+  const chipsHTML = S.pendingBrands.map(b => `
+    <div class="chip" id="chip-${b.domain.replace(/\./g,'-')}">
+      <div class="chip-dot ${colorClass(b.signal_color ?? 'unknown')}"></div>
+      <div class="chip-name">${b.brand_name}</div>
+      <div class="chip-score">${b.score ?? '–'}/100</div>
+      <button class="chip-remove" onclick="removeBrand('${b.domain}')">✕</button>
+    </div>`).join('');
+
+  return `
+    <div class="step-input">
+      <div class="step-header">
+        <div class="step-eyebrow">Step 1 of 2</div>
+        <h2 class="step-title">What brands are you using?</h2>
+        <p class="step-sub">Add 2–10 brands. Supplements, wearables, apps — anything wellness.</p>
+      </div>
+
+      <div class="search-wrap" id="search-wrap">
+        <input
+          id="brand-search"
+          class="brand-input"
+          type="text"
+          placeholder="Type a brand name…"
+          autocomplete="off"
+          ${count >= 10 ? 'disabled' : ''}
+        />
+        <div id="autocomplete" style="display:none" class="autocomplete"></div>
+      </div>
+      <div class="search-hint">${count >= 10 ? 'Maximum 10 brands reached.' : 'Start typing to search scored brands.'}</div>
+
+      ${count > 0 ? `<div class="chip-count">${count}/10 added</div>` : ''}
+      <div class="chips" id="chips">${chipsHTML}</div>
+
+      <button
+        class="score-btn"
+        id="score-btn"
+        onclick="startScoring()"
+        ${canScore ? '' : 'disabled'}
+      >
+        ${canScore ? `Score my stack →` : `Add at least ${2 - count} more brand${2 - count !== 1 ? 's' : ''}`}
+      </button>
+    </div>`;
+}
+
+// ─── STEP: Scoring ───────────────────────────────────────────
+function renderScoring() {
+  const rows = S.pendingBrands.map((b, i) => `
+    <div class="scoring-brand" id="sb-${i}">
+      <div class="sb-row">
+        <div class="sb-dot" id="sbd-${i}"></div>
+        <div class="sb-name">${b.brand_name}</div>
+        <div class="sb-status" id="sbs-${i}">Queued…</div>
+      </div>
+      <div class="sb-bar"><div class="sb-fill" id="sbf-${i}"></div></div>
+    </div>`).join('');
+
+  return `
+    <div class="step-scoring">
+      <div class="scoring-header">
+        <div class="step-eyebrow" style="text-align:center;margin-bottom:10px">NORM Analysis</div>
+        <h2 class="scoring-title">Checking your stack…</h2>
+        <p class="scoring-sub" id="scoring-sub">Analyzing claims and evidence across ${S.pendingBrands.length} brands</p>
+      </div>
+      <div class="scoring-list">${rows}</div>
+    </div>`;
+}
+
+// ─── STEP: Results ───────────────────────────────────────────
+function renderResults() {
+  const score = S.stackScore;
+  const color = S.stackColor;
+  const verdict = stackVerdict(score);
+  const brands = [...S.brands].sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
+  const REVEAL_COUNT = Math.min(brands.length, 3);
+  const hidden = brands.slice(REVEAL_COUNT);
+
+  let gapHTML = '';
+  if (S.worstGap) {
+    const wg = S.worstGap;
+    gapHTML = `
+      <div class="gap-callout">
+        <div class="gap-icon">⚠</div>
+        <div class="gap-text">
+          <strong>${wg.brandName}</strong> makes ${wg.claimCount} claim${wg.claimCount !== 1 ? 's' : ''}.
+          NORM flagged ${wg.flaggedCount} with insufficient evidence.
+          ${wg.claim ? `<br><span style="color:var(--t2);font-size:12px;font-style:italic;margin-top:4px;display:block">"${wg.claim.substring(0, 90)}${wg.claim.length > 90 ? '…' : ''}"</span>` : ''}
+        </div>
+      </div>`;
+  }
+
+  const visibleBrandsHTML = brands.slice(0, REVEAL_COUNT).map(b => brandRowHTML(b)).join('');
+
+  let hiddenSection = '';
+  if (hidden.length > 0 && !S.unlocked) {
+    hiddenSection = `
+      <div class="blur-gate" id="blur-gate">
+        ${hidden.map(b => brandRowHTML(b)).join('')}
+        <div class="blur-overlay">
+          <div class="bo-text">${hidden.length} more brand${hidden.length !== 1 ? 's' : ''} in your stack</div>
+          <div class="bo-sub">Share to reveal the full picture</div>
+        </div>
+      </div>`;
+  } else if (hidden.length > 0 && S.unlocked) {
+    hiddenSection = hidden.map(b => brandRowHTML(b)).join('');
+  }
+
+  const unlockedBadge = S.unlocked
+    ? `<div class="unlocked-badge">✓ Full stack unlocked</div>` : '';
+
+  const shareSection = !S.unlocked ? `
+    <div class="share-section">
+      <h3 class="share-title">See your full stack</h3>
+      <p class="share-sub">Share your score to unlock every brand — or drop your email for the full breakdown.</p>
+      <div class="share-actions">
+        <button class="share-btn primary" onclick="shareLink()">
+          <span>🔗</span> Copy share link
+        </button>
+        <button class="share-btn secondary" onclick="tweetScore()">
+          <span>𝕏</span> Share on X
+        </button>
+        <div class="share-divider">or unlock with email</div>
+        <div class="email-wrap">
+          <input class="email-input" id="email-input" type="email" placeholder="you@email.com">
+          <button class="email-submit" onclick="submitEmail()">Unlock →</button>
+        </div>
+        <p class="share-fine">Founding access — early updates when brands respond to evidence requests.</p>
+      </div>
+    </div>` : `
+    <div class="share-section">
+      <h3 class="share-title">Share your score</h3>
+      <p class="share-sub">Score: ${score}/100 — ${verdict}</p>
+      <div class="share-actions">
+        <button class="share-btn primary" onclick="shareLink()">🔗 Copy share link</button>
+        <button class="share-btn secondary" onclick="tweetScore()">𝕏 Share on X</button>
+        <button class="share-btn secondary" onclick="downloadCard()">⬇ Download card</button>
+      </div>
+    </div>`;
+
+  return `
+    <div class="step-results">
+      <div class="stack-score-block">
+        <div class="ssb-glow ${color}"></div>
+        <div class="ssb-label">Your Stack Score</div>
+        <div class="ssb-score ${color}">${score}</div>
+        <div class="ssb-max">/100</div>
+        <div class="ssb-verdict">${verdict}</div>
+        <div class="ssb-context" style="margin-top:10px;font-size:12px">Based on ${S.brands.length} brand${S.brands.length !== 1 ? 's' : ''} — ${S.brands.reduce((s,b) => s+(b.extraction_claim_count??0), 0).toLocaleString()} total claims analyzed</div>
+      </div>
+
+      ${gapHTML}
+      ${unlockedBadge}
+
+      <div class="brands-section-label">Brands in your stack</div>
+      <div class="brands-list">
+        ${visibleBrandsHTML}
+        ${hiddenSection}
+      </div>
+
+      ${shareSection}
+    </div>`;
+}
+
+// ─── STEP: Shared view ───────────────────────────────────────
+function renderShared() {
+  const brands = [...S.brands].sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
+  const score = S.stackScore;
+  const color = S.stackColor;
+  const verdict = stackVerdict(score);
+
+  const gapText = S.worstGap
+    ? `${S.worstGap.brandName} makes ${S.worstGap.claimCount} claims. NORM flagged ${S.worstGap.flaggedCount}.`
+    : '';
+
+  return `
+    <div class="step-shared">
+      <div class="shared-banner">
+        <div class="sb-eyebrow">Someone shared their NORM stack score</div>
+        <div class="sb-headline">Their stack scored <strong style="color:var(--t1)">${score}/100</strong> — ${verdict}</div>
+        <button class="sb-cta" onclick="goTo('entry');S.isSharedView=false;">
+          Score my own stack →
+        </button>
+      </div>
+
+      <div class="stack-score-block">
+        <div class="ssb-glow ${color}"></div>
+        <div class="ssb-label">Shared Stack Score</div>
+        <div class="ssb-score ${color}">${score}</div>
+        <div class="ssb-max">/100</div>
+        <div class="ssb-verdict">${verdict}</div>
+      </div>
+
+      ${gapText ? `
+        <div class="gap-callout">
+          <div class="gap-icon">⚠</div>
+          <div class="gap-text">${gapText}</div>
+        </div>` : ''}
+
+      <div class="brands-section-label">Their stack</div>
+      <div class="brands-list">
+        ${brands.map(b => brandRowHTML(b)).join('')}
+      </div>
+
+      <div class="share-section" style="text-align:center">
+        <h3 class="share-title">What does your stack score?</h3>
+        <p class="share-sub" style="margin-bottom:20px">Enter your own brands and see how your choices hold up.</p>
+        <button class="share-btn primary" onclick="goTo('entry');S.isSharedView=false;" style="max-width:280px;margin:0 auto">
+          Score my stack →
+        </button>
+      </div>
+    </div>`;
+}
+
+// ─── State transitions ────────────────────────────────────────
+function goTo(step) {
+  S.step = step;
+  render();
+}
+
+function render() {
+  const app = document.getElementById('app');
+  if (S.step === 'entry')    app.innerHTML = renderEntry();
+  else if (S.step === 'input')   app.innerHTML = renderInput(),  bindInput();
+  else if (S.step === 'scoring') app.innerHTML = renderScoring(), runScoring();
+  else if (S.step === 'results') app.innerHTML = renderResults();
+  else if (S.step === 'shared')  app.innerHTML = renderShared();
+}
+
+// ─── Input binding ───────────────────────────────────────────
+function bindInput() {
+  const input = document.getElementById('brand-search');
+  if (!input) return;
+  input.focus();
+
+  input.addEventListener('input', () => {
+    clearTimeout(searchDebounce);
+    const q = input.value.trim();
+    if (q.length < 2) { closeAC(); return; }
+    searchDebounce = setTimeout(async () => {
+      showAC('<div class="ac-loading">Searching…</div>');
+      const results = await searchBrands(q);
+      if (!results.length) {
+        showAC('<div class="ac-empty">No scored brands found. Try a different spelling.</div>');
+        return;
+      }
+      const filtered = results.filter(r => !S.pendingBrands.find(p => p.domain === r.domain));
+      if (!filtered.length) {
+        showAC('<div class="ac-empty">All matching brands already added.</div>');
+        return;
+      }
+      showAC(filtered.map((r, i) => `
+        <div class="ac-item" id="aci-${i}" onclick="addBrand(${JSON.stringify(r).split('"').join('&quot;')})">
+          <div class="ac-dot ${colorClass(r.signal_color)}"></div>
+          <div class="ac-name">${r.brand_name}</div>
+          <div class="ac-score">${r.score}/100</div>
+        </div>`).join(''));
+    }, 280);
+  });
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAC();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!document.getElementById('search-wrap')?.contains(e.target)) closeAC();
+  }, { once: false, capture: false });
+}
+
+function showAC(html) {
+  const ac = document.getElementById('autocomplete');
+  if (!ac) return;
+  ac.innerHTML = html;
+  ac.style.display = 'block';
+}
+
+function closeAC() {
+  const ac = document.getElementById('autocomplete');
+  if (ac) ac.style.display = 'none';
+}
+
+function addBrand(brand) {
+  if (S.pendingBrands.find(p => p.domain === brand.domain)) return;
+  if (S.pendingBrands.length >= 10) return;
+  S.pendingBrands.push(brand);
+  closeAC();
+  const input = document.getElementById('brand-search');
+  if (input) input.value = '';
+  render();
+}
+
+function removeBrand(domain) {
+  S.pendingBrands = S.pendingBrands.filter(b => b.domain !== domain);
+  render();
+}
+
+// ─── Scoring animation ────────────────────────────────────────
+async function runScoring() {
+  S.brands = [];
+  for (let i = 0; i < S.pendingBrands.length; i++) {
+    const pb = S.pendingBrands[i];
+    const fill   = document.getElementById(`sbf-${i}`);
+    const status = document.getElementById(`sbs-${i}`);
+    const dot    = document.getElementById(`sbd-${i}`);
+    if (!fill || !status || !dot) continue;
+
+    status.textContent = 'Analyzing…';
+    animateBar(fill, 0, 70, 900);
+    await sleep(400);
+
+    const detail = await fetchBrandDetail(pb.domain);
+    const resolved = detail ?? pb;
+
+    animateBar(fill, 70, 100, 400);
+    await sleep(400);
+
+    const cc = colorClass(resolved.signal_color ?? 'unknown');
+    dot.className = `sb-dot ${cc}`;
+    fill.className = `sb-fill ${cc}`;
+    status.textContent = `${resolved.score ?? '–'}/100`;
+    S.brands.push(resolved);
+    await sleep(160);
+  }
+
+  // Compute stack score + worst gap
+  S.stackScore = computeStackScore(S.brands);
+  S.stackColor = stackColorFromScore(S.stackScore);
+
+  const worstBrand = [...S.brands].sort((a, b) => (a.score ?? 50) - (b.score ?? 50))[0];
+  if (worstBrand && (worstBrand.flagged_claim_count > 0 || worstBrand.extraction_claim_count > 0)) {
+    S.worstGap = {
+      brandName:    worstBrand.brand_name,
+      claimCount:   worstBrand.extraction_claim_count ?? 0,
+      flaggedCount: worstBrand.flagged_claim_count ?? 0,
+      claim:        worstBrand.worst_claim ?? null,
+    };
+  }
+
+  await sleep(300);
+  S.step = 'results';
+  render();
+}
+
+function animateBar(el, from, to, duration) {
+  const start = performance.now();
+  function step(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    el.style.width = (from + (to - from) * ease) + '%';
+    if (t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ─── Share mechanics ─────────────────────────────────────────
+function getShareURL() {
+  const code = buildShareCode(S.brands, S.stackScore, S.worstGap);
+  return `${window.location.origin}/stack/?s=${code}`;
+}
+
+function shareLink() {
+  const url = getShareURL();
+  navigator.clipboard.writeText(url).then(() => {
+    showToast('Link copied to clipboard');
+    unlock();
+  }).catch(() => {
+    prompt('Copy this link:', url);
+    unlock();
+  });
+}
+
+function tweetScore() {
+  const score = S.stackScore;
+  const wg = S.worstGap;
+  let text = `My wellness stack scored ${score}/100 on NORM.`;
+  if (wg) text += ` ${wg.brandName} makes ${wg.claimCount} claims — NORM flagged ${wg.flaggedCount}.`;
+  text += ` What does your stack score?`;
+  const url = getShareURL();
+  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+  unlock();
+}
+
+async function submitEmail() {
+  const email = document.getElementById('email-input')?.value?.trim();
+  if (!email || !email.includes('@')) { showToast('Enter a valid email'); return; }
+
+  // Save to waitlist (fire-and-forget)
+  fetch(`${API}/api/monitor`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, source: 'stack_unlock', stack_score: S.stackScore }),
+  }).catch(() => {});
+
+  unlock();
+  showToast('Unlocked — you\'re on the founding list');
+}
+
+function unlock() {
+  S.unlocked = true;
+  render();
+}
+
+function downloadCard() {
+  generateShareCard(S.brands, S.stackScore, S.worstGap);
+}
+
+// ─── Canvas share card ────────────────────────────────────────
+function generateShareCard(brands, score, worstGap) {
+  const canvas = document.getElementById('share-canvas');
+  const ctx = canvas.getContext('2d');
+  const W = 1200, H = 630;
+
+  // Background
+  ctx.fillStyle = '#0a0c12';
+  ctx.fillRect(0, 0, W, H);
+
+  // Subtle gradient
+  const grad = ctx.createRadialGradient(W * 0.3, H * 0.4, 0, W * 0.3, H * 0.4, 400);
+  grad.addColorStop(0, 'rgba(79,124,255,0.07)');
+  grad.addColorStop(1, 'transparent');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Border
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(1, 1, W - 2, H - 2);
+
+  // NORM wordmark
+  ctx.fillStyle = '#f2f2f2';
+  ctx.font = '500 14px "Courier New", monospace';
+  ctx.letterSpacing = '0.14em';
+  ctx.fillText('NORM', 48, 56);
+
+  ctx.fillStyle = '#4a5070';
+  ctx.font = '12px "Courier New", monospace';
+  ctx.fillText('trynorm.co/stack', 48, 74);
+
+  // Score
+  const scoreColor = score >= 65 ? '#27ae60' : score >= 45 ? '#f39c12' : '#e74c3c';
+  ctx.fillStyle = scoreColor;
+  ctx.font = `400 140px Georgia, serif`;
+  ctx.fillText(String(score), 48, 260);
+
+  ctx.fillStyle = '#4a5070';
+  ctx.font = '16px "Courier New", monospace';
+  ctx.fillText('/100', 48 + ctx.measureText(String(score)).width + 8, 240);
+
+  ctx.fillStyle = '#8b93b0';
+  ctx.font = '300 20px system-ui, sans-serif';
+  ctx.fillText(stackVerdict(score), 48, 295);
+
+  // Brand dots grid
+  const sorted = [...brands].sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
+  const dotX = 48, dotStartY = 340;
+  ctx.fillStyle = '#4a5070';
+  ctx.font = '12px "Courier New", monospace';
+  ctx.fillText('STACK', dotX, dotStartY - 10);
+
+  sorted.forEach((b, i) => {
+    const x = dotX + (i % 5) * 140;
+    const y = dotStartY + Math.floor(i / 5) * 56;
+    const col = b.signal_color === 'green' ? '#27ae60' : b.signal_color === 'yellow' ? '#f39c12' : '#e74c3c';
+    ctx.fillStyle = col;
+    ctx.beginPath();
+    ctx.arc(x + 6, y + 6, 6, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#8b93b0';
+    ctx.font = '13px system-ui, sans-serif';
+    ctx.fillText(b.brand_name.substring(0, 12), x + 18, y + 11);
+    ctx.fillStyle = '#4a5070';
+    ctx.font = '11px "Courier New", monospace';
+    ctx.fillText(`${b.score ?? '–'}`, x + 18, y + 26);
+  });
+
+  // Worst gap callout (right panel)
+  if (worstGap) {
+    ctx.fillStyle = 'rgba(231,76,60,0.12)';
+    ctx.strokeStyle = 'rgba(90,26,26,0.8)';
+    ctx.lineWidth = 1;
+    roundRect(ctx, W - 400, 80, 352, 200, 12, true, true);
+
+    ctx.fillStyle = '#e74c3c';
+    ctx.font = '600 13px system-ui, sans-serif';
+    ctx.fillText('EVIDENCE GAP', W - 380, 112);
+
+    ctx.fillStyle = '#f2f2f2';
+    ctx.font = '500 16px system-ui, sans-serif';
+    ctx.fillText(worstGap.brandName, W - 380, 138);
+
+    ctx.fillStyle = '#8b93b0';
+    ctx.font = '13px system-ui, sans-serif';
+    wrapText(ctx, `${worstGap.claimCount} claims made. ${worstGap.flaggedCount} flagged.`, W - 380, 162, 320, 20);
+    if (worstGap.claim) {
+      ctx.fillStyle = '#4a5070';
+      ctx.font = 'italic 12px Georgia, serif';
+      wrapText(ctx, `"${worstGap.claim}"`, W - 380, 196, 320, 17);
+    }
+  }
+
+  // Footer
+  ctx.fillStyle = '#4a5070';
+  ctx.font = '12px "Courier New", monospace';
+  ctx.fillText('Score your own stack at trynorm.co/stack', 48, H - 28);
+
+  // Download
+  const link = document.createElement('a');
+  link.download = `norm-stack-${score}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+function roundRect(ctx, x, y, w, h, r, fill, stroke) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+  if (fill) ctx.fill();
+  if (stroke) ctx.stroke();
+}
+
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+  const words = text.split(' ');
+  let line = '';
+  let currentY = y;
+  for (const word of words) {
+    const test = line + word + ' ';
+    if (ctx.measureText(test).width > maxWidth && line !== '') {
+      ctx.fillText(line, x, currentY);
+      line = word + ' ';
+      currentY += lineHeight;
+    } else {
+      line = test;
+    }
+  }
+  ctx.fillText(line, x, currentY);
+}
+
+// ─── Init ────────────────────────────────────────────────────
+function startScoring() {
+  if (S.pendingBrands.length < 2) return;
+  S.step = 'scoring';
+  render();
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const s = params.get('s');
+  if (s) {
+    const data = decodeShareCode(s);
+    if (data && data.brands && data.brands.length >= 1) {
+      S.brands = data.brands.map(b => ({
+        domain:                 b.d,
+        brand_name:             b.n,
+        signal_color:           b.c,
+        score:                  b.s,
+        extraction_claim_count: b.vc ?? 0,
+        flagged_claim_count:    b.fc ?? 0,
+        worst_claim:            b.wc ?? null,
+        verdict:                '',
+      }));
+      S.stackScore = data.ss ?? computeStackScore(S.brands);
+      S.stackColor = stackColorFromScore(S.stackScore);
+      const wgText = data.wg ?? null;
+      if (wgText) {
+        const worst = [...S.brands].sort((a, b) => (a.score ?? 50) - (b.score ?? 50))[0];
+        S.worstGap = {
+          brandName:    worst?.brand_name ?? '',
+          claimCount:   worst?.extraction_claim_count ?? 0,
+          flaggedCount: worst?.flagged_claim_count ?? 0,
+          claim:        worst?.worst_claim ?? null,
+        };
+      }
+      S.unlocked = true;
+      S.isSharedView = true;
+      S.step = 'shared';
+    }
+  }
+  render();
+});
+</script>
+</body>
+</html>

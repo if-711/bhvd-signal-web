@@ -1,0 +1,3052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eight Sleep Evidence Score — NORM | 50/100 · OVEREXTENDED</title>
+
+<meta id="meta-desc" name="description" content="Eight Sleep scores 50/100 on the NORM evidence index. Signal: Yellow. Verdict: OVEREXTENDED. Independent claim-evidence analysis — updated weekly.">
+<meta property="og:type"        content="website">
+<meta property="og:site_name"   content="NORM">
+<meta id="og-title" property="og:title" content="Eight Sleep Evidence Score — NORM | 50/100 · OVEREXTENDED">
+<meta id="og-desc" property="og:description" content="Eight Sleep scores 50/100 on the NORM evidence index. Signal: Yellow. Verdict: OVEREXTENDED. Independent claim-evidence analysis — updated weekly.">
+<meta id="og-url" property="og:url" content="https://trynorm.co/brand/eightsleep.com">
+<meta name="twitter:card"        content="summary">
+<meta id="tw-title" name="twitter:title" content="Eight Sleep Evidence Score — NORM | 50/100 · OVEREXTENDED">
+<meta id="tw-desc" name="twitter:description" content="Eight Sleep scores 50/100 on the NORM evidence index. Signal: Yellow. Verdict: OVEREXTENDED. Independent claim-evidence analysis — updated weekly.">
+<meta property="og:image" content="https://trynorm.co/og-image.png">
+<meta name="twitter:image" content="https://trynorm.co/og-image.png">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+:root{
+  --bg:#0a0c12;--bg2:#111420;--bg3:#181c2e;--bg4:#1f2438;
+  --b1:rgba(255,255,255,0.07);--b2:rgba(255,255,255,0.13);
+  --t1:#f2f2f2;--t2:#8b93b0;--t3:#4a5070;
+  --red:#9e3028;--yel:#c07718;--grn:#1e9459;--acc:#4a78f0;
+  --mono:'DM Mono',monospace;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t1);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:56px;background:rgba(10,12,18,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--b1)}
+.nav-logo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--t1);display:flex;align-items:center;gap:9px;text-decoration:none}
+.nav-byline{font-size:9px;color:var(--t3);letter-spacing:.13em;font-weight:400;text-transform:uppercase;border-left:1px solid var(--b2);padding-left:8px;margin-left:1px}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:13px;color:var(--t2);transition:color .15s}
+.nav-links a:hover{color:var(--t1)}
+.nav-actions{display:flex;gap:10px}
+@media(max-width:760px){.nav-links{display:none}}
+.btn{font-family:var(--sans);font-size:12px;font-weight:500;padding:7px 16px;border-radius:8px;cursor:pointer;border:1px solid var(--b2);background:transparent;color:var(--t2);transition:all .15s;display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.btn:hover{background:var(--bg3);color:var(--t1)}
+.btn-primary{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn-primary:hover{background:#3d6ae0}
+.btn-sm{padding:6px 13px;font-size:11px}
+
+/* ALPHA BAR */
+.alpha-bar{background:rgba(26,143,255,0.05);border-bottom:1px solid rgba(26,143,255,0.10);padding:7px 48px;font-size:11px;color:#5a7aaa;line-height:1.45;letter-spacing:.01em}
+
+/* PAGE */
+.page{max-width:820px;margin:0 auto;padding:88px 32px 96px}
+
+/* LOADING */
+.loading-screen{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+.spinner{width:28px;height:28px;border:2px solid rgba(255,255,255,.07);border-top-color:var(--acc);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-label{font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.1em;transition:opacity .2s;text-align:center;max-width:280px}
+
+/* STATUS BADGE */
+.status-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;padding:4px 12px;border-radius:100px;text-transform:uppercase;border:1px solid}
+.status-badge-dot{width:6px;height:6px;border-radius:50%}
+.sb-verified{color:#1e9459;border-color:rgba(30,148,89,.3);background:rgba(30,148,89,.08)}
+.sb-verified .status-badge-dot{background:#1e9459}
+.sb-unassessed{color:var(--t3);border-color:var(--b1);background:rgba(255,255,255,.03)}
+.sb-unassessed .status-badge-dot{background:var(--t3)}
+.sb-expired{color:var(--yel);border-color:rgba(243,156,18,.3);background:rgba(243,156,18,.06)}
+.sb-expired .status-badge-dot{background:var(--yel)}
+
+/* HEADER */
+.report-header{margin-bottom:32px}
+.rh-breadcrumb{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.rh-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:20px}
+.rh-brand{font-family:var(--serif);font-size:clamp(32px,5vw,52px);font-weight:400;line-height:1.05;letter-spacing:-.02em;margin-bottom:6px}
+.rh-domain{font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.04em;margin-bottom:10px}
+.rh-domain-link{color:var(--t3);text-decoration:none;border-bottom:1px solid var(--b1)}
+.rh-domain-link:hover{color:var(--t2);border-bottom-color:var(--t3)}
+.raw-claim-src a{color:var(--t3);text-decoration:underline;text-underline-offset:2px}
+.raw-claim-src a:hover{color:var(--t2)}
+.claim-locked-teaser{display:flex;flex-direction:column;gap:0}
+.claim-locked-row{display:flex;align-items:flex-start;gap:10px;background:var(--bg2);border:1px solid var(--b1);border-radius:8px 8px 0 0;padding:13px 16px}
+.claim-locked-text{flex:1;font-size:13px;color:var(--t1);line-height:1.5;font-style:italic}
+.claim-locked-evidence{display:flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--b1);border-top:none;border-radius:0 0 8px 8px;padding:10px 16px;font-size:12px;color:var(--t3);font-family:var(--mono)}
+.claim-locked-upgrade{color:var(--t3);text-decoration:underline;text-underline-offset:2px}
+.claim-locked-upgrade:hover{color:var(--t2)}
+.rh-category{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase}
+.rh-score-block{flex-shrink:0;text-align:center}
+.rh-verdict-badge{display:inline-block;font-family:var(--serif);font-size:clamp(28px,4vw,42px);font-weight:400;letter-spacing:-.01em;padding:0;border:none;background:none;margin-bottom:6px;font-style:italic}
+.rh-score{font-family:var(--mono);font-size:22px;font-weight:500;line-height:1;letter-spacing:-.01em;opacity:.7}
+.rh-score-label{font-size:10px;color:var(--t3);font-family:var(--mono);letter-spacing:.06em;margin-top:2px}
+.rh-sparkline-wrap{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px}
+.rh-sparkline-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--t3)}
+.rh-meta{display:flex;gap:20px;flex-wrap:wrap;padding:16px 0;border-top:1px solid var(--b1);border-bottom:1px solid var(--b1)}
+.rh-meta-item{display:flex;flex-direction:column;gap:3px}
+.rh-meta-label{font-size:10px;color:var(--t3);font-family:var(--mono);letter-spacing:.07em;text-transform:uppercase}
+.rh-meta-val{font-size:13px;color:var(--t1);font-weight:500}
+
+/* SECTION */
+.rsec{margin-bottom:44px}
+.rsec-title{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--b1)}
+
+/* CATEGORY STANDING */
+.cat-bar{display:none;margin-top:16px;padding:18px 20px;background:var(--bg2);border:1px solid var(--b1);border-radius:12px}
+.cat-bar-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cat-bar-label{font-size:10px;color:var(--t2);font-family:var(--mono);letter-spacing:.09em;text-transform:uppercase;font-weight:600}
+.cat-bar-standing{font-size:11px;font-family:var(--mono);font-weight:600}
+.cat-bar-standing-above{color:#1e9459}
+.cat-bar-standing-inline{color:var(--t2)}
+.cat-bar-standing-below{color:#c07718}
+.cat-bench-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+@media(max-width:480px){.cat-bench-grid{grid-template-columns:repeat(2,1fr)}}
+.cat-bench-cell{background:var(--bg3);border:1px solid var(--b1);border-radius:8px;padding:10px 12px}
+.cat-bench-val{font-family:var(--mono);font-size:18px;font-weight:600;color:var(--t1);line-height:1}
+.cat-bench-val-delta{font-family:var(--mono);font-size:16px;font-weight:600;line-height:1}
+.cat-bench-val-delta-up{color:#1e9459}
+.cat-bench-val-delta-down{color:#c07718}
+.cat-bench-lbl{font-size:10px;color:var(--t3);margin-top:4px}
+.cat-bar-rail{flex:1;height:4px;background:var(--bg4);border-radius:2px;overflow:hidden;position:relative;margin-bottom:10px}
+.cat-bar-fill{position:absolute;top:0;left:0;bottom:0;border-radius:2px;transition:width .6s ease}
+.cat-bar-note{font-size:11px;color:var(--t3);font-style:italic;border-top:1px solid var(--b1);padding-top:10px;margin-top:4px}
+
+/* DEMAND SIGNAL */
+.demand-bar{display:none;margin-bottom:32px;background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:14px 20px;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.demand-text{font-size:13px;font-weight:500;color:var(--t1)}
+.demand-sub{font-size:11px;color:var(--t3);margin-top:3px}
+.demand-trend{font-family:var(--mono);font-size:11px;padding:5px 12px;border-radius:20px;flex-shrink:0;white-space:nowrap}
+.demand-actions{flex-shrink:0}
+.demand-request-btn{padding:5px 14px;border:1px solid var(--b2);border-radius:8px;background:transparent;color:var(--t2);font-size:11px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:all .15s;white-space:nowrap}
+.demand-request-btn:hover{color:var(--t1);border-color:var(--t3)}
+.demand-request-btn:disabled{cursor:default;opacity:.6}
+
+/* EXEC SUMMARY */
+.exec-summary{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:28px 32px}
+.exec-verdict{font-family:var(--serif);font-size:21px;font-weight:400;line-height:1.5;letter-spacing:-.01em;margin-bottom:14px}
+.exec-consumer{font-size:14px;color:var(--t2);line-height:1.7;padding-top:14px;border-top:1px solid var(--b1)}
+
+/* INFLUENCER ECHO */
+.ie-card{background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:16px 20px}
+.ie-stat-row{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:14px}
+.ie-stat{display:flex;flex-direction:column;gap:2px}
+.ie-stat-val{font-family:var(--mono);font-size:18px;font-weight:600;color:var(--t1)}
+.ie-stat-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--t3)}
+.ie-influencer-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.ie-pill{font-size:12px;color:var(--t2);background:var(--bg3);border:1px solid var(--b1);border-radius:20px;padding:4px 12px}
+.ie-note{font-size:12px;color:var(--t3);margin-top:12px;line-height:1.6}
+
+/* CLAIM RECEIPTS */
+.receipts-list{display:flex;flex-direction:column;gap:12px}
+.receipt-row{background:var(--bg2);border:1px solid var(--b1);border-radius:10px;overflow:hidden}
+.receipt-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:14px 18px}
+.receipt-claim{font-size:14px;line-height:1.6;flex:1}
+.receipt-badge{flex-shrink:0;margin-top:2px}
+.receipt-evidence{padding:10px 18px 14px;background:var(--bg3);border-top:1px solid var(--b1);font-size:12px;color:var(--t2);line-height:1.65}
+.receipt-evidence-label{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+.receipt-tags{display:flex;flex-wrap:wrap;gap:6px;padding:6px 18px 10px}
+.receipt-tag{font-family:var(--mono);font-size:9px;letter-spacing:.06em;padding:2px 8px;border-radius:4px;border:1px solid;background:rgba(255,255,255,0.03)}
+.receipt-meta{display:flex;gap:16px;padding:8px 18px;border-top:1px solid var(--b1);background:rgba(255,255,255,.01)}
+.receipt-meta-item{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.04em}
+.gap-badge{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.07em;padding:3px 9px;border-radius:100px;text-transform:uppercase;border:1px solid}
+.badge-aligned{background:rgba(30,148,89,.12);color:#1e9459;border-color:rgba(30,148,89,.25)}
+.badge-partial{background:rgba(192,119,24,.1);color:#c07718;border-color:rgba(192,119,24,.2)}
+.badge-gap{background:rgba(158,48,40,.1);color:#9e3028;border-color:rgba(158,48,40,.2)}
+.badge-reviewed{background:rgba(74,120,240,.1);color:#4a78f0;border-color:rgba(74,120,240,.2)}
+.badge-missing{background:rgba(255,255,255,.05);color:var(--t3);border-color:var(--b1)}
+
+/* RAW CLAIMS + CAPTURE SCOPE */
+.raw-claim-row{background:var(--bg2);border:1px solid var(--b1);border-radius:8px;padding:12px 16px;margin-bottom:8px}
+.raw-claim-row:last-child{margin-bottom:0}
+.raw-claim-text{font-size:13px;color:var(--t1);line-height:1.6;margin-bottom:6px}
+.raw-claim-meta{display:flex;gap:14px;flex-wrap:wrap}
+.raw-claim-tier{font-family:var(--mono);font-size:9px;letter-spacing:.07em;text-transform:uppercase;padding:2px 8px;border-radius:100px}
+.raw-claim-tier-1{background:rgba(158,48,40,.1);color:#9e3028;border:1px solid rgba(158,48,40,.2)}
+.raw-claim-tier-2{background:rgba(192,119,24,.1);color:#c07718;border:1px solid rgba(192,119,24,.2)}
+.raw-claim-tier-3{background:rgba(30,148,89,.1);color:#1e9459;border:1px solid rgba(30,148,89,.2)}
+.raw-claim-src{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.03em;align-self:center}
+.ev-signal-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.ev-signal-tag{font-family:var(--mono);font-size:10px;letter-spacing:.06em;padding:4px 12px;border-radius:100px;background:rgba(74,120,240,.1);color:#4a78f0;border:1px solid rgba(74,120,240,.2);text-transform:uppercase}
+.capture-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.capture-stat{background:var(--bg2);border:1px solid var(--b1);border-radius:8px;padding:12px 16px}
+.capture-stat-val{font-family:var(--serif);font-size:22px;color:var(--t1);line-height:1;margin-bottom:4px}
+.capture-stat-lbl{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase}
+.capture-gap-list{display:flex;flex-wrap:wrap;gap:6px}
+.capture-gap-tag{font-family:var(--mono);font-size:9px;letter-spacing:.05em;padding:3px 10px;border-radius:100px;background:rgba(255,255,255,.04);color:var(--t3);border:1px solid var(--b1);text-transform:uppercase}
+
+/* EVIDENCE */
+.ev-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.ev-card{background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:16px 20px}
+.ev-card-label{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.09em;text-transform:uppercase;margin-bottom:8px}
+.ev-card-val{font-family:var(--serif);font-size:28px;line-height:1;margin-bottom:4px}
+.ev-card-desc{font-size:12px;color:var(--t2);line-height:1.6}
+.findings-list{display:flex;flex-direction:column;gap:10px}
+.findings-header{font-size:11px;color:var(--t3);letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px;padding:0 2px}
+.finding-item{background:var(--bg2);border-left:3px solid var(--b2);border-radius:0 8px 8px 0;padding:12px 16px;font-size:13px;color:var(--t2);line-height:1.65;display:flex;flex-direction:column;gap:6px}
+.finding-badge{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.04em;padding:2px 7px;border-radius:4px;text-transform:uppercase;width:fit-content}
+.finding-badge-warn{background:#e74c3c18;color:#e74c3c;border:1px solid #e74c3c40}
+.finding-badge-ok{background:#27ae6018;color:#27ae60;border:1px solid #27ae6040}
+.finding-badge-neutral{background:#f39c1218;color:#e8a840;border:1px solid #f39c1240}
+.finding-text{color:var(--t2)}
+
+/* SCORING DIMS */
+.score-dims{display:flex;flex-direction:column;gap:12px}
+.dim-row{display:flex;align-items:center;gap:16px}
+.dim-name{font-size:13px;color:var(--t2);width:190px;flex-shrink:0}
+.dim-bar-wrap{flex:1;height:6px;background:var(--bg4);border-radius:3px;overflow:hidden;position:relative}
+.dim-bar-fill{position:absolute;top:0;left:0;bottom:0;border-radius:3px;transition:width .5s ease}
+.dim-score{font-family:var(--mono);font-size:12px;font-weight:500;width:50px;text-align:right;flex-shrink:0}
+.dim-max{font-size:10px;color:var(--t3);flex-shrink:0}
+.dim-total-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);margin-top:8px}
+.dim-total-label{font-size:13px;font-weight:500}
+.dim-total-score{font-family:var(--serif);font-size:32px;font-weight:400}
+
+/* FLAGS */
+.flags-list{display:flex;flex-direction:column;gap:8px}
+.flag-item{display:flex;align-items:flex-start;gap:12px;background:var(--bg2);border:1px solid var(--b1);border-radius:8px;padding:12px 16px}
+.flag-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.flag-icon{font-size:10px;color:var(--yel);flex-shrink:0;margin-top:3px}
+.flag-text{font-size:13px;color:var(--t2);line-height:1.6}
+
+/* CONSUMER INTERPRETATION */
+.consumer-block{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:28px 32px}
+.consumer-q{font-size:17px;font-weight:500;margin-bottom:16px}
+.consumer-items{display:flex;flex-direction:column;gap:12px}
+.consumer-item{display:flex;gap:12px;font-size:14px;line-height:1.65;color:var(--t2)}
+.consumer-item::before{content:'→';color:var(--acc);flex-shrink:0;margin-top:1px}
+
+/* LIMITATIONS */
+.limitations-box{background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:20px 24px;font-size:13px;color:var(--t2);line-height:1.75}
+
+/* FINAL VERDICT */
+.final-verdict{border-radius:16px;padding:36px;border:1px solid;position:relative;overflow:hidden}
+.fv-bg{position:absolute;inset:0;opacity:.04;background:radial-gradient(ellipse at 30% 50%,currentColor,transparent 60%)}
+.fv-label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;opacity:.7}
+.fv-verdict{font-family:var(--serif);font-size:clamp(26px,4vw,42px);font-weight:400;line-height:1.1;letter-spacing:-.02em;margin-bottom:14px}
+.fv-note{font-size:14px;opacity:.75;line-height:1.7;max-width:580px;margin-bottom:16px}
+.fv-strengths{font-size:13px;opacity:.6;font-style:italic}
+.fv-strengths::before{content:'✓ ';font-style:normal}
+
+/* CTAs */
+.cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px;padding-top:28px;border-top:1px solid var(--b1)}
+.capture-inline{margin-top:16px;background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:16px 18px;display:none}
+.capture-inline.open{display:block}
+.capture-inline-label{font-size:12px;color:var(--t2);margin-bottom:10px}
+.capture-inline-form{display:flex;gap:8px}
+.capture-inline-input{flex:1;padding:9px 13px;background:var(--bg4);border:1px solid var(--b2);border-radius:8px;color:var(--t1);font-size:13px;font-family:var(--sans);outline:none;transition:border-color .2s}
+.capture-inline-input:focus{border-color:rgba(79,124,255,.55)}
+.capture-inline-input::placeholder{color:var(--t3)}
+.capture-inline-btn{padding:9px 16px;background:var(--acc);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans);white-space:nowrap;transition:background .15s}
+.capture-inline-btn:hover{background:#3d6ae0}
+.capture-inline-btn:disabled{opacity:.55;cursor:default}
+.capture-inline-ok{font-size:12px;color:var(--grn);margin-top:8px;display:none}
+.capture-inline-note{font-size:11px;color:var(--t3);margin-top:7px;font-family:var(--mono)}
+
+/* NOT YET ASSESSED STATE */
+.unassessed-card{background:var(--bg2);border:1px solid var(--b1);border-radius:16px;padding:48px 40px;text-align:center;max-width:520px;margin:40px auto}
+.unassessed-icon{font-size:32px;margin-bottom:20px;color:var(--t3)}
+.unassessed-title{font-family:var(--serif);font-size:28px;font-weight:400;margin-bottom:10px}
+.unassessed-sub{font-size:14px;color:var(--t2);line-height:1.65;margin-bottom:28px}
+.unassessed-demand{font-family:var(--mono);font-size:11px;color:var(--acc);margin-bottom:24px}
+.unassessed-cta{display:inline-block;padding:12px 28px;background:var(--acc);border-radius:9px;color:#fff;font-size:14px;font-weight:600;margin-bottom:10px;text-decoration:none;transition:background .15s}
+.unassessed-cta:hover{background:#3d6ae0;color:#fff}
+.unassessed-portal{font-size:12px;color:var(--t3);margin-top:12px}
+.unassessed-portal a{color:var(--acc);text-decoration:none}
+.unassessed-portal a:hover{text-decoration:underline}
+
+/* PRESSURE SIGNALS */
+.pressure-layer{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
+.pressure-signal{font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.015em;line-height:1.6;padding:8px 12px;border-left:2px solid var(--b2);background:var(--bg2);border-radius:0 6px 6px 0}
+.pressure-signal-warn{border-left-color:#c07718;color:#c07718}
+.pressure-signal-active{border-left-color:#1e9459;color:var(--t2)}
+
+/* ERROR STATE */
+.error-card{text-align:center;padding:80px 40px;max-width:480px;margin:0 auto}
+.error-icon{font-size:28px;color:var(--t3);margin-bottom:20px}
+.error-title{font-family:var(--serif);font-size:24px;font-weight:400;margin-bottom:8px}
+.error-sub{font-size:14px;color:var(--t2);line-height:1.65;margin-bottom:28px}
+
+/* SHARE CARD */
+.share-wrap{position:relative}
+.share-btn{font-size:11px;font-weight:500;padding:6px 13px;border-radius:8px;cursor:pointer;border:1px solid var(--b2);background:transparent;color:var(--t2);transition:all .15s;display:inline-flex;align-items:center;gap:6px;font-family:var(--sans)}
+.share-btn:hover{background:var(--bg3);color:var(--t1)}
+.share-popover{position:absolute;top:calc(100% + 8px);right:0;width:310px;background:var(--bg2);border:1px solid var(--b2);border-radius:14px;padding:16px;box-shadow:0 8px 32px rgba(0,0,0,.55);z-index:200;display:none}
+.share-popover.open{display:block}
+.share-close{position:absolute;top:9px;right:10px;background:none;border:none;color:var(--t3);cursor:pointer;font-size:17px;line-height:1;padding:4px;display:flex;align-items:center}
+.share-preview{background:var(--bg3);border:1px solid var(--b1);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.share-prev-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.share-prev-info{flex:1;min-width:0}
+.share-prev-brand{font-size:13px;font-weight:500;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.share-prev-verdict{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px;font-family:var(--mono)}
+.share-prev-score{font-family:var(--mono);font-size:26px;font-weight:500;flex-shrink:0;line-height:1}
+.share-actions{display:flex;gap:5px;margin-bottom:4px}
+.share-copy-btn,.share-post-btn,.share-native-btn{flex:1;padding:9px 6px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:all .1s;text-align:center;white-space:nowrap}
+.share-post-btn{background:#000;border:1px solid #333;color:#fff}
+.share-post-btn:hover{background:#111}
+.share-copy-btn{background:var(--bg3);border:1px solid var(--b1);color:var(--t1)}
+.share-copy-btn:hover{background:var(--bg4);border-color:var(--b2)}
+.share-native-btn{background:var(--bg3);border:1px solid var(--b1);color:var(--t2)}
+.share-native-btn:hover{background:var(--bg4);border-color:var(--b2)}
+.share-microcopy{font-size:9px;color:var(--t3);text-align:center;font-family:var(--mono);letter-spacing:.04em;margin-top:2px;margin-bottom:2px}
+.share-copy-ok{font-size:9px;color:var(--grn);font-family:var(--mono);text-align:center;min-height:14px;margin-top:4px}
+.share-content{width:100%;background:var(--bg3);border:1px solid var(--b1);border-radius:8px;color:var(--t1);font-family:var(--mono);font-size:10.5px;line-height:1.7;padding:10px 12px;resize:none;outline:none;box-sizing:border-box;display:block;min-height:148px;margin-bottom:10px;-webkit-font-smoothing:antialiased}
+.share-content:focus{border-color:var(--b2)}
+
+/* CLAIM DIFF */
+.diff-section{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;overflow:hidden}
+.diff-meta{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.07em;padding:14px 20px 0}
+.diff-pills{display:flex;gap:6px;flex-wrap:wrap;padding:10px 20px 14px;border-bottom:1px solid var(--b1)}
+.diff-pill{font-family:var(--mono);font-size:10px;font-weight:500;padding:4px 10px;border-radius:100px;border:1px solid}
+.diff-pill-add{color:#1e9459;border-color:rgba(30,148,89,.25);background:rgba(30,148,89,.08)}
+.diff-pill-remove{color:var(--t3);border-color:var(--b1);background:rgba(255,255,255,.03)}
+.diff-pill-mod{color:#c07718;border-color:rgba(192,119,24,.25);background:rgba(192,119,24,.06)}
+.diff-details{border-bottom:1px solid var(--b1)}
+.diff-details:last-child{border-bottom:none}
+.diff-details>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:13px 20px;font-size:12px;font-weight:500;color:var(--t2);transition:background .1s;user-select:none}
+.diff-details>summary::-webkit-details-marker{display:none}
+.diff-details>summary:hover{background:var(--bg3)}
+.diff-details[open]>summary{border-bottom:1px solid var(--b1)}
+.diff-mark{font-family:var(--mono);font-size:14px;font-weight:700;width:18px;text-align:center;flex-shrink:0}
+.diff-mark-add{color:#1e9459}
+.diff-mark-remove{color:var(--t3)}
+.diff-mark-mod{color:#c07718}
+.diff-rows{padding:12px 20px;display:flex;flex-direction:column;gap:10px}
+.diff-row-add,.diff-row-remove{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.65;color:var(--t2)}
+.diff-row-remove{opacity:.65}
+.diff-row-mod{background:var(--bg3);border:1px solid var(--b1);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.65;color:var(--t2)}
+.diff-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.07em;text-transform:uppercase;margin-bottom:4px}
+.diff-lbl-before{color:var(--t3)}
+.diff-lbl-after{color:var(--acc);margin-top:10px}
+.diff-chg-lbl{font-family:var(--mono);font-size:10px;color:#c07718;letter-spacing:.06em;margin-top:8px;padding-top:8px;border-top:1px solid var(--b1)}
+
+/* EMBED SECTION */
+.embed-section{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:22px 26px}
+.embed-head-title{font-size:14px;font-weight:500;color:var(--t1);margin-bottom:3px}
+.embed-head-sub{font-size:12px;color:var(--t3);line-height:1.55;margin-bottom:14px}
+.embed-tabs{display:flex;gap:6px;margin-bottom:12px}
+.embed-tab{padding:4px 12px;border:1px solid var(--b1);border-radius:99px;font-size:11px;font-weight:500;color:var(--t3);cursor:pointer;background:transparent;font-family:var(--sans);transition:all .12s}
+.embed-tab.on{border-color:var(--acc);color:var(--acc);background:rgba(79,124,255,.07)}
+.embed-preview-wrap{background:var(--bg);border:1px solid var(--b1);border-radius:10px;padding:18px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;min-height:70px}
+.embed-code-wrap{position:relative;margin-bottom:8px}
+.embed-code{background:var(--bg3);border:1px solid var(--b1);border-radius:8px;padding:10px 14px;font-family:var(--mono);font-size:11px;color:var(--t2);word-break:break-all;line-height:1.6;padding-right:72px}
+.embed-copy-btn{position:absolute;right:8px;top:8px;padding:4px 10px;background:var(--bg4);border:1px solid var(--b2);border-radius:6px;font-size:10px;font-family:var(--mono);color:var(--t2);cursor:pointer;transition:all .12s;white-space:nowrap}
+.embed-copy-btn:hover{color:var(--t1);border-color:var(--t3)}
+.embed-copy-btn.copied{color:var(--grn);border-color:rgba(39,174,96,.3)}
+.embed-update-note{font-size:11px;color:var(--t3);font-family:var(--mono);letter-spacing:.02em}
+.embed-expired-msg{background:rgba(192,119,24,.07);border:1px solid rgba(192,119,24,.2);border-radius:8px;padding:12px 16px;font-size:12px;color:#c07718;font-family:var(--mono);line-height:1.6}
+
+/* CONVERSION TRIGGERS */
+.ct-strip{margin:20px 0;padding:14px 18px;border-radius:10px;background:rgba(74,120,240,0.04);border:1px solid rgba(74,120,240,0.12);display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.ct-strip.ct-brand{background:rgba(39,174,96,0.04);border-color:rgba(39,174,96,0.12)}
+.ct-body{flex:1;min-width:0}
+.ct-copy{font-size:13px;color:var(--t1);line-height:1.5;margin-bottom:3px}
+.ct-note{font-size:10px;color:var(--t3);font-family:var(--mono);letter-spacing:.01em}
+.ct-btn{flex-shrink:0;align-self:center;padding:7px 14px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;background:transparent;border:1px solid rgba(74,120,240,0.35);color:var(--acc);font-family:var(--sans);transition:all .15s;text-decoration:none;white-space:nowrap;display:inline-block}
+.ct-btn:hover{background:rgba(74,120,240,0.08);border-color:rgba(74,120,240,0.6)}
+.ct-strip.ct-brand .ct-btn{border-color:rgba(39,174,96,0.35);color:var(--grn)}
+.ct-strip.ct-brand .ct-btn:hover{background:rgba(39,174,96,0.08);border-color:rgba(39,174,96,0.6)}
+
+/* SCOPE CALLOUT */
+.scope-callout{background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:16px 20px;margin-bottom:24px;font-size:12px;line-height:1.6}
+.scope-row{display:flex;gap:10px;align-items:baseline;margin-bottom:6px}
+.scope-row:last-of-type{margin-bottom:10px}
+.scope-key{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);flex-shrink:0;width:100px}
+.scope-val{color:var(--t2)}
+.dispute-field{margin-bottom:12px}
+.dispute-label{display:block;font-size:10px;color:var(--t3);font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+.dispute-select,.dispute-textarea{width:100%;font-family:var(--sans)}
+.dispute-select{cursor:pointer}
+.dispute-textarea{resize:vertical;min-height:78px;line-height:1.55}
+
+/* TIER GATE */
+.tier-lock-wrap{position:relative}
+.tier-lock-overlay{position:absolute;bottom:0;left:0;right:0;height:70%;background:linear-gradient(to bottom,transparent,var(--bg) 70%);pointer-events:none;z-index:2}
+.tier-upgrade-block{background:var(--bg2);border:1px solid rgba(74,120,240,0.25);border-radius:12px;padding:28px 32px;text-align:center;margin-top:16px}
+.tier-upgrade-icon{font-size:24px;margin-bottom:12px;color:var(--acc)}
+.tier-upgrade-title{font-size:16px;font-weight:600;color:var(--t1);margin-bottom:8px}
+.tier-upgrade-sub{font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:20px}
+.tier-upgrade-btn{display:inline-block;padding:10px 24px;background:var(--acc);border-radius:8px;color:#fff;font-size:13px;font-weight:600;text-decoration:none;transition:background .15s}
+.tier-upgrade-btn:hover{background:#3d6ae0;color:#fff}
+.tier-upgrade-note{font-size:11px;color:var(--t3);margin-top:10px;font-family:var(--mono)}
+.tier-brand-cta{background:rgba(30,148,89,0.06);border:1px solid rgba(30,148,89,0.2);border-radius:12px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:20px}
+.tier-brand-cta-text{font-size:13px;color:var(--t1);line-height:1.5}
+.tier-brand-cta-sub{font-size:11px;color:var(--t3);margin-top:3px;font-family:var(--mono)}
+.tier-brand-cta-btn{padding:9px 18px;background:var(--grn);border-radius:8px;color:#fff;font-size:12px;font-weight:600;text-decoration:none;flex-shrink:0;transition:background .15s}
+.tier-brand-cta-btn:hover{background:#178a4a;color:#fff}
+
+/* BRAND PRO DASHBOARD */
+.bp-dashboard{margin-top:48px;padding-top:32px;border-top:1px solid var(--b1)}
+.bp-dashboard-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px;flex-wrap:wrap}
+.bp-dashboard-title{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--grn)}
+.bp-dashboard-badge{font-family:var(--mono);font-size:9px;letter-spacing:.06em;background:rgba(30,148,89,0.1);border:1px solid rgba(30,148,89,0.25);color:var(--grn);padding:3px 10px;border-radius:20px}
+.bp-dashboard-intro{font-size:12px;color:var(--t3);margin-bottom:32px;line-height:1.6}
+.bp-section{margin-bottom:36px}
+.bp-section-title{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:14px;padding-bottom:7px;border-bottom:1px solid var(--b1)}
+/* Gap analysis */
+.bp-gap-grid{display:flex;flex-direction:column;gap:10px}
+.bp-gap-row{background:var(--bg2);border:1px solid var(--b1);border-radius:8px;padding:14px 16px}
+.bp-gap-row.red{border-left:3px solid #e74c3c}
+.bp-gap-row.yellow{border-left:3px solid #f39c12}
+.bp-gap-row.green{border-left:3px solid #27ae60}
+.bp-gap-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
+.bp-gap-label{font-size:13px;color:var(--t1);font-weight:500}
+.bp-gap-score{font-family:var(--mono);font-size:12px;font-weight:500}
+.bp-gap-score.red{color:#e74c3c}
+.bp-gap-score.yellow{color:#f39c12}
+.bp-gap-score.green{color:#27ae60}
+.bp-gap-fix{font-size:11px;color:var(--t2);line-height:1.55;margin-top:4px;padding-top:6px;border-top:1px solid var(--b1)}
+.bp-gap-fix-label{font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:var(--t3);margin-right:6px;text-transform:uppercase}
+/* Claim audit */
+.bp-claim-table{display:flex;flex-direction:column;gap:8px}
+.bp-claim-row{background:var(--bg2);border:1px solid var(--b1);border-radius:8px;padding:12px 14px}
+.bp-claim-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:6px}
+.bp-claim-text{font-size:13px;color:var(--t1);line-height:1.55;flex:1}
+.bp-tier-badge{font-family:var(--mono);font-size:9px;letter-spacing:.05em;padding:2px 8px;border-radius:4px;flex-shrink:0;margin-top:2px}
+.bp-tier-badge.t1{background:rgba(231,76,60,0.12);color:#e74c3c;border:1px solid rgba(231,76,60,0.25)}
+.bp-tier-badge.t2{background:rgba(243,156,18,0.1);color:#f39c12;border:1px solid rgba(243,156,18,0.2)}
+.bp-tier-badge.t3{background:rgba(255,255,255,0.04);color:var(--t3);border:1px solid var(--b1)}
+.bp-claim-source{font-family:var(--mono);font-size:10px;color:var(--t3);word-break:break-all}
+.bp-claim-source a{color:var(--t3);text-decoration:underline;text-underline-offset:2px}
+.bp-claim-source a:hover{color:var(--t2)}
+/* Competitor table */
+.bp-comp-table{width:100%;border-collapse:collapse}
+.bp-comp-table th{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);text-align:left;padding:0 0 8px;border-bottom:1px solid var(--b1)}
+.bp-comp-table td{padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12px;color:var(--t2);vertical-align:middle}
+.bp-comp-table tr:last-child td{border-bottom:none}
+.bp-comp-you{font-family:var(--mono);font-size:9px;color:var(--acc);margin-left:6px;background:rgba(74,120,240,0.1);padding:1px 6px;border-radius:3px}
+.bp-comp-score{font-family:var(--mono);font-size:13px;font-weight:500}
+/* Capture log */
+.bp-capture-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.bp-capture-card{background:var(--bg2);border:1px solid var(--b1);border-radius:8px;padding:14px}
+.bp-capture-val{font-family:var(--mono);font-size:20px;color:var(--t1);margin-bottom:4px}
+.bp-capture-lbl{font-size:11px;color:var(--t3)}
+.bp-flags{margin-top:12px;display:flex;flex-direction:column;gap:6px}
+.bp-flag-item{font-size:11px;color:var(--t3);font-family:var(--mono);background:rgba(231,76,60,0.06);border:1px solid rgba(231,76,60,0.15);border-radius:5px;padding:5px 10px}
+/* Rescore */
+.bp-rescore-box{background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:20px 22px}
+.bp-rescore-desc{font-size:12px;color:var(--t2);line-height:1.65;margin-bottom:14px}
+.bp-rescore-fields{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.bp-rescore-label{font-family:var(--mono);font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);display:block;margin-bottom:4px}
+.bp-rescore-input,.bp-rescore-textarea{width:100%;background:var(--bg3);border:1px solid var(--b1);border-radius:6px;color:var(--t1);font-size:12px;font-family:var(--sans);padding:9px 11px;box-sizing:border-box}
+.bp-rescore-textarea{resize:vertical;min-height:64px;line-height:1.5}
+.bp-rescore-input:focus,.bp-rescore-textarea:focus{outline:none;border-color:var(--b2)}
+.bp-rescore-btn{background:var(--grn);border:none;color:#fff;font-size:12px;font-weight:600;padding:10px 22px;border-radius:7px;cursor:pointer;font-family:var(--sans);transition:background .15s}
+.bp-rescore-btn:hover{background:#178a4a}
+.bp-rescore-btn:disabled{opacity:.45;cursor:default}
+.bp-rescore-cooldown{font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:8px}
+.bp-rescore-ok{font-size:12px;color:var(--grn);margin-top:10px;display:none}
+/* Roadmap */
+.bp-roadmap{display:flex;flex-direction:column;gap:10px}
+.bp-roadmap-item{background:rgba(74,120,240,0.05);border:1px solid rgba(74,120,240,0.15);border-radius:8px;padding:12px 14px;font-size:12px;color:var(--t1);line-height:1.55;display:flex;gap:12px;align-items:flex-start}
+.bp-roadmap-num{font-family:var(--mono);font-size:11px;color:var(--acc);flex-shrink:0;margin-top:1px}
+/* Coming soon */
+.rsec-coming-soon{margin:24px 0;padding:20px 24px;background:var(--bg2);border:1px solid var(--b1);border-radius:12px}
+.csoon-label{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:14px}
+.csoon-items{display:flex;flex-direction:column;gap:12px}
+.csoon-item{display:flex;gap:12px;align-items:flex-start}
+.csoon-icon{font-family:var(--mono);font-size:11px;color:var(--t3);flex-shrink:0;margin-top:2px}
+.csoon-title{font-size:13px;font-weight:500;color:var(--t2);margin-bottom:2px}
+.csoon-sub{font-size:12px;color:var(--t3);line-height:1.55}
+/* Loading/error states */
+.bp-loading{font-family:var(--mono);font-size:11px;color:var(--t3);padding:20px 0}
+.bp-error{font-size:12px;color:var(--t3);background:var(--bg2);border:1px solid var(--b1);border-radius:8px;padding:16px;margin-top:8px}
+@media(max-width:600px){.bp-capture-grid{grid-template-columns:1fr 1fr}}
+
+/* PRINT */
+@media print{
+  nav,.btn,.alpha-bar,.cta-row{display:none!important}
+  body{background:#fff;color:#000}
+  .page{padding:20px;max-width:100%}
+  :root{--bg:#fff;--bg2:#f8f8fb;--bg3:#f0f0f8;--bg4:#e8e8f0;--b1:rgba(0,0,0,.09);--b2:rgba(0,0,0,.14);--t1:#111;--t2:#444;--t3:#888}
+}
+</style>
+<link rel="canonical" href="https://trynorm.co/brand/eightsleep.com">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","name":"Eight Sleep Evidence Score","description":"Eight Sleep scores 50/100 on the NORM evidence index. Signal: Yellow. Verdict: OVEREXTENDED. Independent claim-evidence analysis — updated weekly.","reviewRating":{"@type":"Rating","ratingValue":50,"bestRating":100,"worstRating":0,"description":"OVEREXTENDED"},"author":{"@type":"Organization","name":"NORM","url":"https://trynorm.co"},"itemReviewed":{"@type":"Organization","name":"Eight Sleep","url":"https://eightsleep.com"},"publisher":{"@type":"Organization","name":"NORM","url":"https://trynorm.co"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"NORM","item":"https://trynorm.co"},{"@type":"ListItem","position":2,"name":"Leaderboard","item":"https://trynorm.co/leaderboard"},{"@type":"ListItem","position":3,"name":"Eight Sleep Evidence Score","item":"https://trynorm.co/brand/eightsleep.com"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Eight Sleep's NORM score?","acceptedAnswer":{"@type":"Answer","text":"Eight Sleep scores 50/100 on the NORM evidence index with a verdict of OVEREXTENDED. This score reflects the alignment between the brand's marketing claims and publicly visible evidence."}},{"@type":"Question","name":"Is Eight Sleep evidence-backed?","acceptedAnswer":{"@type":"Answer","text":"NORM independently scores Eight Sleep as OVEREXTENDED (50/100). The score evaluates claim specificity, evidence presence, evidence strength, mechanism plausibility, consumer distortion, and effect reality across publicly visible brand materials."}},{"@type":"Question","name":"How does NORM score Eight Sleep?","acceptedAnswer":{"@type":"Answer","text":"NORM captures publicly visible brand claims from Eight Sleep's website, marketing, and cited evidence. An editorial pipeline scores each claim across 6 dimensions. Scores are not influenced by brand payments. See trynorm.co/methodology for full details."}}]}</script>
+</head>
+<body>
+
+<div id="seo-static" style="max-width:820px;margin:0 auto;padding:100px 32px 48px;font-family:'DM Sans',system-ui,sans-serif">
+  <nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:56px;background:rgba(10,12,18,0.94);border-bottom:1px solid rgba(255,255,255,0.07)">
+    <a href="/" style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;letter-spacing:.08em;color:#f2f2f2;text-decoration:none">NORM</a>
+    <a href="/leaderboard" style="font-size:13px;color:#8b93b0;text-decoration:none">Leaderboard</a>
+  </nav>
+  <p style="font-size:11px;font-family:'DM Mono',monospace;color:#4a5070;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px">
+    <a href="/" style="color:#4a5070;text-decoration:none">NORM</a> / <a href="/leaderboard" style="color:#4a5070;text-decoration:none">Wearables</a> / Eight Sleep
+  </p>
+  <h1 style="font-size:28px;font-weight:400;color:#f2f2f2;line-height:1.25;margin-bottom:8px;font-family:'Instrument Serif',Georgia,serif">Eight Sleep Evidence Score</h1>
+  <p style="font-size:14px;color:#8b93b0;margin-bottom:28px;line-height:1.5">Eight Sleep scores 50/100 on the NORM evidence index. Signal: Yellow. Verdict: OVEREXTENDED. Independent claim-evidence analysis — updated weekly.</p>
+  <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:24px">
+    <div style="display:flex;align-items:baseline;gap:6px">
+      <span style="font-size:56px;font-weight:700;color:#f2f2f2;line-height:1;font-family:'DM Mono',monospace">50</span>
+      <span style="font-size:18px;color:#4a5070;font-family:'DM Mono',monospace">/100</span>
+    </div>
+    <div>
+      <div style="font-size:14px;font-weight:500;color:#f2f2f2;margin-bottom:4px">OVEREXTENDED</div>
+      <div style="font-size:12px;padding:4px 10px;border-radius:6px;display:inline-block;background:rgba(192,119,24,0.12);color:#c07718;font-family:'DM Mono',monospace;letter-spacing:.06em">Yellow — Partial Evidence Alignment</div>
+    </div>
+  </div>
+  
+  
+  
+  <div style="margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.07)">
+    <p style="font-size:12px;color:#4a5070;line-height:1.6">NORM independently scores wellness brand claims against publicly visible evidence. Scores are not influenced by brand payments. <a href="/methodology" style="color:#4a78f0;text-decoration:none">How scoring works →</a></p>
+  </div>
+</div>
+<script>document.getElementById('seo-static').style.display='none';</script>
+
+
+
+
+<nav>
+  <a class="nav-logo" href="/">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+    <circle cx="11" cy="8.5" r="5.5" stroke="#4a78f0" stroke-width="1.5"/>
+    <circle cx="9.2" cy="7.8" r="1" fill="#4a78f0"/>
+    <circle cx="12.8" cy="7.8" r="1" fill="#4a78f0"/>
+    <path d="M9 10.5 Q11 12.5 13 10.5" stroke="#4a78f0" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M5.5 19 Q11 16 16.5 19" stroke="#4a78f0" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+  NORM
+  </a>
+  <ul class="nav-links">
+    <li><a href="/leaderboard">Leaderboard</a></li>
+    
+    <li><a href="/methodology">Methodology</a></li>
+    <li><a href="/pricing">Pricing</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div class="share-wrap" id="shareWrap" style="display:none">
+      <button class="share-btn" id="shareBtn" onclick="toggleSharePopover()">↑ Share Score</button>
+      <div class="share-popover" id="sharePopover"></div>
+    </div>
+    <a href="/account" class="btn btn-sm" id="nav-account-btn" style="display:none">Account</a>
+    <a href="/account" class="btn btn-sm" id="nav-signin-btn">Sign in</a>
+    <a href="/extension" class="btn btn-primary btn-sm" onclick="track('nav_extension_click')">Add to Chrome – It's Free</a>
+    <a class="btn btn-primary btn-sm" href="/leaderboard">← Leaderboard</a>
+  </div>
+</nav>
+
+<!-- Loading -->
+<div class="loading-screen" id="loading-screen">
+  <div class="spinner"></div>
+  <div class="loading-label" id="loading-label">Reading the fine print…</div>
+</div>
+
+<main class="page" id="page-main" style="display:none">
+
+  <!-- ══ STATE A: VERIFIED ══════════════════════════���═══════════ -->
+  <div id="state-verified" style="display:none">
+
+    <!-- Header -->
+    <div class="report-header">
+      <div class="rh-breadcrumb">
+        <span>NORM · Public Claim Record</span>
+        <span id="hdr-status-badge"></span>
+      </div>
+      <div class="rh-top">
+        <div>
+          <div class="rh-brand" id="rh-brand">—</div>
+          <div class="rh-domain" id="rh-domain">—</div>
+          <div class="rh-category" id="rh-category">—</div>
+          <div id="user-pro-badge" style="display:none;margin-top:8px;display:inline-flex;align-items:center;gap:6px;background:rgba(74,120,240,0.12);border:1px solid rgba(74,120,240,0.3);border-radius:6px;padding:3px 10px;font-size:11px;font-family:var(--mono);letter-spacing:.06em;color:#4a78f0">◈ PRO — full evidence unlocked</div>
+        </div>
+        <div class="rh-score-block">
+          <div class="rh-verdict-badge" id="rh-verdict">—</div>
+          <div class="rh-score" id="rh-score">—</div>
+          <div class="rh-score-label">out of 100</div>
+          <div class="rh-sparkline-wrap" id="rh-sparkline-wrap" style="display:none">
+            <svg id="rh-sparkline" width="88" height="24" style="overflow:visible"></svg>
+            <span class="rh-sparkline-lbl" id="rh-sparkline-lbl"></span>
+          </div>
+        </div>
+      </div>
+      <div class="rh-meta">
+        <div class="rh-meta-item">
+          <div class="rh-meta-label">Signal</div>
+          <div class="rh-meta-val" id="meta-signal">—</div>
+        </div>
+        <div class="rh-meta-item" id="meta-pricing-wrap" style="display:none">
+          <div class="rh-meta-label">Pricing Model</div>
+          <div class="rh-meta-val" id="meta-pricing">—</div>
+        </div>
+        <div class="rh-meta-item" id="meta-capital-wrap" style="display:none">
+          <div class="rh-meta-label">Capital</div>
+          <div class="rh-meta-val" id="meta-capital">—</div>
+        </div>
+        <div class="rh-meta-item" id="meta-biz-wrap" style="display:none">
+          <div class="rh-meta-label">Business Flag</div>
+          <div class="rh-meta-val" id="meta-biz">—</div>
+        </div>
+        <div class="rh-meta-item">
+          <div class="rh-meta-label">Data Confidence</div>
+          <div class="rh-meta-val" id="meta-confidence">—</div>
+        </div>
+        <div class="rh-meta-item">
+          <div class="rh-meta-label">Last Verified</div>
+          <div class="rh-meta-val" id="meta-verified">—</div>
+        </div>
+        <div class="rh-meta-item">
+          <div class="rh-meta-label">Valid Until</div>
+          <div class="rh-meta-val" id="meta-valid-until">—</div>
+        </div>
+        <div class="rh-meta-item">
+          <div class="rh-meta-label">Category Standing</div>
+          <div class="rh-meta-val" id="meta-standing" style="display:none">—</div>
+        </div>
+      </div>
+      <!-- Scope of assessment -->
+      <div class="scope-callout" id="scope-callout" style="margin-top:16px">
+        <div class="scope-row">
+          <span class="scope-key">Scope</span>
+          <span class="scope-val">Publicly accessible pages at <span id="scope-domain">this domain</span> · Scanned <span id="scope-date">—</span> · Confidence: <span id="scope-confidence">—</span></span>
+        </div>
+        <div class="scope-row">
+          <span class="scope-key">Not assessed</span>
+          <span class="scope-val">Product efficacy, safety, ingredient quality, regulatory compliance, or evidence not publicly visible at scan time</span>
+        </div>
+      </div>
+
+      <div class="cat-bar" id="cat-bar">
+        <div class="cat-bar-header">
+          <div class="cat-bar-label">Category Benchmark</div>
+          <div class="cat-bar-standing" id="cat-bar-standing"></div>
+        </div>
+        <div class="cat-bench-grid">
+          <div class="cat-bench-cell">
+            <div class="cat-bench-val" id="cb-brand-score">—</div>
+            <div class="cat-bench-lbl">Brand Score</div>
+          </div>
+          <div class="cat-bench-cell">
+            <div class="cat-bench-val" id="cb-cat-avg">—</div>
+            <div class="cat-bench-lbl">Category Avg</div>
+          </div>
+          <div class="cat-bench-cell">
+            <div class="cat-bench-val" id="cb-cat-median">—</div>
+            <div class="cat-bench-lbl">Category Median</div>
+          </div>
+          <div class="cat-bench-cell">
+            <div class="cat-bench-val" id="cb-rank">—</div>
+            <div class="cat-bench-lbl">Rank in Category</div>
+          </div>
+          <div class="cat-bench-cell">
+            <div class="cat-bench-val" id="cb-percentile">—</div>
+            <div class="cat-bench-lbl">Percentile</div>
+          </div>
+          <div class="cat-bench-cell">
+            <div class="cat-bench-val-delta" id="cb-delta">—</div>
+            <div class="cat-bench-lbl">vs Category Avg</div>
+          </div>
+        </div>
+        <div class="cat-bar-rail"><div class="cat-bar-fill" id="cat-bar-fill"></div></div>
+        <div class="cat-bar-note">Scores reflect only public_safe verified brands. Unreviewed, provisional, and expired brands are excluded.</div>
+      </div>
+    </div>
+
+    <!-- Demand signal -->
+    <div class="demand-bar" id="demand-bar">
+      <div style="flex:1;min-width:0">
+        <div class="demand-text" id="demand-text"></div>
+        <div class="demand-sub" id="demand-sub"></div>
+      </div>
+      <div class="demand-actions" id="demand-actions"></div>
+    </div>
+
+    <!-- System note -->
+    <div id="record-system-note" style="font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.03em;margin-bottom:12px;line-height:1.6">
+      This record updates as claims and evidence change. &nbsp;·&nbsp; <span id="record-state-phrase"></span>
+    </div>
+
+    <!-- Pressure signals -->
+    <div class="pressure-layer" id="pressure-layer" style="display:none"></div>
+
+    <!-- Executive Summary -->
+    <div class="rsec">
+      <div class="rsec-title">Executive Summary</div>
+      <div class="exec-summary">
+        <div class="exec-verdict" id="exec-verdict"></div>
+        <div class="exec-consumer" id="exec-consumer" style="display:none"><strong>Before you buy:</strong> <span id="exec-consumer-text"></span></div>
+      </div>
+    </div>
+
+    <!-- Influencer Echo -->
+    <div class="rsec" id="ie-sec" style="display:none">
+      <div class="rsec-title">Influencer Reach</div>
+      <div id="ie-body"></div>
+    </div>
+
+    <!-- Claim Evidence — locked teaser -->
+    <div class="rsec" id="receipts-sec" style="display:none">
+      <div class="rsec-title">Flagged Claims</div>
+      <div class="receipts-list" id="receipts-list"></div>
+      <div class="claim-locked-teaser" id="claim-locked-teaser" style="display:none">
+        <div class="claim-locked-row">
+          <span class="gap-badge" id="claim-teaser-badge">PARTIAL</span>
+          <span class="claim-locked-text" id="claim-teaser-text"></span>
+        </div>
+        <div class="claim-locked-evidence">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;opacity:.5"><rect x="3" y="6" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 6V4.5a2 2 0 1 1 4 0V6" stroke="currentColor" stroke-width="1.3"/></svg>
+          <span>What the evidence shows — </span><a href="/pricing" class="claim-locked-upgrade">unlock with Pro</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Raw Claims Captured -->
+    <div class="rsec" id="raw-claims-sec" style="display:none">
+      <div class="rsec-title">All Claims Captured <span id="raw-claims-count" style="font-family:var(--mono);font-size:11px;color:var(--t3);font-weight:400;margin-left:8px"></span></div>
+      <div id="raw-claims-list"></div>
+      <div style="margin-top:10px;font-size:11px;color:var(--t3);font-family:var(--mono)">Verbatim marketing language extracted from brand pages. Tier 1 = high-risk claim, Tier 2 = standard claim, Tier 3 = contextual/structural.</div>
+    </div>
+
+    <!-- Evidence Signals Detected -->
+    <div class="rsec" id="ev-signals-sec" style="display:none">
+      <div class="rsec-title">Evidence Signals Detected</div>
+      <div class="ev-signal-list" id="ev-signal-list"></div>
+      <div style="font-size:12px;color:var(--t2);line-height:1.6" id="ev-signals-note"></div>
+    </div>
+
+    <!-- Capture Report -->
+    <div class="rsec" id="capture-report-sec" style="display:none">
+      <div class="rsec-title">Capture Report</div>
+      <div class="capture-grid" id="capture-grid"></div>
+      <div id="capture-gaps-wrap" style="display:none">
+        <div style="font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">Unresolved capture gaps</div>
+        <div class="capture-gap-list" id="capture-gap-list"></div>
+      </div>
+    </div>
+
+    <!-- What Changed -->
+    <div class="rsec" id="diff-sec" style="display:none">
+      <div class="rsec-title">What Changed</div>
+      <div class="diff-section" id="diff-content"></div>
+    </div>
+
+    <!-- Consumer Pro: Claim Change Trigger -->
+    <div class="ct-strip" id="ct-claimdiff" style="display:none">
+      <div class="ct-body">
+        <div class="ct-copy">Get alerts when this brand changes claims.</div>
+        <div class="ct-note">Paid access never influences public NORM scores, rankings, or review outcomes.</div>
+      </div>
+      <a class="ct-btn" href="/pricing" onclick="ctTrack('consumer_pro_waitlist_click','claim_change')">Track future changes →</a>
+    </div>
+
+    <!-- Evidence Assessment -->
+    <div class="rsec" id="ev-assessment-sec">
+      <div class="rsec-title">Evidence Assessment</div>
+      <div class="ev-grid">
+        <div class="ev-card">
+          <div class="ev-card-label">Evidence Presence</div>
+          <div class="ev-card-val" id="ev-presence">—</div>
+          <div class="ev-card-desc" id="ev-presence-desc">Study links, certifications, and references visible on the brand's page.</div>
+        </div>
+        <div class="ev-card">
+          <div class="ev-card-label">Evidence Strength</div>
+          <div class="ev-card-val" id="ev-strength">—</div>
+          <div class="ev-card-desc" id="ev-strength-desc">Quality and independence of cited evidence relative to claims made.</div>
+        </div>
+      </div>
+      <div class="findings-list" id="findings-list"></div>
+    </div>
+
+    <!-- Evidence Summary -->
+    <div class="rsec" id="ev-summary-sec">
+      <div class="rsec-title">Evidence Summary</div>
+      <div class="score-dims" id="score-dims"></div>
+    </div>
+
+
+    <!-- Brand Tools: Evidence Gap Trigger -->
+    <div class="ct-strip ct-brand" id="ct-gaps" style="display:none">
+      <div class="ct-body">
+        <div class="ct-copy">Organize supporting materials before editorial review.</div>
+        <div class="ct-note">Brand Tools do not influence public scores. · Paid access never influences public NORM scores, rankings, or review outcomes.</div>
+      </div>
+      <a class="ct-btn" href="/pricing" onclick="ctTrack('brand_tools_access_click','evidence_gap')">Brand Tools →</a>
+    </div>
+
+    <!-- Risk Flags -->
+    <div class="rsec" id="flags-sec">
+      <div class="rsec-title">Evidence Gaps</div>
+      <div class="flags-list" id="flags-list"></div>
+      <div class="claim-locked-evidence" id="flags-locked" style="display:none;margin-top:6px">
+        <svg width="12" height="12" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;opacity:.5"><rect x="3" y="6" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 6V4.5a2 2 0 1 1 4 0V6" stroke="currentColor" stroke-width="1.3"/></svg>
+        Full gap analysis — <a href="/pricing" class="claim-locked-upgrade">unlock with Pro</a>
+      </div>
+    </div>
+
+    <!-- Consumer Interpretation -->
+    <div class="rsec" id="consumer-sec" style="display:none">
+      <div class="rsec-title">Consumer Interpretation</div>
+      <div class="consumer-block">
+        <div class="consumer-q">What does this mean for you?</div>
+        <div class="consumer-items" id="consumer-items"></div>
+      </div>
+    </div>
+
+    <!-- Limitations -->
+    <div class="rsec" id="limitations-sec">
+      <div class="rsec-title">Assessment Limitations</div>
+      <div class="limitations-box" id="limitations-box">This assessment covers publicly visible content at the time of scan. Our crawler may not have accessed every page on this domain — evidence hosted on subdomains, gated pages, or JavaScript-rendered sections may not be captured. A score reflects what was visible at scan time; it does not assess product safety, efficacy, or regulatory compliance. If relevant evidence was missed, brands can submit it via Brand Portal for review. Scores are updated when evidence becomes verifiably visible on the live page.</div>
+    </div>
+
+    <!-- Final Verdict -->
+    <div class="rsec" id="signal-assessment-sec">
+      <div class="rsec-title">Signal Assessment</div>
+      <div class="final-verdict" id="final-verdict">
+        <div class="fv-bg"></div>
+        <div class="fv-label">Signal Assessment</div>
+        <div class="fv-verdict" id="fv-verdict"></div>
+        <div class="fv-note" id="fv-note"></div>
+        <div class="fv-strengths" id="fv-strengths" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- Green Public Embed (visible to any green-scored brand, no auth required) -->
+    <div class="rsec" id="embed-green-sec" style="display:none">
+      <div class="rsec-title">Earned a Green? Show it.</div>
+      <div class="embed-section">
+        <div class="embed-head-title">Embed your NORM score</div>
+        <div class="embed-head-sub">Green-scored brands can display their NORM badge. It links to your public claim record and updates automatically when your score refreshes. No account required.</div>
+        <div id="embed-green-content"></div>
+      </div>
+    </div>
+
+    <!-- Embed NORM Rating (brand-tier full version) -->
+    <div class="rsec" id="embed-sec" style="display:none">
+      <div class="rsec-title">Embed NORM Rating</div>
+      <div class="embed-section">
+        <div class="embed-head-title">Add a NORM badge to your site</div>
+        <div class="embed-head-sub">Show your audience you've been independently assessed. Updates automatically when the alignment rating changes.</div>
+        <div id="embed-content"></div>
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="cta-row">
+      <a class="btn btn-primary" href="/extension" onclick="track('extension_cta_click','brand_page_cta')">Get this on every product page →</a>
+      <button class="btn" id="cta-track" onclick="toggleTrackForm()">Track this brand</button>
+      <button class="btn" id="cta-evidence" onclick="toggleDisputeForm('evidence')">Submit evidence</button>
+      <button class="btn" id="cta-reassess" onclick="toggleDisputeForm('reassess')">Request re-evaluation</button>
+    </div>
+    <div class="capture-inline" id="track-form">
+      <div class="capture-inline-label">Get notified when this brand's alignment rating changes or new claims are assessed.</div>
+      <div class="capture-inline-form">
+        <input class="capture-inline-input" type="email" id="track-email" placeholder="your@email.com" autocomplete="email">
+        <button class="capture-inline-btn" id="track-btn" onclick="submitTrack()">Notify me</button>
+      </div>
+      <div class="capture-inline-ok" id="track-ok">You're tracking this brand. We'll notify you when the alignment rating changes.</div>
+      <div class="capture-inline-note">Rating changes and new assessments only. No marketing.</div>
+    </div>
+
+    <!-- Inline dispute / evidence form -->
+    <div class="capture-inline" id="dispute-form">
+      <div class="capture-inline-label" id="dispute-form-title">Submit supporting evidence for review</div>
+      <div id="dispute-form-body">
+        <div class="dispute-field">
+          <label class="dispute-label">Issue type</label>
+          <select class="capture-inline-input dispute-select" id="dispute-type">
+            <option value="missing_evidence">Missing evidence — public evidence exists but wasn't scored</option>
+            <option value="reassessment">Reassessment — page has changed significantly since scan</option>
+            <option value="score_dispute">Score dispute — evidence doesn't match my assessment</option>
+            <option value="technical_error">Technical error — wrong brand or data</option>
+          </select>
+        </div>
+        <div class="dispute-field">
+          <label class="dispute-label">Evidence URL <span style="color:var(--t3);text-transform:none;letter-spacing:0">(optional)</span></label>
+          <input class="capture-inline-input" id="dispute-url" type="url" placeholder="https://brand.com/science or pubmed link">
+        </div>
+        <div class="dispute-field">
+          <label class="dispute-label">Description</label>
+          <textarea class="capture-inline-input dispute-textarea" id="dispute-desc" placeholder="What should be corrected and why. Reference the specific claim or evidence directly."></textarea>
+        </div>
+        <div class="dispute-field" style="margin-bottom:16px">
+          <label class="dispute-label">Email <span style="color:var(--t3);text-transform:none;letter-spacing:0">(for response notification)</span></label>
+          <input class="capture-inline-input" id="dispute-email" type="email" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <button class="capture-inline-btn" id="dispute-btn" onclick="submitDispute()">Submit for review</button>
+          <button class="btn" style="font-size:12px;padding:8px 14px" onclick="toggleDisputeForm(null)">Cancel</button>
+        </div>
+        <div class="capture-inline-note" style="margin-top:10px">We review every submission. Score updates are published only when new evidence is verified and publicly accessible.</div>
+      </div>
+      <div id="dispute-ok" style="display:none">
+        <div style="font-size:13px;color:var(--grn);margin-bottom:6px" id="dispute-ok-ref"></div>
+        <div class="capture-inline-note">Acknowledgement within 2 business days. Score updates only when evidence is confirmed publicly accessible.</div>
+      </div>
+    </div>
+
+    <!-- Brand Tools: Profile Trigger -->
+    <div class="ct-strip ct-brand" id="ct-brand-tools" style="display:none">
+      <div class="ct-body">
+        <div class="ct-copy">Claim your profile to submit evidence or request review.</div>
+        <div class="ct-note">Brand Tools do not influence public scores. · Paid access never influences public NORM scores, rankings, or review outcomes.</div>
+      </div>
+      <button class="ct-btn" onclick="openClaimModal()">Claim profile →</button>
+    </div>
+
+    <!-- Claim Modal -->
+    <div id="claim-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.72);backdrop-filter:blur(4px);align-items:center;justify-content:center" onclick="if(event.target===this)closeClaimModal()">
+      <div style="background:#0d1117;border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:32px;max-width:420px;width:90%;position:relative">
+        <button onclick="closeClaimModal()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:var(--t3);font-size:18px;cursor:pointer;line-height:1">×</button>
+        <div id="claim-modal-default">
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--t3);text-transform:uppercase;margin-bottom:12px">Claim this profile</div>
+          <div style="font-size:18px;color:var(--t1);font-weight:400;margin-bottom:8px">Is this your brand?</div>
+          <div style="font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:20px">Enter your work email to verify ownership. We'll send a verification link — no account required to start.</div>
+          <div style="margin-bottom:12px">
+            <input id="claim-email" type="email" placeholder="you@yourbrand.com" autocomplete="email"
+              style="width:100%;box-sizing:border-box;background:#111420;border:1px solid var(--b1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--t1);outline:none">
+          </div>
+          <div id="claim-email-note" style="font-size:11px;color:var(--t3);margin-bottom:16px">Use your brand's domain email for faster verification.</div>
+          <button id="claim-submit-btn" onclick="submitClaim()"
+            style="width:100%;padding:11px;background:#4f7cff;border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:500;cursor:pointer">Send verification email</button>
+          <div id="claim-error" style="display:none;font-size:12px;color:#e74c3c;margin-top:10px"></div>
+          <div style="font-size:11px;color:var(--t3);margin-top:14px;line-height:1.5">Claiming a profile does not affect your public NORM score. Paid plans are available separately.</div>
+        </div>
+        <div id="claim-modal-success" style="display:none;text-align:center;padding:8px 0">
+          <div style="font-size:28px;margin-bottom:14px">✉️</div>
+          <div style="font-size:17px;color:var(--t1);margin-bottom:8px">Check your inbox</div>
+          <div style="font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:18px">We sent a verification link to <span id="claim-sent-email" style="color:var(--t1)"></span>. Click it to complete your claim.</div>
+          <div style="font-size:11px;color:var(--t3)">Link expires in 24 hours. Didn't get it? Check spam.</div>
+        </div>
+        <div id="claim-modal-verified" style="display:none;text-align:center;padding:8px 0">
+          <div style="font-size:28px;margin-bottom:14px">✅</div>
+          <div style="font-size:17px;color:var(--t1);margin-bottom:8px">Profile claimed</div>
+          <div style="font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:20px">Your email has been verified. Unlock Brand Pro for priority rescores, full claim audit, and competitor benchmarking.</div>
+          <a href="/pricing?tier=brand" style="display:inline-block;padding:11px 22px;background:#4f7cff;border-radius:8px;color:#fff;font-size:13px;font-weight:500;text-decoration:none">Unlock Brand Pro →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Brand Pro Dashboard (brand tier only) -->
+    <div id="bp-dashboard" style="display:none">
+      <div class="bp-dashboard">
+        <div class="bp-dashboard-header">
+          <div class="bp-dashboard-title">Brand Dashboard</div>
+          <div class="bp-dashboard-badge">Brand Pro</div>
+        </div>
+        <div class="bp-dashboard-intro">Exclusive workflow data for your brand. This information is visible only to verified Brand Pro subscribers and does not affect your public NORM score.</div>
+
+        <div id="bp-loading" class="bp-loading">Loading brand report…</div>
+        <div id="bp-error" class="bp-error" style="display:none"></div>
+
+        <!-- Improvement Roadmap -->
+        <div class="bp-section" id="bp-roadmap-sec" style="display:none">
+          <div class="bp-section-title">Improvement Roadmap</div>
+          <div class="bp-roadmap" id="bp-roadmap-list"></div>
+        </div>
+
+        <!-- Gap Analysis -->
+        <div class="bp-section" id="bp-gap-sec" style="display:none">
+          <div class="bp-section-title">Dimension Gap Analysis</div>
+          <div class="bp-gap-grid" id="bp-gap-grid"></div>
+        </div>
+
+        <!-- Full Claim Audit -->
+        <div class="bp-section" id="bp-claims-sec" style="display:none">
+          <div class="bp-section-title">Claim Audit — <span id="bp-claims-count"></span></div>
+          <div class="bp-claim-table" id="bp-claim-table"></div>
+        </div>
+
+        <!-- Competitor Benchmarking -->
+        <div class="bp-section" id="bp-comp-sec" style="display:none">
+          <div class="bp-section-title">Competitor Benchmarking</div>
+          <table class="bp-comp-table">
+            <thead><tr><th>Brand</th><th>Score</th><th>Verdict</th></tr></thead>
+            <tbody id="bp-comp-body"></tbody>
+          </table>
+        </div>
+
+        <!-- Capture Log -->
+        <div class="bp-section" id="bp-capture-sec" style="display:none">
+          <div class="bp-section-title">Capture Log</div>
+          <div class="bp-capture-grid" id="bp-capture-grid"></div>
+          <div class="bp-flags" id="bp-flags"></div>
+        </div>
+
+        <!-- Priority Rescore -->
+        <div class="bp-section">
+          <div class="bp-section-title">Rescore Request</div>
+          <div class="bp-rescore-box">
+            <div class="bp-rescore-desc">Request a rescore after updating your page or adding evidence. Rescores are reviewed on the same basis as all other submissions. Limit: 1 per 7 days.</div>
+            <div class="bp-rescore-fields">
+              <div>
+                <label class="bp-rescore-label">Reason</label>
+                <textarea class="bp-rescore-textarea" id="bp-rescore-reason" placeholder="e.g. Added PubMed links for 3 ingredient claims on /science page"></textarea>
+              </div>
+              <div>
+                <label class="bp-rescore-label">Evidence URLs (one per line, optional)</label>
+                <textarea class="bp-rescore-textarea" id="bp-rescore-urls" placeholder="https://pubmed.ncbi.nlm.nih.gov/..."></textarea>
+              </div>
+            </div>
+            <button class="bp-rescore-btn" id="bp-rescore-btn" onclick="submitRescore()">Request Priority Rescore</button>
+            <div class="bp-rescore-cooldown" id="bp-rescore-cooldown" style="display:none"></div>
+            <div class="bp-rescore-ok" id="bp-rescore-ok"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /state-verified -->
+
+
+  <!-- ══ STATE B: NOT YET ASSESSED ═════════════════════════════ -->
+  <div id="state-not-assessed" style="display:none">
+    <div class="unassessed-card">
+      <div class="unassessed-icon">◎</div>
+      <div class="unassessed-title" id="na-brand">Not in public record</div>
+      <div class="unassessed-sub">This brand has not yet entered the public claim record. Alignment ratings are only published after editorial review — not automatically.</div>
+      <div class="unassessed-demand" id="na-demand" style="display:none"></div>
+      <a class="unassessed-cta" id="na-request-btn" href="#" onclick="track('request_review_click',{domain:domain})">Request an assessment →</a>
+      <div style="margin-top:16px">
+        <button class="btn" style="font-size:12px;padding:7px 15px;margin:0 auto;display:inline-flex" onclick="toggleNotifyForm()">Notify me when reviewed</button>
+      </div>
+      <div class="capture-inline" id="notify-form" style="margin-top:14px;text-align:left">
+        <div class="capture-inline-label">We'll email you when this brand is scored — no spam, just the notification.</div>
+        <div class="capture-inline-form">
+          <input class="capture-inline-input" type="email" id="notify-email" placeholder="your@email.com" autocomplete="email">
+          <button class="capture-inline-btn" id="notify-btn" onclick="submitNotify()">Notify me</button>
+        </div>
+        <div class="capture-inline-ok" id="notify-ok">Got it — we'll reach out when this brand is reviewed.</div>
+        <div class="capture-inline-note">One email when scored. That's it.</div>
+      </div>
+      <div class="unassessed-portal">
+        Are you this brand? <a href="mailto:support@trynorm.co" onclick="track('brand_claim_profile_click',{domain:domain})">Contact us to submit supporting evidence</a>
+      </div>
+    </div>
+  </div><!-- /state-not-assessed -->
+
+
+  <!-- ══ STATE C: ERROR ═════════════════════════════════════════ -->
+  <div id="state-error" style="display:none">
+    <div class="error-card">
+      <div class="error-icon">○</div>
+      <div class="error-title">Record unavailable</div>
+      <div class="error-sub" id="error-sub">We couldn't load this record right now. The API may be temporarily unavailable.</div>
+      <a class="btn btn-primary" href="/">← Back to NORM</a>
+    </div>
+  </div><!-- /state-error -->
+
+</main>
+
+<script>
+var API = "https://bhvd-signal-api.fly.dev";
+
+// Nav auth state
+(function() {
+  var tok = localStorage.getItem('bhvd_token');
+  var accountBtn = document.getElementById('nav-account-btn');
+  var signinBtn = document.getElementById('nav-signin-btn');
+  if (tok && accountBtn && signinBtn) {
+    accountBtn.style.display = '';
+    signinBtn.style.display = 'none';
+  }
+})();
+
+// ── Event tracking ─────────────────────────────────────────────
+function ctTrack(eventName, context) {
+  fetch(API + "/api/event", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ event: eventName, meta: { context: context } })
+  }).catch(function(){});
+}
+
+function ctShow(id, triggerEvent, context) {
+  var el = document.getElementById(id);
+  if (el && el.style.display === "none") {
+    el.style.display = "";
+    fetch(API + "/api/event", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event: triggerEvent, meta: { context: context } })
+    }).catch(function(){});
+  }
+}
+
+function track(event_name, meta) {
+  fetch(API + "/api/event", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ event: event_name, meta: meta || null })
+  }).catch(function(){});
+}
+
+// ── Brand track form ───────────────────────────────────────────
+function toggleTrackForm() {
+  var form = document.getElementById("track-form");
+  var isOpen = form.classList.contains("open");
+  if (!isOpen) {
+    track("track_brand_click", { domain: domain });
+    form.classList.add("open");
+    setTimeout(function(){ document.getElementById("track-email").focus(); }, 50);
+  } else {
+    form.classList.remove("open");
+  }
+}
+
+function submitTrack() {
+  var email = document.getElementById("track-email").value.trim();
+  if (!email || !email.includes("@")) { document.getElementById("track-email").focus(); return; }
+  var btn = document.getElementById("track-btn");
+  btn.disabled = true; btn.textContent = "Saving…";
+  fetch(API + "/api/capture", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: email, type: "consumer_track", domain: domain })
+  })
+  .then(function() {
+    track("consumer_email_signup", { type: "consumer_track", domain: domain });
+    document.getElementById("track-form").querySelector(".capture-inline-form").style.display = "none";
+    document.getElementById("track-ok").style.display = "";
+  })
+  .catch(function() { btn.disabled = false; btn.textContent = "Notify me"; });
+}
+
+// ── Not-assessed notify form ───────────────────────────────────
+function toggleNotifyForm() {
+  var form = document.getElementById("notify-form");
+  var isOpen = form.classList.contains("open");
+  if (!isOpen) {
+    track("notify_when_reviewed_click", { domain: domain });
+    form.classList.add("open");
+    setTimeout(function(){ document.getElementById("notify-email").focus(); }, 50);
+  } else {
+    form.classList.remove("open");
+  }
+}
+
+function submitNotify() {
+  var email = document.getElementById("notify-email").value.trim();
+  if (!email || !email.includes("@")) { document.getElementById("notify-email").focus(); return; }
+  var btn = document.getElementById("notify-btn");
+  btn.disabled = true; btn.textContent = "Saving…";
+  fetch(API + "/api/capture", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: email, type: "consumer_notify", domain: domain })
+  })
+  .then(function() {
+    track("consumer_email_signup", { type: "consumer_notify", domain: domain });
+    document.getElementById("notify-form").querySelector(".capture-inline-form").style.display = "none";
+    document.getElementById("notify-ok").style.display = "";
+  })
+  .catch(function() { btn.disabled = false; btn.textContent = "Notify me"; });
+}
+
+// ── Scoring framework dimension maxes (total = 100) ────────────
+var DIMS = [
+  { label:"Specificity",           key:"specificity",         max:15 },
+  { label:"Mechanism",             key:"mechanism",           max:15 },
+  { label:"Evidence Presence",     key:"evidence_presence",   max:10 },
+  { label:"Evidence Strength",     key:"evidence_strength",   max:25 },
+  { label:"Effect Reality",        key:"effect_reality",      max:15 },
+  { label:"Marketing Honesty", key:"consumer_distortion", max:20 },
+];
+
+var VERDICT_COLOR = {
+  "ALIGNED":"#1e9459","VALIDATED":"#1e9459",
+  "GENERALLY ALIGNED":"#c07718","PARTIALLY ALIGNED":"#b06a10",
+  "OVEREXTENDED":"#9e3028","INFLATED":"#9e3028","EVIDENCE GAP":"#7a2018",
+};
+var SIG_COLOR = { green:"#3ecf82", yellow:"#e8a840", red:"#e05a50" };
+var SIG_LABEL = { green:"Evidence Proportionate", yellow:"Moderate Evidence Gap", red:"Significant Evidence Gap" };
+var BAND_COLOR = { top10:"#1e9459",top25:"#27a864",middle50:"#c07718",bottom25:"#a06010",bottom10:"#9e3028" };
+var CONF_COLOR = { high:"#27ae60", medium:"#f39c12", low:"#e74c3c" };
+var BADGE_MAP  = { aligned:"badge-aligned",partial:"badge-partial",gap:"badge-gap",missing:"badge-missing",reviewed:"badge-reviewed" };
+var BADGE_LABEL = { aligned:"Aligned",partial:"Partial",gap:"Gap",missing:"Missing",reviewed:"Reviewed" };
+
+// ── Safety: strip HTML tags and control chars from API strings ──
+function sanitize(str) {
+  if (str == null) return "";
+  return String(str)
+    .replace(/<[^>]*>/g, "")
+    .replace(/[^\x20-\x7E\xA0-퟿豈-﷏ﷰ-￯\n]/g, " ")
+    .replace(/javascript:/gi, "")
+    .replace(/on\w+\s*=/gi, "")
+    .trim()
+    .slice(0, 2000);
+}
+
+function esc(s) {
+  return sanitize(s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+function setText(id, val) {
+  var el = document.getElementById(id);
+  if (el) el.textContent = sanitize(String(val || ""));
+}
+
+function showEl(id)  { var el=document.getElementById(id); if(el) el.style.display=""; }
+function hideEl(id)  { var el=document.getElementById(id); if(el) el.style.display="none"; }
+function flexEl(id)  { var el=document.getElementById(id); if(el) el.style.display="flex"; }
+
+var SCAN_MESSAGES = [
+  'Reading the fine print…','Following the citations…','Checking what they didn\'t link to…',
+  'Cross-referencing the claims…','Parsing the peer review…','Asking for the study…',
+  'Separating signal from noise…','Pulling the thread…','Tracing the evidence chain…',
+  'Running the receipts…','Looking behind the marketing…','Verifying the science…',
+  'Checking if "clinically proven" means anything here…','Reading what most shoppers skip…',
+  'Auditing the ingredients…'
+];
+var _scanInterval = null;
+var _scanIdx = Math.floor(Math.random() * SCAN_MESSAGES.length);
+function startScanMessages() {
+  var el = document.getElementById('loading-label');
+  if (!el) return;
+  el.textContent = SCAN_MESSAGES[_scanIdx];
+  el.style.opacity = '1';
+  _scanInterval = setInterval(function() {
+    el.style.opacity = '0';
+    setTimeout(function() {
+      _scanIdx = (_scanIdx + 1) % SCAN_MESSAGES.length;
+      el.textContent = SCAN_MESSAGES[_scanIdx];
+      el.style.opacity = '1';
+    }, 200);
+  }, 2800);
+}
+function stopScanMessages() {
+  if (_scanInterval) { clearInterval(_scanInterval); _scanInterval = null; }
+}
+
+function fmtDate(iso) {
+  if (!iso) return null;
+  try { return new Date(iso).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}); }
+  catch(e) { return null; }
+}
+
+function fmtDateShort(iso) {
+  if (!iso) return null;
+  try { return new Date(iso).toLocaleDateString("en-US",{month:"short",year:"numeric"}); }
+  catch(e) { return null; }
+}
+
+// ── Render helpers ─────────────────────────────��───────────────
+function showState(name) {
+  ["state-verified","state-not-assessed","state-error"].forEach(function(id){
+    hideEl(id);
+  });
+  showEl("state-" + name);
+  showEl("page-main");
+  hideEl("loading-screen");
+  stopScanMessages();
+}
+
+function statusBadge(type) {
+  var cfg = {
+    verified:  { cls:"sb-verified",   label:"Verified" },
+    unassessed:{ cls:"sb-unassessed", label:"Not Yet Assessed" },
+    expired:   { cls:"sb-expired",    label:"Assessment Expired" },
+  };
+  var c = cfg[type] || cfg.unassessed;
+  return '<span class="status-badge ' + c.cls + '"><span class="status-badge-dot"></span>' + c.label + '</span>';
+}
+
+// ── Claim diff ─────────────────────────────────────────────────
+function loadClaimDiff(domain) {
+  fetch(API + "/api/claim-diff/" + encodeURIComponent(domain))
+    .then(function(r) { return r.json(); })
+    .then(function(resp) {
+      if (!resp.success || !resp.data || !resp.data.has_diff) return;
+      renderClaimDiff(resp.data);
+    })
+    .catch(function(){});
+}
+
+function renderClaimDiff(d) {
+  var sec     = document.getElementById("diff-sec");
+  var content = document.getElementById("diff-content");
+  if (!sec || !content) return;
+
+  var nNew = d.new_claims.length, nRem = d.removed_claims.length;
+  var mods = d.modified_claims || [];
+  var nMore = mods.filter(function(m){ return m.intensity_change === "increase"; }).length;
+  var nLess = mods.filter(function(m){ return m.intensity_change === "decrease"; }).length;
+  var nWord = mods.filter(function(m){ return m.intensity_change === "neutral";  }).length;
+  if (!nNew && !nRem && !mods.length) return;
+
+  // Claim volatility pressure signal
+  var totalChanges = nNew + nRem + mods.length;
+  var pressureLayer = document.getElementById("pressure-layer");
+  if (pressureLayer && totalChanges > 0) {
+    var volEl = document.createElement("div");
+    volEl.className = "pressure-signal";
+    volEl.textContent = "Claim language changed " + totalChanges + (totalChanges === 1 ? " time" : " times") + " in the last 30 days.";
+    pressureLayer.appendChild(volEl);
+    pressureLayer.style.display = "flex";
+  }
+
+  var bDate = fmtDate(d.before_date) || d.before_date;
+  var aDate = fmtDate(d.after_date)  || d.after_date;
+
+  var html = '<div class="diff-meta">Comparing ' + esc(bDate) + ' → ' + esc(aDate) + '</div>';
+  html += '<div class="diff-pills">';
+  if (nNew)  html += '<span class="diff-pill diff-pill-add">+' + nNew + ' ' + (nNew === 1 ? 'claim' : 'claims') + ' added</span>';
+  if (nRem)  html += '<span class="diff-pill diff-pill-remove">−' + nRem + ' ' + (nRem === 1 ? 'claim' : 'claims') + ' no longer present</span>';
+  if (nMore) html += '<span class="diff-pill diff-pill-mod">' + nMore + ' became more definitive</span>';
+  if (nLess) html += '<span class="diff-pill diff-pill-mod">' + nLess + ' became less definitive</span>';
+  if (nWord) html += '<span class="diff-pill diff-pill-mod">' + nWord + ' wording changed</span>';
+  html += '</div>';
+
+  if (nNew) {
+    html += '<details class="diff-details"><summary>' +
+      '<span class="diff-mark diff-mark-add">+</span>' +
+      nNew + (nNew === 1 ? ' claim' : ' claims') + ' added' +
+      '</summary><div class="diff-rows">' +
+      d.new_claims.map(function(c) {
+        return '<div class="diff-row-add"><span class="diff-mark diff-mark-add">+</span><span>' + esc(c) + '</span></div>';
+      }).join("") + '</div></details>';
+  }
+
+  if (nRem) {
+    html += '<details class="diff-details"><summary>' +
+      '<span class="diff-mark diff-mark-remove">−</span>' +
+      nRem + (nRem === 1 ? ' claim' : ' claims') + ' no longer present' +
+      '</summary><div class="diff-rows">' +
+      d.removed_claims.map(function(c) {
+        return '<div class="diff-row-remove"><span class="diff-mark diff-mark-remove">−</span><span>' + esc(c) + '</span></div>';
+      }).join("") + '</div></details>';
+  }
+
+  if (mods.length) {
+    html += '<details class="diff-details"><summary>' +
+      '<span class="diff-mark diff-mark-mod">~</span>' +
+      mods.length + (mods.length === 1 ? ' claim' : ' claims') + ' — language changed' +
+      '</summary><div class="diff-rows">' +
+      mods.map(function(m) {
+        var chgLbl = m.intensity_change === "increase" ? "language became more definitive"
+          : m.intensity_change === "decrease" ? "language became less definitive"
+          : "wording changed";
+        return '<div class="diff-row-mod">' +
+          '<div class="diff-lbl diff-lbl-before">before</div>' +
+          '<div>' + esc(m.before) + '</div>' +
+          '<div class="diff-lbl diff-lbl-after">after</div>' +
+          '<div>' + esc(m.after) + '</div>' +
+          '<div class="diff-chg-lbl">' + esc(chgLbl) + '</div>' +
+          '</div>';
+      }).join("") + '</div></details>';
+  }
+
+  content.innerHTML = html;
+  sec.style.display = "";
+  ctShow("ct-claimdiff", "consumer_pro_trigger_view", "claim_diff");
+}
+
+// ── Sparkline ──────────────────────────────────────────────────
+function renderSparkline(history, color) {
+  var wrap = document.getElementById("rh-sparkline-wrap");
+  var svg  = document.getElementById("rh-sparkline");
+  var lbl  = document.getElementById("rh-sparkline-lbl");
+  if (!wrap || !svg || !lbl || !history || history.length < 2) return;
+
+  var scores = history.map(function(h) { return h.score; });
+  var minS = Math.min.apply(null, scores);
+  var maxS = Math.max.apply(null, scores);
+  // Ensure at least 12pt Y range so flat lines don't collapse
+  var yMin = Math.min(minS, maxS - 12);
+  var yMax = Math.max(maxS, yMin + 12);
+
+  var W = 88, H = 24, pad = 3;
+  var pts = scores.map(function(s, i) {
+    var x = pad + (scores.length < 2 ? W / 2 : i * (W - pad * 2) / (scores.length - 1));
+    var y = H - pad - ((s - yMin) / (yMax - yMin)) * (H - pad * 2);
+    return [x, y];
+  });
+
+  var polyPts = pts.map(function(p) { return p[0] + "," + p[1]; }).join(" ");
+  var dots = pts.map(function(p, i) {
+    if (i !== 0 && i !== pts.length - 1) return "";
+    var r = i === pts.length - 1 ? 2.5 : 1.5;
+    var c = i === pts.length - 1 ? color : "rgba(255,255,255,0.25)";
+    return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + r + '" fill="' + c + '"/>';
+  }).join("");
+
+  svg.innerHTML =
+    '<polyline points="' + polyPts + '" fill="none" stroke="' + color + '" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" opacity="0.8"/>' +
+    dots;
+
+  var delta = scores[scores.length - 1] - scores[0];
+  var trend, trendColor;
+  if (delta >= 3)       { trend = "improving"; trendColor = "#27ae60"; }
+  else if (delta <= -3) { trend = "declining";  trendColor = "#e74c3c"; }
+  else                  { trend = "stable";     trendColor = "var(--t3)"; }
+
+  lbl.textContent = trend;
+  lbl.style.color = trendColor;
+  wrap.style.display = "";
+}
+
+// ── Render: verified brand ─────────────────────────────────────
+function renderVerified(brand, product, ld, dims, demand) {
+  var score = ld.total_score != null ? ld.total_score : Math.round(100 - (product.claim_support_risk || 50));
+  var sig   = score >= 68 ? "green" : score >= 55 ? "yellow" : "red";  // green≥68 yellow≥55 red<55
+  var color = SIG_COLOR[sig] || "#f39c12";
+  var score0  = ld.total_score != null ? ld.total_score : Math.round(100 - (product.claim_support_risk || 50));
+  var verdict = ld.bhvd_verdict || brand.verdict || (
+    score0 >= 75 ? "ALIGNED" : score0 >= 68 ? "VALIDATED" : score0 >= 60 ? "GENERALLY ALIGNED" :
+    score0 >= 55 ? "PARTIALLY ALIGNED" : score0 >= 40 ? "OVEREXTENDED" : "EVIDENCE GAP"
+  );
+
+  document.title = esc(brand.brand_name || brand.domain) + " · Public Claim Record · NORM";
+
+  // Status badge
+  var expired = ld.valid_until && new Date(ld.valid_until) < new Date();
+  var badgeEl = document.getElementById("hdr-status-badge");
+  if (badgeEl) badgeEl.innerHTML = statusBadge(expired ? "expired" : "verified");
+
+  // Header
+  setText("rh-brand",    brand.brand_name || brand.domain);
+  var domEl = document.getElementById("rh-domain");
+  if (domEl) {
+    var siteUrl = brand.website_url || ("https://" + brand.domain);
+    domEl.innerHTML = '<a href="' + esc(siteUrl) + '" target="_blank" rel="noopener" class="rh-domain-link">' + esc(brand.domain) + ' ↗</a>';
+  }
+  setText("rh-category", (product.category || "").replace(/_/g," "));
+
+  var scoreEl = document.getElementById("rh-score");
+  if (scoreEl) { scoreEl.textContent = score; scoreEl.style.color = color; }
+
+  var verdEl = document.getElementById("rh-verdict");
+  if (verdEl) {
+    verdEl.textContent = verdict;
+    verdEl.style.color = color;
+    verdEl.style.borderColor = color + "40";
+    verdEl.style.background  = color + "0d";
+  }
+
+  renderSparkline(Array.isArray(ld.score_history) ? ld.score_history : [], color);
+
+  // Compare CTA
+  var cmpBar = document.getElementById("compare-cta-bar");
+  var cmpLink = document.getElementById("compare-cta-link");
+  if (cmpBar && cmpLink && brand.domain) {
+    cmpLink.href = '/compare?a=' + encodeURIComponent(brand.domain);
+    cmpBar.style.display = 'flex';
+  }
+
+  // Meta row
+  setText("meta-signal",  sig.charAt(0).toUpperCase()+sig.slice(1) + " — " + (SIG_LABEL[sig]||""));
+  document.getElementById("meta-signal") && (document.getElementById("meta-signal").style.color = color);
+  if (ld.pricing_drag) { setText("meta-pricing", ld.pricing_drag + (ld.pricing_note ? " — "+ld.pricing_note : "")); document.getElementById("meta-pricing-wrap").style.display = ""; }
+  if (ld.capital_signal) { setText("meta-capital", ld.capital_signal); document.getElementById("meta-capital-wrap").style.display = ""; }
+  if (ld.business_flag)  { setText("meta-biz",     ld.business_flag);  document.getElementById("meta-biz-wrap").style.display  = ""; }
+
+  var conf = ld.data_confidence || ld.data_integrity || null;
+  if (conf) {
+    var confEl = document.getElementById("meta-confidence");
+    if (confEl) {
+      confEl.textContent = conf.charAt(0).toUpperCase() + conf.slice(1);
+      confEl.style.color = CONF_COLOR[conf.toLowerCase()] || "var(--t1)";
+    }
+  }
+
+  var verifiedDate = fmtDate(ld.reviewed_at || product.last_scanned_at);
+  if (verifiedDate) setText("meta-verified", verifiedDate);
+
+  // Populate scope callout
+  var scopeDomEl = document.getElementById("scope-domain");
+  if (scopeDomEl && brand.domain) scopeDomEl.textContent = brand.domain;
+  var scopeDateEl = document.getElementById("scope-date");
+  if (scopeDateEl) scopeDateEl.textContent = verifiedDate || "unknown";
+  var scopeConfEl = document.getElementById("scope-confidence");
+  if (scopeConfEl) scopeConfEl.textContent = conf ? conf.charAt(0).toUpperCase() + conf.slice(1) : "—";
+  var scopeDispEl = document.getElementById("scope-dispute-link");
+  if (scopeDispEl && brand.domain) {
+    scopeDispEl.href = "mailto:support@trynorm.co?subject=Score%20Dispute%20%E2%80%94%20" + encodeURIComponent(brand.domain);
+  }
+
+  if (ld.valid_until) {
+    var vu = fmtDate(ld.valid_until);
+    if (vu) {
+      var vuEl = document.getElementById("meta-valid-until");
+      if (vuEl) { vuEl.textContent = vu; if (expired) vuEl.style.color = "#e74c3c"; }
+    }
+  }
+
+  // Category standing (meta row)
+  var rankForMeta = brand.category_benchmark ? brand.category_benchmark.category_rank : product.rank_number;
+  if (rankForMeta) {
+    var standEl = document.getElementById("meta-standing");
+    if (standEl) { standEl.textContent = "#" + rankForMeta + " in category"; standEl.style.display = ""; }
+  }
+
+  // Category Benchmark card
+  var cb = brand.category_benchmark;
+  if (cb) {
+    var catBarEl = document.getElementById("cat-bar");
+    if (catBarEl) {
+      // Standing label + color
+      var standingEl = document.getElementById("cat-bar-standing");
+      if (standingEl) {
+        standingEl.textContent = cb.category_standing || "";
+        standingEl.className = "cat-bar-standing " + (
+          (cb.category_standing || "").indexOf("Above") >= 0 ? "cat-bar-standing-above" :
+          (cb.category_standing || "").indexOf("Below") >= 0 ? "cat-bar-standing-below" :
+          "cat-bar-standing-inline"
+        );
+      }
+      // Cells
+      setText("cb-brand-score",  cb.brand_score);
+      setText("cb-cat-avg",      cb.category_avg);
+      setText("cb-cat-median",   cb.category_median != null ? cb.category_median : "—");
+      setText("cb-rank",         "#" + cb.category_rank + " / " + cb.category_total);
+      setText("cb-percentile",   cb.category_percentile + "th");
+      // Delta
+      var deltaEl = document.getElementById("cb-delta");
+      if (deltaEl && cb.category_delta_vs_avg != null) {
+        var d = cb.category_delta_vs_avg;
+        var sign = d > 0 ? "+" : "";
+        deltaEl.textContent = sign + d;
+        deltaEl.className = "cat-bench-val-delta " + (d > 0 ? "cat-bench-val-delta-up" : d < 0 ? "cat-bench-val-delta-down" : "");
+      }
+      // Progress bar (percentile as fill)
+      var fillEl = document.getElementById("cat-bar-fill");
+      if (fillEl) {
+        fillEl.style.width = cb.category_percentile + "%";
+        fillEl.style.background = (cb.category_standing || "").indexOf("Above") >= 0 ? "#1e9459" :
+          (cb.category_standing || "").indexOf("Below") >= 0 ? "#c07718" : "#4a78f0";
+      }
+      catBarEl.style.display = "";
+    }
+  }
+
+  // Demand bar
+  renderDemand(demand, brand.domain || "");
+
+  // Executive summary — prefer detailed verdict for depth; show consumer_summary as action note below
+  var summary = sanitize(ld.why_this_verdict || product.consumer_summary || ld.consumer_note || brand.summary || "");
+  setText("exec-verdict", summary || verdict);
+  var actionNote = ld.why_this_verdict ? sanitize(product.consumer_summary || ld.consumer_note || "") : sanitize(ld.consumer_note || brand.summary || "");
+  if (actionNote && actionNote !== summary) {
+    setText("exec-consumer-text", actionNote);
+    showEl("exec-consumer");
+  }
+
+  // Influencer echo section — data from API response (brand.influencer_deals)
+  // API returns full array for Pro, aggregate object { count, total_reach } for free.
+  // Names are never in the free-tier API response — frontend gating is secondary defence only.
+  (function() {
+    var raw = brand.influencer_deals;
+    if (!raw) return;
+
+    var count, totalReach, pillsHtml = "", undisclosed = 0;
+
+    if (Array.isArray(raw)) {
+      // Pro tier — full deal rows
+      var seen = {};
+      var influencers = [];
+      raw.forEach(function(d) {
+        if (!seen[d.influencer_name]) {
+          seen[d.influencer_name] = true;
+          influencers.push({ name: d.influencer_name, subs: d.subscribers || 0 });
+        }
+      });
+      count = influencers.length;
+      totalReach = influencers.reduce(function(s, i) { return s + i.subs; }, 0);
+      undisclosed = raw.filter(function(d) { return d.disclosure_type === "none"; }).length;
+      pillsHtml = influencers.map(function(i) {
+        return '<span class="ie-pill">' + sanitize(i.name) + '</span>';
+      }).join("");
+    } else {
+      // Free tier — aggregate only
+      count = raw.count || 0;
+      totalReach = raw.total_reach || 0;
+    }
+
+    if (!count) return;
+
+    var reachLabel = totalReach >= 1e6
+      ? (totalReach / 1e6).toFixed(1) + "M"
+      : totalReach >= 1e3 ? Math.round(totalReach / 1e3) + "K" : String(totalReach);
+
+    var noteText = undisclosed > 0
+      ? undisclosed + " mention(s) without visible #ad or paid-partnership disclosure."
+      : "All detected mentions include a disclosure marker.";
+
+    var ieEl = document.getElementById("ie-body");
+    if (!ieEl) return;
+
+    ieEl.innerHTML =
+      '<div class="ie-card">' +
+        '<div class="ie-stat-row">' +
+          '<div class="ie-stat"><span class="ie-stat-val">' + count + '</span><span class="ie-stat-lbl">Influencers</span></div>' +
+          '<div class="ie-stat"><span class="ie-stat-val">' + reachLabel + '</span><span class="ie-stat-lbl">Combined Reach</span></div>' +
+          (Array.isArray(raw) ? '<div class="ie-stat"><span class="ie-stat-val">' + undisclosed + '</span><span class="ie-stat-lbl">Undisclosed</span></div>' : '') +
+        '</div>' +
+        '<div class="ie-influencer-list ie-influencer-list--locked" id="ie-names-locked">' +
+          '<div class="flags-locked" style="margin-top:8px">' +
+            '<svg width="11" height="11" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;opacity:.6"><rect x="3" y="6" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 6V4.5a2 2 0 1 1 4 0V6" stroke="currentColor" stroke-width="1.3"/></svg>' +
+            '<span>Influencer names — <a href="/pricing" style="color:var(--acc)">unlock with Pro</a></span>' +
+          '</div>' +
+        '</div>' +
+        (pillsHtml ? '<div class="ie-influencer-list" id="ie-names-pro" style="display:none">' + pillsHtml + '</div>' : '') +
+        (Array.isArray(raw) ? '<div class="ie-note">' + sanitize(noteText) + ' NORM does not score influencer reach — this is context only.</div>' : '') +
+      '</div>';
+    showEl("ie-sec");
+  })();
+
+  // Claim receipts (from gap_map + claims_found)
+  var receiptsEl = document.getElementById("receipts-list");
+  var capturedDate = fmtDateShort(product.last_scanned_at) || "Unknown";
+  var sourceLabel  = brand.domain || "brand page";
+
+  if (receiptsEl) {
+    var receipts = [];
+
+    if (ld.gap_map && ld.gap_map.length) {
+      receipts = ld.gap_map.map(function(g) {
+        return {
+          claim:    sanitize(g.claim),
+          evidence: sanitize(g.evidence),
+          status:   g.status || "gap",
+          hasEvidence: !!g.evidence,
+        };
+      });
+    } else if (ld.claims_found && ld.claims_found.length) {
+      receipts = ld.claims_found.slice(0,8).map(function(c) {
+        return { claim: sanitize(c), evidence: null, status: "reviewed", hasEvidence: false };
+      });
+    }
+
+    if (receipts.length) {
+      receiptsEl.innerHTML = receipts.map(function(r) {
+        var bClass = BADGE_MAP[r.status]  || "badge-gap";
+        var bLabel = BADGE_LABEL[r.status]|| r.status;
+        var ev = (r.evidence || "").toLowerCase();
+        var tags = [];
+        // Use structured evidence_type if available (new pipeline), else parse text
+        var ET = { rct:'RCT', observational:'Observational', peer_reviewed:'Peer-reviewed',
+                   brand_funded:'Brand-funded', animal_lab:'Animal/lab only', none:'No evidence found' };
+        var EC = { rct:'#1e9459', observational:'#8b93b0', peer_reviewed:'#4a78f0',
+                   brand_funded:'#c07718', animal_lab:'#8b93b0', none:'#9e3028' };
+        if (r.evidence_type && ET[r.evidence_type]) {
+          tags.push({t: ET[r.evidence_type], c: EC[r.evidence_type]});
+        } else {
+          if (/\brct\b|randomized.{0,20}trial|placebo.control/.test(ev))          tags.push({t:'RCT', c:'#1e9459'});
+          else if (/peer.reviewed|pubmed|pmid|published/.test(ev))                tags.push({t:'Peer-reviewed', c:'#4a78f0'});
+          if (/brand.run|industry.funded|brand.sponsored|company.funded/.test(ev)) tags.push({t:'Brand-funded', c:'#c07718'});
+          if (/observational|self.report|survey/.test(ev))                         tags.push({t:'Observational', c:'#8b93b0'});
+          if (/animal|in.vitro|in vitro|cell/.test(ev))                            tags.push({t:'Animal/lab only', c:'#8b93b0'});
+          if (/absent|no.published|no.trial|no.study|no.evidence|no.peer/.test(ev) || !r.evidence) tags.push({t:'No evidence found', c:'#9e3028'});
+        }
+        var tagsHtml = tags.length
+          ? '<div class="receipt-tags">' + tags.map(function(tg) {
+              return '<span class="receipt-tag" style="border-color:' + tg.c + ';color:' + tg.c + '">' + tg.t + '</span>';
+            }).join('') + '</div>'
+          : '';
+        var evidenceHtml = r.hasEvidence
+          ? '<div class="receipt-evidence"><div class="receipt-evidence-label">What the evidence shows</div>' + esc(r.evidence) + '</div>'
+          : (r.status === 'gap' ? '<div class="receipt-evidence" style="color:var(--t3);font-style:italic">No supporting evidence found for this claim.</div>' : '');
+        return '<div class="receipt-row">' +
+          '<div class="receipt-header">' +
+            '<div class="receipt-claim">' + esc(r.claim) + '</div>' +
+            '<div class="receipt-badge"><span class="gap-badge ' + bClass + '">' + bLabel + '</span></div>' +
+          '</div>' +
+          tagsHtml +
+          evidenceHtml +
+          '<div class="receipt-meta">' +
+            '<span class="receipt-meta-item">Captured: ' + esc(capturedDate) + '</span>' +
+          '</div>' +
+        '</div>';
+      }).join("");
+      showEl("receipts-sec");
+    } else if (brand.teaser_claim) {
+      // Free tier — show real claim text, lock the evidence verdict
+      var teaserEl   = document.getElementById("claim-locked-teaser");
+      var badgeEl    = document.getElementById("claim-teaser-badge");
+      var textEl     = document.getElementById("claim-teaser-text");
+      var STATUS_BADGE = { gap: "badge-gap", partial: "badge-partial", missing: "badge-gap", aligned: "badge-aligned" };
+      var STATUS_LABEL = { gap: "GAP", partial: "PARTIAL", missing: "GAP", aligned: "ALIGNED" };
+      var st = brand.teaser_claim.status || "partial";
+      if (badgeEl) { badgeEl.textContent = STATUS_LABEL[st] || "FLAGGED"; badgeEl.className = "gap-badge " + (STATUS_BADGE[st] || "badge-partial"); }
+      if (textEl)  { textEl.textContent = "“" + brand.teaser_claim.claim + "”"; }
+      if (teaserEl) teaserEl.style.display = "";
+      showEl("receipts-sec");
+    }
+  }
+
+  // Raw claim receipts (verbatim scraped claims)
+  var rawClaimsList = document.getElementById("raw-claims-list");
+  var rawClaimsSec  = document.getElementById("raw-claims-sec");
+  var rawReceipts   = ld.claim_receipts || [];
+  if (rawClaimsList && rawReceipts.length) {
+    var tierLabel = { 1: "High risk", 2: "Standard", 3: "Contextual" };
+    var tierClass = { 1: "raw-claim-tier-1", 2: "raw-claim-tier-2", 3: "raw-claim-tier-3" };
+    rawClaimsList.innerHTML = rawReceipts.map(function(rc) {
+      var tier = rc.tier || 2;
+      var srcFull  = (rc.source_url || "").split(" ")[0];
+      var srcShort = srcFull.replace(/^https?:\/\//, "").split("?")[0];
+      return '<div class="raw-claim-row">' +
+        '<div class="raw-claim-text">' + esc(rc.text || rc.text_snippet || "") + '</div>' +
+        '<div class="raw-claim-meta">' +
+          '<span class="raw-claim-tier ' + (tierClass[tier] || "raw-claim-tier-2") + '">' + (tierLabel[tier] || "Claim") + '</span>' +
+          (srcShort ? '<span class="raw-claim-src"><a href="' + esc(srcFull) + '" target="_blank" rel="noopener">' + esc(srcShort) + '</a></span>' : '') +
+        '</div>' +
+      '</div>';
+    }).join("");
+    var countEl = document.getElementById("raw-claims-count");
+    if (countEl) countEl.textContent = "(" + rawReceipts.length + " extracted)";
+    if (rawClaimsSec) rawClaimsSec.style.display = "";
+  }
+
+  // Evidence signals detected
+  var evSignalSec  = document.getElementById("ev-signals-sec");
+  var evSignalList = document.getElementById("ev-signal-list");
+  var evSignals    = ld.extraction_evidence || [];
+  var externalUrls = ld.external_evidence_urls || [];
+  if (evSignalList && (evSignals.length || externalUrls.length)) {
+    evSignalList.innerHTML = evSignals.map(function(s) {
+      return '<span class="ev-signal-tag">' + esc(s) + '</span>';
+    }).join("");
+    var evNote = document.getElementById("ev-signals-note");
+    if (evNote) {
+      if (externalUrls.length) {
+        evNote.innerHTML = externalUrls.map(function(u) {
+          return '<a href="' + esc(u) + '" target="_blank" rel="noopener" style="color:var(--acc);font-size:12px;display:block;margin-top:4px;word-break:break-all">' + esc(u) + '</a>';
+        }).join("");
+      } else if (!evSignals.length) {
+        evNote.textContent = "No evidence signals detected on publicly visible pages at scan time.";
+        evNote.style.color = "var(--t3)";
+      }
+    }
+    if (evSignalSec) evSignalSec.style.display = "";
+  }
+
+  // Capture report
+  var capReportSec  = document.getElementById("capture-report-sec");
+  var capGrid       = document.getElementById("capture-grid");
+  var capReport     = ld.capture_report || {};
+  var pagesAttempted = ld.scrape_pages_attempted || capReport.pages_discovered || null;
+  var pagesCaptured  = ld.scrape_pages || capReport.pages_captured || null;
+  var claimsExtracted = ld.extraction_claim_count || capReport.claims_extracted || null;
+  var captureMethod  = (capReport.best_capture_method || ld.capture_method || "crawler").replace(/_/g," ");
+  var capGaps        = (capReport.unresolved_capture_gaps || []).filter(function(g){ return g && g !== "firecrawl_not_configured"; });
+  if (capGrid && (pagesAttempted != null || claimsExtracted != null)) {
+    var stats = [];
+    if (pagesCaptured != null && pagesAttempted != null) {
+      stats.push({ val: pagesCaptured + " / " + pagesAttempted, lbl: "Pages captured" });
+    } else if (pagesCaptured != null) {
+      stats.push({ val: pagesCaptured, lbl: "Pages captured" });
+    }
+    if (claimsExtracted != null) stats.push({ val: claimsExtracted, lbl: "Claims extracted" });
+    stats.push({ val: captureMethod, lbl: "Capture method" });
+    capGrid.innerHTML = stats.map(function(s) {
+      return '<div class="capture-stat"><div class="capture-stat-val">' + esc(String(s.val)) + '</div><div class="capture-stat-lbl">' + esc(s.lbl) + '</div></div>';
+    }).join("");
+    if (capGaps.length) {
+      var capGapList = document.getElementById("capture-gap-list");
+      var capGapsWrap = document.getElementById("capture-gaps-wrap");
+      if (capGapList) {
+        capGapList.innerHTML = capGaps.map(function(g) {
+          return '<span class="capture-gap-tag">' + esc(g.replace(/_/g," ")) + '</span>';
+        }).join("");
+      }
+      if (capGapsWrap) capGapsWrap.style.display = "";
+    }
+    if (capReportSec) capReportSec.style.display = "";
+  }
+
+  // Evidence cards — seeder schema has evidence_presence/evidence_strength directly;
+  // fallback to equivalent dimensions from brand.dimensions (pre-normalized 0-100)
+  var epVal = dims.evidence_presence != null ? dims.evidence_presence : null;
+  var esVal = dims.evidence_strength  != null ? dims.evidence_strength  : null;
+  if ((epVal == null || esVal == null) && brand.dimensions && brand.dimensions.length) {
+    brand.dimensions.forEach(function(d) {
+      var n = d.name;
+      if (epVal == null && (n === "source_transparency" || n === "evidence_alignment")) epVal = Math.round(d.score / 10);
+      if (esVal == null && (n === "evidence_alignment" || n === "mechanism_integrity")) esVal = Math.round(d.score / 4);
+    });
+  }
+  if (epVal != null) {
+    var ep = document.getElementById("ev-presence");
+    if (ep) {
+      ep.textContent = epVal + " / 10";
+      ep.style.color = epVal >= 7 ? "#27ae60" : epVal >= 4 ? "#f39c12" : "#e74c3c";
+    }
+  }
+  if (esVal != null) {
+    var es = document.getElementById("ev-strength");
+    if (es) {
+      es.textContent = esVal + " / 25";
+      es.style.color = esVal >= 15 ? "#27ae60" : esVal >= 8 ? "#f39c12" : "#e74c3c";
+    }
+  }
+  var findingsEl = document.getElementById("findings-list");
+  if (findingsEl && ld.pubmed_findings && ld.pubmed_findings.length) {
+    var negRe = /\b(not|no significant|no evidence|does not|did not|failed|inconsistent|weak|insufficient|limited|conflicting|indirect|animal|in vitro|small sample|underpowered|industry.funded|manufacturer.funded)\b/i;
+    var posRe = /\b(supports|supported|significant|demonstrated|effective|efficacy|confirmed|validated|robust|replicated|independent|peer.reviewed|randomized|double.blind|placebo)\b/i;
+    findingsEl.innerHTML = '<div class="findings-header">Clinical Evidence Assessment — findings reviewed for alignment with marketed claims</div>' +
+      ld.pubmed_findings.map(function(f){
+        var isNeg = negRe.test(f);
+        var isPos = !isNeg && posRe.test(f);
+        var badge = isNeg
+          ? '<span class="finding-badge finding-badge-warn">⚠ Alignment concern</span>'
+          : isPos
+          ? '<span class="finding-badge finding-badge-ok">✓ Consistent</span>'
+          : '<span class="finding-badge finding-badge-neutral">~ Mixed / indirect</span>';
+        return '<div class="finding-item">' + badge + '<span class="finding-text">' + esc(f) + '</span></div>';
+      }).join("");
+  }
+
+  // Scoring breakdown
+  var dimsEl = document.getElementById("score-dims");
+  if (dimsEl) {
+    // Try new seeder schema first (specificity/mechanism/etc.)
+    var dimMatches = DIMS.filter(function(d){ return dims[d.key] != null; }).length;
+    var hasDims = dimMatches >= 5;
+
+    if (hasDims) {
+      if (scoreEl) { scoreEl.textContent = score; scoreEl.style.color = color; }
+      if (verdEl)  { verdEl.style.color = color; verdEl.style.borderColor = color+"40"; verdEl.style.background = color+"0d"; }
+
+      var dimTotal = DIMS.reduce(function(acc, d){
+        return acc + (dims[d.key] != null ? Math.min(dims[d.key], d.max) : 0);
+      }, 0);
+      var dimsInSync = Math.abs(dimTotal - score) <= 5;
+
+      if (!dimsInSync) {
+        // Dimension breakdown is from a stale scoring run — show total only until rescored
+        dimsEl.innerHTML =
+          '<div class="dim-total-row">' +
+            '<div class="dim-total-label">Total Score</div>' +
+            '<div class="dim-total-score" style="color:'+color+'">'+score+' / 100</div>' +
+          '</div>';
+      } else {
+        var hasGaps = false;
+        dimsEl.innerHTML = DIMS.map(function(d){
+          var val = dims[d.key] != null ? Math.min(dims[d.key], d.max) : null;
+          var pct = (val != null && d.max) ? Math.round(val/d.max*100) : 0;
+          var c   = pct >= 65 ? "#3ecf82" : pct >= 40 ? "#e8a840" : "#e05a50";
+          if (val != null && pct < 40) hasGaps = true;
+          return '<div class="dim-row">' +
+            '<div class="dim-name">'+esc(d.label)+'</div>'+
+            '<div class="dim-bar-wrap"><div class="dim-bar-fill" style="width:'+pct+'%;background:'+c+'"></div></div>'+
+            '<div class="dim-score" style="color:'+c+'">'+(val!=null?val:"—")+'</div>'+
+            '<div class="dim-max">/ '+d.max+'</div>'+
+          '</div>';
+        }).join("") +
+        '<div class="dim-total-row">' +
+          '<div class="dim-total-label">Total Score</div>' +
+          '<div class="dim-total-score" style="color:'+color+'">'+score+' / 100</div>' +
+        '</div>';
+        if (hasGaps) ctShow("ct-gaps", "brand_tools_trigger_view", "evidence_gap");
+      }
+
+    } else if (brand.dimensions && brand.dimensions.length >= 4) {
+      // Check if these are old-schema risk-inverted dims (regulatory_risk, claim_specificity, etc.)
+      // Those dims are NOT comparable to the overall score — suppress them to avoid misleading bars
+      var OLD_KEYS = ['regulatory_risk','claim_specificity','evidence_alignment','mechanism_integrity',
+                      'source_transparency','comparative_fairness','trust_signal_integrity'];
+      var isOldSchema = brand.dimensions.some(function(d){ return OLD_KEYS.indexOf(d.name) !== -1; });
+
+      if (isOldSchema) {
+        // Render old-schema dims using top-level brand.dimensions (quality-inverted 0-100 scores)
+        var OLD_LABEL = {
+          regulatory_risk: 'Regulatory Risk', claim_specificity: 'Claim Specificity',
+          evidence_alignment: 'Evidence Alignment', mechanism_integrity: 'Mechanism Integrity',
+          source_transparency: 'Transparency', comparative_fairness: 'Comparative Fairness',
+          trust_signal_integrity: 'Trust Signal Integrity'
+        };
+        var hasOldGaps = false;
+        var oldBars = brand.dimensions.map(function(d) {
+          var pct = Math.min(Math.max(Math.round(d.score), 0), 100);
+          var c   = pct >= 65 ? "#3ecf82" : pct >= 40 ? "#e8a840" : "#e05a50";
+          if (pct < 40) hasOldGaps = true;
+          var lbl = OLD_LABEL[d.name] || d.label || d.name;
+          return '<div class="dim-row">' +
+            '<div class="dim-name">'+esc(lbl)+'</div>'+
+            '<div class="dim-bar-wrap"><div class="dim-bar-fill" style="width:'+pct+'%;background:'+c+'"></div></div>'+
+            '<div class="dim-score" style="color:'+c+'">'+pct+'</div>'+
+            '<div class="dim-max">/ 100</div>'+
+          '</div>';
+        }).join("");
+        dimsEl.innerHTML = oldBars +
+          '<div class="dim-total-row">' +
+            '<div class="dim-total-label">Total Score</div>' +
+            '<div class="dim-total-score" style="color:'+color+'">'+score+' / 100</div>' +
+          '</div>';
+        if (hasOldGaps) ctShow("ct-gaps", "brand_tools_trigger_view", "evidence_gap");
+      } else {
+        // New-style pre-normalized dims (non-old-schema) — render bars
+        var hasGaps2 = false;
+        dimsEl.innerHTML = brand.dimensions.map(function(d){
+          var pct = Math.min(Math.max(Math.round(d.score), 0), 100);
+          var c   = pct >= 65 ? "#3ecf82" : pct >= 40 ? "#e8a840" : "#e05a50";
+          if (pct < 40) hasGaps2 = true;
+          return '<div class="dim-row">' +
+            '<div class="dim-name">'+esc(d.label)+'</div>'+
+            '<div class="dim-bar-wrap"><div class="dim-bar-fill" style="width:'+pct+'%;background:'+c+'"></div></div>'+
+            '<div class="dim-score" style="color:'+c+'">'+pct+'</div>'+
+            '<div class="dim-max">/ 100</div>'+
+          '</div>';
+        }).join("") +
+        '<div class="dim-total-row">' +
+          '<div class="dim-total-label">Total Score</div>' +
+          '<div class="dim-total-score" style="color:'+color+'">'+score+' / 100</div>' +
+        '</div>';
+        if (hasGaps2) ctShow("ct-gaps", "brand_tools_trigger_view", "evidence_gap");
+      }
+
+    } else {
+      dimsEl.innerHTML =
+        '<div style="padding:20px 0;color:var(--t3);font-size:13px;font-family:var(--mono);letter-spacing:.03em">' +
+          'Detailed dimension scoring for this brand.' +
+        '</div>' +
+        '<div class="dim-total-row">' +
+          '<div class="dim-total-label">Total Score</div>' +
+          '<div class="dim-total-score" style="color:'+color+'">'+score+' / 100</div>' +
+        '</div>';
+    }
+  }
+
+  // Evidence gaps — show flagged reasons from product or brand level
+  var flagsSec  = document.getElementById("flags-sec");
+  var flagsList = document.getElementById("flags-list");
+  var flagReasons = (product.why_flagged_top_reasons && product.why_flagged_top_reasons.length)
+    ? product.why_flagged_top_reasons
+    : (brand.why_flagged_top_reasons && brand.why_flagged_top_reasons.length)
+    ? brand.why_flagged_top_reasons : [];
+  if (flagsList && flagReasons.length) {
+    // Show first gap free, lock the rest behind Pro
+    var visibleFlags = flagReasons.slice(0, 1);
+    var lockedCount  = flagReasons.length - 1;
+    flagsList.innerHTML = visibleFlags.map(function(r) {
+      return '<div class="flag-item"><span class="flag-icon">▲</span><span class="flag-text">' + esc(r) + '</span></div>';
+    }).join("");
+    var lockedEl = document.getElementById("flags-locked");
+    if (lockedEl) lockedEl.style.display = "";
+    if (flagsSec) flagsSec.style.display = "";
+  } else {
+    if (flagsSec) flagsSec.style.display = "none";
+  }
+  var consumerSec = document.getElementById("consumer-sec");
+  if (consumerSec) consumerSec.style.display = "none";
+  hideEl("limitations-sec");
+  hideEl("fv-strengths");
+
+  // Final verdict
+  var fv = document.getElementById("final-verdict");
+  if (fv) { fv.style.color=color; fv.style.borderColor=color+"40"; fv.style.background=color+"06"; }
+  setText("fv-verdict", verdict);
+  setText("fv-note",    product.consumer_summary || ld.why_this_verdict || "");
+
+  // CTAs — dispute form is inline; no page redirect needed
+  var domain = brand.domain || "";
+
+  // Share card + embed (requires domain, score, sig, verdict, expired — all computed above)
+  initShareCard(sanitize(brand.brand_name || brand.domain), score, domain, sig, verdict);
+  initEmbedSection(domain, expired, sig);
+  loadClaimDiff(domain);
+
+  showState("verified");
+  ctShow("ct-brand-tools", "brand_tools_trigger_view", "brand_report");
+
+  // System state phrase
+  var phraseEl = document.getElementById("record-state-phrase");
+  if (phraseEl) {
+    var phrase = expired ? "Re-evaluation in progress"
+      : demand && (demand.demand_count || 0) > 0 ? "Public demand for assessment has increased"
+      : "Based on visible claims and referenced evidence";
+    phraseEl.textContent = phrase;
+  }
+
+  // Pressure signals layer
+  var pressureLayer = document.getElementById("pressure-layer");
+  if (pressureLayer) {
+    var signals = [];
+
+    // Verification freshness
+    var verifiedTs = ld.reviewed_at || product.last_scanned_at;
+    if (verifiedTs) {
+      var daysSince = Math.floor((Date.now() - new Date(verifiedTs).getTime()) / (1000 * 60 * 60 * 24));
+      if (daysSince > 30) {
+        signals.push({ cls: "pressure-signal-warn", text: "Verification outdated — reassessment pending. Last verified " + daysSince + " days ago." });
+      } else if (daysSince >= 0) {
+        signals.push({ cls: "", text: "Last verified " + daysSince + (daysSince === 1 ? " day" : " days") + " ago." });
+      }
+    }
+
+    // Watch intensity
+    var demandCount = demand ? (demand.demand_count || 0) : 0;
+    if (demandCount >= 3) {
+      signals.push({ cls: "pressure-signal-active", text: "This brand is being actively monitored." });
+    }
+
+    // Brand response state — observational only
+    if (!ld.brand_response && !ld.brand_submitted_evidence && ld.total_score != null) {
+      signals.push({ cls: "", text: "No additional evidence submitted via Brand Portal." });
+    }
+
+    // Low extraction confidence — score may not reflect actual evidence quality
+    var integrity = ld.data_integrity || ld.data_confidence || null;
+    var coverage  = ld.coverage_score != null ? ld.coverage_score : null;
+    if (!integrity || integrity === "low" || (coverage !== null && coverage < 20)) {
+      signals.push({ cls: "pressure-signal-warn", text: "Extraction confidence is limited — the scan captured navigation/UI rather than product-level content. This score may understate actual evidence quality. Brands can submit evidence for re-assessment." });
+    }
+
+    if (signals.length) {
+      pressureLayer.innerHTML = signals.map(function(s) {
+        return '<div class="pressure-signal ' + s.cls + '">' + esc(s.text) + '</div>';
+      }).join("");
+      pressureLayer.style.display = "flex";
+    }
+  }
+}
+
+// ── Render: not yet assessed ───────────────────────────────────
+function renderNotAssessed(domain, demand) {
+  document.title = domain + " · Not in Public Record · NORM";
+  var cap = domain.split(".")[0];
+  cap = cap.charAt(0).toUpperCase() + cap.slice(1);
+  setText("na-brand", cap + " has not been reviewed yet");
+
+  var lookups  = demand ? ((demand.extension_lookups || 0) + (demand.not_assessed_shown || 0)) : 0;
+  var requests = demand ? (demand.demand_count || 0) : 0;
+  var total    = lookups + requests;
+
+  var demandEl = document.getElementById("na-demand");
+  if (demandEl && total > 0) {
+    var line = total + " " + (total === 1 ? "person has" : "people have") + " looked up this brand.";
+    if (requests > 0) line += " " + requests + " " + (requests === 1 ? "person has" : "people have") + " already requested a review.";
+    demandEl.textContent = line;
+    demandEl.style.display = "";
+  }
+
+  // Wire request button to API POST — no redirect to a page that may not exist
+  var reqBtn = document.getElementById("na-request-btn");
+  if (reqBtn) {
+    reqBtn.href = "#";
+    reqBtn.onclick = function(e) {
+      e.preventDefault();
+      requestReview(reqBtn, domain, "review");
+    };
+  }
+
+  showState("not-assessed");
+}
+
+// ── Render: API error ──────────────────────────────────────────
+function renderError(domain, msg) {
+  document.title = "Report unavailable · NORM";
+  setText("error-sub", msg || "We couldn't load this record right now. The API may be temporarily unavailable.");
+  showState("error");
+}
+
+// ── Demand bar ─────────────────────────────────────────────────
+function renderDemand(d, domain) {
+  if (!d) return;
+  var bar    = document.getElementById("demand-bar");
+  var textEl = document.getElementById("demand-text");
+  var subEl  = document.getElementById("demand-sub");
+  var actEl  = document.getElementById("demand-actions");
+
+  var lookups   = (d.extension_lookups || 0) + (d.not_assessed_shown || 0);
+  var requests  = d.demand_count    || 0;
+  var clicks    = d.extension_clicks || 0;
+  var thisWeek  = d.demand_this_week || 0;
+  var trend     = d.demand_trend     || null;  // "rising" | "falling" | "flat" | null
+  var total     = lookups + requests;
+
+  if (total < 1 && thisWeek < 1) return;
+
+  // Primary: neutral factual count — no urgency language
+  if (textEl) {
+    var n = lookups > 0 ? lookups : requests;
+    textEl.textContent = n + " " + (n === 1 ? "person has" : "people have") + " looked up this brand via NORM";
+  }
+
+  // Sub: week count + total + direction (neutral words only)
+  var parts = [];
+  if (thisWeek > 0) parts.push(thisWeek + " " + (thisWeek === 1 ? "request" : "requests") + " this week");
+  if (requests > 0) parts.push(requests + " total");
+  if (clicks   > 0) parts.push(clicks + " report " + (clicks === 1 ? "view" : "views"));
+  var trendWord = trend === "rising" ? " · increasing" : trend === "falling" ? " · decreasing" : trend === "flat" && requests > 3 ? " · steady" : "";
+  if (subEl) subEl.textContent = parts.join(" · ") + trendWord;
+
+  // Re-review button — low-key, right-aligned
+  if (actEl && domain) {
+    var safe = domain.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+    actEl.innerHTML =
+      '<button class="demand-request-btn" onclick="requestReview(this,\'' + safe + '\',\'reassess\')">Request re-review</button>';
+  }
+
+  if (bar) bar.style.display = "flex";
+}
+
+// ── Inline dispute / evidence form ────────────────────────────
+var _disputeActive = null;
+function toggleDisputeForm(type) {
+  var form = document.getElementById("dispute-form");
+  if (!form) return;
+  var isOpen = form.classList.contains("open");
+  if (isOpen && (type === null || type === _disputeActive)) {
+    form.classList.remove("open");
+    _disputeActive = null;
+    return;
+  }
+  _disputeActive = type;
+  // Reset state
+  document.getElementById("dispute-form-body").style.display = "";
+  document.getElementById("dispute-ok").style.display = "none";
+  var btn = document.getElementById("dispute-btn");
+  if (btn) { btn.disabled = false; btn.textContent = "Submit for review"; }
+  // Set title + pre-select type
+  var titleEl = document.getElementById("dispute-form-title");
+  var sel = document.getElementById("dispute-type");
+  if (type === "evidence") {
+    if (titleEl) titleEl.textContent = "Submit supporting evidence for review";
+    if (sel) sel.value = "missing_evidence";
+  } else {
+    if (titleEl) titleEl.textContent = "Request re-evaluation";
+    if (sel) sel.value = "reassessment";
+  }
+  form.classList.add("open");
+  setTimeout(function() {
+    var focus = type === "evidence" ? document.getElementById("dispute-url") : document.getElementById("dispute-desc");
+    if (focus) focus.focus();
+  }, 60);
+}
+
+function submitDispute() {
+  var email    = (document.getElementById("dispute-email").value || "").trim();
+  var desc     = (document.getElementById("dispute-desc").value || "").trim();
+  var issueType = document.getElementById("dispute-type").value || "";
+  var url      = (document.getElementById("dispute-url").value || "").trim();
+  if (!email || !email.includes("@")) { document.getElementById("dispute-email").focus(); return; }
+  if (!desc) { document.getElementById("dispute-desc").focus(); return; }
+  var btn = document.getElementById("dispute-btn");
+  btn.disabled = true; btn.textContent = "Submitting…";
+  var refDomain = (domain || "").replace(/[^a-z0-9]/gi, "").slice(0, 4).toUpperCase() || "SGNL";
+  var refNum = "DSP-" + refDomain + "-" + Date.now().toString(36).toUpperCase();
+  fetch(API + "/api/capture", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: email, type: "dispute", domain: domain,
+      meta: { issue_type: issueType, evidence_url: url, description: desc, ref: refNum } })
+  })
+  .then(function() {
+    track("dispute_submitted", { domain: domain, issue_type: issueType });
+    document.getElementById("dispute-form-body").style.display = "none";
+    document.getElementById("dispute-ok-ref").textContent = "Submitted — reference " + refNum;
+    document.getElementById("dispute-ok").style.display = "";
+  })
+  .catch(function() { btn.disabled = false; btn.textContent = "Submit for review"; });
+}
+
+// ── Request review / re-review ─────────────────────────────────
+function requestReview(btn, domain, type) {
+  if (!btn || btn.disabled) return;
+  btn.disabled = true;
+  btn.textContent = "Sending…";
+  fetch(API + "/api/demand", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ domain: domain }),
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(){
+    btn.textContent = type === "reassess" ? "Re-review requested" : "Review requested";
+    btn.style.color = "var(--grn)";
+    btn.style.borderColor = "rgba(39,174,96,.3)";
+    // Log specific event type separately — fire-and-forget
+    var evType = type === "reassess" ? "request_reassessment" : "request_assessment";
+    fetch(API + "/api/demand/event", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ domain: domain, event_type: evType }),
+    }).catch(function(){});
+  })
+  .catch(function(){
+    btn.disabled = false;
+    btn.textContent = type === "reassess" ? "Request re-evaluation" : "Request an assessment";
+  });
+}
+
+// ── Share card ─────────────────────────────────────────────────
+var _shareD  = {};
+var _popOpen = false;
+
+function toggleSharePopover() {
+  _popOpen = !_popOpen;
+  var pop = document.getElementById('sharePopover');
+  if (pop) pop.classList.toggle('open', _popOpen);
+  if (_popOpen && _shareD.brandName) {
+    var link = 'https://trynorm.co/brand/' + encodeURIComponent(_shareD.domain);
+    var txt = generateXShareText(_shareD.brandName, _shareD.score, link, _shareD.domain);
+    var ta = document.getElementById('shareContentArea');
+    if (ta) ta.value = txt;
+  }
+}
+
+document.addEventListener('click', function(e) {
+  if (!_popOpen) return;
+  var wrap = document.getElementById('shareWrap');
+  if (wrap && !wrap.contains(e.target)) {
+    _popOpen = false;
+    var pop = document.getElementById('sharePopover');
+    if (pop) pop.classList.remove('open');
+  }
+});
+
+function brandHandle(brandName, domain) {
+  // Best guess at Twitter handle: strip TLD from domain, remove hyphens
+  var base = (domain || '').replace(/^www\./, '').replace(/\.[^.]+$/, '').replace(/-/g, '');
+  return '@' + (base || brandName.toLowerCase().replace(/[^a-z0-9]/g, ''));
+}
+
+function generateXShareText(brandName, score, link, domain) {
+  var handle = brandHandle(brandName, domain);
+  var sig = score >= 68 ? 'green' : score >= 55 ? 'yellow' : 'red';
+
+  var verdictPhrase = {
+    green:  ['Their claims check out. Rare.', 'Evidence backs it up. Actually.', 'They showed their proof. Not many do.'],
+    yellow: ['Some receipts. Not all of them.', 'Partial evidence. Worth knowing.', 'Claims stretch a bit past what they show.'],
+    red:    ['Claims well ahead of visible evidence.', 'Strong claims. Thin receipts.', 'They\'re asking you to take their word for it.']
+  }[sig];
+
+  var hooks = [
+    'NORM looked at ' + brandName + '.',
+    brandName + ' met NORM.',
+    'Thinking about ' + brandName + '? So was NORM.',
+    'Before you spend on ' + brandName + ' —',
+    'NORM had ' + brandName + ' for breakfast.',
+    'NORM scored ' + brandName + '. Here\'s what he found.'
+  ];
+
+  var scoreLines = [
+    score + '/100 — ' + verdictPhrase[Math.floor(Math.random() * verdictPhrase.length)],
+    'NORM Score: ' + score + '/100. ' + verdictPhrase[Math.floor(Math.random() * verdictPhrase.length)],
+    score + ' out of 100. ' + verdictPhrase[Math.floor(Math.random() * verdictPhrase.length)]
+  ];
+
+  var normLines = [
+    'NORM reads the fine print so you don\'t have to.',
+    'NORM doesn\'t take brands at their word. That\'s the whole point.',
+    'NORM has an appetite for this — every claim, every page, every footnote.',
+    'NORM goes through the hero headlines, the fine print, the stuff behind "clinically proven." All of it.',
+    'NORM\'s job is finding what they\'re not showing you.',
+    'NORM consumed their whole site. Measured every claim against what they actually show to back it up.',
+    'NORM is always hungry. Brands are always marketing. Somebody has to check.'
+  ];
+
+  var extLink = 'https://trynorm.co/extension';
+  var ctaLines = [
+    'Get NORM on every product page while you shop → ' + extLink,
+    'Check any brand before you spend. Full breakdown: ' + link,
+    'NORM flags this automatically while you shop → ' + extLink,
+    'Free browser extension — see this on every brand you look at → ' + extLink,
+    'NORM will tell you what they won\'t. Full score: ' + link
+  ];
+
+  var hook      = hooks[Math.floor(Math.random() * hooks.length)];
+  var scoreLine = scoreLines[Math.floor(Math.random() * scoreLines.length)];
+  var normLine  = normLines[Math.floor(Math.random() * normLines.length)];
+  var cta       = ctaLines[Math.floor(Math.random() * ctaLines.length)];
+
+  return (
+    hook + '\n\n' +
+    handle + ' ' + scoreLine + '\n\n' +
+    normLine + '\n\n' +
+    cta + '\n\n' +
+    '#normcheck'
+  );
+}
+
+function initShareCard(brandName, score, domain, sig, verdict, topClaim) {
+  _shareD = { brandName: brandName, score: score, domain: domain, sig: sig, verdict: verdict, topClaim: topClaim || '' };
+  var color  = SIG_COLOR[sig] || '#f39c12';
+  var xUrl   = 'https://trynorm.co/brand/' + encodeURIComponent(domain);
+  var xText  = generateXShareText(brandName, score, xUrl, domain);
+
+  var title = brandName + ' Evidence Score — NORM | ' + score + '/100 · ' + verdict;
+  var descr = brandName + ' scores ' + score + '/100 on the NORM evidence index. Verdict: ' + verdict + '. Independent claim alignment analysis, updated weekly.';
+  ['og-title','tw-title'].forEach(function(id){ var el=document.getElementById(id); if(el) el.content=title; });
+  ['og-desc', 'tw-desc', 'meta-desc'].forEach(function(id){ var el=document.getElementById(id); if(el) el.content=descr; });
+  var ogUrl = document.getElementById('og-url'); if(ogUrl) ogUrl.content = xUrl;
+  document.title = title;
+
+  // Update canonical to path-based URL
+  var canonEl = document.querySelector('link[rel="canonical"]');
+  if (canonEl) canonEl.href = xUrl;
+
+  // Inject JSON-LD structured data
+  var existingLd = document.getElementById('brand-jsonld');
+  if (existingLd) existingLd.remove();
+  var ldScript = document.createElement('script');
+  ldScript.id = 'brand-jsonld';
+  ldScript.type = 'application/ld+json';
+  ldScript.text = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Review",
+    "itemReviewed": {
+      "@type": "Brand",
+      "name": brandName,
+      "url": "https://" + domain
+    },
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": String(score),
+      "bestRating": "100",
+      "worstRating": "0",
+      "description": verdict
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "NORM Analytics",
+      "url": "https://trynorm.co"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "NORM Analytics"
+    },
+    "url": xUrl,
+    "description": "NORM evaluated " + brandName + "'s consumer-facing marketing claims against publicly visible evidence. Score: " + score + "/100. Signal: " + verdict + "."
+  });
+  document.head.appendChild(ldScript);
+
+  var pop = document.getElementById('sharePopover');
+  if (!pop) return;
+
+  pop.innerHTML =
+    '<button class="share-close" onclick="toggleSharePopover()">×</button>' +
+    '<div class="share-preview">' +
+      '<div class="share-prev-dot" style="background:' + color + '"></div>' +
+      '<div class="share-prev-info">' +
+        '<div class="share-prev-brand">' + esc(brandName) + '</div>' +
+        '<div class="share-prev-verdict">' + esc(verdict) + '</div>' +
+      '</div>' +
+      '<div class="share-prev-score" style="color:' + color + '">' + score + '</div>' +
+    '</div>' +
+    '<textarea class="share-content" id="shareContentArea" readonly>' + esc(xText) + '</textarea>' +
+    '<div class="share-actions">' +
+      '<button class="share-post-btn" id="sharePostBtn">Post 𝕏</button>' +
+      '<button class="share-copy-btn" id="shareCopyBtn">Copy</button>' +
+      '<button class="share-native-btn" id="shareNativeBtn">Share</button>' +
+    '</div>' +
+    '<div class="share-microcopy">Send this to someone using it.</div>' +
+    '<div class="share-copy-ok" id="shareCopyOk"></div>';
+
+  var wrap = document.getElementById('shareWrap');
+  if (wrap) wrap.style.display = '';
+
+  document.getElementById('shareCopyBtn').addEventListener('click', function() {
+    var ta = document.getElementById('shareContentArea');
+    var ok = document.getElementById('shareCopyOk');
+    navigator.clipboard.writeText(ta.value).then(function() {
+      ok.textContent = '✓ Copied'; setTimeout(function() { ok.textContent = ''; }, 2000);
+    }).catch(function() { ta.select(); document.execCommand('copy'); ok.textContent = '✓ Copied'; });
+  });
+
+  document.getElementById('sharePostBtn').addEventListener('click', function() {
+    var ta  = document.getElementById('shareContentArea');
+    var txt = ta.value.replace(/→ https?:\/\/\S+$/, '').trim();
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(txt) + '&url=' + encodeURIComponent(xUrl), '_blank', 'width=560,height=420');
+  });
+
+  document.getElementById('shareNativeBtn').addEventListener('click', function() {
+    var ta = document.getElementById('shareContentArea');
+    if (navigator.share) {
+      navigator.share({ title: brandName + ' — Signal: ' + score + '/100', text: ta.value, url: xUrl }).catch(function() {});
+    } else {
+      navigator.clipboard.writeText(ta.value).then(function() {
+        var ok = document.getElementById('shareCopyOk');
+        if (ok) { ok.textContent = '✓ Copied'; setTimeout(function() { ok.textContent = ''; }, 2000); }
+      }).catch(function() {});
+    }
+  });
+}
+
+function _fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text; ta.style.cssText = 'position:fixed;opacity:0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+// ── Embed section ──────────────────────────────────────────────
+var _embedDomain  = '';
+var _EMBED_API    = 'https://bhvd-signal-api.fly.dev';
+
+function initEmbedSection(domain, isExpired, sig) {
+  _embedDomain = domain;
+  var badgeUrl = 'https://trynorm.co/badge?d=' + encodeURIComponent(domain);
+
+  // Green public embed — no auth gate, shown for any green-scored brand
+  var greenSec = document.getElementById('embed-green-sec');
+  var greenContent = document.getElementById('embed-green-content');
+  if (greenSec && greenContent && sig === 'green') {
+    var iframeCode = '<iframe src="' + badgeUrl + '" width="280" height="80" frameborder="0" scrolling="no" style="border:none"></iframe>';
+    var linkCode   = '<a href="https://trynorm.co/brand/' + domain + '?ref=badge" target="_blank">Verified by NORM →</a>';
+    greenContent.innerHTML =
+      '<div class="embed-preview-wrap" id="greenPreviewWrap">' +
+        '<iframe src="' + badgeUrl + '" width="280" height="80" frameborder="0" scrolling="no" style="display:block;border:none"></iframe>' +
+      '</div>' +
+      '<div class="embed-tabs" style="margin-bottom:8px">' +
+        '<button class="embed-tab on" id="getabBadge" onclick="switchGreenEmbed(\'badge\')">Badge</button>' +
+        '<button class="embed-tab"    id="getabLink"  onclick="switchGreenEmbed(\'link\')" >Link only</button>' +
+      '</div>' +
+      '<div class="embed-code-wrap">' +
+        '<div class="embed-code" id="greenEmbedCode">' + esc(iframeCode) + '</div>' +
+        '<button class="embed-copy-btn" id="greenCopyBtn" onclick="copyGreenCode()">Copy</button>' +
+      '</div>' +
+      '<div class="embed-update-note">Badge updates automatically. No account required.</div>';
+    greenSec.style.display = '';
+  }
+
+  // Brand-tier full embed section
+  var sec     = document.getElementById('embed-sec');
+  var content = document.getElementById('embed-content');
+  if (!sec || !content) return;
+
+  if (isExpired) {
+    content.innerHTML =
+      '<div class="embed-expired-msg">Score expired — embed unavailable until re-evaluated. ' +
+      'Contact support@trynorm.co to request reassessment.</div>';
+    sec.style.display = '';
+    return;
+  }
+
+  content.innerHTML =
+    '<div class="embed-tabs">' +
+      '<button class="embed-tab on" id="etabFull"    onclick="switchEmbed(\'full\')"   >Badge</button>' +
+      '<button class="embed-tab"    id="etabMinimal" onclick="switchEmbed(\'minimal\')">Minimal</button>' +
+    '</div>' +
+    '<div class="embed-preview-wrap">' +
+      '<iframe id="embedPreview" src="' + badgeUrl + '" width="280" height="80" frameborder="0" scrolling="no" style="display:block;border:none"></iframe>' +
+    '</div>' +
+    '<div class="embed-code-wrap">' +
+      '<div class="embed-code" id="embedCode">' +
+        esc('<iframe src="' + badgeUrl + '" width="280" height="80" frameborder="0" scrolling="no" style="border:none"></iframe>') +
+      '</div>' +
+      '<button class="embed-copy-btn" id="embedCopyBtn" onclick="copyEmbedCode()">Copy</button>' +
+    '</div>' +
+    '<div class="embed-update-note">Badge updates automatically when your score refreshes.</div>';
+
+  sec.style.display = '';
+}
+
+function switchGreenEmbed(variant) {
+  var isBadge  = variant === 'badge';
+  var domain   = _embedDomain;
+  var badgeUrl = 'https://trynorm.co/badge?d=' + encodeURIComponent(domain);
+  var linkUrl  = 'https://trynorm.co/brand/' + encodeURIComponent(domain) + '?ref=badge';
+  var tabB     = document.getElementById('getabBadge');
+  var tabL     = document.getElementById('getabLink');
+  var codeEl   = document.getElementById('greenEmbedCode');
+  var copyBtn  = document.getElementById('greenCopyBtn');
+  var prevWrap = document.getElementById('greenPreviewWrap');
+  if (tabB) tabB.classList.toggle('on', isBadge);
+  if (tabL) tabL.classList.toggle('on', !isBadge);
+  if (codeEl) codeEl.textContent = isBadge
+    ? '<iframe src="' + badgeUrl + '" width="280" height="80" frameborder="0" scrolling="no" style="border:none"></iframe>'
+    : '<a href="' + linkUrl + '" target="_blank" style="color:#4a78f0;font-family:system-ui;font-size:14px">Verified by NORM →</a>';
+  if (prevWrap) prevWrap.innerHTML = isBadge
+    ? '<iframe src="' + badgeUrl + '" width="280" height="80" frameborder="0" scrolling="no" style="display:block;border:none"></iframe>'
+    : '<a href="' + linkUrl + '" target="_blank" rel="noopener" style="color:#4a78f0;font-family:system-ui,sans-serif;font-size:14px;text-decoration:none">Verified by NORM →</a>';
+  if (copyBtn) { copyBtn.textContent = 'Copy'; copyBtn.classList.remove('copied'); }
+}
+
+function copyGreenCode() {
+  var codeEl = document.getElementById('greenEmbedCode');
+  var btn    = document.getElementById('greenCopyBtn');
+  if (!codeEl || !btn) return;
+  var text = codeEl.textContent;
+  var done = function() {
+    btn.textContent = 'Copied!'; btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  };
+  if (navigator.clipboard) { navigator.clipboard.writeText(text).then(done).catch(function(){ _fallbackCopy(text); done(); }); }
+  else { _fallbackCopy(text); done(); }
+}
+
+function switchEmbed(variant) {
+  var isMin = variant === 'minimal';
+  var tabF  = document.getElementById('etabFull');
+  var tabM  = document.getElementById('etabMinimal');
+  if (tabF) tabF.classList.toggle('on', !isMin);
+  if (tabM) tabM.classList.toggle('on',  isMin);
+
+  var w   = isMin ? '200' : '280';
+  var h   = isMin ? '48'  : '80';
+  var url = isMin
+    ? 'https://trynorm.co/badge?d=' + encodeURIComponent(_embedDomain) + '&variant=minimal'
+    : 'https://trynorm.co/badge?d=' + encodeURIComponent(_embedDomain);
+  var code = '<iframe src="' + url + '" width="' + w + '" height="' + h + '" frameborder="0" scrolling="no" style="border:none"></iframe>';
+
+  var preview = document.getElementById('embedPreview');
+  var codeEl  = document.getElementById('embedCode');
+  var copyBtn = document.getElementById('embedCopyBtn');
+  if (preview) { preview.src = url; preview.width = w; preview.height = h; }
+  if (codeEl)  codeEl.textContent = code;
+  if (copyBtn) { copyBtn.textContent = 'Copy'; copyBtn.classList.remove('copied'); }
+}
+
+function copyEmbedCode() {
+  var codeEl = document.getElementById('embedCode');
+  var btn    = document.getElementById('embedCopyBtn');
+  if (!codeEl || !btn) return;
+  var text = codeEl.textContent;
+  var done = function() {
+    btn.textContent = 'Copied!'; btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  };
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(done).catch(function(){ _fallbackCopy(text); done(); });
+  } else { _fallbackCopy(text); done(); }
+}
+
+// ── Boot ───────────────────────────────────────────────────────
+(function(){
+  startScanMessages();
+  var params = new URLSearchParams(window.location.search);
+  // Prefer path-based URL (/brand/example.com) — canonical for SEO
+  var pathDomain = window.location.pathname.replace(/.*\/brand\//,"").replace(/\/$/,"").replace(/index\.html$/,"");
+  var domain = pathDomain || params.get("d") || params.get("domain") || "";
+
+  domain = (domain || "").replace(/^https?:\/\//,"").replace(/^www\./,"").split("/")[0].toLowerCase();
+
+  // If served from a path URL but has a redundant ?d= param (from Vercel redirect passthrough),
+  // clean the URL so the browser and any subsequent history entries are canonical.
+  if (pathDomain && params.has("d")) {
+    var cleanParams = new URLSearchParams(window.location.search);
+    cleanParams.delete("d");
+    cleanParams.delete("domain");
+    var qs = cleanParams.toString();
+    window.history.replaceState(null, "", window.location.pathname + (qs ? "?" + qs : ""));
+  }
+
+  if (!domain) {
+    renderError(null, "No brand specified. Check the URL.");
+    return;
+  }
+
+  // Log brand page view — always, fire-and-forget
+  fetch(API + "/api/demand/event", {
+    method:"POST", headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({ domain: domain, event_type: "brand_page_view" }),
+  }).catch(function(){});
+
+  // Log extension clickthrough when navigated from extension
+  if (params.get("source") === "extension") {
+    fetch(API + "/api/demand/event", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ domain: domain, event_type: "extension_clickthrough" }),
+    }).catch(function(){});
+  }
+
+  // Fire both fetches in parallel — send auth token if logged in for Pro data
+  var _authToken = localStorage.getItem('bhvd_token');
+  // Also check Supabase session for token
+  var _fetchHeaders = _authToken ? { 'Authorization': 'Bearer ' + _authToken } : {};
+  var brandPromise  = fetch(API + "/api/domain/" + encodeURIComponent(domain), { headers: _fetchHeaders })
+    .then(function(r){
+      if (r.status === 404) return { _notFound: true };
+      if (!r.ok) return Promise.reject(new Error("HTTP " + r.status));
+      return r.json();
+    });
+
+  var demandPromise = fetch(API + "/api/demand/" + encodeURIComponent(domain))
+    .then(function(r){ return r.json(); })
+    .catch(function(){ return {}; });
+
+  Promise.all([brandPromise, demandPromise])
+    .then(function(results) {
+      var brandData  = results[0];
+      var demandData = results[1];
+
+      if (brandData._notFound) {
+        renderNotAssessed(domain, demandData);
+        return;
+      }
+
+      var d = brandData.data || brandData;
+      if (!d || !d.products || !d.products.length) {
+        renderNotAssessed(domain, demandData);
+        return;
+      }
+
+      // Pick the product with the highest total_score (most evidence-aligned).
+      // Domain API returns products sorted by risk ascending, but we want the
+      // highest evidence score (= lowest risk in old framing is now worst).
+      var displayable = d.products.filter(function(p) {
+        var pld = p.leaderboard_data || {};
+        return pld.public_safe === true || pld.review_status === "seeder_reviewed";
+      });
+      if (!displayable.length) { renderNotAssessed(domain, demandData); return; }
+
+      var product = displayable.reduce(function(best, p) {
+        var bld = best.leaderboard_data || {};
+        var pld = p.leaderboard_data || {};
+        var bs = bld.total_score != null ? bld.total_score : (100 - (best.claim_support_risk || 50));
+        var ps = pld.total_score != null ? pld.total_score : (100 - (p.claim_support_risk || 50));
+        return ps > bs ? p : best;
+      }, displayable[0]);
+      var ld   = product.leaderboard_data || {};
+      var dims = product.dimension_scores || {};
+
+      renderVerified(d, product, ld, dims, demandData);
+    })
+    .catch(function(err) {
+      console.error("NORM brand fetch error:", err);
+      renderError(domain, "We couldn't load this report right now. The API may be temporarily unavailable.");
+    });
+})();
+
+// Enter key for inline capture forms
+document.addEventListener("keydown", function(e) {
+  if (e.key !== "Enter") return;
+  if (document.activeElement === document.getElementById("track-email"))  submitTrack();
+  if (document.activeElement === document.getElementById("notify-email")) submitNotify();
+});
+
+// ── Tier awareness ─────────────────────────────────────────────
+var _SB_URL  = 'https://klhhkjmvxxsmfxpuzfhj.supabase.co';
+var _SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtsaGhram12eHhzbWZ4cHV6ZmhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwNTI3NDMsImV4cCI6MjA5MjYyODc0M30.4gIkTBDMaNKemtVIWeQCvaIo4iJIDyh_ztByTlM7bg8';
+
+function getUserTier() {
+  return new Promise(function(resolve) {
+    // Check localStorage token first (set by account page login)
+    var storedToken = localStorage.getItem('bhvd_token');
+    if (storedToken) {
+      fetch(API + '/api/stripe/subscription', {
+        headers: { Authorization: 'Bearer ' + storedToken }
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(d) { resolve((d && d.data && d.data.tier) || 'free'); })
+      .catch(function() { resolve('free'); });
+      return;
+    }
+    // Fallback: Supabase session
+    if (typeof window.supabase === 'undefined' || !window.supabase.createClient) {
+      resolve('free'); return;
+    }
+    var sb = window.supabase.createClient(_SB_URL, _SB_ANON);
+    sb.auth.getSession().then(function(res) {
+      var session = res && res.data && res.data.session;
+      if (!session) { resolve('free'); return; }
+      fetch(API + '/api/stripe/subscription', {
+        headers: { Authorization: 'Bearer ' + session.access_token }
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(d) { resolve((d && d.data && d.data.tier) || 'free'); })
+      .catch(function() { resolve('free'); });
+    }).catch(function() { resolve('free'); });
+  });
+}
+
+function applyTierRestrictions(tier) {
+  var receiptsEl = document.getElementById('receipts-list');
+
+  // Sections gated behind Pro
+  var proGatedIds = [
+    'ev-assessment-sec',
+    'signal-assessment-sec',
+    'consumer-sec',
+    'limitations-sec',
+    'embed-sec',
+    'capture-report-sec',
+    'diff-sec',
+    'raw-claims-sec',
+    'ev-signals-sec',
+  ];
+
+  if (tier === 'pro' || tier === 'retailer') {
+    // Unlock influencer names for Pro
+    var lockedNames = document.getElementById('ie-names-locked');
+    var proNames    = document.getElementById('ie-names-pro');
+    if (lockedNames) lockedNames.style.display = 'none';
+    if (proNames)    proNames.style.display = '';
+
+    // Consumer Pro: show evidence detail but hide brand-operational sections
+    var brandOnlySecs = ['capture-report-sec', 'raw-claims-sec', 'embed-sec', 'bp-dashboard'];
+    brandOnlySecs.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+    return;
+  }
+
+  if (tier === 'brand') {
+    // Brand: everything + audit CTA
+    if (receiptsEl) {
+      var auditCta = document.createElement('div');
+      auditCta.className = 'tier-brand-cta';
+      auditCta.innerHTML =
+        '<div>' +
+          '<div class="tier-brand-cta-text">This is your brand\'s public signal record.</div>' +
+          '<div class="tier-brand-cta-sub">Claim a full audit to see what\'s driving your score.</div>' +
+        '</div>' +
+        '<a href="/brand-audit" class="tier-brand-cta-btn">Request Full Audit</a>';
+      receiptsEl.parentNode.appendChild(auditCta);
+    }
+    return;
+  }
+
+  // ── Free tier ─────────────────────────────────────────────────
+  // Visible: score card, executive summary, evidence summary (dims),
+  //          evidence gaps, first 3 claim headers (no evidence detail).
+  // Gated:   evidence detail on claims, full claim list, and all
+  //          analytical sections below.
+
+  // 1. Claim receipts — show first 3 headers only, hide evidence/meta detail
+  if (receiptsEl) {
+    var rows = receiptsEl.querySelectorAll('.receipt-row');
+    var FREE_CLAIMS = 3;
+
+    for (var i = 0; i < rows.length; i++) {
+      if (i < FREE_CLAIMS) {
+        // Hide the evidence detail and meta line within each visible row
+        var evDetail = rows[i].querySelector('.receipt-evidence');
+        var metaRow  = rows[i].querySelector('.receipt-meta');
+        if (evDetail) evDetail.style.display = 'none';
+        if (metaRow)  metaRow.style.display  = 'none';
+      } else {
+        rows[i].style.display = 'none';
+      }
+    }
+
+    if (rows.length > 0) {
+      var wrap = document.createElement('div');
+      wrap.className = 'tier-lock-wrap';
+      receiptsEl.parentNode.insertBefore(wrap, receiptsEl);
+      wrap.appendChild(receiptsEl);
+
+      var overlay = document.createElement('div');
+      overlay.className = 'tier-lock-overlay';
+      wrap.appendChild(overlay);
+    }
+  }
+
+  // 2. Hide pro-gated sections and show single upgrade CTA
+  var firstHidden = null;
+  for (var j = 0; j < proGatedIds.length; j++) {
+    var el = document.getElementById(proGatedIds[j]);
+    if (el) {
+      if (!firstHidden) firstHidden = el;
+      el.style.display = 'none';
+    }
+  }
+
+  if (firstHidden) {
+    var fullBlock = document.createElement('div');
+    fullBlock.className = 'tier-upgrade-block';
+    fullBlock.style.marginTop = '32px';
+    fullBlock.innerHTML =
+      '<div class="tier-upgrade-icon">🔒</div>' +
+      '<div class="tier-upgrade-title">See the full evidence picture</div>' +
+      '<div class="tier-upgrade-sub">Every flagged claim with evidence detail, scoring breakdown by dimension, and alerts when this brand changes its claims.</div>' +
+      '<a href="/extension" class="tier-upgrade-btn" style="margin-bottom:10px;display:inline-block" onclick="track(\'extension_cta_click\',\'lock_block\')">Get NORM on every product page →</a>' +
+      '<div style="margin:10px 0 4px;font-size:11px;color:var(--t3);font-family:var(--mono)">or</div>' +
+      '<a href="/pricing" style="font-size:13px;color:var(--acc);text-decoration:underline;text-underline-offset:3px">Unlock evidence detail — $9/month</a>' +
+      '<div class="tier-upgrade-note" style="margin-top:10px">Cancel anytime · Instant access</div>';
+    firstHidden.parentNode.insertBefore(fullBlock, firstHidden);
+  }
+}
+
+// Run tier check after page renders
+(function() {
+  var _origRenderVerified = renderVerified;
+  renderVerified = function(brand, product, ld, dims, demand) {
+    _origRenderVerified(brand, product, ld, dims, demand);
+    getUserTier().then(function(tier) {
+      applyTierRestrictions(tier);
+      if (tier === 'brand') loadBrandDashboard(brand.domain);
+      var badge = document.getElementById('user-pro-badge');
+      if (badge) badge.style.display = (tier === 'pro' || tier === 'brand') ? 'inline-flex' : 'none';
+    });
+  };
+})();
+
+// ── Brand Pro Dashboard ──────────────────────────────────────────
+
+function loadBrandDashboard(domain) {
+  var el = document.getElementById('bp-dashboard');
+  if (el) el.style.display = 'block';
+  if (!domain) return showBpError('No domain detected for this brand.');
+
+  getUserTier().then(function(tier) {
+    if (tier !== 'brand') return;
+
+    var sb = window.supabase && window.supabase.createClient
+      ? window.supabase.createClient(_SB_URL, _SB_ANON)
+      : null;
+
+    var authPromise = sb
+      ? sb.auth.getSession().then(function(r) { return r.data && r.data.session ? r.data.session.access_token : null; })
+      : Promise.resolve(null);
+
+    authPromise.then(function(token) {
+      var headers = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = 'Bearer ' + token;
+
+      fetch(API + '/api/report/brand/' + encodeURIComponent(domain), { headers: headers })
+        .then(function(r) { return r.json(); })
+        .then(function(json) {
+          document.getElementById('bp-loading').style.display = 'none';
+          if (!json.success || !json.data) return showBpError(json.error || 'Could not load brand report.');
+          renderBrandDashboard(json.data, domain);
+        })
+        .catch(function() { showBpError('Network error loading brand report.'); });
+    });
+  });
+}
+
+function showBpError(msg) {
+  document.getElementById('bp-loading').style.display = 'none';
+  var el = document.getElementById('bp-error');
+  if (el) { el.textContent = msg; el.style.display = 'block'; }
+}
+
+function renderBrandDashboard(data, domain) {
+  // Improvement roadmap
+  var roadmap = Array.isArray(data.improvements) ? data.improvements : [];
+  if (roadmap.length) {
+    var rmList = document.getElementById('bp-roadmap-list');
+    rmList.innerHTML = roadmap.map(function(item, i) {
+      return '<div class="bp-roadmap-item"><span class="bp-roadmap-num">' + (i+1) + '</span><span>' + esc(item) + '</span></div>';
+    }).join('');
+    document.getElementById('bp-roadmap-sec').style.display = 'block';
+  }
+
+  // Gap analysis
+  var gaps = Array.isArray(data.gap_analysis) ? data.gap_analysis : [];
+  if (gaps.length) {
+    var gapGrid = document.getElementById('bp-gap-grid');
+    gapGrid.innerHTML = gaps.map(function(g) {
+      var fixHtml = g.how_to_fix
+        ? '<div class="bp-gap-fix"><span class="bp-gap-fix-label">Fix</span>' + esc(g.how_to_fix) + '</div>'
+        : '';
+      return '<div class="bp-gap-row ' + esc(g.signal) + '">' +
+        '<div class="bp-gap-meta">' +
+          '<span class="bp-gap-label">' + esc(g.label) + '</span>' +
+          '<span class="bp-gap-score ' + esc(g.signal) + '">' + g.score + '</span>' +
+        '</div>' + fixHtml +
+        '</div>';
+    }).join('');
+    document.getElementById('bp-gap-sec').style.display = 'block';
+  }
+
+  // Full claim audit
+  var audit = data.claim_audit || {};
+  var claims = Array.isArray(audit.claims) ? audit.claims : [];
+  if (claims.length) {
+    var TIER_LABELS = { 1: 'T1 · Outcome', 2: 'T2 · Mechanism', 3: 'T3 · Contextual' };
+    var claimTable = document.getElementById('bp-claim-table');
+    claimTable.innerHTML = claims.map(function(c) {
+      var tierClass = 't' + (c.tier || 3);
+      var tierLabel = TIER_LABELS[c.tier] || ('T' + (c.tier || '?'));
+      var srcHtml = c.source_url
+        ? '<div class="bp-claim-source">Source: <a href="' + esc(c.source_url) + '" target="_blank" rel="noopener">' + esc(c.source_url) + '</a></div>'
+        : '';
+      return '<div class="bp-claim-row">' +
+        '<div class="bp-claim-header">' +
+          '<div class="bp-claim-text">' + esc(c.claim_text || '') + '</div>' +
+          '<span class="bp-tier-badge ' + tierClass + '">' + tierLabel + '</span>' +
+        '</div>' + srcHtml +
+        '</div>';
+    }).join('');
+    document.getElementById('bp-claims-count').textContent =
+      claims.length + ' claim' + (claims.length !== 1 ? 's' : '') +
+      (audit.high_risk ? ' · ' + audit.high_risk + ' high-risk' : '');
+    document.getElementById('bp-claims-sec').style.display = 'block';
+  }
+
+  // Competitor benchmarking
+  var competitors = Array.isArray(data.competitors) ? data.competitors : [];
+  if (competitors.length) {
+    var SIG_COLOR = { green: '#27ae60', yellow: '#f39c12', red: '#e74c3c' };
+    var ownScore = data.score;
+    var compBody = document.getElementById('bp-comp-body');
+    // Insert own brand at correct position
+    var rows = [{ domain: domain, brand_name: data.brand_name, score: ownScore, signal_color: data.signal_color, verdict: data.verdict, is_you: true }]
+      .concat(competitors)
+      .sort(function(a, b) { return (b.score || 0) - (a.score || 0); });
+
+    compBody.innerHTML = rows.map(function(r) {
+      var color = SIG_COLOR[r.signal_color] || '#f39c12';
+      var youBadge = r.is_you ? '<span class="bp-comp-you">you</span>' : '';
+      return '<tr>' +
+        '<td>' + esc(r.brand_name || r.domain || '') + youBadge + '</td>' +
+        '<td><span class="bp-comp-score" style="color:' + color + '">' + (r.score || '—') + '</span></td>' +
+        '<td>' + esc(r.verdict || '—') + '</td>' +
+        '</tr>';
+    }).join('');
+    document.getElementById('bp-comp-sec').style.display = 'block';
+  }
+
+  // Capture log
+  var cl = data.capture_log || {};
+  if (cl.pages_captured != null) {
+    var confColor = cl.capture_confidence === 'HIGH' ? '#27ae60' : cl.capture_confidence === 'MEDIUM' ? '#f39c12' : '#e74c3c';
+    document.getElementById('bp-capture-grid').innerHTML =
+      '<div class="bp-capture-card"><div class="bp-capture-val">' + (cl.pages_captured || 0) + '</div><div class="bp-capture-lbl">Pages Captured</div></div>' +
+      '<div class="bp-capture-card"><div class="bp-capture-val" style="color:' + confColor + ';font-size:14px">' + esc(cl.capture_confidence || '—') + '</div><div class="bp-capture-lbl">Capture Confidence</div></div>' +
+      '<div class="bp-capture-card"><div class="bp-capture-val" style="font-size:14px">' + esc(cl.pipeline_version || '—') + '</div><div class="bp-capture-lbl">Pipeline Version</div></div>';
+
+    var flags = Array.isArray(cl.missed_content_flags) ? cl.missed_content_flags : [];
+    if (flags.length) {
+      document.getElementById('bp-flags').innerHTML =
+        '<div style="font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px">Missed Content Flags</div>' +
+        flags.map(function(f) { return '<div class="bp-flag-item">' + esc(f) + '</div>'; }).join('');
+    }
+    document.getElementById('bp-capture-sec').style.display = 'block';
+  }
+
+  // Rescore cooldown
+  var ld_last = data.last_rescore_request || null;
+  if (ld_last) {
+    var daysSince = (Date.now() - new Date(ld_last).getTime()) / (1000 * 60 * 60 * 24);
+    if (daysSince < 7) {
+      var btn = document.getElementById('bp-rescore-btn');
+      var nextDate = new Date(new Date(ld_last).getTime() + 7 * 24 * 60 * 60 * 1000);
+      if (btn) btn.disabled = true;
+      var cd = document.getElementById('bp-rescore-cooldown');
+      if (cd) { cd.textContent = 'Next eligible: ' + nextDate.toLocaleDateString(); cd.style.display = 'block'; }
+    }
+  }
+
+  // Store domain for rescore submit
+  window._bpDomain = domain;
+}
+
+// ── Brand Claim Flow ──────────────────────────────────────────
+
+function openClaimModal() {
+  var modal = document.getElementById('claim-modal');
+  if (modal) { modal.style.display = 'flex'; modal.style.alignItems = 'center'; modal.style.justifyContent = 'center'; }
+}
+
+function closeClaimModal() {
+  var modal = document.getElementById('claim-modal');
+  if (modal) { modal.style.display = 'none'; }
+}
+
+function submitClaim() {
+  var email = (document.getElementById('claim-email').value || '').trim();
+  var btn = document.getElementById('claim-submit-btn');
+  var errEl = document.getElementById('claim-error');
+  if (!email || !email.includes('@')) {
+    if (errEl) { errEl.textContent = 'Enter a valid email address.'; errEl.style.display = 'block'; }
+    return;
+  }
+  if (errEl) errEl.style.display = 'none';
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+
+  var claimDomain = domain || (window.location.search.match(/[?&]d=([^&]+)/) || [])[1] || '';
+  claimDomain = decodeURIComponent(claimDomain).replace(/^https?:\/\//i,'').replace(/\/.*$/,'').toLowerCase();
+
+  fetch(API + '/api/brand/claim', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, domain: claimDomain }),
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(json) {
+    if (json.success) {
+      var sentEl = document.getElementById('claim-sent-email');
+      if (sentEl) sentEl.textContent = email;
+      document.getElementById('claim-modal-default').style.display = 'none';
+      document.getElementById('claim-modal-success').style.display = 'block';
+    } else {
+      if (btn) { btn.disabled = false; btn.textContent = 'Send verification email'; }
+      if (errEl) { errEl.textContent = json.error || 'Something went wrong. Try again.'; errEl.style.display = 'block'; }
+    }
+  })
+  .catch(function() {
+    if (btn) { btn.disabled = false; btn.textContent = 'Send verification email'; }
+    if (errEl) { errEl.textContent = 'Request failed. Check your connection and try again.'; errEl.style.display = 'block'; }
+  });
+}
+
+// On page load: check for claim_token in URL and verify it
+(function initClaimFlow() {
+  var params = new URLSearchParams(window.location.search);
+  var token = params.get('claim_token');
+  if (!token) return;
+
+  fetch(API + '/api/brand/verify-claim?token=' + encodeURIComponent(token))
+    .then(function(r) { return r.json(); })
+    .then(function(json) {
+      if (json.success) {
+        // Clean URL without triggering reload
+        var clean = window.location.pathname + (params.get('d') ? '?d=' + encodeURIComponent(params.get('d')) : '');
+        window.history.replaceState(null, '', clean);
+        // Show verified state in modal
+        document.getElementById('claim-modal-default').style.display = 'none';
+        document.getElementById('claim-modal-success').style.display = 'none';
+        document.getElementById('claim-modal-verified').style.display = 'block';
+        openClaimModal();
+      }
+    })
+    .catch(function() {});
+})();
+
+function submitRescore() {
+  var btn    = document.getElementById('bp-rescore-btn');
+  var reason = (document.getElementById('bp-rescore-reason').value || '').trim();
+  var urlsRaw= (document.getElementById('bp-rescore-urls').value || '').trim();
+  var evUrls = urlsRaw ? urlsRaw.split('\n').map(function(u){return u.trim();}).filter(Boolean) : [];
+  var domain = window._bpDomain;
+
+  if (!domain) return;
+  if (btn) { btn.disabled = true; btn.textContent = 'Submitting…'; }
+
+  var sb = window.supabase && window.supabase.createClient
+    ? window.supabase.createClient(_SB_URL, _SB_ANON)
+    : null;
+
+  var authP = sb
+    ? sb.auth.getSession().then(function(r) { return r.data && r.data.session ? r.data.session.access_token : null; })
+    : Promise.resolve(null);
+
+  authP.then(function(token) {
+    var headers = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = 'Bearer ' + token;
+
+    fetch(API + '/api/rescore', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({ domain: domain, reason: reason || undefined, evidence_urls: evUrls.length ? evUrls : undefined }),
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(json) {
+      if (btn) { btn.disabled = true; btn.textContent = 'Queued'; }
+      var ok = document.getElementById('bp-rescore-ok');
+      if (ok) {
+        ok.textContent = json.data
+          ? 'Queued at priority 1. Estimated: ' + (json.data.estimated_completion || '30–90 min') + '. Next eligible: ' + new Date(json.data.next_eligible).toLocaleDateString()
+          : (json.error || 'Rescore submitted.');
+        ok.style.display = 'block';
+      }
+      var cd = document.getElementById('bp-rescore-cooldown');
+      if (cd && json.data && json.data.next_eligible) {
+        cd.textContent = 'Next eligible: ' + new Date(json.data.next_eligible).toLocaleDateString();
+        cd.style.display = 'block';
+      }
+    })
+    .catch(function() {
+      if (btn) { btn.disabled = false; btn.textContent = 'Request Priority Rescore'; }
+      var ok = document.getElementById('bp-rescore-ok');
+      if (ok) { ok.textContent = 'Request failed — try again or contact signal@bhvd.com'; ok.style.display = 'block'; ok.style.color = '#e74c3c'; }
+    });
+  });
+}
+</script>
+</body>
+</html>

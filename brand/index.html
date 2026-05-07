@@ -139,6 +139,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .exec-verdict{font-family:var(--serif);font-size:21px;font-weight:400;line-height:1.5;letter-spacing:-.01em;margin-bottom:14px}
 .exec-consumer{font-size:14px;color:var(--t2);line-height:1.7;padding-top:14px;border-top:1px solid var(--b1)}
 
+/* INFLUENCER ECHO */
+.ie-card{background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:16px 20px}
+.ie-stat-row{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:14px}
+.ie-stat{display:flex;flex-direction:column;gap:2px}
+.ie-stat-val{font-family:var(--mono);font-size:18px;font-weight:600;color:var(--t1)}
+.ie-stat-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--t3)}
+.ie-influencer-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.ie-pill{font-size:12px;color:var(--t2);background:var(--bg3);border:1px solid var(--b1);border-radius:20px;padding:4px 12px}
+.ie-note{font-size:12px;color:var(--t3);margin-top:12px;line-height:1.6}
+
 /* CLAIM RECEIPTS */
 .receipts-list{display:flex;flex-direction:column;gap:12px}
 .receipt-row{background:var(--bg2);border:1px solid var(--b1);border-radius:10px;overflow:hidden}
@@ -637,6 +647,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
         <div class="exec-verdict" id="exec-verdict"></div>
         <div class="exec-consumer" id="exec-consumer" style="display:none"><strong>Before you buy:</strong> <span id="exec-consumer-text"></span></div>
       </div>
+    </div>
+
+    <!-- Influencer Echo -->
+    <div class="rsec" id="ie-sec" style="display:none">
+      <div class="rsec-title">Influencer Reach</div>
+      <div id="ie-body"></div>
     </div>
 
     <!-- Claim Evidence — locked teaser -->
@@ -1479,14 +1495,77 @@ function renderVerified(brand, product, ld, dims, demand) {
   // Demand bar
   renderDemand(demand, brand.domain || "");
 
-  // Executive summary — prefer clean consumer_summary over internal why_this_verdict
-  var summary = sanitize(product.consumer_summary || ld.consumer_note || brand.summary || ld.why_this_verdict || "");
+  // Executive summary — prefer detailed verdict for depth; show consumer_summary as action note below
+  var summary = sanitize(ld.why_this_verdict || product.consumer_summary || ld.consumer_note || brand.summary || "");
   setText("exec-verdict", summary || verdict);
-  var consumerNote = sanitize(ld.consumer_note || brand.summary || "");
-  if (consumerNote && !summary) {
-    setText("exec-consumer-text", consumerNote);
+  var actionNote = ld.why_this_verdict ? sanitize(product.consumer_summary || ld.consumer_note || "") : sanitize(ld.consumer_note || brand.summary || "");
+  if (actionNote && actionNote !== summary) {
+    setText("exec-consumer-text", actionNote);
     showEl("exec-consumer");
   }
+
+  // Influencer echo section — data from API response (brand.influencer_deals)
+  // API returns full array for Pro, aggregate object { count, total_reach } for free.
+  // Names are never in the free-tier API response — frontend gating is secondary defence only.
+  (function() {
+    var raw = brand.influencer_deals;
+    if (!raw) return;
+
+    var count, totalReach, pillsHtml = "", undisclosed = 0;
+
+    if (Array.isArray(raw)) {
+      // Pro tier — full deal rows
+      var seen = {};
+      var influencers = [];
+      raw.forEach(function(d) {
+        if (!seen[d.influencer_name]) {
+          seen[d.influencer_name] = true;
+          influencers.push({ name: d.influencer_name, subs: d.subscribers || 0 });
+        }
+      });
+      count = influencers.length;
+      totalReach = influencers.reduce(function(s, i) { return s + i.subs; }, 0);
+      undisclosed = raw.filter(function(d) { return d.disclosure_type === "none"; }).length;
+      pillsHtml = influencers.map(function(i) {
+        return '<span class="ie-pill">' + sanitize(i.name) + '</span>';
+      }).join("");
+    } else {
+      // Free tier — aggregate only
+      count = raw.count || 0;
+      totalReach = raw.total_reach || 0;
+    }
+
+    if (!count) return;
+
+    var reachLabel = totalReach >= 1e6
+      ? (totalReach / 1e6).toFixed(1) + "M"
+      : totalReach >= 1e3 ? Math.round(totalReach / 1e3) + "K" : String(totalReach);
+
+    var noteText = undisclosed > 0
+      ? undisclosed + " mention(s) without visible #ad or paid-partnership disclosure."
+      : "All detected mentions include a disclosure marker.";
+
+    var ieEl = document.getElementById("ie-body");
+    if (!ieEl) return;
+
+    ieEl.innerHTML =
+      '<div class="ie-card">' +
+        '<div class="ie-stat-row">' +
+          '<div class="ie-stat"><span class="ie-stat-val">' + count + '</span><span class="ie-stat-lbl">Influencers</span></div>' +
+          '<div class="ie-stat"><span class="ie-stat-val">' + reachLabel + '</span><span class="ie-stat-lbl">Combined Reach</span></div>' +
+          (Array.isArray(raw) ? '<div class="ie-stat"><span class="ie-stat-val">' + undisclosed + '</span><span class="ie-stat-lbl">Undisclosed</span></div>' : '') +
+        '</div>' +
+        '<div class="ie-influencer-list ie-influencer-list--locked" id="ie-names-locked">' +
+          '<div class="flags-locked" style="margin-top:8px">' +
+            '<svg width="11" height="11" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;opacity:.6"><rect x="3" y="6" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 6V4.5a2 2 0 1 1 4 0V6" stroke="currentColor" stroke-width="1.3"/></svg>' +
+            '<span>Influencer names — <a href="/pricing" style="color:var(--acc)">unlock with Pro</a></span>' +
+          '</div>' +
+        '</div>' +
+        (pillsHtml ? '<div class="ie-influencer-list" id="ie-names-pro" style="display:none">' + pillsHtml + '</div>' : '') +
+        (Array.isArray(raw) ? '<div class="ie-note">' + sanitize(noteText) + ' NORM does not score influencer reach — this is context only.</div>' : '') +
+      '</div>';
+    showEl("ie-sec");
+  })();
 
   // Claim receipts (from gap_map + claims_found)
   var receiptsEl = document.getElementById("receipts-list");
@@ -1708,7 +1787,7 @@ function renderVerified(brand, product, ld, dims, demand) {
       var dimsInSync = Math.abs(dimTotal - score) <= 5;
 
       if (!dimsInSync) {
-        // Dimension breakdown is from a stale scoring run — show total only, no misleading bars
+        // Dimension breakdown is from a stale scoring run — show total only until rescored
         dimsEl.innerHTML =
           '<div class="dim-total-row">' +
             '<div class="dim-total-label">Total Score</div>' +
@@ -2073,7 +2152,7 @@ function toggleSharePopover() {
   var pop = document.getElementById('sharePopover');
   if (pop) pop.classList.toggle('open', _popOpen);
   if (_popOpen && _shareD.brandName) {
-    var link = 'https://trynorm.co/brand?d=' + encodeURIComponent(_shareD.domain);
+    var link = 'https://trynorm.co/brand/' + encodeURIComponent(_shareD.domain);
     var txt = generateXShareText(_shareD.brandName, _shareD.score, link, _shareD.domain);
     var ta = document.getElementById('shareContentArea');
     if (ta) ta.value = txt;
@@ -2157,16 +2236,17 @@ function generateXShareText(brandName, score, link, domain) {
 function initShareCard(brandName, score, domain, sig, verdict, topClaim) {
   _shareD = { brandName: brandName, score: score, domain: domain, sig: sig, verdict: verdict, topClaim: topClaim || '' };
   var color  = SIG_COLOR[sig] || '#f39c12';
-  var xUrl   = 'https://trynorm.co/brand?d=' + encodeURIComponent(domain);
+  var xUrl   = 'https://trynorm.co/brand/' + encodeURIComponent(domain);
   var xText  = generateXShareText(brandName, score, xUrl, domain);
 
-  var title = brandName + ' — ' + score + '/100 · NORM';
-  var descr = brandName + ' scored ' + score + '/100 on NORM. Verdict: ' + verdict + '. Independent claim alignment analysis.';
+  var title = brandName + ' Evidence Score — NORM | ' + score + '/100 · ' + verdict;
+  var descr = brandName + ' scores ' + score + '/100 on the NORM evidence index. Verdict: ' + verdict + '. Independent claim alignment analysis, updated weekly.';
   ['og-title','tw-title'].forEach(function(id){ var el=document.getElementById(id); if(el) el.content=title; });
   ['og-desc', 'tw-desc', 'meta-desc'].forEach(function(id){ var el=document.getElementById(id); if(el) el.content=descr; });
   var ogUrl = document.getElementById('og-url'); if(ogUrl) ogUrl.content = xUrl;
+  document.title = title;
 
-  // Update canonical URL
+  // Update canonical to path-based URL
   var canonEl = document.querySelector('link[rel="canonical"]');
   if (canonEl) canonEl.href = xUrl;
 
@@ -2278,7 +2358,7 @@ function initEmbedSection(domain, isExpired, sig) {
   var greenContent = document.getElementById('embed-green-content');
   if (greenSec && greenContent && sig === 'green') {
     var iframeCode = '<iframe src="' + badgeUrl + '" width="280" height="80" frameborder="0" scrolling="no" style="border:none"></iframe>';
-    var linkCode   = '<a href="https://trynorm.co/brand?d=' + domain + '&ref=badge" target="_blank">Verified by NORM →</a>';
+    var linkCode   = '<a href="https://trynorm.co/brand/' + domain + '?ref=badge" target="_blank">Verified by NORM →</a>';
     greenContent.innerHTML =
       '<div class="embed-preview-wrap" id="greenPreviewWrap">' +
         '<iframe src="' + badgeUrl + '" width="280" height="80" frameborder="0" scrolling="no" style="display:block;border:none"></iframe>' +
@@ -2331,7 +2411,7 @@ function switchGreenEmbed(variant) {
   var isBadge  = variant === 'badge';
   var domain   = _embedDomain;
   var badgeUrl = 'https://trynorm.co/badge?d=' + encodeURIComponent(domain);
-  var linkUrl  = 'https://trynorm.co/brand?d=' + encodeURIComponent(domain) + '&ref=badge';
+  var linkUrl  = 'https://trynorm.co/brand/' + encodeURIComponent(domain) + '?ref=badge';
   var tabB     = document.getElementById('getabBadge');
   var tabL     = document.getElementById('getabLink');
   var codeEl   = document.getElementById('greenEmbedCode');
@@ -2401,10 +2481,21 @@ function copyEmbedCode() {
 (function(){
   startScanMessages();
   var params = new URLSearchParams(window.location.search);
-  var domain = params.get("d") || params.get("domain") ||
-    window.location.pathname.replace(/.*\/brand\//,"").replace(/\/$/,"").replace(/index\.html$/,"");
+  // Prefer path-based URL (/brand/example.com) — canonical for SEO
+  var pathDomain = window.location.pathname.replace(/.*\/brand\//,"").replace(/\/$/,"").replace(/index\.html$/,"");
+  var domain = pathDomain || params.get("d") || params.get("domain") || "";
 
   domain = (domain || "").replace(/^https?:\/\//,"").replace(/^www\./,"").split("/")[0].toLowerCase();
+
+  // If served from a path URL but has a redundant ?d= param (from Vercel redirect passthrough),
+  // clean the URL so the browser and any subsequent history entries are canonical.
+  if (pathDomain && params.has("d")) {
+    var cleanParams = new URLSearchParams(window.location.search);
+    cleanParams.delete("d");
+    cleanParams.delete("domain");
+    var qs = cleanParams.toString();
+    window.history.replaceState(null, "", window.location.pathname + (qs ? "?" + qs : ""));
+  }
 
   if (!domain) {
     renderError(null, "No brand specified. Check the URL.");
@@ -2542,6 +2633,12 @@ function applyTierRestrictions(tier) {
   ];
 
   if (tier === 'pro' || tier === 'retailer') {
+    // Unlock influencer names for Pro
+    var lockedNames = document.getElementById('ie-names-locked');
+    var proNames    = document.getElementById('ie-names-pro');
+    if (lockedNames) lockedNames.style.display = 'none';
+    if (proNames)    proNames.style.display = '';
+
     // Consumer Pro: show evidence detail but hide brand-operational sections
     var brandOnlySecs = ['capture-report-sec', 'raw-claims-sec', 'embed-sec', 'bp-dashboard'];
     brandOnlySecs.forEach(function(id) {

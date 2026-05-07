@@ -1,7 +1,4 @@
 User-agent: *
 Allow: /
 
-Disallow: /account/
-Disallow: /admin/
-
 Sitemap: https://trynorm.co/sitemap.xml

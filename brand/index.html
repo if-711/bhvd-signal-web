@@ -787,10 +787,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 
     <!-- CTAs -->
     <div class="cta-row">
-      <button class="btn btn-primary" id="cta-track" onclick="toggleTrackForm()">Track this brand</button>
-      <button class="btn" id="cta-evidence" onclick="toggleDisputeForm('evidence')">Submit supporting evidence</button>
-      <button class="btn btn-primary" id="cta-reassess" onclick="toggleDisputeForm('reassess')">Request re-evaluation</button>
-      <a class="btn" href="/methodology">Methodology</a>
+      <a class="btn btn-primary" href="/extension" onclick="track('extension_cta_click','brand_page_cta')">Get this on every product page →</a>
+      <button class="btn" id="cta-track" onclick="toggleTrackForm()">Track this brand</button>
+      <button class="btn" id="cta-evidence" onclick="toggleDisputeForm('evidence')">Submit evidence</button>
+      <button class="btn" id="cta-reassess" onclick="toggleDisputeForm('reassess')">Request re-evaluation</button>
     </div>
     <div class="capture-inline" id="track-form">
       <div class="capture-inline-label">Get notified when this brand's alignment rating changes or new claims are assessed.</div>
@@ -1436,7 +1436,6 @@ function renderVerified(brand, product, ld, dims, demand) {
     if (standEl) { standEl.textContent = "#" + rankForMeta + " in category"; standEl.style.display = ""; }
   }
 
-  // Ad Library deep-link (Meta)
   // Category Benchmark card
   var cb = brand.category_benchmark;
   if (cb) {
@@ -2136,12 +2135,13 @@ function generateXShareText(brandName, score, link, domain) {
     'NORM is always hungry. Brands are always marketing. Somebody has to check.'
   ];
 
+  var extLink = 'https://trynorm.co/extension';
   var ctaLines = [
-    'Check any brand before you spend. Free. ' + link,
-    'Run your stack at trynorm.co — ' + link,
-    'Full breakdown → ' + link,
-    'NORM will tell you what they won\'t. ' + link,
-    'Free. No account needed. ' + link
+    'Get NORM on every product page while you shop → ' + extLink,
+    'Check any brand before you spend. Full breakdown: ' + link,
+    'NORM flags this automatically while you shop → ' + extLink,
+    'Free browser extension — see this on every brand you look at → ' + extLink,
+    'NORM will tell you what they won\'t. Full score: ' + link
   ];
 
   var hook      = hooks[Math.floor(Math.random() * hooks.length)];
@@ -2623,9 +2623,11 @@ function applyTierRestrictions(tier) {
     fullBlock.innerHTML =
       '<div class="tier-upgrade-icon">🔒</div>' +
       '<div class="tier-upgrade-title">See the full evidence picture</div>' +
-      '<div class="tier-upgrade-sub">Pro unlocks: every flagged claim with evidence detail, scoring breakdown by dimension, and alerts when this brand changes its claims.</div>' +
-      '<a href="/pricing" class="tier-upgrade-btn">Unlock for $9/month</a>' +
-      '<div class="tier-upgrade-note">Cancel anytime · Instant access</div>';
+      '<div class="tier-upgrade-sub">Every flagged claim with evidence detail, scoring breakdown by dimension, and alerts when this brand changes its claims.</div>' +
+      '<a href="/extension" class="tier-upgrade-btn" style="margin-bottom:10px;display:inline-block" onclick="track(\'extension_cta_click\',\'lock_block\')">Get NORM on every product page →</a>' +
+      '<div style="margin:10px 0 4px;font-size:11px;color:var(--t3);font-family:var(--mono)">or</div>' +
+      '<a href="/pricing" style="font-size:13px;color:var(--acc);text-decoration:underline;text-underline-offset:3px">Unlock evidence detail — $9/month</a>' +
+      '<div class="tier-upgrade-note" style="margin-top:10px">Cancel anytime · Instant access</div>';
     firstHidden.parentNode.insertBefore(fullBlock, firstHidden);
   }
 }

@@ -1706,29 +1706,41 @@ function renderVerified(brand, product, ld, dims, demand) {
     var hasDims = dimMatches >= 5;
 
     if (hasDims) {
-      // Seeder schema: show dimension breakdown bars but trust ld.total_score as authoritative total
-      // (dimTotal may diverge from total_score if scoring runs are out of sync — never override)
       if (scoreEl) { scoreEl.textContent = score; scoreEl.style.color = color; }
       if (verdEl)  { verdEl.style.color = color; verdEl.style.borderColor = color+"40"; verdEl.style.background = color+"0d"; }
 
-      var hasGaps = false;
-      dimsEl.innerHTML = DIMS.map(function(d){
-        var val = dims[d.key] != null ? Math.min(dims[d.key], d.max) : null;
-        var pct = (val != null && d.max) ? Math.round(val/d.max*100) : 0;
-        var c   = pct >= 65 ? "#3ecf82" : pct >= 40 ? "#e8a840" : "#e05a50";
-        if (val != null && pct < 40) hasGaps = true;
-        return '<div class="dim-row">' +
-          '<div class="dim-name">'+esc(d.label)+'</div>'+
-          '<div class="dim-bar-wrap"><div class="dim-bar-fill" style="width:'+pct+'%;background:'+c+'"></div></div>'+
-          '<div class="dim-score" style="color:'+c+'">'+(val!=null?val:"—")+'</div>'+
-          '<div class="dim-max">/ '+d.max+'</div>'+
+      var dimTotal = DIMS.reduce(function(acc, d){
+        return acc + (dims[d.key] != null ? Math.min(dims[d.key], d.max) : 0);
+      }, 0);
+      var dimsInSync = Math.abs(dimTotal - score) <= 5;
+
+      if (!dimsInSync) {
+        // Dimension breakdown is from a stale scoring run — show total only, no misleading bars
+        dimsEl.innerHTML =
+          '<div class="dim-total-row">' +
+            '<div class="dim-total-label">Total Score</div>' +
+            '<div class="dim-total-score" style="color:'+color+'">'+score+' / 100</div>' +
+          '</div>';
+      } else {
+        var hasGaps = false;
+        dimsEl.innerHTML = DIMS.map(function(d){
+          var val = dims[d.key] != null ? Math.min(dims[d.key], d.max) : null;
+          var pct = (val != null && d.max) ? Math.round(val/d.max*100) : 0;
+          var c   = pct >= 65 ? "#3ecf82" : pct >= 40 ? "#e8a840" : "#e05a50";
+          if (val != null && pct < 40) hasGaps = true;
+          return '<div class="dim-row">' +
+            '<div class="dim-name">'+esc(d.label)+'</div>'+
+            '<div class="dim-bar-wrap"><div class="dim-bar-fill" style="width:'+pct+'%;background:'+c+'"></div></div>'+
+            '<div class="dim-score" style="color:'+c+'">'+(val!=null?val:"—")+'</div>'+
+            '<div class="dim-max">/ '+d.max+'</div>'+
+          '</div>';
+        }).join("") +
+        '<div class="dim-total-row">' +
+          '<div class="dim-total-label">Total Score</div>' +
+          '<div class="dim-total-score" style="color:'+color+'">'+score+' / 100</div>' +
         '</div>';
-      }).join("") +
-      '<div class="dim-total-row">' +
-        '<div class="dim-total-label">Total Score</div>' +
-        '<div class="dim-total-score" style="color:'+color+'">'+score+' / 100</div>' +
-      '</div>';
-      if (hasGaps) ctShow("ct-gaps", "brand_tools_trigger_view", "evidence_gap");
+        if (hasGaps) ctShow("ct-gaps", "brand_tools_trigger_view", "evidence_gap");
+      }
 
     } else if (brand.dimensions && brand.dimensions.length >= 4) {
       // Check if these are old-schema risk-inverted dims (regulatory_risk, claim_specificity, etc.)

@@ -816,7 +816,19 @@ footer{border-top:1px solid var(--b1);padding:28px 48px;display:flex;justify-con
       <p class="appendix-context">The following illustrates the application of NORM Framework dimensions to a representative hypothetical brand — a direct-to-consumer cognitive supplement making three primary claims. All figures are constructed for illustrative purposes; this example does not represent any specific brand.</p>
 
       <h3>Brand Profile</h3>
-      <p><strong>Category:</strong> Dietary supplement (cognitive health). <strong>Claims evaluated:</strong> (1) "Clinically proven to improve focus within 30 days" — hero headline, w(p) = 3.0×. (2) "Backed by 14 peer-reviewed studies" — above-fold body copy, w(p) = 2.0×. (3) "Supports long-term memory consolidation" — below-fold product section, w(p) = 1.0×. Evidence provided: one hyperlinked industry-funded RCT (n = 42, single-blind) on ingredient A; 13 citations to in vitro and animal model studies for remaining ingredients.</p>
+      <p><strong>Category:</strong> Dietary supplement (cognitive health). Three primary claims are evaluated below, each assigned a positional weight based on page location.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Claim</th><th>Page Position</th><th>w(p)</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>"Clinically proven to improve focus within 30 days"</td><td>Hero headline</td><td class="mono">3.0×</td></tr>
+            <tr><td>2</td><td>"Backed by 14 peer-reviewed studies"</td><td>Above-fold body copy</td><td class="mono">2.0×</td></tr>
+            <tr><td>3</td><td>"Supports long-term memory consolidation"</td><td>Below-fold product section</td><td class="mono">1.0×</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Evidence provided:</strong> One hyperlinked industry-funded RCT (n = 42, single-blind) on ingredient A; 13 citations to in vitro and animal model studies for remaining ingredients. No independent replication. No dose-matching disclosure.</p>
 
       <h3>Claim-Level Scoring</h3>
 
@@ -829,7 +841,13 @@ footer{border-top:1px solid var(--b1);padding:28px 48px;display:flex;justify-con
         <div class="claim-eval-row"><div class="claim-eval-dim">ER — Effect Reality</div><div class="claim-eval-score score-red">5 / 15</div></div>
         <div class="claim-eval-row"><div class="claim-eval-dim">CD — Consumer Distortion</div><div class="claim-eval-score score-red">3 / 20</div></div>
         <div class="claim-eval-row" style="border-top:1px solid var(--b2);margin-top:6px;padding-top:6px"><div class="claim-eval-dim" style="color:var(--t1);font-weight:500">Claim Score</div><div class="claim-eval-score score-red">42 / 100</div></div>
-        <div class="claim-eval-note">EP: one RCT cited and linked, but bare assertions for other claimed outcomes. ES: single T2-tier study (industry-funded, small n, single-blind); 0.8× funding modifier applied (effective ES ≈ 10). SP: outcome and temporal specificity met; population not defined (−4). ER: study population was cognitively impaired older adults; product marketed to healthy working adults; dose correspondence not disclosed (−10). CD: "clinically proven" absolute language (AL: 2.5 × 3.0 = 7.5); presenting a single-blind n=42 pilot as clinical proof misrepresents its scope (SM: 3.0 × 3.0 = 9.0); hero claim contradicted by footer disclaimer (FH: 2.0 × 0.3 = 0.6). Total penalty = 17.1; CD = 20 − 17.1 = 2.9.</div>
+        <div class="claim-eval-note">
+          <strong>EP:</strong> One RCT cited and linked, but bare assertions for other claimed outcomes.<br>
+          <strong>ES:</strong> Single T2-tier study (industry-funded, small n, single-blind); 0.8× funding modifier applied → effective ES ≈ 10.<br>
+          <strong>SP:</strong> Outcome and temporal specificity met; population not defined (−4).<br>
+          <strong>ER:</strong> Study population was cognitively impaired older adults; product marketed to healthy working adults; dose correspondence not disclosed (−10).<br>
+          <strong>CD:</strong> "Clinically proven" absolute language (AL: severity 2.5 × position 3.0 = 7.5 pts); presenting a single-blind n=42 pilot as clinical proof misrepresents its scope (SM: severity 3.0 × position 3.0 = 9.0 pts); hero claim contradicted by footer disclaimer (FH: severity 2.0 × position 0.3 = 0.6 pts). Total penalty = 17.1 → CD = 20 − 17.1 = <strong>2.9</strong>.
+        </div>
       </div>
 
       <div class="claim-eval">
@@ -841,7 +859,13 @@ footer{border-top:1px solid var(--b1);padding:28px 48px;display:flex;justify-con
         <div class="claim-eval-row"><div class="claim-eval-dim">ER — Effect Reality</div><div class="claim-eval-score score-yel">7 / 15</div></div>
         <div class="claim-eval-row"><div class="claim-eval-dim">CD — Consumer Distortion</div><div class="claim-eval-score score-red">8 / 20</div></div>
         <div class="claim-eval-row" style="border-top:1px solid var(--b2);margin-top:6px;padding-top:6px"><div class="claim-eval-dim" style="color:var(--t1);font-weight:500">Claim Score</div><div class="claim-eval-score score-red">39 / 100</div></div>
-        <div class="claim-eval-note">ES: 13 of 14 cited studies are T6 (in vitro) or T7 (animal model); the "14 peer-reviewed" framing implies a stronger evidence body than exists. SP: claim makes no specific outcome assertion — zero on OC, MAG, POP, TMP subcriteria. CD: cherry-picking (CP: 3.0 × 2.0 = 6.0) for presenting a primarily in vitro/animal evidence body as peer-reviewed backing; study misrepresentation (SM: 3.0 × 2.0 = 6.0) for framing T6/T7 studies as implying human efficacy. Total penalty = 12.0; CD = 20 − 12.0 = 8.</div>
+        <div class="claim-eval-note">
+          <strong>EP:</strong> All 14 studies cited and linked — high presence score.<br>
+          <strong>ES:</strong> 13 of 14 cited studies are T6 (in vitro) or T7 (animal model); the "14 peer-reviewed" framing implies a stronger evidence body than exists.<br>
+          <strong>SP:</strong> Claim makes no specific outcome assertion — zero on OC, MAG, POP, TMP subcriteria.<br>
+          <strong>ER:</strong> In vitro / animal evidence body; no human efficacy data for most ingredients cited.<br>
+          <strong>CD:</strong> Cherry-picking (CP: severity 3.0 × position 2.0 = 6.0 pts) for presenting a primarily in vitro/animal evidence body as peer-reviewed backing; study misrepresentation (SM: severity 3.0 × position 2.0 = 6.0 pts) for framing T6/T7 studies as implying human efficacy. Total penalty = 12.0 → CD = 20 − 12.0 = <strong>8</strong>.
+        </div>
       </div>
 
       <div class="claim-eval">
@@ -853,10 +877,30 @@ footer{border-top:1px solid var(--b1);padding:28px 48px;display:flex;justify-con
         <div class="claim-eval-row"><div class="claim-eval-dim">ER — Effect Reality</div><div class="claim-eval-score score-yel">7 / 15</div></div>
         <div class="claim-eval-row"><div class="claim-eval-dim">CD — Consumer Distortion</div><div class="claim-eval-score score-grn">18 / 20</div></div>
         <div class="claim-eval-row" style="border-top:1px solid var(--b2);margin-top:6px;padding-top:6px"><div class="claim-eval-dim" style="color:var(--t1);font-weight:500">Claim Score</div><div class="claim-eval-score score-red">43 / 100</div></div>
-        <div class="claim-eval-note">EP: one in vitro study loosely cited; no direct human memory evidence linked for this specific claim. CD: hedged language ("supports") avoids absolute claims; mechanism stated without overreach. Minor testimonial adjacency on the same page section (TE: 1.5 × 1.0 = 1.5). CD = 20 − 1.5 = 18.5.</div>
+        <div class="claim-eval-note">
+          <strong>EP:</strong> One in vitro study loosely cited; no direct human memory evidence linked for this specific claim.<br>
+          <strong>ES:</strong> Single low-tier citation; no human evidence for memory consolidation outcome.<br>
+          <strong>SP:</strong> Outcome named ("memory consolidation") but no magnitude, population, or timeframe specified.<br>
+          <strong>MI:</strong> Mechanism plausibly stated; no mechanistic overreach detected.<br>
+          <strong>ER:</strong> In vitro evidence for a human outcome claim; mild mismatch, no dose or population contradiction.<br>
+          <strong>CD:</strong> Hedged language ("supports") avoids absolute claims; mechanism stated without overreach. Minor testimonial adjacency (TE: severity 1.5 × position 1.0 = 1.5 pts). Total penalty = 1.5 → CD = 20 − 1.5 = <strong>18.5</strong>.
+        </div>
       </div>
 
       <h3>Composite Score Computation</h3>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Claim</th><th>Score</th><th>Weight w(p)</th><th>Weighted</th></tr></thead>
+          <tbody>
+            <tr><td>1 — "Clinically proven to improve focus…"</td><td class="mono score-row-red">42</td><td class="mono">3.0×</td><td class="mono">126</td></tr>
+            <tr><td>2 — "Backed by 14 peer-reviewed studies"</td><td class="mono score-row-red">39</td><td class="mono">2.0×</td><td class="mono">78</td></tr>
+            <tr><td>3 — "Supports long-term memory consolidation"</td><td class="mono score-row-red">43</td><td class="mono">1.0×</td><td class="mono">43</td></tr>
+            <tr style="border-top:1px solid var(--b2)"><td style="color:var(--t1);font-weight:500">Brand Score</td><td class="mono" style="color:var(--red);font-weight:500">41.2</td><td class="mono">÷ 6.0</td><td class="mono">247</td></tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="formula" style="font-size:12px">
         Brand Score = Σ[w(p<sub>i</sub>) × ClaimScore<sub>i</sub>] / Σ[w(p<sub>i</sub>)]
         <br><br>
